@@ -1,5 +1,7 @@
 package pacote;
 
+import easyaccept.EasyAccept;
+
 public class Facade {
 
 	ControllerPesquisador controllerPesquisador;
@@ -102,5 +104,10 @@ public class Facade {
 	
 	public int contaItensRealizados(String codigo) {
 		return 0;
+	}
+	
+	public static void main(String[] args) {
+		args = new String[] { "pacote.Facade", "testesAceitacao/use_case_1.txt"};
+		EasyAccept.main(args);
 	}
 }
