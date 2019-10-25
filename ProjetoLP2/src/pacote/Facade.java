@@ -12,7 +12,7 @@ public class Facade {
 		return "";
 	}
 	
-	public void alteraPesquisa(String código, String conteúdoASerAlterado, String novoConteúdo) {
+	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
 		
 	}
 	
