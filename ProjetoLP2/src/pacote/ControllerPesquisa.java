@@ -17,8 +17,11 @@ public class ControllerPesquisa{
     	ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "");
     	ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "");
     	ValidadorDeEntradas.validaTamanhoString(campoDeInteresse, "Formato do campo de interesse invalido.", 250);
+    	ValidadorDeEntradas.validaCampoDeInteresse(campoDeInteresse);
     	String codigoChave = campoDeInteresse.substring(0, 3).toUpperCase();
     	String codigoPesquisa;
+    
+    
     	if(this.codigos.containsKey(codigoChave)) {
     		int valor = this.codigos.get(codigoChave) + 1;
     		this.codigos.put(codigoChave, valor);

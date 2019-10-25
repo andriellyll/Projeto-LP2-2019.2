@@ -27,4 +27,12 @@ public class ValidadorDeEntradas {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
+	
+	public static void validaCampoDeInteresse(String campoDeInteresse) {
+		String[] interesseSeparado = campoDeInteresse.split(",");
+		if(interesseSeparado.length > 4) {
+			throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+		}
+		
+ 	}
 }
