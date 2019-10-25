@@ -8,6 +8,30 @@ public class Facade {
 		controllerPesquisador = new ControllerPesquisador();
 	}
 	
+	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
+		return "";
+	}
+	
+	public void alteraPesquisa(String código, String conteúdoASerAlterado, String novoConteúdo) {
+		
+	}
+	
+	public void encerraPesquisa(String codigo, String motivo) {
+		
+	}
+	
+	public void ativaPesquisa(String codigo) {
+		
+	}
+	
+	public String exibePesquisa(String codigo) {
+		return "";
+	}
+	
+	public boolean pesquisaEhAtiva(String codigo) {
+		return false;
+	}
+	
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
 		controllerPesquisador.cadastraPesquisador(nome, funcao, biografia, email, fotoUrl);
 	}
@@ -30,5 +54,53 @@ public class Facade {
 	
 	public boolean pesquisadorEhAtivo(String email) {
 		return controllerPesquisador.pesquisadorEhAtivo(email);
+	}
+	
+	public String cadastraProblema(String descricao, int viabilidade) {
+		return "";
+	}
+	
+	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
+		return "";
+	}
+	
+	public void apagarProblema(String codigo) {
+		
+	}
+	
+	public void apagarObjetivo(String codigo) {
+		
+	}
+	
+	public String exibeProblema(String codigo) {
+		return "";
+	}
+	
+	public String exibeObjetivo(String codigo) {
+		return "";
+	}
+	
+	public String cadastraAtividade(String Descricao, String nivelRisco, String descricaoRisco) {
+		return "";
+	}
+
+	public void apagaAtividade(String codigo) {
+		
+	}
+
+	public void cadastraItem(String codigo, String item) {
+		
+	}
+	
+	public String exibeAtividade(String codigo) {
+		return "";
+	}
+	
+	public int contaItensPendentes(String codigo) {
+		return 0;
+	}
+	
+	public int contaItensRealizados(String codigo) {
+		return 0;
 	}
 }
