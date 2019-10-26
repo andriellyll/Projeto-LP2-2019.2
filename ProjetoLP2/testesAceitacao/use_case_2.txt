@@ -65,7 +65,7 @@ expect "Thomas A. Anderson (professor) - Profetizado como aquele que libertara a
 
 # Erros no metodo de alteraPesquisador
 
-## Erros de tentar alterar um pesquisador não cadastrado no sistema
+## Erros de tentar alterar um pesquisador nao cadastrado no sistema
 expectError "Pesquisador nao encontrado" alteraPesquisador email="gagau@ccc.ufcg.edu.br" atributo="nome" novoValor="Gauds"
 expectError "Pesquisador nao encontrado" alteraPesquisador email="liliane@ccc.ufcg.edu.br" atributo="nome" novoValor="Elianinha"
 expectError "Pesquisador nao encontrado" alteraPesquisador email="livinha@ccc.ufcg.edu.br" atributo="nome" novoValor="Liviazinha"
@@ -110,7 +110,7 @@ ativaPesquisador email="eliane@computacao.ufcg.edu.br"
 ativaPesquisador email="livia@computacao.ufcg.edu.br"
 
 
-## Erros de ativar e desativar pesquisadores não cadastrados
+## Erros de ativar e desativar pesquisadores nao cadastrados
 expectError "Pesquisador nao encontrado" ativaPesquisador email="gagau@ccc.ufcg.edu.br" 
 expectError "Pesquisador nao encontrado" desativaPesquisador email="gagau@ccc.ufcg.edu.br" 
 expectError "Pesquisador nao encontrado" ativaPesquisador email="liliane@ccc.ufcg.edu.br"
@@ -125,7 +125,7 @@ expectError "Pesquisador ja ativado." ativaPesquisador email="eliane@computacao.
 expectError "Pesquisador ja ativado." ativaPesquisador email="livia@computacao.ufcg.edu.br"
 
 
-## Erros de desativar um pesquisador não desativado
+## Erros de desativar um pesquisador nao desativado
 desativaPesquisador email="matheusgr@computacao.ufcg.edu.br"
 desativaPesquisador email="eliane@computacao.ufcg.edu.br"
 desativaPesquisador email="livia@computacao.ufcg.edu.br"
@@ -143,7 +143,7 @@ ativaPesquisador email="livia@computacao.ufcg.edu.br"
 
 # Teste de exibir
 
-## Erros de exibir pesquisadores não cadastrados
+## Erros de exibir pesquisadores nao cadastrados
 expectError "Pesquisador nao encontrado" exibePesquisador email="gagau@ccc.ufcg.edu.br" 
 expectError "Pesquisador nao encontrado" exibePesquisador email="liliane@ccc.ufcg.edu.br" 
 expectError "Pesquisador nao encontrado" exibePesquisador email="livinha@ccc.ufcg.edu.br"
@@ -162,38 +162,3 @@ expectError "Email nao pode ser vazio ou nulo." pesquisadorEhAtivo email=""
 expectError "Pesquisador nao encontrado" pesquisadorEhAtivo email="artur@fazendoOsTestes.ccc.ufcg.edu.br"
 expect true pesquisadorEhAtivo email="hunterxhunter@1998"
 expect false pesquisadorEhAtivo email="theoa@2016"
-
-# Casos de precedencia
-
-## Cadastro de pesquisadores com algum parametro vazio
-
-### Nome no cadastro de pesquisador
-
-expectError "Campo nome nao pode ser nulo ou vazio." cadastraPesquisador nome="" funcao="" biografia="" email="" fotoURL=""
-expectError "Campo nome nao pode ser nulo ou vazio." cadastraPesquisador nome="" funcao="teste" biografia="teste" email="teste@teste" fotoURL="https://teste"
-expectError "Campo nome nao pode ser nulo ou vazio." cadastraPesquisador nome="" funcao="" biografia="teste" email="teste@teste" fotoURL="https://teste"
-expectError "Campo nome nao pode ser nulo ou vazio." cadastraPesquisador nome="" funcao="estudante" biografia="" email="teste@teste" fotoURL="https://teste"
-expectError "Campo nome nao pode ser nulo ou vazio." cadastraPesquisador nome="" funcao="estudante" biografia="teste" email="" fotoURL="https://teste"
-expectError "Campo nome nao pode ser nulo ou vazio." cadastraPesquisador nome="" funcao="estudante" biografia="teste" email="teste@teste" fotoURL=""
-
-### Funcao no cadastro de pesquisador
-
-expectError "Campo funcao nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="" biografia="" email="" fotoURL=""
-expectError "Campo funcao nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="" biografia="" email="teste@teste" fotoURL="https://teste"
-expectError "Campo funcao nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="" biografia="teste" email="" fotoURL="https://teste"
-expectError "Campo funcao nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="" biografia="teste" email="teste@teste" fotoURL=""
-
-### Biografia no cadastro de pesquisador
-
-expectError "Campo biografia nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="teste" biografia="" email="" fotoURL=""
-expectError "Campo biografia nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="teste" biografia="" email="teste@teste" fotoURL=""
-expectError "Campo biografia nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="teste" biografia="" email="" fotoURL="https://teste"
-
-### Email no cadastro de pesquisador
-
-expectError "Campo email nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="teste" biografia="teste" email="" fotoURL=""
-expectError "Campo email nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="teste" biografia="teste" email="" fotoURL="https://teste"
-
-### fotoURL no cadastro de pesquisador
-
-expectError "Campo fotoURL nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="teste" biografia="teste" email="teste@teste" fotoURL=""
