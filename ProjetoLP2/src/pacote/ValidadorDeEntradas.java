@@ -12,6 +12,7 @@ public class ValidadorDeEntradas {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
+	
 
 	public static void validaEntradaNulaOuVazia(String entrada, String mensagem) {
 		validaEntradaNula(entrada, mensagem);
@@ -54,6 +55,19 @@ public class ValidadorDeEntradas {
 			validaEntradaNulaOuVazia(campo, "Formato do campo de interesse invalido.");
 		}
 
+	}
+	
+	public static void validaViabilidadeOuAderencia(int inteiro, String mensagem){
+		if(inteiro < 1 || inteiro > 5) {
+			throw new IllegalArgumentException(mensagem);
+		}
+		
+	}
+	
+	public static void validaTipo(String tipo) {
+		if(!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
+			throw new IllegalArgumentException("Valor invalido de tipo.");
+		}
 	}
 
 }
