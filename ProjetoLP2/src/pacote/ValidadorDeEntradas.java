@@ -35,4 +35,22 @@ public class ValidadorDeEntradas {
 		}
 		
  	}
+	
+
+	public static void verificaEmail(String email) {
+		
+		if (email.startsWith("@") || email.endsWith("@") || (email.indexOf("@") == -1)) {
+			throw new IllegalArgumentException("Formato de email invalido.");
+		}
+		
+		if (email.split("@")[0].isEmpty() || email.split("@")[1].isEmpty()) {
+			throw new IllegalArgumentException("Formato de email invalido.");
+		}
+	}
+	
+	public static void verificaURL(String url) {
+		if(url.length() < 8 || (!url.substring(0, 7).equals("http://") && !url.substring(0, 8).equals("https://"))) {
+			throw new IllegalArgumentException("Formato de foto invalido.");
+		}
+	}
 }

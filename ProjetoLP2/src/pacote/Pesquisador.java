@@ -9,7 +9,7 @@ public class Pesquisador {
 	private String funcao;
 	private boolean isAtivo;
 	
-	public Pesquisador(String nome, String funcao, String email, String biografia, String fotoUrl) {
+	public Pesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
 		this.nome = nome;
 		this.biografia = biografia;
 		this.email = email;
