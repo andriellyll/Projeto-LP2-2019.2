@@ -107,7 +107,7 @@ public class Facade {
 	}
 	
 	public static void main(String[] args) {
-		args = new String[] { "pacote.Facade", "testesAceitacao/use_case_1.txt"};
+		args = new String[] { "pacote.Facade", "testesAceitacao/use_case_1.txt", "testesAceitacao/use_case_2.txt"};
 		EasyAccept.main(args);
 	}
 }
