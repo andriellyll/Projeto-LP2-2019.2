@@ -6,10 +6,13 @@ public class Facade {
 
 	ControllerPesquisa controllerPesquisa;
 	ControllerPesquisador controllerPesquisador;
+	ControllerProblemaObjetivo controllerProblemaObjetivo;
 
 	public Facade() {
 		controllerPesquisa = new ControllerPesquisa();
 		controllerPesquisador = new ControllerPesquisador();
+		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
+		
 	}
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
@@ -63,27 +66,27 @@ public class Facade {
 	}
 
 	public String cadastraProblema(String descricao, int viabilidade) {
-		return "";
+		return controllerProblemaObjetivo.cadastraProblema(descricao, viabilidade);
 	}
 
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
-		return "";
+		return controllerProblemaObjetivo.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
 	}
 
 	public void apagarProblema(String codigo) {
-
+		controllerProblemaObjetivo.apagarProblema(codigo);
 	}
 
 	public void apagarObjetivo(String codigo) {
-
+		controllerProblemaObjetivo.apagarObjetivo(codigo);
 	}
 
 	public String exibeProblema(String codigo) {
-		return "";
+		return controllerProblemaObjetivo.exibeProblema(codigo);
 	}
 
 	public String exibeObjetivo(String codigo) {
-		return "";
+		return controllerProblemaObjetivo.exibeObjetivo(codigo);
 	}
 
 	public String cadastraAtividade(String Descricao, String nivelRisco, String descricaoRisco) {
@@ -111,7 +114,7 @@ public class Facade {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "pacote.Facade", "testesAceitacao/use_case_1.txt", "testesAceitacao/use_case_2.txt" };
+		args = new String[] { "pacote.Facade", "testesAceitacao/use_case_1.txt", "testesAceitacao/use_case_2.txt","testesAceitacao/use_case_3.txt" };
 		EasyAccept.main(args);
 	}
 }
