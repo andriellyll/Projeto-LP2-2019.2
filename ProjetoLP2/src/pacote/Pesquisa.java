@@ -4,14 +4,14 @@ public class Pesquisa {
 	private String descricao;
 	private String campoDeInteresse;
 	private String codigo;
-	private boolean ativada;
+	private boolean ehAtivada;
 	private String motivoDeDesativacao;
 
 	public Pesquisa(String codigo, String descricao, String campoDeInteresse) {
 		this.descricao = descricao;
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
-		this.ativada = true;
+		this.ehAtivada = true;
 
 	}
 
@@ -27,17 +27,17 @@ public class Pesquisa {
 
 	public boolean getAtivacao() {
 
-		return this.ativada;
+		return this.ehAtivada;
 	}
 
 	public void desativaPesquisa(String motivo) {
-		this.ativada = false;
+		this.ehAtivada = false;
 		this.motivoDeDesativacao = motivo;
 
 	}
 
 	public void ativaPesquisa() {
-		this.ativada = true;
+		this.ehAtivada = true;
 
 	}
 

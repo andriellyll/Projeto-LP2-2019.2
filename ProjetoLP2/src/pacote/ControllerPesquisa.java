@@ -36,8 +36,8 @@ public class ControllerPesquisa {
 	}
 
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado, "");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado, "Conteudo a ser alterado nao pode ser nulo ou vazio.");
 		Pesquisa pesquisa = null;
 		if (this.pesquisas.containsKey(codigo)) {
 			pesquisa = this.pesquisas.get(codigo);
@@ -45,7 +45,7 @@ public class ControllerPesquisa {
 				throw new IllegalArgumentException("Pesquisa desativada.");
 			}
 			if (conteudoASerAlterado.equals("descricao") || conteudoASerAlterado.equals("DESCRICAO")) {
-				ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Formato da descricao invalida.");
+				ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Descricao nao pode ser nula ou vazia.");
 				pesquisa.setDescricao(novoConteudo);
 			} else if (conteudoASerAlterado.equals("campo") || conteudoASerAlterado.equals("CAMPO")) {
 				ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Formato do campo de interesse invalido.");
@@ -61,7 +61,7 @@ public class ControllerPesquisa {
 	}
 
 	public void encerraPesquisa(String codigo, String motivo) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		Pesquisa pesquisa = null;
 		if (this.pesquisas.containsKey(codigo)) {
 			pesquisa = this.pesquisas.get(codigo);
@@ -77,7 +77,7 @@ public class ControllerPesquisa {
 	}
 
 	public void ativaPesquisa(String codigo) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		Pesquisa pesquisa = null;
 		if (this.pesquisas.containsKey(codigo)) {
 			pesquisa = this.pesquisas.get(codigo);
@@ -93,7 +93,7 @@ public class ControllerPesquisa {
 	}
 
 	public String exibePesquisa(String codigo) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		Pesquisa pesquisa = null;
 		if (this.pesquisas.containsKey(codigo)) {
 			pesquisa = this.pesquisas.get(codigo);
