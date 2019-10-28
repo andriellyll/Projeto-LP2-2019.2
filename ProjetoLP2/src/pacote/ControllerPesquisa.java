@@ -37,53 +37,47 @@ public class ControllerPesquisa {
 
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado, "Conteudo a ser alterado nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = null;
-		if (this.pesquisas.containsKey(codigo)) {
-			pesquisa = this.pesquisas.get(codigo);
-			if (pesquisa.getAtivacao() == false) {
-				throw new IllegalArgumentException("Pesquisa desativada.");
-			}
-			if (conteudoASerAlterado.equals("descricao") || conteudoASerAlterado.equals("DESCRICAO")) {
-				ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Descricao nao pode ser nula ou vazia.");
-				pesquisa.setDescricao(novoConteudo);
-			} else if (conteudoASerAlterado.equals("campo") || conteudoASerAlterado.equals("CAMPO")) {
-				ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Formato do campo de interesse invalido.");
-				pesquisa.setCampo(novoConteudo);
-			} else {
-				ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Formato do campo de interesse invalido.");
-				throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
-			}
-		} else {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado,
+				"Conteudo a ser alterado nao pode ser nulo ou vazio.");
+		verificaPesquisaExiste(codigo);
 
+		Pesquisa pesquisa = this.pesquisas.get(codigo);
+		if (pesquisa.getAtivacao() == false) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
+		if (conteudoASerAlterado.equals("descricao") || conteudoASerAlterado.equals("DESCRICAO")) {
+			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Descricao nao pode ser nula ou vazia.");
+			pesquisa.setDescricao(novoConteudo);
+		} else if (conteudoASerAlterado.equals("campo") || conteudoASerAlterado.equals("CAMPO")) {
+			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Formato do campo de interesse invalido.");
+			pesquisa.setCampo(novoConteudo);
+		} else {
+			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Formato do campo de interesse invalido.");
+			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
+		}
+
 	}
 
 	public void encerraPesquisa(String codigo, String motivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = null;
-		if (this.pesquisas.containsKey(codigo)) {
-			pesquisa = this.pesquisas.get(codigo);
-			if (pesquisa.getAtivacao() == true) {
-				pesquisa.desativaPesquisa(motivo);
-			} else {
-				throw new IllegalArgumentException("Pesquisa desativada.");
+		verificaPesquisaExiste(codigo);
 
-			}
+		Pesquisa pesquisa = this.pesquisas.get(codigo);
+		if (pesquisa.getAtivacao() == true) {
+			pesquisa.desativaPesquisa(motivo);
 		} else {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+			throw new IllegalArgumentException("Pesquisa desativada.");
+
 		}
+
 	}
 
 	public void ativaPesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = null;
-		if (this.pesquisas.containsKey(codigo)) {
-			pesquisa = this.pesquisas.get(codigo);
-		} else {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
-		}
+		verificaPesquisaExiste(codigo);
+
+		Pesquisa pesquisa = this.pesquisas.get(codigo);
+
 		if (pesquisa.getAtivacao() == false) {
 			pesquisa.ativaPesquisa();
 		} else {
@@ -94,26 +88,26 @@ public class ControllerPesquisa {
 
 	public String exibePesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = null;
-		if (this.pesquisas.containsKey(codigo)) {
-			pesquisa = this.pesquisas.get(codigo);
-		} else {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
-		}
+		verificaPesquisaExiste(codigo);
+
+		Pesquisa pesquisa = this.pesquisas.get(codigo);
+
 		return pesquisa.toString();
 
 	}
 
 	public boolean pesquisaEhAtiva(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
-		Pesquisa pesquisa = null;
-		if (this.pesquisas.containsKey(codigo)) {
-			pesquisa = this.pesquisas.get(codigo);
-		} else {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
-		}
+		verificaPesquisaExiste(codigo);
+		Pesquisa pesquisa = this.pesquisas.get(codigo);
 		return pesquisa.getAtivacao();
 
+	}
+
+	private void verificaPesquisaExiste(String codigo) {
+		if (!pesquisas.containsKey(codigo)) {
+			throw new RuntimeException("Pesquisa nao encontrada.");
+		}
 	}
 
 }
