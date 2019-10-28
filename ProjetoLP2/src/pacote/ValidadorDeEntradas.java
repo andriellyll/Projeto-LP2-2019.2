@@ -70,4 +70,10 @@ public class ValidadorDeEntradas {
 		}
 	}
 
+	public static void validaNivelRisco(String entrada, String mensagem) {
+		if (!entrada.equalsIgnoreCase("BAIXO") && !entrada.equalsIgnoreCase("MEDIO") && !entrada.equalsIgnoreCase("ALTO")) {
+			throw new IllegalArgumentException(mensagem);
+		}
+	}
+
 }
