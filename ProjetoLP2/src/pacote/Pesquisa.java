@@ -4,10 +4,12 @@ public class Pesquisa {
 	private String descricao;
 	private String campoDeInteresse;
 	private String codigo;
-	private boolean ehAtivada;
 	private String motivoDeDesativacao;
+	private boolean ehAtivada;
 
 	public Pesquisa(String codigo, String descricao, String campoDeInteresse) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
 		this.descricao = descricao;
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
@@ -15,13 +17,15 @@ public class Pesquisa {
 
 	}
 
-	public void setDescricao(String novoConteudo) {
-		this.descricao = novoConteudo;
+	public void setDescricao(String novaDescricao) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(novaDescricao, "Descricao nao pode ser nula ou vazia.");
+		this.descricao = novaDescricao;
 
 	}
 
-	public void setCampo(String novoConteudo) {
-		this.campoDeInteresse = novoConteudo;
+	public void setCampo(String novoCampo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoCampo, "Formato do campo de interesse invalido.");
+		this.campoDeInteresse = novoCampo;
 
 	}
 
@@ -31,6 +35,7 @@ public class Pesquisa {
 	}
 
 	public void desativaPesquisa(String motivo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(motivo, "Motico nao pode ser nulo ou vazio.");
 		this.ehAtivada = false;
 		this.motivoDeDesativacao = motivo;
 
