@@ -15,9 +15,10 @@ public class Facade {
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
 		controllerAtividade = new ControllerAtividade();
 	}
-	
+
 	public static void main(String[] args) {
-		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt" };
+		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
+				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -114,15 +115,15 @@ public class Facade {
 	public void cadastraItem(String codigo, String item) {
 		controllerAtividade.cadastraItem(codigo, item);
 	}
-	
+
 	public String exibeAtividade(String codigo) {
 		return controllerAtividade.exibeAtividade(codigo);
 	}
-	
+
 	public int contaItensPendentes(String codigo) {
 		return controllerAtividade.contaItensPendentes(codigo);
 	}
-	
+
 	public int contaItensRealizados(String codigo) {
 		return controllerAtividade.contaItensRealizados(codigo);
 	}
