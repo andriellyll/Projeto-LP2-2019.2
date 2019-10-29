@@ -7,7 +7,7 @@ public class Objetivo {
 	private int aderencia;
 	private int viabilidade;
 	private String codigo;
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -33,14 +33,13 @@ public class Objetivo {
 		return true;
 	}
 
-	public Objetivo(String tipo, String descricao, int aderencia, int viabilidade, String codigo) {
-		
+	
+	public Objetivo(String tipo, String descricao, int aderencia, int viabilidade,  String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaTipo(tipo);
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaTipo(tipo);
 		ValidadorDeEntradas.validaViabilidadeOuAderencia(aderencia, "Valor invalido de aderencia");
-		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
-		
+		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade");
 		this.tipo = tipo;
 		this.descricao = descricao;
 		this.aderencia = aderencia;

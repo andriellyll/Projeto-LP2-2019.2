@@ -4,10 +4,10 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 
-	ControllerPesquisa controllerPesquisa;
-	ControllerPesquisador controllerPesquisador;
-	ControllerProblemaObjetivo controllerProblemaObjetivo;
-	ControllerAtividade controllerAtividade;
+	private ControllerPesquisa controllerPesquisa;
+	private ControllerPesquisador controllerPesquisador;
+	private ControllerProblemaObjetivo controllerProblemaObjetivo;
+	private ControllerAtividade controllerAtividade;
 
 	public Facade() {
 		controllerPesquisa = new ControllerPesquisa();

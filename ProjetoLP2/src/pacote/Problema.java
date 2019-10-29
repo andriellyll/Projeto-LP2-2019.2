@@ -5,6 +5,7 @@ public class Problema {
 	private String descricao;
 	private int viabilidade;
 	private String codigo;
+<<<<<<< HEAD
 
 	@Override
 	public int hashCode() {
@@ -31,6 +32,10 @@ public class Problema {
 		return true;
 	}
 
+=======
+	
+	//Verificar se parâmetros são válidos
+>>>>>>> master
 	public Problema(String descricao, int viabilidade, String codigo) {
 		
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
@@ -40,8 +45,13 @@ public class Problema {
 		this.viabilidade = viabilidade;
 		this.codigo = codigo;
 	}
+<<<<<<< HEAD
 
 	public String toString() {
+=======
+	
+	public String toString(){
+>>>>>>> master
 		return codigo + " - " + descricao + " - " + viabilidade;
 	}
 
