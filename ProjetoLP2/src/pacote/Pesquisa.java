@@ -1,7 +1,7 @@
 package pacote;
 
 public class Pesquisa {
-	
+
 	private String descricao;
 	private String campoDeInteresse;
 	private String codigo;
@@ -11,6 +11,8 @@ public class Pesquisa {
 	public Pesquisa(String codigo, String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Codigo nao pode ser nulo ou vazio.");
+
 		this.descricao = descricao;
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
@@ -75,5 +77,5 @@ public class Pesquisa {
 			return false;
 		return true;
 	}
-	
+
 }
