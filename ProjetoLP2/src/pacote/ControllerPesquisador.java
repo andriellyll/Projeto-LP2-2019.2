@@ -38,27 +38,27 @@ public class ControllerPesquisador {
 	
 	public void alteraPesquisador(String email, String atributo, String novoAtributo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Atributo nao pode ser vazio ou nulo.");
 		
 		verificaPesquisadorExiste(email);
 		verificaPesquisadorInativo(email);
 		
-		if (atributo.equalsIgnoreCase("nome")) {
+		if (atributo.equals("NOME")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo nome nao pode ser nulo ou vazio.");
 	
 			this.pesquisadores.get(email).setNome(novoAtributo);
 		}
-		else if (atributo.equalsIgnoreCase("funcao")) {
+		else if (atributo.equals("FUNCAO")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo funcao nao pode ser nulo ou vazio.");
 	
 			this.pesquisadores.get(email).setFuncao(novoAtributo);
 		}
-		else if (atributo.equalsIgnoreCase("biografia")) {
+		else if (atributo.equals("BIOGRAFIA")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo biografia nao pode ser nulo ou vazio.");
 			
 			this.pesquisadores.get(email).setBiografia(novoAtributo);
 		}
-		else if (atributo.equalsIgnoreCase("email")) {
+		else if (atributo.equals("EMAIL")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo email nao pode ser nulo ou vazio.");
 			ValidadorDeEntradas.verificaEmail(novoAtributo);
 			
@@ -67,11 +67,14 @@ public class ControllerPesquisador {
 			pesquisadores.remove(email);
 			pesquisadores.put(novoAtributo, pesquisador);
 		}
-		else if (atributo.equalsIgnoreCase("fotourl")) {
+		else if (atributo.equalsIgnoreCase("FOTO")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo fotoURL nao pode ser nulo ou vazio.");
 			ValidadorDeEntradas.verificaURL(novoAtributo);
 			
 			this.pesquisadores.get(email).setFoto(novoAtributo);
+		}
+		else {
+			throw new RuntimeException("Atributo invalido.");
 		}
 	}
 	
