@@ -58,7 +58,7 @@ public class Pesquisa {
 	}
 
 	public void desativaPesquisa(String motivo) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(motivo, "Motico nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(motivo, "Motivo nao pode ser nulo ou vazio.");
 		this.ehAtivada = false;
 		this.motivoDeDesativacao = motivo;
 
