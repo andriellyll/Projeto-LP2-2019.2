@@ -44,7 +44,7 @@ public class ControllerProblemaObjetivo {
 		
 		return codigo;
 		
-		
+		 
 		
 	}
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
@@ -80,21 +80,23 @@ public class ControllerProblemaObjetivo {
 		}
 	}
 	public String exibeProblema(String codigo) {
+		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		
 		if(problemaExiste(codigo)){
-			return problemas.get(codigo).toString();	
+			saida =  problemas.get(codigo).toString();	
 		}
-		return "";
+		return saida;
 		
 	}
 	public String exibeObjetivo(String codigo) {
+		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		
 		if(objetivoExiste(codigo)){
-			return objetivos.get(codigo).toString();	
+			saida = objetivos.get(codigo).toString();	
 		}
-		return "";
+		return saida;
 		
 	}
 	

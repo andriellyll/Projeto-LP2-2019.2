@@ -1,6 +1,7 @@
 package pacote;
 
 public class Pesquisa {
+	
 	private String descricao;
 	private String campoDeInteresse;
 	private String codigo;
