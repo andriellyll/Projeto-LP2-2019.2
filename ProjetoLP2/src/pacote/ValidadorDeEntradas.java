@@ -1,3 +1,4 @@
+
 package pacote;
 
 public class ValidadorDeEntradas {
@@ -29,10 +30,6 @@ public class ValidadorDeEntradas {
 	public static void verificaEmail(String email) {
 
 		if (email.startsWith("@") || email.endsWith("@") || (email.indexOf("@") == -1)) {
-			throw new IllegalArgumentException("Formato de email invalido.");
-		}
-
-		if (email.split("@")[0].isEmpty() || email.split("@")[1].isEmpty()) {
 			throw new IllegalArgumentException("Formato de email invalido.");
 		}
 	}
