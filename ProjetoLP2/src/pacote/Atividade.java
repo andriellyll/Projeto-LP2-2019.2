@@ -20,6 +20,7 @@ public class Atividade {
  * para obtencao de um resultado.
  */
 
+	private String codigo;
 	private String descricao;
 	private String nivelRisco;
 	private String descricaoRisco;
@@ -27,17 +28,24 @@ public class Atividade {
 	private List<Item> itens;
 
 /**
- * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do risco e o numero de dias.
+ * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do risco, seu codigo de identificacao e o numero de dias.
  * 
  * @param descricao valor que relata como e a atividade
  * @param nivelRisco valor que relata a itensidade desta atividade
  * @param descricaoRisco valor que relata o porque esta atividade possivel determinado nivel de risco
+ * @param codigo valor que relata o identificador unico desta atividade
  */
 
-	public Atividade(String descricao, String nivelRisco, String descricaoRisco, Period dias) {
+	public Atividade(String descricao, String nivelRisco, String descricaoRisco, String codigo, Period dias) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo Descricao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		this.descricao = descricao;
 		this.nivelRisco = nivelRisco;
 		this.descricaoRisco = descricaoRisco;
+		this.codigo = codigo;
 		this.dias = dias;
 		this.itens = new ArrayList<>();
 	}
@@ -108,6 +116,39 @@ public class Atividade {
 			}
 		}
 		return retorno;
+	}
+
+/**
+ * 
+ */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+/**
+ * 
+ */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atividade other = (Atividade) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 
 /**
