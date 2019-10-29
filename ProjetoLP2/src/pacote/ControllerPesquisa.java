@@ -16,7 +16,6 @@ public class ControllerPesquisa {
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
-		ValidadorDeEntradas.validaTamanhoString(campoDeInteresse, "Formato do campo de interesse invalido.", 250);
 		ValidadorDeEntradas.validaCampoDeInteresse(campoDeInteresse);
 		String codigoChave = campoDeInteresse.substring(0, 3).toUpperCase();
 		String codigoPesquisa;
