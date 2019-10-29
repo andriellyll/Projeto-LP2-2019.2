@@ -90,8 +90,8 @@ public class ControllerAtividade {
 		ValidadorDeEntradas.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
 		Period dias = Period.ofDays(8);
+		Atividade novaAtividade = new Atividade(descricao, nivelRisco, descricaoRisco, dias);
 		String codigo = criadorCodigo();
-		Atividade novaAtividade = new Atividade(descricao, nivelRisco, descricaoRisco, codigo, dias);
 		if (!atividades.containsKey(codigo)) {
 			atividades.put(codigo, novaAtividade);
 		}
