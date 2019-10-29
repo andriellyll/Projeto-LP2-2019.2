@@ -1,5 +1,9 @@
 package pacote;
-
+/**
+ * 
+ * @author Anna Beatriz Lucena
+ *
+ */
 public class Pesquisa {
 
 	private String descricao;
@@ -7,7 +11,7 @@ public class Pesquisa {
 	private String codigo;
 	private String motivoDeDesativacao;
 	private boolean ehAtivada;
-
+	
 	public Pesquisa(String codigo, String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
