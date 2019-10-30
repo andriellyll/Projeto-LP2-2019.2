@@ -39,7 +39,7 @@ public class Atividade {
 		this.nivelRisco = nivelRisco;
 		this.descricaoRisco = descricaoRisco;
 		this.dias = dias;
-		this.itens = new ArrayList<>();
+		this.itens = new ArrayList<>(); 
 	}
 
 /**
@@ -88,14 +88,14 @@ public class Atividade {
 				numRealizados++;
 			}
 		}
-		return numRealizados;
+		return numRealizados; 
 	}
 
 /**
  * Metodo resposavel por retornar uma listagem dos itens desta atividade.
  * 
  * @return Em formato de String, na representacao "SITUACAO - ITEM | "
- */
+ */ 
 
 	public String exibeItens() {
 		String retorno = "";

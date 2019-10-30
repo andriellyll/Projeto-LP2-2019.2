@@ -13,18 +13,10 @@ public class ValidadorDeEntradas {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
 
 	public static void validaEntradaNulaOuVazia(String entrada, String mensagem) {
 		validaEntradaNula(entrada, mensagem);
 		validaEntradaVazia(entrada, mensagem);
-
-	}
-
-	public static void validaTamanhoString(String entrada, String mensagem, int tamanho) {
-		if (entrada.length() > tamanho) {
-			throw new IllegalArgumentException(mensagem);
-		}
 	}
 
 	public static void verificaEmail(String email) {
@@ -41,7 +33,7 @@ public class ValidadorDeEntradas {
 	}
 
 	public static void validaCampoDeInteresse(String campoDeInteresse) {
-		if (campoDeInteresse.length() < 3) {
+		if (campoDeInteresse.length() > 250 || campoDeInteresse.length() < 3) {
 			throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 		}
 		String[] interesseSeparado = campoDeInteresse.split(",");
@@ -53,22 +45,23 @@ public class ValidadorDeEntradas {
 		}
 
 	}
-	
-	public static void validaViabilidadeOuAderencia(int inteiro, String mensagem){
-		if(inteiro < 1 || inteiro > 5) {
+
+	public static void validaViabilidadeOuAderencia(int inteiro, String mensagem) {
+		if (inteiro < 1 || inteiro > 5) {
 			throw new IllegalArgumentException(mensagem);
 		}
-		
+
 	}
-	
+
 	public static void validaTipo(String tipo) {
-		if(!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
+		if (!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
 			throw new IllegalArgumentException("Valor invalido de tipo.");
 		}
 	}
 
 	public static void validaNivelRisco(String entrada, String mensagem) {
-		if (!entrada.equalsIgnoreCase("BAIXO") && !entrada.equalsIgnoreCase("MEDIO") && !entrada.equalsIgnoreCase("ALTO")) {
+		if (!entrada.equalsIgnoreCase("BAIXO") && !entrada.equalsIgnoreCase("MEDIO")
+				&& !entrada.equalsIgnoreCase("ALTO")) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}

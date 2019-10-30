@@ -1,5 +1,8 @@
 package pacote;
 
+/**
+ * @author Anna Beatriz Lucena
+ */
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -210,12 +213,14 @@ class ControllerPesquisadorTest {
 		});
 
 	}
+
 	@Test
 	void ativaPesquisadorJaAtivo() {
 		assertThrows(RuntimeException.class, () -> {
 			controllerPesquisador.ativaPesquisador("andrielly11@ccc.ufcg.edu.br");
 		});
 	}
+
 	@Test
 	void ativaPesquisadorInativo() {
 		controllerPesquisador.desativaPesquisador("andrielly11@ccc.ufcg.edu.br");
@@ -223,6 +228,7 @@ class ControllerPesquisadorTest {
 		controllerPesquisador.ativaPesquisador("andrielly11@ccc.ufcg.edu.br");
 		assertTrue(controllerPesquisador.pesquisadorEhAtivo("andrielly11@ccc.ufcg.edu.br"));
 	}
+
 	@Test
 	void verificaPesquisadorEhAtivo() {
 		assertTrue(controllerPesquisador.pesquisadorEhAtivo("andrielly11@ccc.ufcg.edu.br"));
@@ -232,31 +238,69 @@ class ControllerPesquisadorTest {
 	void alteraPesquisadorEmailNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			controllerPesquisador.alteraPesquisador(null, "NOME", "nao sei");
-			
+
 		});
 	}
+
 	@Test
 	void alteraPesquisadorEmailVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			controllerPesquisador.alteraPesquisador("", "NOME", "nao sei");
-			
+
 		});
 	}
-	@Test void alteraNomePesquisador() {
+
+	@Test
+	void alteraNomePesquisador() {
 		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
 				"Andrielly (estudante) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://godspeed");
 		controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg.edu.br", "NOME", "Drica");
 		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
 				"Drica (estudante) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://godspeed");
-			
+
 	}
-	@Test void alteraFuncaoPesquisador() {
+
+	@Test
+	void alteraFuncaoPesquisador() {
 		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
 				"Andrielly (estudante) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://godspeed");
 		controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg.edu.br", "FUNCAO", "professor");
 		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
 				"Andrielly (professor) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://godspeed");
-			
+
 	}
-	
+	@Test
+	void alteraBiografiaPesquisador() {
+		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
+				"Andrielly (estudante) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://godspeed");
+		controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg.edu.br", "BIOGRAFIA", "nao sei");
+		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
+				"Andrielly (estudante) - nao sei - andrielly11@ccc.ufcg.edu.br - https://godspeed");
+
+	}
+	@Test
+	void alteraEmailPesquisador() {
+		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
+				"Andrielly (estudante) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://godspeed");
+		controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg.edu.br", "EMAIL", "dricahelen@ccc.ufcg.edu.br");
+		assertEquals(controllerPesquisador.exibePesquisador("dricahelen@ccc.ufcg.edu.br"),
+				"Andrielly (estudante) - Perfeita demais - dricahelen@ccc.ufcg.edu.br - https://godspeed");
+
+	}
+	@Test
+	void alteraFotoPesquisador() {
+		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
+				"Andrielly (estudante) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://godspeed");
+		controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg.edu.br", "FOTO", "https://projetolp2.com");
+		assertEquals(controllerPesquisador.exibePesquisador("andrielly11@ccc.ufcg.edu.br"),
+				"Andrielly (estudante) - Perfeita demais - andrielly11@ccc.ufcg.edu.br - https://projetolp2.com");
+
+	}
+	@Test
+	void alteraPesquisadorAtributoInvalido() {
+		assertThrows(RuntimeException.class, () -> {
+			controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg.edu.br", "aleatorio", "nao sei");
+		});
+	}
+
 }
