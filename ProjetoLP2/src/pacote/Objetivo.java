@@ -1,13 +1,40 @@
 package pacote;
 
+/**
+ * Representa um objetivo, seja ele geral ou especifico, que esta inserido em um
+ * contexto de uma pesquisa.
+ * 
+ * @author Helen Bento Cavalcanti
+ *
+ */
 public class Objetivo {
-
+	/**
+	 * Atributo em string que representa o tipo da pesquisa, que pode ser geral ou
+	 * especifico.
+	 */
 	private String tipo;
+	/**
+	 * Atributo em string que fornece uma curta descricao desse objetivo.
+	 */
 	private String descricao;
+	/**
+	 * Atributo inteiro que representa a aderencia(de 1 a 5) desse objetivo.
+	 */
 	private int aderencia;
+	/**
+	 * Atributo inteiro que representa a viabilidade(de 1 a 5) desse objetivo.
+	 */
 	private int viabilidade;
+	/**
+	 * Atributo inteiro que representa o id desse objetivo.
+	 */
 	private String codigo;
-	
+
+	/**
+	 * Metodo privado que gera e retorna um codigo inteiro unico para o objetivo.
+	 * 
+	 * @return o codigo inteiro.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -16,6 +43,11 @@ public class Objetivo {
 		return result;
 	}
 
+	/**
+	 * Metodo privado que verifica, a partir do hashCode, se um objetivo eh igual.
+	 * 
+	 * @return um booleano que expressa se os objetos sao iguais.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -33,8 +65,19 @@ public class Objetivo {
 		return true;
 	}
 
-	
-	public Objetivo(String tipo, String descricao, int aderencia, int viabilidade,  String codigo) {
+	/**
+	 * Metodo construtor de Objetivo que recebe como parametro suas caracteristicas,
+	 * tais como tipo, descricao, aderencia, viabilidade e seu codigo.
+	 * 
+	 * @param tipo        representa o tipo da pesquisa, que pode ser geral ou
+	 *                    especifico.
+	 * @param descricao   que fornece uma curta descricao desse objetivo.
+	 * @param aderencia   representa a aderencia(de 1 a 5) desse objetivo.
+	 * @param viabilidade inteiro que representa a viabilidade(de 1 a 5) desse
+	 *                    objetivo.
+	 * @param codigo      id que representa tal objetivo.
+	 */
+	public Objetivo(String tipo, String descricao, int aderencia, int viabilidade, String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaTipo(tipo);
@@ -47,6 +90,10 @@ public class Objetivo {
 		this.codigo = codigo;
 	}
 
+	/**
+	 * Metodo que representa textualmente um objetivo, com seu codigo, tipo,
+	 * descricao e a soma da aderencia com a viabilidade.
+	 */
 	public String toString() {
 
 		return codigo + " - " + tipo + " - " + descricao + " - " + (aderencia + viabilidade);
