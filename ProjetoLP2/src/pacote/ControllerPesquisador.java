@@ -2,27 +2,47 @@ package pacote;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Classe Controladora de Pesquisadores
+ * @author Andrielly de Lima Lucena - 119110268
+ */
 public class ControllerPesquisador {
-
+	/**
+	 * Colecao que armazena objetos Pesquisador
+	 */
 	private Map<String, Pesquisador> pesquisadores;
-
+	/**
+	 * Constroi um Controller
+	 */
 	public ControllerPesquisador(){
 		this.pesquisadores = new HashMap<>();
 	}
-
+	/**
+	 * Verifica se o pesquisador esta cadastrado no sistema, a partir de seu email.
+	 * @param email email do pesquisador 
+	 */
 	private void verificaPesquisadorExiste(String email) {
 		if (!pesquisadores.containsKey(email)) {
 			throw new RuntimeException("Pesquisador nao encontrado");
 		}
 	}
-	
+	/**
+	 * Verifica se um pesquisador esta ativo ou nao.
+	 * @param email email do pesquisador
+	 */
 	private void verificaPesquisadorInativo(String email) {
 		if (!pesquisadores.get(email).ehAtivo()) {
 			throw new RuntimeException("Pesquisador inativo.");
 		}
 	}
-	
+	/**
+	 * Cadastra um pesquisador no sistema, a partir de seu nome, funcao, biografia, email e URL da foto
+	 * @param nome nome do pesquisador
+	 * @param funcao funcao do pesquisador
+	 * @param biografia biografia do pesquisador
+	 * @param email email do pesquisador
+	 * @param fotoUrl URL da foto do pesquisador
+	 */
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(nome, "Campo nome nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(funcao, "Campo funcao nao pode ser nulo ou vazio.");
@@ -35,7 +55,12 @@ public class ControllerPesquisador {
 		
 		this.pesquisadores.put(email, new Pesquisador(nome, funcao, biografia, email, fotoUrl));
 	}
-	
+	/**
+	 * Altera algum atributo do pesquisador.
+	 * @param email email do pesquisador que sera alterado
+	 * @param atributo atributo a ser alterado
+	 * @param novoAtributo novo valor do atributo
+	 */
 	public void alteraPesquisador(String email, String atributo, String novoAtributo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Atributo nao pode ser vazio ou nulo.");
@@ -77,7 +102,10 @@ public class ControllerPesquisador {
 			throw new RuntimeException("Atributo invalido.");
 		}
 	}
-	
+	/**
+	 * Desativa um pesquisador, que tem que estar ativo.
+	 * @param email email do pesquisador
+	 */
 	public void desativaPesquisador(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		
@@ -86,7 +114,10 @@ public class ControllerPesquisador {
 		
 		this.pesquisadores.get(email).desativaPesquisador();
 	}
-	
+	/**
+	 * Ativa um pesquisador, que tem que estar inativo.
+	 * @param email email do pesquisador
+	 */
 	public void ativaPesquisador(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		
@@ -97,7 +128,11 @@ public class ControllerPesquisador {
 
 		this.pesquisadores.get(email).ativaPesquisador();
 	}
-	
+	/**
+	 * Exibe informacoes sobre um pesquisador
+	 * @param email email do pesquisador que sera exibido
+	 * @return a representacao textual do pesquisador
+	 */
 	public String exibePesquisador(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Email nao pode ser nulo ou vazio.");
 		
@@ -106,7 +141,11 @@ public class ControllerPesquisador {
 
 		return this.pesquisadores.get(email).toString();
 	}
-	
+	/**
+	 * Retorna o valor booleano que representa se o pesquisador eh ativo ou nao
+	 * @param email email do pesquisador
+	 * @return o valor booleano
+	 */
 	public boolean pesquisadorEhAtivo(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Email nao pode ser vazio ou nulo.");
 		verificaPesquisadorExiste(email);
