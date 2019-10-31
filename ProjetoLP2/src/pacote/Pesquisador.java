@@ -154,5 +154,16 @@ public class Pesquisador {
 		} else if (!email.equals(other.email))
 			return false;
 		return true;
+	} 
+	/**
+	 * Procura no atributo biografia do pesquisador a palavra-chave passada como parametro
+	 * @param palavraChave palavra-chave que sera pesquisada na biografia
+	 * @return se a palavra-chave existir na String de biografia, essa string sera retornada. Se nao, sera retornada uma String vazia
+	 */
+	public String procuraPalavraChave(String palavraChave) {
+		if (biografia.contains(palavraChave)) {
+			return this.email + ": " + biografia;
+		}
+		return "";
 	}
 }
