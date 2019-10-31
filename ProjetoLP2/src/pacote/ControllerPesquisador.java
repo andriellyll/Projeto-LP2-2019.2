@@ -1,6 +1,8 @@
 package pacote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /**
  * Classe Controladora de Pesquisadores
@@ -151,5 +153,19 @@ public class ControllerPesquisador {
 		verificaPesquisadorExiste(email);
 		
 		return this.pesquisadores.get(email).ehAtivo();
+	}
+	/**
+	 * Procura em todos os pesquisadores do mapa a palavra-chave passada como parametro
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com as biografias que contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>(); 
+		
+		for (Pesquisador pesquisador : this.pesquisadores.values()) {
+			resultadosBusca.add(pesquisador.procuraPalavraChave(palavraChave));
+		}
+		
+		return resultadosBusca;
 	}
 }
