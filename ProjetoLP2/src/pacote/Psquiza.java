@@ -131,7 +131,8 @@ public class Psquiza {
 
 // US7 Associacao e Execucao de Atividades
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return false;
+		return controllerPesquisa.getPesquisa(codigoPesquisa).associaAtividade(controllerAtividade.getAtividade(codigoAtividade));
+		
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {

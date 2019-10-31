@@ -197,4 +197,15 @@ public class ControllerPesquisa {
 		}
 	}
 
+	/**
+	 * Verifica se a pesquisa existe, a partir de um codigo, e caso ela exista sera retornada.
+	 * 
+	 * @param codigo - o codigo da pesquisa a ser retornada
+	 * @return - a pesquisa solicitada a partir do codigo
+	 */
+	public Pesquisa getPesquisa(String codigo) {
+		verificaPesquisaExiste(codigo);
+		return this.pesquisas.get(codigo);
+	}
+
 }

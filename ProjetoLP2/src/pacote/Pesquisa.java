@@ -1,5 +1,8 @@
 package pacote;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * A pesquisa e atividade base para a estruturação e criação de um novo
  * conhecimento. Cada pesquisa possui uma descricao (resumo da pesquisa a ser
@@ -40,6 +43,8 @@ public class Pesquisa {
 	 */
 	private boolean ehAtivada;
 
+	private Set <Atividade> atividadesAssociadas;
+	
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
 	 * e do campo de interesse. Caso os parametros forem nulos ou vazios excecoes
@@ -60,6 +65,7 @@ public class Pesquisa {
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
 		this.ehAtivada = true;
+		this.atividadesAssociadas = new HashSet<>();
 
 	}
 
@@ -168,6 +174,19 @@ public class Pesquisa {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Associa uma atividade a pesquisa.
+	 * 
+	 * @param atividade - a atividade a ser adicionada na pesquisa
+	 * @return - o booleano que representa se a atividade foi associada a pesquisa
+	 */
+	public boolean associaAtividade(Atividade atividade) {
+		if(getAtivacao()) {
+		return atividadesAssociadas.add(atividade);
+		}
+		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
 
 }
