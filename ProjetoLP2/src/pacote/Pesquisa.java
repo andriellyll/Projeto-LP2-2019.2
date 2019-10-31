@@ -188,5 +188,12 @@ public class Pesquisa {
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
+	
+	public boolean desassociaAtividade(Atividade atividade) {
+		if(getAtivacao()) {
+			return atividadesAssociadas.remove(atividade);
+		}
+		throw new IllegalArgumentException("Pesquisa desativada.");
+	}
 
 }

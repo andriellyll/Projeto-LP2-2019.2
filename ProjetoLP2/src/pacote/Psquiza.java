@@ -136,7 +136,7 @@ public class Psquiza {
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return false;
+		return controllerPesquisa.getPesquisa(codigoPesquisa).desassociaAtividade(controllerAtividade.getAtividade(codigoAtividade));
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
