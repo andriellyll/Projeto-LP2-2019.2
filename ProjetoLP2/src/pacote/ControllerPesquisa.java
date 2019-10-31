@@ -88,7 +88,7 @@ public class ControllerPesquisa {
 		verificaPesquisaExiste(codigo);
 
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
-		if (pesquisa.getAtivacao() == false) {
+		if (!pesquisa.getAtivacao()) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 		if (conteudoASerAlterado.equals("descricao") || conteudoASerAlterado.equals("DESCRICAO")) {
@@ -119,7 +119,7 @@ public class ControllerPesquisa {
 		verificaPesquisaExiste(codigo);
 
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
-		if (pesquisa.getAtivacao() == true) {
+		if (pesquisa.getAtivacao()) {
 			pesquisa.desativaPesquisa(motivo);
 		} else {
 			throw new IllegalArgumentException("Pesquisa desativada.");
