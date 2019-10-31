@@ -169,6 +169,13 @@ public class ControllerAtividade {
 		return atividades.get(codigo).ItensRealizados();
 	}
 	
+
+	/**
+	 * Retorna uma atividade a partir do seu codigo identificador
+	 * 
+	 * @param codigo - o codigo identificador da atividade a ser retornada.
+	 * @return a atividade solicitada atraves do codigo 
+	 */
 	public Atividade getAtividade(String codigo) {
 		verificaAtividadeExiste(codigo);
 		return this.atividades.get(codigo);
