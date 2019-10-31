@@ -189,6 +189,12 @@ public class Pesquisa {
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
 	
+	/**
+	 * Desassocia uma atividade da pesquisa.
+	 * 
+	 * @param atividade - a atividade a ser desassociada
+	 * @return - o booleano que representa se a atividade foi desassociada a pesquisa
+	 */
 	public boolean desassociaAtividade(Atividade atividade) {
 		if(getAtivacao()) {
 			return atividadesAssociadas.remove(atividade);
