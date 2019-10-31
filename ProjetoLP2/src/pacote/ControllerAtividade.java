@@ -67,7 +67,7 @@ public class ControllerAtividade {
  * @param codigo valor ao qual vai ser utilizado para verificar se ja existe uma atividade com este codigo
  */
 
-	private void contemAtividade(String codigo) {
+	private void verificaAtividadeExiste(String codigo) {
 		if (atividades.containsKey(codigo) == false) {
 			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
@@ -106,7 +106,7 @@ public class ControllerAtividade {
 
 	public void apagaAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		contemAtividade(codigo);
+		verificaAtividadeExiste(codigo);
 		atividades.remove(codigo);
 	}
 
@@ -119,7 +119,7 @@ public class ControllerAtividade {
 
 	public String exibeAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		contemAtividade(codigo);
+		verificaAtividadeExiste(codigo);
 		String retornoItens = atividades.get(codigo).exibeItens();
 		if (retornoItens == null || "".equals(retornoItens.trim())) {
 			return atividades.get(codigo).toString();
@@ -138,7 +138,7 @@ public class ControllerAtividade {
 	public void cadastraItem(String codigo, String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
-		contemAtividade(codigo);
+		verificaAtividadeExiste(codigo);
 		int codigoItem = criadorCodigoItem();
 		atividades.get(codigo).adicionaItem(item, codigoItem);
 	}
@@ -152,7 +152,7 @@ public class ControllerAtividade {
 
 	public int contaItensPendentes(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		contemAtividade(codigo);
+		verificaAtividadeExiste(codigo);
 		return atividades.get(codigo).ItensPendentes();
 	}
 
@@ -165,7 +165,14 @@ public class ControllerAtividade {
 
 	public int contaItensRealizados(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		contemAtividade(codigo);
+		verificaAtividadeExiste(codigo);
 		return atividades.get(codigo).ItensRealizados();
 	}
+	
+	public Atividade getAtividade(String codigo) {
+		verificaAtividadeExiste(codigo);
+		return this.atividades.get(codigo);
+	}
+
+	
 }
