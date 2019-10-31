@@ -128,4 +128,33 @@ public class Psquiza {
 	public int contaItensRealizados(String codigo) {
 		return controllerAtividade.contaItensRealizados(codigo);
 	}
+
+// US7 Associacao e Execucao de Atividades
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
+		return false;
+	}
+
+	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		return false;
+	}
+
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		
+	}
+
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		return 0;
+	}
+
+	public boolean removeResultado(String codigoAtividade) {
+		return false;
+	}
+
+	public String listaResultados(String codigoAtividade) {
+		return null;
+	}
+
+	public int getDuracao(String codigoAtividade) {
+		return 0;
+	}
 }

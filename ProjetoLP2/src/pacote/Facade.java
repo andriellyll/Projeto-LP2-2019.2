@@ -4,10 +4,10 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 
-	private Psquiza pesquisa;
+	private Psquiza psquiza;
 
 	public Facade() {
-		pesquisa = new Psquiza();
+		psquiza = new Psquiza();
 	}
 
 	public static void main(String[] args) {
@@ -20,107 +20,107 @@ public class Facade {
 //Pesquisa:
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
-		return this.pesquisa.cadastraPesquisa(descricao, campoDeInteresse);
+		return this.psquiza.cadastraPesquisa(descricao, campoDeInteresse);
 	}
 
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
-		this.pesquisa.alteraPesquisa(codigo, conteudoASerAlterado, novoConteudo);
+		this.psquiza.alteraPesquisa(codigo, conteudoASerAlterado, novoConteudo);
 	}
 
 	public void encerraPesquisa(String codigo, String motivo) {
-		this.pesquisa.encerraPesquisa(codigo, motivo);
+		this.psquiza.encerraPesquisa(codigo, motivo);
 
 	}
 
 	public void ativaPesquisa(String codigo) {
-		this.pesquisa.ativaPesquisa(codigo);
+		this.psquiza.ativaPesquisa(codigo);
 
 	}
 
 	public String exibePesquisa(String codigo) {
-		return this.pesquisa.exibePesquisa(codigo);
+		return this.psquiza.exibePesquisa(codigo);
 	}
 
 	public boolean pesquisaEhAtiva(String codigo) {
-		return this.pesquisa.pesquisaEhAtiva(codigo);
+		return this.psquiza.pesquisaEhAtiva(codigo);
 	}
 
 //Pesquisador:
 
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
-		pesquisa.cadastraPesquisador(nome, funcao, biografia, email, fotoUrl);
+		psquiza.cadastraPesquisador(nome, funcao, biografia, email, fotoUrl);
 	}
 
 	public void alteraPesquisador(String email, String atributo, String novoAtributo) {
-		pesquisa.alteraPesquisador(email, atributo, novoAtributo);
+		psquiza.alteraPesquisador(email, atributo, novoAtributo);
 	}
 
 	public void desativaPesquisador(String email) {
-		pesquisa.desativaPesquisador(email);
+		psquiza.desativaPesquisador(email);
 	}
 
 	public void ativaPesquisador(String email) {
-		pesquisa.ativaPesquisador(email);
+		psquiza.ativaPesquisador(email);
 	}
 
 	public String exibePesquisador(String email) {
-		return pesquisa.exibePesquisador(email);
+		return psquiza.exibePesquisador(email);
 	}
 
 	public boolean pesquisadorEhAtivo(String email) {
-		return pesquisa.pesquisadorEhAtivo(email);
+		return psquiza.pesquisadorEhAtivo(email);
 	}
 
 //Problema e Objetivo:
 
 	public String cadastraProblema(String descricao, int viabilidade) {
-		return pesquisa.cadastraProblema(descricao, viabilidade);
+		return psquiza.cadastraProblema(descricao, viabilidade);
 	}
 
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
-		return pesquisa.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
+		return psquiza.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
 	}
 
 	public void apagarProblema(String codigo) {
-		pesquisa.apagarProblema(codigo);
+		psquiza.apagarProblema(codigo);
 	}
 
 	public void apagarObjetivo(String codigo) {
-		pesquisa.apagarObjetivo(codigo);
+		psquiza.apagarObjetivo(codigo);
 	}
 
 	public String exibeProblema(String codigo) {
-		return pesquisa.exibeProblema(codigo);
+		return psquiza.exibeProblema(codigo);
 	}
 
 	public String exibeObjetivo(String codigo) {
-		return pesquisa.exibeObjetivo(codigo);
+		return psquiza.exibeObjetivo(codigo);
 	}
 
 //Atividade:
 
 	public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco) {
-		return pesquisa.cadastraAtividade(descricao, nivelRisco, descricaoRisco);
+		return psquiza.cadastraAtividade(descricao, nivelRisco, descricaoRisco);
 	}
 
 	public void apagaAtividade(String codigo) {
-		pesquisa.apagaAtividade(codigo);
+		psquiza.apagaAtividade(codigo);
 	}
 
 	public void cadastraItem(String codigo, String item) {
-		pesquisa.cadastraItem(codigo, item);
+		psquiza.cadastraItem(codigo, item);
 	}
 
 	public String exibeAtividade(String codigo) {
-		return pesquisa.exibeAtividade(codigo);
+		return psquiza.exibeAtividade(codigo);
 	}
 
 	public int contaItensPendentes(String codigo) {
-		return pesquisa.contaItensPendentes(codigo);
+		return psquiza.contaItensPendentes(codigo);
 	}
 
 	public int contaItensRealizados(String codigo) {
-		return pesquisa.contaItensRealizados(codigo);
+		return psquiza.contaItensRealizados(codigo);
 	}
 	
 //Associacoes de Objetivos e Problema:
@@ -170,31 +170,31 @@ public class Facade {
 //Associacao e Execucao de Atividades
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return false;
+		return psquiza.associaAtividade(codigoPesquisa, codigoAtividade);
 	}
 	
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return false;
+		return psquiza.desassociaAtividade(codigoPesquisa, codigoAtividade);
 	}
 	
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		
+		psquiza.executaAtividade(codigoAtividade, item, duracao);
 	}
 	
 	public int cadastraResultado(String codigoAtividade, String resultado) {
-		return 0;
+		return psquiza.cadastraResultado(codigoAtividade, resultado);
 	}
 	
 	public boolean removeResultado(String codigoAtividade) {
-		return false;
+		return psquiza.removeResultado(codigoAtividade);
 	}
 	
 	public String listaResultados(String codigoAtividade) {
-		return null;
+		return psquiza.listaResultados(codigoAtividade);
 	}
 	
 	public int getDuracao(String codigoAtividade) {
-		return 0;
+		return psquiza.getDuracao(codigoAtividade);
 	}
 	
 //Busca por Palavra-chave
