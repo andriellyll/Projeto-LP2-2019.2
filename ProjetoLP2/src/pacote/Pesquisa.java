@@ -53,7 +53,7 @@ public class Pesquisa {
 	public Pesquisa(String codigo, String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Codigo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaCampoDeInteresse(campoDeInteresse);
 
 		this.descricao = descricao;
