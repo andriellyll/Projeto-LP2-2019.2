@@ -29,6 +29,7 @@ public class Item {
 	 */
 
 	public Item(String item, int codigo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
 		this.item = item;
 		this.codigo = codigo;
 		this.situacao = "PENDENTE";
