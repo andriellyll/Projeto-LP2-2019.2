@@ -66,4 +66,9 @@ public class Item {
 	public String toString() {
 		return situacao + " - " + item;
 	}
+
+	public void executa() {
+		this.situacao = "REALIZADO";
+		
+	}
 }

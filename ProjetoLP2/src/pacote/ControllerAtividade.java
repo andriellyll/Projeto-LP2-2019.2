@@ -181,5 +181,14 @@ public class ControllerAtividade {
 		return this.atividades.get(codigo);
 	}
 
+	public void associaPesquisaAtividade(Pesquisa pesquisa, String codigoAtividade) {
+		this.atividades.get(codigoAtividade).associaPesquisaAtividade(pesquisa);
+	}
+	
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		verificaAtividadeExiste(codigoAtividade);
+		atividades.get(codigoAtividade).executaAtividade(item, duracao);
+	}
+
 	
 }

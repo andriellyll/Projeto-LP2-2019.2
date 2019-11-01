@@ -23,9 +23,10 @@ public class Atividade {
 	private String descricao;
 	private String nivelRisco;
 	private String descricaoRisco;
-	private Period dias;
 	private List<Item> itens;
-
+	private Pesquisa pesquisaAssociada;
+	private int duracao;
+	
 /**
  * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do risco e o numero de dias.
  * 
@@ -38,8 +39,8 @@ public class Atividade {
 		this.descricao = descricao;
 		this.nivelRisco = nivelRisco;
 		this.descricaoRisco = descricaoRisco;
-		this.dias = dias;
 		this.itens = new ArrayList<>(); 
+		this.duracao = 0;
 	}
 
 /**
@@ -120,4 +121,29 @@ public class Atividade {
 	public String toString() {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
+	
+	public void associaPesquisaAtividade(Pesquisa pesquisa) {
+		this.pesquisaAssociada = pesquisa;
+	}
+
+	public void executaAtividade(int item, int duracao) {
+		verificaItemExiste(item);
+		setDuracao(duracao);
+		itens.get(item).executa();
+		
+	}
+
+	public boolean verificaEhAssociada() {
+		return !(pesquisaAssociada == null);
+		
+	}
+	public boolean verificaItemExiste(int item) {
+		return itens.size() >= item;
+		
+	}
+
+	private void setDuracao(int duracao) {
+		this.duracao += duracao;
+	}
+	
 }

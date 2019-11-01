@@ -136,11 +136,13 @@ public class Psquiza {
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		controllerAtividade.associaPesquisaAtividade(controllerPesquisa.getPesquisa(codigoPesquisa), codigoAtividade);
 		return controllerPesquisa.getPesquisa(codigoPesquisa).desassociaAtividade(controllerAtividade.getAtividade(codigoAtividade));
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		
+		controllerAtividade.getAtividade(codigoAtividade).verificaEhAssociada();
+		controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
