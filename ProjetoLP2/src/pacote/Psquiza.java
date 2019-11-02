@@ -1,6 +1,10 @@
 package pacote;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import easyaccept.EasyAccept;
+import utils.OrdenaResultados;
 
 public class Psquiza {
 
@@ -183,4 +187,29 @@ public class Psquiza {
 
 //Busca por Palavra-chave:
 
+	public String busca(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+		resultadosBusca.addAll(controllerAtividade.procuraPalavraChave(palavraChave));
+		resultadosBusca.addAll(controllerPesquisa.procuraPalavraChave(palavraChave));
+		resultadosBusca.addAll(controllerPesquisador.procuraPalavraChave(palavraChave));
+		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave));
+		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveProblema(palavraChave));
+		
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		
+		return String.join(System.lineSeparator(), resultadosBusca);
+	}
+	
+	public int contaResultadosBusca(String palavraChave) {
+	
+		int qtdResultados1 = (controllerAtividade.procuraPalavraChave(palavraChave)).size();
+		int qtdResultados2 = (controllerPesquisa.procuraPalavraChave(palavraChave)).size();
+		int qtdResultados3 = (controllerPesquisador.procuraPalavraChave(palavraChave)).size();
+		int qtdResultados4 = (controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave)).size();
+		int qtdResultados5 = (controllerProblemaObjetivo.procuraPalavraChaveProblema(palavraChave)).size();
+		
+		int quantidadeTotal = qtdResultados1 + qtdResultados2 + qtdResultados3 + qtdResultados4 + qtdResultados5;
+		
+		return quantidadeTotal;
+	}
 }

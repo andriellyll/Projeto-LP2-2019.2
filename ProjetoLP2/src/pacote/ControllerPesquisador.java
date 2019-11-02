@@ -181,7 +181,9 @@ public class ControllerPesquisador {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Pesquisador pesquisador : this.pesquisadores.values()) {
-			resultadosBusca.add(pesquisador.procuraPalavraChave(palavraChave));
+			if (!pesquisador.procuraPalavraChave(palavraChave).equals("")) {
+				resultadosBusca.add(pesquisador.procuraPalavraChave(palavraChave));
+			}
 		}
 
 		return resultadosBusca;

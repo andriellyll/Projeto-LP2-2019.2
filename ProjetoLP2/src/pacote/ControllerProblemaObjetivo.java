@@ -1,6 +1,8 @@
 package pacote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 /**
  * Classe controladora das classes Problema e Objetivo.
  * @author Helen Bento Cavalcanti
@@ -186,5 +188,41 @@ public class ControllerProblemaObjetivo {
 	public Problema getProblema(String idProblema) {
 		problemaExiste(idProblema);
 		return this.problemas.get(idProblema);
+	}
+	/**
+	 * Procura em todos os problemas do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com as descricoes dos problemas que contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChaveProblema(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Problema problema : this.problemas.values()) {
+			if (!problema.procuraPalavraChave(palavraChave).equals("")) {
+				resultadosBusca.add(problema.procuraPalavraChave(palavraChave));	
+			}
+		}
+
+		return resultadosBusca;
+	}
+	/**
+	 * Procura em todos os objetivos do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com as descricoes dos objetivos que contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChaveObjetivo(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Objetivo objetivo: this.objetivos.values()) {
+			if (!objetivo.procuraPalavraChave(palavraChave).equals("")) {
+				resultadosBusca.add(objetivo.procuraPalavraChave(palavraChave));	
+			}
+		}
+
+		return resultadosBusca;
 	}
 }

@@ -71,4 +71,11 @@ public class Item {
 		this.situacao = "REALIZADO";
 
 	}
+
+	public String procuraPalavraChave(String palavraChave) {
+		if (item.contains(palavraChave)) {
+			return item;
+		}
+		return "";
+	}
 }

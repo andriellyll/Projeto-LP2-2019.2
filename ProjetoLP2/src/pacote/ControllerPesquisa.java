@@ -1,6 +1,8 @@
 package pacote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -224,5 +226,23 @@ public class ControllerPesquisa {
 		verificaPesquisaExiste(codigo);
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
+	}
+	/**
+	 * Procura em todos as pesquisas do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com os campos dos atributos de pesquisa que contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Pesquisa pesquisa: this.pesquisas.values()) {
+			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));	
+			}
+		}
+
+		return resultadosBusca;
 	}
 }

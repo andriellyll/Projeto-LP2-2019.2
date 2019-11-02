@@ -1,7 +1,9 @@
 package pacote;
 
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -97,8 +99,8 @@ public class ControllerAtividade {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco,
 				"Campo descricaoRisco nao pode ser nulo ou vazio.");
 		Period dias = Period.ofDays(8);
-		Atividade novaAtividade = new Atividade(descricao, nivelRisco, descricaoRisco, dias);
 		String codigo = criadorCodigo();
+		Atividade novaAtividade = new Atividade(codigo, descricao, nivelRisco, descricaoRisco, dias);
 		if (!atividades.containsKey(codigo)) {
 			atividades.put(codigo, novaAtividade);
 		}
@@ -203,5 +205,22 @@ public class ControllerAtividade {
 		verificaAtividadeExiste(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
+	/**
+	 * Procura em todos as atividades do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com os campos dos atributos de atividade que contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
 
+		for (Atividade atividade: this.atividades.values()) {
+			if (!atividade.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));	
+			}
+		}
+
+		return resultadosBusca;
+	}
 }

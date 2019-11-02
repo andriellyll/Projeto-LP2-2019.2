@@ -21,14 +21,14 @@ public class Atividade {
 	 * ate tres niveis, a descricao deste risco, a quantidade de dias e seus itens
 	 * para a conclusao da atividade, para obtencao de um resultado.
 	 */
-
+	private String codigo;
 	private String descricao;
 	private String nivelRisco;
 	private String descricaoRisco;
 	private List<Item> itens;
 	private Pesquisa pesquisaAssociada;
 	private int duracao;
-
+	
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
 	 * risco e o numero de dias.
@@ -39,13 +39,41 @@ public class Atividade {
 	 *                       determinado nivel de risco
 	 */
 
-	public Atividade(String descricao, String nivelRisco, String descricaoRisco, Period dias) {
+	public Atividade(String codigo, String descricao, String nivelRisco, String descricaoRisco, Period dias) {
+		this.codigo = codigo;
 		this.descricao = descricao;
 		this.nivelRisco = nivelRisco;
 		this.descricaoRisco = descricaoRisco;
 		this.itens = new ArrayList<>();
 		this.duracao = 0;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atividade other = (Atividade) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+
+
 
 	/**
 	 * Metodo responsavel por adicionar um novo item, na lista de itens, da
@@ -153,4 +181,34 @@ public class Atividade {
 		this.duracao += duracao;
 	}
 
+	private List<String> procuraPalavraItem(String palavraChave){
+		ArrayList<String> resultadosItens = new ArrayList<>();
+		for (Item item: itens) {
+			resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
+		}
+		return resultadosItens;
+	}
+
+	/**
+	 * Procura nos atributos descricao, itens e descricao do risco da atividade a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera buscada 
+	 * @return se a palavra-chave existir em algum dos campos, uma  lista com uma ou mais dessas  
+	 *         strings sera retornada. Se nao, sera retornada uma lista vazia
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+		if (this.descricao.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);
+		}
+		if (this.descricaoRisco.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);	
+		}
+		if(!procuraPalavraItem(palavraChave).isEmpty()) {
+			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
+		}
+		return resultadosBusca;
+	}
+	
 }
