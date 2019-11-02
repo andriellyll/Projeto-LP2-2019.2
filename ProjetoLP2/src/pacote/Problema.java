@@ -113,4 +113,18 @@ public class Problema {
 		}
 		return true;
 	}
+	/**
+	 * Procura no atributo descricao do problema a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera pesquisada na descricao do problema
+	 * @return se a palavra-chave existir na String de descricao, essa string sera
+	 *         retornada. Se nao, sera retornada uma String vazia
+	 */
+	public String procuraPalavraChave(String palavraChave) {
+		if (this.descricao.contains(palavraChave)) {
+			return this.codigo + ": " + this.descricao;
+		}
+		return "";
+	}
 }

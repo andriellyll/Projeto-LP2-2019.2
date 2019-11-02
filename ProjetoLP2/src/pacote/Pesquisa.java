@@ -1,6 +1,8 @@
 package pacote;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -226,5 +228,23 @@ public class Pesquisa {
 			return atividadesAssociadas.remove(atividade);
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
+	}
+	/**
+	 * Procura nos atributos descricao e campo de interesse da pesquisa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera buscada 
+	 * @return se a palavra-chave existir na String de descricao ou de campo de interesse, uma  lista com uma dessas  
+	 *         strings (ou as duas) sera retornada. Se nao, sera retornada uma lista vazia
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+		if (this.descricao.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);
+		}
+		if (this.campoDeInteresse.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.campoDeInteresse);	
+		}
+		return resultadosBusca;
 	}
 }
