@@ -114,7 +114,7 @@ public class Atividade {
 /**
  * Metodo responsavel por retornar a String que representa a atividade.
  * 
- * @return A representacao que segue no formato "DESCRICAO (NIVEL DE RISCO - DESCRICAO RISCO)"
+ * @return A representacao segue no formato "DESCRICAO (NIVEL DE RISCO - DESCRICAO RISCO)"
  */
 
 	@Override

@@ -13,7 +13,7 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
 				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_6.txt" };
+				/**"testes_aceitacao/use_case_6.txt"**/ };
 		EasyAccept.main(args);
 	}
 
@@ -125,8 +125,8 @@ public class Facade {
 	
 //Associacoes de Objetivos e Problema:
 	
-	public boolean associaProblema(String idPesquisa, String idProblema) {
-		return false;
+	public String associaProblema(String idPesquisa, String idProblema) {
+		return psquiza.associaProblema(idPesquisa, idProblema);
 	}
 	
 	public boolean desassociaProblema(String idPesquisa, String idProblema) {
@@ -145,7 +145,7 @@ public class Facade {
 		return null;
 	}
 	
-//Associacao e Especializacao da Pesquisadora
+//Associacao e Especializacao da Pesquisadora:
 	
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
 		return false;
@@ -167,7 +167,7 @@ public class Facade {
 		return null;
 	}
 	
-//Associacao e Execucao de Atividades
+//Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
 		return psquiza.associaAtividade(codigoPesquisa, codigoAtividade);
@@ -197,7 +197,7 @@ public class Facade {
 		return psquiza.getDuracao(codigoAtividade);
 	}
 	
-//Busca por Palavra-chave
+//Busca por Palavra-chave:
 	
 	public String busca(String termo, int numeroDoResultado) {
 		return null;
