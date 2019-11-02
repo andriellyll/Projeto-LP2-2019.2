@@ -132,10 +132,10 @@ public class Psquiza {
 //Associacoes de Objetivos e Problema:
 	
 	public String associaProblema(String idPesquisa, String idProblema) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Codigo nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Codigo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
-		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).associaPesquisa(controllerPesquisa.getPesquisa(idProblema));
+		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		if (passo1 == true && passo2 == true) {
 			return "sucesso";
 		}

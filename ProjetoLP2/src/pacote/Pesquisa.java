@@ -43,7 +43,7 @@ public class Pesquisa {
 */
 	private boolean ehAtivada;
 	
-	private Problema problemaDaPesquisa = null;
+	private Problema problemaDaPesquisa;
 
 	private Set<Atividade> atividadesAssociadas; //Anna não esquece de inicializar
 	
@@ -194,7 +194,7 @@ public class Pesquisa {
 		if (problemaDaPesquisa == problema) {
 			return false;
 		} else if (problemaDaPesquisa != null) {
-			throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
+			throw new RuntimeException("Pesquisa ja associada a um problema.");
 		}
 		return true;
 	}
