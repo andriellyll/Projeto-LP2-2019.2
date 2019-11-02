@@ -69,6 +69,6 @@ public class Item {
 
 	public void executa() {
 		this.situacao = "REALIZADO";
-		
+
 	}
 }

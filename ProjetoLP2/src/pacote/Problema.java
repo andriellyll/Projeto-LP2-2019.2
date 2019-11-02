@@ -10,35 +10,39 @@ import java.util.Set;
  */
 
 public class Problema {
-	
-/**
-* Atributo em string que representa a descricao desse problema.
-*/
+
+	/**
+	 * Atributo em string que representa a descricao desse problema.
+	 */
 
 	private String descricao;
-	
-/**
-* Atributo inteiro que representa a viabilidade que um problema tem de ser resolvido.
-*/
+
+	/**
+	 * Atributo inteiro que representa a viabilidade que um problema tem de ser
+	 * resolvido.
+	 */
 
 	private int viabilidade;
-	
-/**
-* Atributo em string que representa o id daquele problema.
-*/
+
+	/**
+	 * Atributo em string que representa o id daquele problema.
+	 */
 
 	private String codigo;
-	
+
 	private Set<Pesquisa> pesquisas;
 
-/**
-* Metodo construtor de Problema que recebe como parametro sua descricao, viabilidade e seu codigo.
-* 
-* @param descricao   atributo em string que representa a descricao desse problema.
-* @param viabilidade atributo inteiro que representa a viabilidade que um problema tem de ser resolvido.
-* @param codigo      atributo em string que representa o id daquele problema.
-*/
-		
+	/**
+	 * Metodo construtor de Problema que recebe como parametro sua descricao,
+	 * viabilidade e seu codigo.
+	 * 
+	 * @param descricao   atributo em string que representa a descricao desse
+	 *                    problema.
+	 * @param viabilidade atributo inteiro que representa a viabilidade que um
+	 *                    problema tem de ser resolvido.
+	 * @param codigo      atributo em string que representa o id daquele problema.
+	 */
+
 	public Problema(String descricao, int viabilidade, String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
@@ -48,11 +52,11 @@ public class Problema {
 		this.pesquisas = new HashSet<>();
 	}
 
-/**
-* Metodo privado que gera e retorna um codigo inteiro unico para o problema.
-* 
-* @return o codigo inteiro.
-*/
+	/**
+	 * Metodo privado que gera e retorna um codigo inteiro unico para o problema.
+	 * 
+	 * @return o codigo inteiro.
+	 */
 
 	@Override
 	public int hashCode() {
@@ -62,11 +66,11 @@ public class Problema {
 		return result;
 	}
 
-/**
-* Metodo privado que verifica, a partir do hashCode, se um objetivo eh igual.
-* 
-* @return um booleano que expressa se os objetos sao iguais.
-*/
+	/**
+	 * Metodo privado que verifica, a partir do hashCode, se um objetivo eh igual.
+	 * 
+	 * @return um booleano que expressa se os objetos sao iguais.
+	 */
 
 	@Override
 	public boolean equals(Object obj) {
@@ -85,10 +89,10 @@ public class Problema {
 		return true;
 	}
 
-/**
-* Metodo que representa textualmente um prolema, com seu codigo, descricao e
-* sua viabilidade.
-*/
+	/**
+	 * Metodo que representa textualmente um prolema, com seu codigo, descricao e
+	 * sua viabilidade.
+	 */
 
 	public String toString() {
 		return codigo + " - " + descricao + " - " + viabilidade;
@@ -96,13 +100,13 @@ public class Problema {
 
 //---------------------------------------------------- Novas atualizacoes de Problema ----------------------------------------------------------------------
 
-/**
- * 
- * 
- * @param pesquisa
- * @return
- */
-	
+	/**
+	 * 
+	 * 
+	 * @param pesquisa
+	 * @return
+	 */
+
 	public boolean associaPesquisa(Pesquisa pesquisa) {
 		if (pesquisas.contains(pesquisa)) {
 			return false;

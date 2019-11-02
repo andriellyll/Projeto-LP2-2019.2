@@ -128,34 +128,36 @@ public class Psquiza {
 	public int contaItensRealizados(String codigo) {
 		return controllerAtividade.contaItensRealizados(codigo);
 	}
-	
+
 //Associacoes de Objetivos e Problema:
-	
+
 	public String associaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
-		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa)
+				.associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
+		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
+				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		if (passo1 == true && passo2 == true) {
 			return "sucesso";
 		}
 		return "false";
 	}
-	
+
 //Associacao e Especializacao da Pesquisadora:
-	
-	
 
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return controllerPesquisa.getPesquisa(codigoPesquisa).associaAtividade(controllerAtividade.getAtividade(codigoAtividade));
-		
+		return controllerPesquisa.getPesquisa(codigoPesquisa)
+				.associaAtividade(controllerAtividade.getAtividade(codigoAtividade));
+
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		controllerAtividade.associaPesquisaAtividade(controllerPesquisa.getPesquisa(codigoPesquisa), codigoAtividade);
-		return controllerPesquisa.getPesquisa(codigoPesquisa).desassociaAtividade(controllerAtividade.getAtividade(codigoAtividade));
+		return controllerPesquisa.getPesquisa(codigoPesquisa)
+				.desassociaAtividade(controllerAtividade.getAtividade(codigoAtividade));
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
@@ -178,10 +180,7 @@ public class Psquiza {
 	public int getDuracao(String codigoAtividade) {
 		return 0;
 	}
-	
+
 //Busca por Palavra-chave:
-	
-	
-	
-	
+
 }
