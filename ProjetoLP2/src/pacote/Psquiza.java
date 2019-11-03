@@ -217,12 +217,12 @@ public class Psquiza {
 
 	public String listaResultados(String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		return null;
+		return controllerAtividade.listaResultados(codigoAtividade);
 	}
 
 	public int getDuracao(String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		return 0;
+		return controllerAtividade.getDuracao(codigoAtividade);
 	}
 
 //Busca por Palavra-chave:

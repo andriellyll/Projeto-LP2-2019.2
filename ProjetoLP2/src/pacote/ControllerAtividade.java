@@ -205,19 +205,20 @@ public class ControllerAtividade {
 		verificaAtividadeExiste(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
+
 	/**
-	 * Procura em todos as atividades do mapa a palavra-chave passada como
-	 * parametro
+	 * Procura em todos as atividades do mapa a palavra-chave passada como parametro
 	 * 
 	 * @param palavraChave palavra-chave que sera procurada
-	 * @return Lista de Strings com os campos dos atributos de atividade que contiverem a palavra-chave
+	 * @return Lista de Strings com os campos dos atributos de atividade que
+	 *         contiverem a palavra-chave
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
-		for (Atividade atividade: this.atividades.values()) {
+		for (Atividade atividade : this.atividades.values()) {
 			if (!atividade.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));	
+				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));
 			}
 		}
 
@@ -226,13 +227,22 @@ public class ControllerAtividade {
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
-		
+
 	}
 
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
 		if (atividades.containsKey(codigoAtividade)) {
 		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 		} throw new IllegalArgumentException("Atividade nao encontrada.");
-		
+		}
+
+	public String listaResultados(String codigoAtividade) {
+		verificaAtividadeExiste(codigoAtividade);
+		return atividades.get(codigoAtividade).listaResultados();
+	}
+
+	public int getDuracao(String codigoAtividade) {
+		verificaAtividadeExiste(codigoAtividade);
+		return atividades.get(codigoAtividade).getDuracao();
 	}
 }
