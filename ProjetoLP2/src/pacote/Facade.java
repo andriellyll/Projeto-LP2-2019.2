@@ -13,7 +13,7 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
 				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				 "testes_aceitacao/use_case_6.txt","testes_aceitacao/use_case_7.txt" 
+				 /**"testes_aceitacao/use_case_6.txt","testes_aceitacao/use_case_7.txt"**/ 
 		};
 		EasyAccept.main(args);
 	}
@@ -130,12 +130,12 @@ public class Facade {
 		return psquiza.associaProblema(idPesquisa, idProblema);
 	}
 
-	public boolean desassociaProblema(String idPesquisa, String idProblema) {
-		return false;
+	public String desassociaProblema(String idPesquisa, String idProblema) {
+		return psquiza.desassociaProblema(idPesquisa, idProblema);
 	}
 
-	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
-		return false;
+	public String associaObjetivo(String idPesquisa, String idObjetivo) {
+		return psquiza.associaObjetivo(idPesquisa, idObjetivo);
 	}
 
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {

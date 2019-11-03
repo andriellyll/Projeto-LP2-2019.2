@@ -29,6 +29,8 @@ public class Objetivo {
 	 * Atributo inteiro que representa o id desse objetivo.
 	 */
 	private String codigo;
+	
+	private Pesquisa pesquisaDoObjetivo;
 
 	/**
 	 * Metodo privado que gera e retorna um codigo inteiro unico para o objetivo.
@@ -88,6 +90,7 @@ public class Objetivo {
 		this.aderencia = aderencia;
 		this.viabilidade = viabilidade;
 		this.codigo = codigo;
+		this.pesquisaDoObjetivo = null;
 	}
 
 	/**
@@ -112,5 +115,17 @@ public class Objetivo {
 		}
 		return "";
 	}
+	
+//------------------------------ Novas atualizacoes de Objetivo ---------------------------------------------------------
 
+	public boolean associaPesquisa(Pesquisa pesquisa) {
+		if (pesquisaDoObjetivo == pesquisa) {
+			return false;
+		} else if (pesquisaDoObjetivo != null) {
+			throw new RuntimeException("Objetivo ja associado a uma pesquisa.");
+		}
+		pesquisaDoObjetivo = pesquisa;
+		return true;
+	}
+	
 }

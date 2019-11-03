@@ -3,7 +3,6 @@ package pacote;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import easyaccept.EasyAccept;
 import utils.OrdenaResultados;
 
 public class Psquiza {
@@ -18,13 +17,6 @@ public class Psquiza {
 		controllerPesquisador = new ControllerPesquisador();
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
 		controllerAtividade = new ControllerAtividade();
-	}
-
-	public static void main(String[] args) {
-		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
-				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_6.txt", "testes_aceitacao/use_case_7.txt" };
-		EasyAccept.main(args);
 	}
 
 //Pesquisa:
@@ -138,16 +130,35 @@ public class Psquiza {
 	public String associaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa)
-				.associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
-		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
-				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
+		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		if (passo1 == true && passo2 == true) {
 			return "sucesso";
 		}
 		return "false";
 	}
-
+	
+	public String desassociaProblema(String idPesquisa, String idProblema) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
+		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).desassociaProblema(controllerProblemaObjetivo.getProblema(idProblema));
+		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		if (passo1 == true && passo2 == true) {
+			return "sucesso";
+		}
+		return "false";
+	}
+	
+	public String associaObjetivo(String idPesquisa, String idObjetivo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "");
+		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa).associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
+		if (passo1 == true && passo2 == true) {
+			return "sucesso";
+		}
+		return "false";
+	}
 
 //Associacao e Execucao de Atividades:
 

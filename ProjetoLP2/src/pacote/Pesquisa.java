@@ -22,32 +22,51 @@ public class Pesquisa {
 	/**
 	 * Representa a decricao da pesquisa.
 	 */
+	
 	private String descricao;
 
 	/**
 	 * Representa o campo de interesse da pesquisa.
 	 */
+	
 	private String campoDeInteresse;
 
 	/**
 	 * Representa o codigo da pesquisa.
 	 */
+	
 	private String codigo;
 
 	/**
 	 * Representa o motivo de desativacao da pesquisa.
 	 */
+	
 	private String motivoDeDesativacao;
 
 	/**
 	 * Representa o estado de ativacao da pesquisa. Pode assumir o valor true ou
 	 * false.
 	 */
+	
 	private boolean ehAtivada;
-
+	
+	/**
+	 * 
+	 */
+	
 	private Problema problemaDaPesquisa;
-
-	private Set<Atividade> atividadesAssociadas; // Anna não esquece de inicializar
+	
+	/**
+	 * 
+	 */
+	
+	private Set<Objetivo> objetivosDaPesquisa;
+	
+	/**
+	 * 
+	 */
+	
+	private Set<Atividade> atividadesAssociadas;
 
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
@@ -70,6 +89,8 @@ public class Pesquisa {
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
 		this.ehAtivada = true;
+		this.problemaDaPesquisa = null;
+		this.objetivosDaPesquisa = new HashSet<>();
 		this.atividadesAssociadas = new HashSet<>();
 	}
 
@@ -198,6 +219,42 @@ public class Pesquisa {
 		} else if (problemaDaPesquisa != null) {
 			throw new RuntimeException("Pesquisa ja associada a um problema.");
 		}
+		problemaDaPesquisa = problema;
+		return true;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param problema
+	 * @return
+	 */
+	
+	public boolean desassociaProblema(Problema problema) {
+		if (problemaDaPesquisa != problema) {
+			return false;
+		}
+		problemaDaPesquisa = null;
+		return true;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param objetivo
+	 * @return
+	 */
+	
+	public boolean associaObjetivo(Objetivo objetivo) {
+		if (objetivosDaPesquisa.contains(objetivo)) {
+			return false;
+		}
+		objetivosDaPesquisa.add(objetivo);
+		return true;
+	}
+	
+	public boolean desassociaObjetivo(Objetivo objetivo) {
+		//tem que fazer excessao neste
 		return true;
 	}
 

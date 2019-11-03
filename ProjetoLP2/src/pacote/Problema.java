@@ -111,8 +111,25 @@ public class Problema {
 		if (pesquisas.contains(pesquisa)) {
 			return false;
 		}
+		pesquisas.add(pesquisa);
 		return true;
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @param pesquisa
+	 * @return
+	 */
+	
+	public boolean desassociaPesquisa(Pesquisa pesquisa) {
+		if (!pesquisas.contains(pesquisa)) {
+			return false;
+		}
+		pesquisas.remove(pesquisa);
+		return true;
+	}
+	
 	/**
 	 * Procura no atributo descricao do problema a palavra-chave passada como
 	 * parametro
