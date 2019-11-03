@@ -209,11 +209,9 @@ public class Pesquisa {
 	 */
 
 	public boolean associaAtividade(Atividade atividade) {
-		if (getAtivacao()) {
 			return atividadesAssociadas.add(atividade);
-		}
-		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
+
 
 	/**
 	 * Desassocia uma atividade da pesquisa.

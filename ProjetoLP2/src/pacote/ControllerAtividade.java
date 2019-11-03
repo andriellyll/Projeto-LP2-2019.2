@@ -223,4 +223,13 @@ public class ControllerAtividade {
 
 		return resultadosBusca;
 	}
+
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		return atividades.get(codigoAtividade).cadastraResultado(resultado);
+		
+	}
+
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
+	}
 }
