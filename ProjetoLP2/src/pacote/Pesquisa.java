@@ -56,6 +56,8 @@ public class Pesquisa {
 	
 	private Problema problemaDaPesquisa;
 	
+	private Set<Pesquisador> pesquisadoresAssociados;
+	
 	/**
 	 * 
 	 */
@@ -67,7 +69,6 @@ public class Pesquisa {
 	 */
 	
 	private Set<Atividade> atividadesAssociadas;
-
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
 	 * e do campo de interesse. Caso os parametros forem nulos ou vazios excecoes
@@ -92,6 +93,7 @@ public class Pesquisa {
 		this.problemaDaPesquisa = null;
 		this.objetivosDaPesquisa = new HashSet<>();
 		this.atividadesAssociadas = new HashSet<>();
+		this.pesquisadoresAssociados = new HashSet<>();
 	}
 
 	/**
@@ -301,5 +303,16 @@ public class Pesquisa {
 			resultadosBusca.add(this.codigo + ": " + this.campoDeInteresse);	
 		}
 		return resultadosBusca;
+	}
+	
+	public boolean associaPesquisador(Pesquisador pesquisador) {
+		pesquisadoresAssociados.add(pesquisador);
+		return true;
+		
+	}
+	public boolean desassociaPesquisador(Pesquisador pesquisador) {
+		pesquisadoresAssociados.remove(pesquisador);
+		return true;
+		
 	}
 }

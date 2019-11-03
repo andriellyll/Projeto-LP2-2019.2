@@ -188,4 +188,10 @@ public class ControllerPesquisador {
 
 		return resultadosBusca;
 	}
+	
+	public Pesquisador getPesquisador(String email) {
+		verificaPesquisadorExiste(email);
+		return pesquisadores.get(email);
+	}
+
 }

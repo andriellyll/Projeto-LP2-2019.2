@@ -149,11 +149,11 @@ public class Facade {
 //Associacao e Especializacao da Pesquisadora:
 
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
-		return false;
+		return psquiza.associaPesquisador(idPesquisa, emailPesquisador);
 	}
 
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
-		return false;
+		return psquiza.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {

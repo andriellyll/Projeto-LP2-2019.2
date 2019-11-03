@@ -227,6 +227,7 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
 	}
+
 	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		if(pesquisas.containsKey(codigoPesquisa)) {
@@ -255,4 +256,20 @@ public class ControllerPesquisa {
 
 		return resultadosBusca;
 	}
+	
+
+	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
+		return true;
+		
+	}
+	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
+		return true;
+		
+	}	
 }

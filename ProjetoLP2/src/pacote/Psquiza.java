@@ -160,6 +160,24 @@ public class Psquiza {
 		return "false";
 	}
 
+
+//Associacao Pesquisa e Pesquisador:
+	
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+		
+		controllerPesquisa.associaPesquisador(idPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
+		return true;
+		
+	}
+	public boolean desassociaPesquisador(String codigoDaPesquisa,String emailPesquisador) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoDaPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		controllerPesquisa.desassociaPesquisador(codigoDaPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
+		return true;
+		
+	}
+	
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
