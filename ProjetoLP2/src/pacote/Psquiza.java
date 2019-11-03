@@ -227,29 +227,39 @@ public class Psquiza {
 
 //Busca por Palavra-chave:
 
-	public String busca(String palavraChave) {
+	private ArrayList<String> buscarPalavraChave(String palavraChave){
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 		resultadosBusca.addAll(controllerAtividade.procuraPalavraChave(palavraChave));
 		resultadosBusca.addAll(controllerPesquisa.procuraPalavraChave(palavraChave));
 		resultadosBusca.addAll(controllerPesquisador.procuraPalavraChave(palavraChave));
 		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave));
 		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveProblema(palavraChave));
-		
+
 		Collections.sort(resultadosBusca, new OrdenaResultados());
+
+		return resultadosBusca;
+	}
+
+	public String busca(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
 		
-		return String.join(System.lineSeparator(), resultadosBusca);
+		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
+
+		return String.join(" | ", resultadosBusca);
 	}
 	
 	public int contaResultadosBusca(String palavraChave) {
-	
-		int qtdResultados1 = (controllerAtividade.procuraPalavraChave(palavraChave)).size();
-		int qtdResultados2 = (controllerPesquisa.procuraPalavraChave(palavraChave)).size();
-		int qtdResultados3 = (controllerPesquisador.procuraPalavraChave(palavraChave)).size();
-		int qtdResultados4 = (controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave)).size();
-		int qtdResultados5 = (controllerProblemaObjetivo.procuraPalavraChaveProblema(palavraChave)).size();
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
 		
-		int quantidadeTotal = qtdResultados1 + qtdResultados2 + qtdResultados3 + qtdResultados4 + qtdResultados5;
+		int quantidadeTotal = buscarPalavraChave(palavraChave).size();
 		
 		return quantidadeTotal;
+	}
+
+	public String busca(String palavraChave, int numeroResultado){
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
+		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
+
+		return resultadosBusca.get(numeroResultado);
 	}
 }

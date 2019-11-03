@@ -13,7 +13,7 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
 				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				 "testes_aceitacao/use_case_6.txt","testes_aceitacao/use_case_7.txt"
+				 "testes_aceitacao/use_case_6.txt","testes_aceitacao/use_case_7.txt", "testes_aceitacao/use_case_8.txt"
 		};
 		EasyAccept.main(args);
 	}
@@ -73,17 +73,16 @@ public class Facade {
 	}
 	
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-		return psquiza.cadastraEspecialidadeProfessor(email,formacao, unidade,data);
+		return; //psquiza.cadastraEspecialidadeProfessor(email,formacao, unidade,data);
 	}
 	
 	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
-		
+
 	}
 	
 	public String listaPesquisadores(String tipo) {
-		
+		return "";
 	}
-
 
 //Problema e Objetivo:
 
@@ -169,18 +168,6 @@ public class Facade {
 		return psquiza.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 
-	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-
-	}
-
-	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
-
-	}
-
-	public String listaPesquisadores(String tipo) {
-		return null;
-	}
-
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
@@ -213,11 +200,15 @@ public class Facade {
 
 //Busca por Palavra-chave:
 
+	public String busca(String termo){
+		return psquiza.busca(termo);
+	}
+
 	public String busca(String termo, int numeroDoResultado) {
-		return null;
+		return psquiza.busca(termo, numeroDoResultado);
 	}
 
 	public int contaResultadosBusca(String termo) {
-		return 0;
+		return psquiza.contaResultadosBusca(termo);
 	}
 }
