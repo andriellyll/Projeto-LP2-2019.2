@@ -64,8 +64,24 @@ public class ControllerPesquisador {
 
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
+		
+		if(funcao.equalsIgnoreCase("estudante")) {
+			
+			Pesquisador pesquisador = new Pesquisador(nome,new Estudante(), biografia, email, fotoUrl);
+			this.pesquisadores.put(email, pesquisador);
+			
+		}else if(funcao.equalsIgnoreCase("externo")){
+			
+			Pesquisador pesquisador = new Pesquisador(nome,new Externo(), biografia, email, fotoUrl);
+			this.pesquisadores.put(email, pesquisador);
+			
+		}else if(funcao.equalsIgnoreCase("professor")){
+			
+			Pesquisador pesquisador = new Pesquisador(nome,new Professor(), biografia, email, fotoUrl);
+			this.pesquisadores.put(email, pesquisador);
+			
+		}
 
-		this.pesquisadores.put(email, new Pesquisador(nome, funcao, biografia, email, fotoUrl));
 	}
 
 	/**
