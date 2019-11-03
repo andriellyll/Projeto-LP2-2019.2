@@ -71,6 +71,19 @@ public class Facade {
 	public boolean pesquisadorEhAtivo(String email) {
 		return psquiza.pesquisadorEhAtivo(email);
 	}
+	
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		return psquiza.cadastraEspecialidadeProfessor(email,formacao, unidade,data);
+	}
+	
+	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
+		
+	}
+	
+	public String listaPesquisadores(String tipo) {
+		
+	}
+
 
 //Problema e Objetivo:
 

@@ -27,7 +27,7 @@ public class Pesquisador {
 	/**
 	 * Funcao do pesquisador (Professor, aluno ou externo)
 	 */
-	private String funcao;
+	private Funcao funcao;
 	/**
 	 * Boolean que representa se o pesquisador esta ou nao ativo
 	 */
@@ -43,9 +43,8 @@ public class Pesquisador {
 	 * @param email     email do pesquisador
 	 * @param fotoUrl   URL da foto do pesquisador
 	 */
-	public Pesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
+	public Pesquisador(String nome, Funcao funcao, String biografia, String email, String fotoUrl) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(nome, "Campo nome nao pode ser nulo ou vazio");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(funcao, "Campo funcao nao pode ser nulo ou vazio");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(biografia, "Campo biografia nao pode ser nulo ou vazio");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(fotoUrl, "Campo fotoUrl nao pode ser nulo ou vazio");
@@ -109,8 +108,8 @@ public class Pesquisador {
 	 * 
 	 * @param novaFuncao novo valor para o atributo foto
 	 */
-	public void setFuncao(String novaFuncao) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(novaFuncao, "Campo funcao nao pode ser nulo ou vazio");
+	public void setFuncao(Funcao novaFuncao) {
+		
 
 		this.funcao = novaFuncao;
 	}
