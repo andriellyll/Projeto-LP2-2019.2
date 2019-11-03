@@ -164,10 +164,11 @@ public class Atividade {
 
 	public void executaAtividade(int item, int duracao) {
 		verificaItemExiste(item);
-		setDuracao(duracao);
+		verificaItemJaExecutado(item);
 		if(itens.get(item).getSituacao().equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
+		setDuracao(duracao);
 		itens.get(item).executa();
 
 	}
@@ -177,11 +178,15 @@ public class Atividade {
 
 	}
 
-	public void verificaItemExiste(int item) {
-		if(itens.size()< item) {
+	private void verificaItemExiste(int item) {
+		if (itens.size() < item) {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
-
+	}
+	private void verificaItemJaExecutado(int item) {
+		if (itens.get(item -1) == null) {
+			throw new IllegalArgumentException("Item ja executado.");	
+		}
 	}
 
 	private void setDuracao(int duracao) {
@@ -225,11 +230,26 @@ public class Atividade {
 
 	public boolean removeResultado(int numeroResultado) {
 		if ((numeroResultado -1) <= itens.size() && !(itens.get(numeroResultado-1) == null)) {
-			resultados.remove(numeroResultado - 1);
+			resultados.set(numeroResultado -1, null);
 			return true;
 		} else {
 			throw new IllegalArgumentException("Resultado nao encontrado.");
 		}
+	}
+
+	public String listaResultados() {
+		String saida = "";
+		for (int i=0; i < resultados.size(); i++){
+			if (!(resultados.get(i) == null)) {
+			saida += resultados.get(i);
+			saida += " | ";
+		}
+		}
+		return saida.substring(0, saida.length()-3);
+	}
+
+	public int getDuracao() {
+		return this.duracao;
 	}
 	
 }
