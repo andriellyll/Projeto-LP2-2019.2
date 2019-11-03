@@ -229,12 +229,13 @@ public class ControllerPesquisa {
 	}
 	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		if(pesquisas.containsKey(codigoPesquisa)) {
 		if (pesquisas.get(codigoPesquisa).getAtivacao()) {
 			return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
+	} throw new IllegalArgumentException("Pesquisa nao encontrada.");
 	}
-	
 	
 	/**
 	 * Procura em todos as pesquisas do mapa a palavra-chave passada como

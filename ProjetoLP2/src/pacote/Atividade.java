@@ -224,8 +224,8 @@ public class Atividade {
 	}
 
 	public boolean removeResultado(int numeroResultado) {
-		if (numeroResultado <= itens.size()) {
-			resultados.remove(numeroResultado);
+		if ((numeroResultado -1) <= itens.size() && !(itens.get(numeroResultado-1) == null)) {
+			resultados.remove(numeroResultado - 1);
 			return true;
 		} else {
 			throw new IllegalArgumentException("Resultado nao encontrado.");
