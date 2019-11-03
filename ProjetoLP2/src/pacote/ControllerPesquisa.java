@@ -227,6 +227,15 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
 	}
+	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		if (pesquisas.get(codigoPesquisa).getAtivacao()) {
+			return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
+		}
+		throw new IllegalArgumentException("Pesquisa desativada.");
+	}
+	
+	
 	/**
 	 * Procura em todos as pesquisas do mapa a palavra-chave passada como
 	 * parametro

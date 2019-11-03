@@ -28,6 +28,7 @@ public class Atividade {
 	private List<Item> itens;
 	private Pesquisa pesquisaAssociada;
 	private int duracao;
+	private List<String> resultados;
 	
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
@@ -46,6 +47,7 @@ public class Atividade {
 		this.descricaoRisco = descricaoRisco;
 		this.itens = new ArrayList<>();
 		this.duracao = 0;
+		this.resultados = new ArrayList<>();
 	}
 	
 	@Override
@@ -163,6 +165,9 @@ public class Atividade {
 	public void executaAtividade(int item, int duracao) {
 		verificaItemExiste(item);
 		setDuracao(duracao);
+		if(itens.get(item).getSituacao().equals("REALIZADO")) {
+			throw new IllegalArgumentException("Item ja executado.");
+		}
 		itens.get(item).executa();
 
 	}
@@ -172,8 +177,10 @@ public class Atividade {
 
 	}
 
-	public boolean verificaItemExiste(int item) {
-		return itens.size() >= item;
+	public void verificaItemExiste(int item) {
+		if(itens.size()< item) {
+			throw new IllegalArgumentException("Item nao encontrado.");
+		}
 
 	}
 
@@ -209,6 +216,20 @@ public class Atividade {
 			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
 		}
 		return resultadosBusca;
+	}
+
+	public int cadastraResultado(String resultado) {
+		resultados.add(resultado);
+		return resultados.indexOf(resultado) + 1;
+	}
+
+	public boolean removeResultado(int numeroResultado) {
+		if (numeroResultado <= itens.size()) {
+			resultados.remove(numeroResultado);
+			return true;
+		} else {
+			throw new IllegalArgumentException("Resultado nao encontrado.");
+		}
 	}
 	
 }

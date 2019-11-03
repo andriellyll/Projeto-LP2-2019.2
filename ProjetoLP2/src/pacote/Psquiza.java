@@ -23,7 +23,7 @@ public class Psquiza {
 	public static void main(String[] args) {
 		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
 				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_6.txt" };
+				"testes_aceitacao/use_case_6.txt", "testes_aceitacao/use_case_7.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -148,17 +148,18 @@ public class Psquiza {
 		return "false";
 	}
 
-//Associacao e Especializacao da Pesquisadora:
 
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return controllerPesquisa.getPesquisa(codigoPesquisa)
-				.associaAtividade(controllerAtividade.getAtividade(codigoAtividade));
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
+		return controllerPesquisa.associaAtividade(codigoPesquisa, atividade);
 
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		controllerAtividade.associaPesquisaAtividade(controllerPesquisa.getPesquisa(codigoPesquisa), codigoAtividade);
 		return controllerPesquisa.getPesquisa(codigoPesquisa)
 				.desassociaAtividade(controllerAtividade.getAtividade(codigoAtividade));
@@ -170,11 +171,11 @@ public class Psquiza {
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
-		return 0;
+		return controllerAtividade.cadastraResultado(codigoAtividade, resultado);
 	}
 
-	public boolean removeResultado(String codigoAtividade) {
-		return false;
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		return controllerAtividade.removeResultado(codigoAtividade, numeroResultado);
 	}
 
 	public String listaResultados(String codigoAtividade) {
