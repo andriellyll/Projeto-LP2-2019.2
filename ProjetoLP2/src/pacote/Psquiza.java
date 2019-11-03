@@ -164,6 +164,7 @@ public class Psquiza {
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
 		return controllerPesquisa.associaAtividade(codigoPesquisa, atividade);
 
@@ -171,29 +172,38 @@ public class Psquiza {
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
-		controllerAtividade.associaPesquisaAtividade(controllerPesquisa.getPesquisa(codigoPesquisa), codigoAtividade);
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		return controllerPesquisa.getPesquisa(codigoPesquisa)
 				.desassociaAtividade(controllerAtividade.getAtividade(codigoAtividade));
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
+		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
 		controllerAtividade.getAtividade(codigoAtividade).verificaEhAssociada();
 		controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
 		return controllerAtividade.cadastraResultado(codigoAtividade, resultado);
 	}
 
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado , "numeroResultado nao pode ser nulo ou negativo.");
 		return controllerAtividade.removeResultado(codigoAtividade, numeroResultado);
 	}
 
 	public String listaResultados(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		return null;
 	}
 
 	public int getDuracao(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		return 0;
 	}
 
