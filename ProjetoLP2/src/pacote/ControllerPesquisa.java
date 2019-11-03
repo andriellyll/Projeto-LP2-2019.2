@@ -1,6 +1,8 @@
 package pacote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -225,5 +227,49 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
 	}
+
+	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		if(pesquisas.containsKey(codigoPesquisa)) {
+		if (pesquisas.get(codigoPesquisa).getAtivacao()) {
+			return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
+		}
+		throw new IllegalArgumentException("Pesquisa desativada.");
+	} throw new IllegalArgumentException("Pesquisa nao encontrada.");
+	}
 	
+	/**
+	 * Procura em todos as pesquisas do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com os campos dos atributos de pesquisa que contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Pesquisa pesquisa: this.pesquisas.values()) {
+			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));	
+			}
+		}
+
+		return resultadosBusca;
+	}
+	
+
+	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
+		return true;
+		
+	}
+	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
+		return true;
+		
+	}	
 }

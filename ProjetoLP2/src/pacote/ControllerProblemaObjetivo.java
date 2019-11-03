@@ -1,6 +1,8 @@
 package pacote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 /**
  * Classe controladora das classes Problema e Objetivo.
  * @author Helen Bento Cavalcanti
@@ -15,29 +17,35 @@ public class ControllerProblemaObjetivo {
 	 */
 
 	private Map<String, Problema> problemas;
+	
 	/**
 	 * Coleção que armazena os objetivos, tendo como chave uma string e como valor
 	 * um objeto Objetivo.
 	 */
+	
 	private Map<String, Objetivo> objetivos;
+	
 	/**
 	 * Atributo que controla o numero de problemas que ja foram cadastrados.
 	 */
+	
 	private int controlaNumeroProblemas;
+	
 	/**
 	 * Atributo que controla o numero de objetivos que ja foram cadastrados.
 	 */
+	
 	private int controlaNumeroObjetivos;
 
 	/**
-	 * Contrutor do ControllerProblemaObjetivo .
+	 * Construtor do ControllerProblemaObjetivo .
 	 */
+	
 	public ControllerProblemaObjetivo() {
 		this.problemas = new HashMap<>();
 		this.objetivos = new HashMap<>();
 		this.controlaNumeroProblemas = 0;
 		this.controlaNumeroObjetivos = 0;
-
 	}
 
 	/**
@@ -47,12 +55,12 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo, recebe como parametro o codigo do problema.
 	 * @return um booleano que vai informar se o problema existe ou nao.
 	 */
+	
 	private boolean problemaExiste(String codigo) {
 		if (!problemas.containsKey(codigo)) {
 			throw new IllegalArgumentException("Problema nao encontrado");
 		}
 		return true;
-
 	}
 
 	/**
@@ -62,6 +70,7 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo, recebe como parametro o codigo do objetivo.
 	 * @return um booleano que vai informar se o objetivo existe ou nao.
 	 */
+	
 	private boolean objetivoExiste(String codigo) {
 		if (!objetivos.containsKey(codigo)) {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
@@ -77,8 +86,9 @@ public class ControllerProblemaObjetivo {
 	 * @param viabilidade, representa a viabilidade do problema.
 	 * @return retorna uma string que representa o codigo do problema.
 	 */
+	
 	public String cadastraProblema(String descricao, int viabilidade) {
-
+		
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
 
@@ -88,7 +98,6 @@ public class ControllerProblemaObjetivo {
 		this.problemas.put(codigo, new Problema(descricao, viabilidade, codigo));
 
 		return codigo;
-
 	}
 
 	/**
@@ -101,6 +110,7 @@ public class ControllerProblemaObjetivo {
 	 * @param viabilidade representa a viabilidade do objetivo.
 	 * @return retorna uma string que representa o codigo do objetivo.
 	 */
+	
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
 
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
@@ -114,7 +124,6 @@ public class ControllerProblemaObjetivo {
 
 		this.objetivos.put(codigo, new Objetivo(tipo, descricao, aderencia, viabilidade, codigo));
 		return codigo;
-
 	}
 
 	/**
@@ -122,14 +131,13 @@ public class ControllerProblemaObjetivo {
 	 * 
 	 * @param codigo representa o codigo do problema.
 	 */
+	
 	public void apagarProblema(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 
 		if (problemaExiste(codigo)) {
 			problemas.remove(codigo);
-
 		}
-
 	}
 
 	/**
@@ -143,7 +151,6 @@ public class ControllerProblemaObjetivo {
 
 		if (objetivoExiste(codigo)) {
 			objetivos.remove(codigo);
-
 		}
 	}
 
@@ -154,6 +161,7 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo representa o codigo do prolema.
 	 * @return uma string com a representacao textual do problema.
 	 */
+	
 	public String exibeProblema(String codigo) {
 		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
@@ -162,7 +170,6 @@ public class ControllerProblemaObjetivo {
 			saida = problemas.get(codigo).toString();
 		}
 		return saida;
-
 	}
 
 	/**
@@ -172,6 +179,7 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo representa o codigo do objetivo.
 	 * @return uma string com a representacao textual do objetivo.
 	 */
+	
 	public String exibeObjetivo(String codigo) {
 		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
@@ -180,11 +188,69 @@ public class ControllerProblemaObjetivo {
 			saida = objetivos.get(codigo).toString();
 		}
 		return saida;
-
 	}
 
+//---------------------------------- Novas atualizacoes de ControllerProblemaObjetivo -----------------------------------
+	
+	/**
+	 * 
+	 * 
+	 * @param idObjetivo
+	 * @return
+	 */
+	
+	public Objetivo getObjetivo(String idObjetivo) {
+		objetivoExiste(idObjetivo);
+		return this.objetivos.get(idObjetivo);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param idProblema
+	 * @return
+	 */
+	
 	public Problema getProblema(String idProblema) {
 		problemaExiste(idProblema);
 		return this.problemas.get(idProblema);
+	}
+	
+	/**
+	 * Procura em todos os problemas do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com as descricoes dos problemas que contiverem a palavra-chave
+	 */
+	
+	public List<String> procuraPalavraChaveProblema(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Problema problema : this.problemas.values()) {
+			if (!problema.procuraPalavraChave(palavraChave).equals("")) {
+				resultadosBusca.add(problema.procuraPalavraChave(palavraChave));	
+			}
+		}
+		return resultadosBusca;
+	}
+	
+	/**
+	 * Procura em todos os objetivos do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com as descricoes dos objetivos que contiverem a palavra-chave
+	 */
+	
+	public List<String> procuraPalavraChaveObjetivo(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Objetivo objetivo: this.objetivos.values()) {
+			if (!objetivo.procuraPalavraChave(palavraChave).equals("")) {
+				resultadosBusca.add(objetivo.procuraPalavraChave(palavraChave));	
+			}
+		}
+		return resultadosBusca;
 	}
 }

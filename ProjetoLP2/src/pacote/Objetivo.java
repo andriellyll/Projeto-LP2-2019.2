@@ -29,6 +29,8 @@ public class Objetivo {
 	 * Atributo inteiro que representa o id desse objetivo.
 	 */
 	private String codigo;
+	
+	private Pesquisa pesquisaDoObjetivo;
 
 	/**
 	 * Metodo privado que gera e retorna um codigo inteiro unico para o objetivo.
@@ -88,6 +90,7 @@ public class Objetivo {
 		this.aderencia = aderencia;
 		this.viabilidade = viabilidade;
 		this.codigo = codigo;
+		this.pesquisaDoObjetivo = null;
 	}
 
 	/**
@@ -98,5 +101,31 @@ public class Objetivo {
 
 		return codigo + " - " + tipo + " - " + descricao + " - " + (aderencia + viabilidade);
 	}
+	/**
+	 * Procura no atributo descricao do objetivo a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera pesquisada na descricao do objetivo
+	 * @return se a palavra-chave existir na String de descricao, essa string sera
+	 *         retornada. Se nao, sera retornada uma String vazia
+	 */
+	public String procuraPalavraChave(String palavraChave) {
+		if (this.descricao.contains(palavraChave)) {
+			return this.codigo + ": " + this.descricao;
+		}
+		return "";
+	}
+	
+//------------------------------ Novas atualizacoes de Objetivo ---------------------------------------------------------
 
+	public boolean associaPesquisa(Pesquisa pesquisa) {
+		if (pesquisaDoObjetivo == pesquisa) {
+			return false;
+		} else if (pesquisaDoObjetivo != null) {
+			throw new RuntimeException("Objetivo ja associado a uma pesquisa.");
+		}
+		pesquisaDoObjetivo = pesquisa;
+		return true;
+	}
+	
 }
