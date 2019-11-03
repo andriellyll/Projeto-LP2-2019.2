@@ -225,4 +225,5 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
 	}
+	
 }

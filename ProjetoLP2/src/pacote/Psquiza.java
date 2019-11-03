@@ -146,6 +146,7 @@ public class Psquiza {
 
 //Associacao e Especializacao da Pesquisadora:
 
+	
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {

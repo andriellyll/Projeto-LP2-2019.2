@@ -46,6 +46,8 @@ public class Pesquisa {
 	private Problema problemaDaPesquisa;
 
 	private Set<Atividade> atividadesAssociadas; // Anna não esquece de inicializar
+	
+	private Set<Pesquisador> pesquisadoresAssociados;
 
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
@@ -69,6 +71,7 @@ public class Pesquisa {
 		this.codigo = codigo;
 		this.ehAtivada = true;
 		this.atividadesAssociadas = new HashSet<>();
+		this.pesquisadoresAssociados = new HashSet<>();
 	}
 
 	/**
@@ -227,4 +230,5 @@ public class Pesquisa {
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
+	
 }
