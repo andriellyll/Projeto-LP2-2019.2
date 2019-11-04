@@ -43,8 +43,8 @@ executaAtividade codigoAtividade="A2" item=1 duracao=8
 expect "2" contaItensPendentes codigo="A2"
 expect "1" contaItensRealizados codigo="A2"
 executaAtividade codigoAtividade="A2" item=3 duracao=8
-expect "1" contaItensPendentes codigo="A1"
-expect "2" contaItensRealizados codigo="A1"
+expect "1" contaItensPendentes codigo="A2"
+expect "2" contaItensRealizados codigo="A2"
 
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." executaAtividade codigoAtividade="" item=2 duracao=8
 expectError "Item nao pode ser nulo ou negativo." executaAtividade codigoAtividade="A2" item=-2 duracao=8

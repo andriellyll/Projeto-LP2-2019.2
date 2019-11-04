@@ -29,7 +29,7 @@ public class Atividade {
 	private Pesquisa pesquisaAssociada;
 	private int duracao;
 	private List<String> resultados;
-	
+
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
 	 * risco e o numero de dias.
@@ -49,7 +49,7 @@ public class Atividade {
 		this.duracao = 0;
 		this.resultados = new ArrayList<>();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,8 +74,6 @@ public class Atividade {
 			return false;
 		return true;
 	}
-
-
 
 	/**
 	 * Metodo responsavel por adicionar um novo item, na lista de itens, da
@@ -165,11 +163,11 @@ public class Atividade {
 	public void executaAtividade(int item, int duracao) {
 		verificaItemExiste(item);
 		verificaItemJaExecutado(item);
-		if(itens.get(item).getSituacao().equals("REALIZADO")) {
+		if (itens.get((item - 1)).getSituacao().equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
 		setDuracao(duracao);
-		itens.get(item).executa();
+		itens.get((item - 1)).executa();
 
 	}
 
@@ -183,9 +181,10 @@ public class Atividade {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
 	}
+
 	private void verificaItemJaExecutado(int item) {
-		if (itens.get(item -1) == null) {
-			throw new IllegalArgumentException("Item ja executado.");	
+		if (itens.get(item - 1).equals("")) {
+			throw new IllegalArgumentException("Item ja executado.");
 		}
 	}
 
@@ -193,21 +192,22 @@ public class Atividade {
 		this.duracao += duracao;
 	}
 
-	private List<String> procuraPalavraItem(String palavraChave){
+	private List<String> procuraPalavraItem(String palavraChave) {
 		ArrayList<String> resultadosItens = new ArrayList<>();
-		for (Item item: itens) {
+		for (Item item : itens) {
 			resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
 		}
 		return resultadosItens;
 	}
 
 	/**
-	 * Procura nos atributos descricao, itens e descricao do risco da atividade a palavra-chave passada como
-	 * parametro
+	 * Procura nos atributos descricao, itens e descricao do risco da atividade a
+	 * palavra-chave passada como parametro
 	 * 
-	 * @param palavraChave palavra-chave que sera buscada 
-	 * @return se a palavra-chave existir em algum dos campos, uma  lista com uma ou mais dessas  
-	 *         strings sera retornada. Se nao, sera retornada uma lista vazia
+	 * @param palavraChave palavra-chave que sera buscada
+	 * @return se a palavra-chave existir em algum dos campos, uma lista com uma ou
+	 *         mais dessas strings sera retornada. Se nao, sera retornada uma lista
+	 *         vazia
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
@@ -215,9 +215,9 @@ public class Atividade {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
 		if (this.descricaoRisco.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);	
+			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
 		}
-		if(!procuraPalavraItem(palavraChave).isEmpty()) {
+		if (!procuraPalavraItem(palavraChave).isEmpty()) {
 			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
 		}
 		return resultadosBusca;
@@ -229,9 +229,13 @@ public class Atividade {
 	}
 
 	public boolean removeResultado(int numeroResultado) {
-		if ((numeroResultado -1) <= itens.size() && !(itens.get(numeroResultado-1) == null)) {
-			resultados.set(numeroResultado -1, null);
-			return true;
+		if (itens.size() >= numeroResultado) {
+			if (!(itens.get(numeroResultado - 1).equals(""))) {
+				resultados.set(numeroResultado - 1, "");
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			throw new IllegalArgumentException("Resultado nao encontrado.");
 		}
@@ -239,17 +243,17 @@ public class Atividade {
 
 	public String listaResultados() {
 		String saida = "";
-		for (int i=0; i < resultados.size(); i++){
-			if (!(resultados.get(i) == null)) {
-			saida += resultados.get(i);
-			saida += " | ";
+		for (int i = 0; i < resultados.size(); i++) {
+			if (!(resultados.get(i).equals(""))) {
+				saida += resultados.get(i);
+				saida += " | ";
+			}
 		}
-		}
-		return saida.substring(0, saida.length()-3);
+		return saida.substring(0, saida.length() - 3);
 	}
 
 	public int getDuracao() {
 		return this.duracao;
 	}
-	
+
 }
