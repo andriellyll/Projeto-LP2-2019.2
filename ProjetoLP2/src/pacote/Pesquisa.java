@@ -306,8 +306,11 @@ public class Pesquisa {
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
-		if (this.descricao.contains(palavraChave) || this.campoDeInteresse.contains(palavraChave)) {
+		if (this.descricao.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
+		}
+		if(this.campoDeInteresse.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);	
 		}
 		return resultadosBusca;
 	}
