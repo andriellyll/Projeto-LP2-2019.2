@@ -255,6 +255,13 @@ public class Pesquisa {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param objetivo
+	 * @return
+	 */
+	
 	public boolean desassociaObjetivo(Objetivo objetivo) {
 		//tem que fazer excessao neste
 		return true;
@@ -270,7 +277,6 @@ public class Pesquisa {
 	public boolean associaAtividade(Atividade atividade) {
 			return atividadesAssociadas.add(atividade);
 	}
-
 
 	/**
 	 * Desassocia uma atividade da pesquisa.

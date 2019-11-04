@@ -128,4 +128,11 @@ public class Objetivo {
 		return true;
 	}
 	
+	public boolean desassociaPesquisa(Pesquisa pesquisa) {
+		if (pesquisaDoObjetivo != pesquisa) {
+			return false;
+		}
+		pesquisaDoObjetivo = null;
+		return true;
+	}
 }

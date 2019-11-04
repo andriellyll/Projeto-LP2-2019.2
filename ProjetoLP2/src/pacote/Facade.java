@@ -138,20 +138,20 @@ public class Facade {
 
 //Associacoes de Objetivos e Problema:
 
-	public String associaProblema(String idPesquisa, String idProblema) {
+	public boolean associaProblema(String idPesquisa, String idProblema) {
 		return psquiza.associaProblema(idPesquisa, idProblema);
 	}
 
-	public String desassociaProblema(String idPesquisa, String idProblema) {
+	public boolean desassociaProblema(String idPesquisa, String idProblema) {
 		return psquiza.desassociaProblema(idPesquisa, idProblema);
 	}
 
-	public String associaObjetivo(String idPesquisa, String idObjetivo) {
+	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		return psquiza.associaObjetivo(idPesquisa, idObjetivo);
 	}
 
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
-		return false;
+		return psquiza.desassociaObjetivo(idPesquisa, idObjetivo);
 	}
 
 	public String listaPesquisas(String ordem) {
