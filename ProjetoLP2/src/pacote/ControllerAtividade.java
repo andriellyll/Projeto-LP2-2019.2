@@ -1,9 +1,12 @@
 package pacote;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import utils.OrdenaResultados;
 
 /**
  * Para atingir um objetivo, especialmente os objetivos especificos, e
@@ -220,6 +223,8 @@ public class ControllerAtividade {
 			}
 		}
 
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		
 		return resultadosBusca;
 	}
 

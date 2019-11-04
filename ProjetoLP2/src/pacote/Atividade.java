@@ -204,14 +204,8 @@ public class Atividade {
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
-		if (this.descricao.contains(palavraChave)) {
+		if (this.descricao.contains(palavraChave) || this.descricaoRisco.contains(palavraChave) || !procuraPalavraItem(palavraChave).isEmpty()) {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
-		}
-		if (this.descricaoRisco.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
-		}
-		if (!procuraPalavraItem(palavraChave).isEmpty()) {
-			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
 		}
 		return resultadosBusca;
 	}
