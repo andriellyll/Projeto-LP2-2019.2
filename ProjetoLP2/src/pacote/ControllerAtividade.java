@@ -74,7 +74,7 @@ public class ControllerAtividade {
 
 	private void verificaAtividadeExiste(String codigo) {
 		if (atividades.containsKey(codigo) == false) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
+			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
 	}
 
@@ -231,7 +231,7 @@ public class ControllerAtividade {
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
 		if (atividades.containsKey(codigoAtividade)) {
 		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
-		} throw new IllegalArgumentException("Atividade nao encontrada.");
+		} throw new IllegalArgumentException("Atividade nao encontrada");
 		}
 
 	public String listaResultados(String codigoAtividade) {
