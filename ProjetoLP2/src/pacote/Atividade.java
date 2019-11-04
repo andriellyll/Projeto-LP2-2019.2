@@ -195,7 +195,9 @@ public class Atividade {
 	private List<String> procuraPalavraItem(String palavraChave) {
 		ArrayList<String> resultadosItens = new ArrayList<>();
 		for (Item item : itens) {
-			resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
+			if(!item.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
+			}
 		}
 		return resultadosItens;
 	}
