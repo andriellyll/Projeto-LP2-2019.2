@@ -3,6 +3,8 @@ package pacote;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.management.RuntimeErrorException;
+
 import utils.OrdenaResultados;
 
 public class Psquiza {
@@ -235,6 +237,10 @@ public class Psquiza {
 		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave));
 		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveProblema(palavraChave));
 
+		if(resultadosBusca.isEmpty()) {
+			throw new RuntimeException("Nenhum resultado encontrado");
+		}
+		
 		Collections.sort(resultadosBusca, new OrdenaResultados());
 
 		return resultadosBusca;
@@ -258,8 +264,17 @@ public class Psquiza {
 
 	public String busca(String palavraChave, int numeroResultado){
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
+		
+		if(numeroResultado < 0) {
+			throw new IllegalArgumentException("Numero do resultado nao pode ser negativo");
+		}
+		
 		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
 
-		return resultadosBusca.get(numeroResultado);
+		if(numeroResultado >= resultadosBusca.size()) {
+			throw new RuntimeException("Entidade nao encontrada.");
+		}
+		
+		return resultadosBusca.get(numeroResultado - 1);
 	}
 }
