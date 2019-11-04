@@ -254,18 +254,16 @@ public class Psquiza {
 
 	private ArrayList<String> buscarPalavraChave(String palavraChave){
 		ArrayList<String> resultadosBusca = new ArrayList<>();
-		resultadosBusca.addAll(controllerAtividade.procuraPalavraChave(palavraChave));
 		resultadosBusca.addAll(controllerPesquisa.procuraPalavraChave(palavraChave));
 		resultadosBusca.addAll(controllerPesquisador.procuraPalavraChave(palavraChave));
-		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave));
 		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveProblema(palavraChave));
+		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave));
+		resultadosBusca.addAll(controllerAtividade.procuraPalavraChave(palavraChave));
 
 		if(resultadosBusca.isEmpty()) {
 			throw new RuntimeException("Nenhum resultado encontrado");
 		}
 		
-		Collections.sort(resultadosBusca, new OrdenaResultados());
-
 		return resultadosBusca;
 	}
 
