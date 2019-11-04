@@ -264,6 +264,10 @@ public class Pesquisa {
 	
 	public boolean desassociaObjetivo(Objetivo objetivo) {
 		//tem que fazer excessao neste
+		if (!objetivosDaPesquisa.contains(objetivo)) {
+			return false;
+		}
+		objetivosDaPesquisa.remove(objetivo);
 		return true;
 	}
 
