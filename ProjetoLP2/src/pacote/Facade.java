@@ -155,7 +155,7 @@ public class Facade {
 	}
 
 	public String listaPesquisas(String ordem) {
-		return null;
+		return psquiza.listaPesquisas(ordem);
 	}
 
 //Associacao e Especializacao da Pesquisadora:

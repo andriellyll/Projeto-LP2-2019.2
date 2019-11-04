@@ -172,6 +172,18 @@ public class Psquiza {
 		}
 		return false;
 	}
+	
+	public String listaPesquisas(String ordem) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(ordem, "Valor invalido da ordem");
+		if ("PROBLEMAS".equals(ordem)) {
+			
+		} else if ("OBJETIVOS".equals(ordem)) {
+			
+		} else if ("PESQUISA".equals(ordem)) {
+			
+		}
+		return null;
+	}
 
 
 //Associacao Pesquisa e Pesquisador:
