@@ -1,6 +1,5 @@
 package pacote;
 
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,9 +97,8 @@ public class ControllerAtividade {
 		ValidadorDeEntradas.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco,
 				"Campo descricaoRisco nao pode ser nulo ou vazio.");
-		Period dias = Period.ofDays(8);
 		String codigo = criadorCodigo();
-		Atividade novaAtividade = new Atividade(codigo, descricao, nivelRisco, descricaoRisco, dias);
+		Atividade novaAtividade = new Atividade(codigo, descricao, nivelRisco, descricaoRisco);
 		if (!atividades.containsKey(codigo)) {
 			atividades.put(codigo, novaAtividade);
 		}

@@ -1,6 +1,5 @@
 package pacote;
 
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class Atividade {
 	 *                       determinado nivel de risco
 	 */
 
-	public Atividade(String codigo, String descricao, String nivelRisco, String descricaoRisco, Period dias) {
+	public Atividade(String codigo, String descricao, String nivelRisco, String descricaoRisco) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.nivelRisco = nivelRisco;
@@ -162,7 +161,6 @@ public class Atividade {
 
 	public void executaAtividade(int item, int duracao) {
 		verificaItemExiste(item);
-		verificaItemJaExecutado(item);
 		if (itens.get((item - 1)).getSituacao().equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
@@ -181,13 +179,6 @@ public class Atividade {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
 	}
-
-	private void verificaItemJaExecutado(int item) {
-		if (itens.get(item - 1).equals("")) {
-			throw new IllegalArgumentException("Item ja executado.");
-		}
-	}
-
 	private void setDuracao(int duracao) {
 		this.duracao += duracao;
 	}
@@ -231,8 +222,8 @@ public class Atividade {
 	}
 
 	public boolean removeResultado(int numeroResultado) {
-		if (itens.size() >= numeroResultado) {
-			if (!(itens.get(numeroResultado - 1).equals(""))) {
+		if (resultados.size() >= numeroResultado) {
+			if (!(resultados.get(numeroResultado - 1).equals(""))) {
 				resultados.set(numeroResultado - 1, "");
 				return true;
 			} else {
