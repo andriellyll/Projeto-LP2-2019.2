@@ -1,6 +1,7 @@
 package pacote;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 /**
@@ -8,6 +9,8 @@ import java.util.List;
  * @author Helen Bento Cavalcanti
  */
 import java.util.Map;
+
+import utils.OrdenaResultados;
 
 public class ControllerProblemaObjetivo {
 
@@ -232,6 +235,9 @@ public class ControllerProblemaObjetivo {
 				resultadosBusca.add(problema.procuraPalavraChave(palavraChave));	
 			}
 		}
+		
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		
 		return resultadosBusca;
 	}
 	
@@ -251,6 +257,9 @@ public class ControllerProblemaObjetivo {
 				resultadosBusca.add(objetivo.procuraPalavraChave(palavraChave));	
 			}
 		}
+		
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		
 		return resultadosBusca;
 	}
 }

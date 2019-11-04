@@ -1,9 +1,12 @@
 package pacote;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import utils.OrdenaResultados;
 
 /**
  * Controller responsavel por gerenciar as pesquisas no sistema. As
@@ -253,7 +256,9 @@ public class ControllerPesquisa {
 				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));	
 			}
 		}
-
+		
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		
 		return resultadosBusca;
 	}
 	

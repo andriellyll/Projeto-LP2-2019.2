@@ -1,9 +1,12 @@
 package pacote;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import utils.OrdenaResultados;
 
 /**
  * Classe Controladora de Pesquisadores
@@ -201,6 +204,8 @@ public class ControllerPesquisador {
 				resultadosBusca.add(pesquisador.procuraPalavraChave(palavraChave));
 			}
 		}
+		
+		Collections.sort(resultadosBusca, new OrdenaResultados());
 
 		return resultadosBusca;
 	}
