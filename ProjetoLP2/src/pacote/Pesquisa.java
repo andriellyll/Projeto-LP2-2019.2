@@ -2,6 +2,7 @@ package pacote;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -380,4 +381,10 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	public int compareTo(Pesquisa p) {
 		return this.getCodigo().compareTo(p.getCodigo());
 	}
+	
+//	public boolean temObjetivos() {
+//		for (Objetivo meta : objetivosDaPesquisa.values()) {
+//			
+//		}
+//	}
 }

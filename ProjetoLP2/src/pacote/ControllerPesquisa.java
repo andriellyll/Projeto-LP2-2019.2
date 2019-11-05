@@ -312,28 +312,9 @@ public class ControllerPesquisa {
 	 * @return
 	 */
 	
-	private List<Pesquisa> ordenaPesquisasProblemas(Map<String, Pesquisa> listaDePesquisas) {
-		List<Pesquisa> listaOrdenada = new ArrayList<>();
-		List<Pesquisa> temProblema = new ArrayList<>();
-		List<Pesquisa> naoTemProblema = new ArrayList<>();
-		
-		for (Pesquisa estudo : pesquisas.values()) {
-			if (estudo.temProblema()) {
-				temProblema.add(estudo);
-			} else {
-				naoTemProblema.add(estudo);
-			}
-		}
-		Collections.sort(temProblema);
-		Collections.sort(naoTemProblema);
-		
-		for (int i = 0; i < temProblema.size(); i++) {
-			listaOrdenada.add(temProblema.get(i));
-		}
-		for(int i = 0; i < naoTemProblema.size(); i++) {
-			listaOrdenada.add(temProblema.get(i));
-		}
-		
+	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
+		List<Pesquisa> listaOrdenada = (ArrayList<Pesquisa>) listaDePesquisas.values();
+		Collections.sort(listaOrdenada);
 		return listaOrdenada;
 	}
 	
@@ -353,6 +334,7 @@ public class ControllerPesquisa {
 	/**
 	 * 
 	 * 
+	 * @param ordem
 	 * @return
 	 */
 	
@@ -361,11 +343,23 @@ public class ControllerPesquisa {
 		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
 		
 		if ("PROBLEMA".equals(ordem)) {
-			pesquisasOrdenadas = ordenaPesquisasProblemas(pesquisas);
+			List<Pesquisa> temProblema = new ArrayList<>();
+			List<Pesquisa> naoTemProblema = new ArrayList<>();
+			
+			for (Pesquisa estudo : pesquisas.values()) {
+				if (estudo.temProblema()) {
+					temProblema.add(estudo);
+				} else {
+					naoTemProblema.add(estudo);
+				}
+			}
+//			temProblema;
+//			naoTemProblema;
+			
 		} else if ("OBJETIVOS".equals(ordem)) {
 			pesquisasOrdenadas = ordenaPesquisasObjetivadas(pesquisas);
 		} else if ("PESQUISA".equals(ordem)) {
-			
+			pesquisasOrdenadas = ordenaPesquisas(pesquisas);
 		}
 		
 		for (int i = 0; i < pesquisasOrdenadas.size(); i++) {
