@@ -272,7 +272,7 @@ public class Atividade {
 	 */
 	public boolean removeResultado(int numeroResultado) {
 		if (resultados.size() >= numeroResultado) {
-			if (!(resultados.get(numeroResultado - 1) == null)) {
+			if (!(resultados.get(numeroResultado - 1).equals(""))) {
 				resultados.set(numeroResultado - 1, null);
 				return true;
 			}
