@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import utils.OrdenaPesquisaProblema;
 import utils.OrdenaResultados;
 
 /**
@@ -318,7 +319,12 @@ public class ControllerPesquisa {
 	 */
 	
 	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
-		List<Pesquisa> listaOrdenada = (ArrayList<Pesquisa>) listaDePesquisas.values();
+		List<Pesquisa> listaOrdenada = /**(ArrayList<Pesquisa>) listaDePesquisas.values();**/ new ArrayList<>();
+		
+		for (Pesquisa estudo : listaDePesquisas.values()) {
+			listaOrdenada.add(estudo);
+		}
+		
 		Collections.sort(listaOrdenada);
 		return listaOrdenada;
 	}
@@ -358,9 +364,11 @@ public class ControllerPesquisa {
 					naoTemProblema.add(estudo);
 				}
 			}
-//			temProblema;
-//			naoTemProblema;
 			
+			Collections.sort(temProblema, new OrdenaPesquisaProblema());
+			Collections.sort(naoTemProblema);
+			pesquisasOrdenadas.addAll(temProblema);
+			pesquisasOrdenadas.addAll(naoTemProblema);
 		} else if ("OBJETIVOS".equals(ordem)) {
 			pesquisasOrdenadas = ordenaPesquisasObjetivadas(pesquisas);
 		} else if ("PESQUISA".equals(ordem)) {
@@ -374,6 +382,7 @@ public class ControllerPesquisa {
 				todasPesquisas += pesquisasOrdenadas.get(i).toString() + " | ";
 			}
 		}
+		
 		return todasPesquisas;
 	}
 }

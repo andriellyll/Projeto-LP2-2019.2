@@ -379,7 +379,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	
 	@Override
 	public int compareTo(Pesquisa p) {
-		return this.getCodigo().compareTo(p.getCodigo());
+		return p.getCodigo().compareTo(this.codigo);
 	}
 	
 	/**

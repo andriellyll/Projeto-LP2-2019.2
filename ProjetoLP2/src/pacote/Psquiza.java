@@ -183,6 +183,9 @@ public class Psquiza {
 
 	public String listaPesquisas(String ordem) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(ordem, "Valor invalido da ordem");
+		if (!"PROBLEMA".equals(ordem) && !"OBJETIVOS".equals(ordem) && !"PESQUISA".equals(ordem)) {
+			throw new IllegalArgumentException("Valor invalido da ordem");
+		}
 		return controllerPesquisa.imprimePesquisas(ordem);
 	}
 
