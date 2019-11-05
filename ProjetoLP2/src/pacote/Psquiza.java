@@ -132,120 +132,138 @@ public class Psquiza {
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
-		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa)
+				.associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
+		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
+				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean desassociaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).desassociaProblema(controllerProblemaObjetivo.getProblema(idProblema));
-		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa)
+				.desassociaProblema(controllerProblemaObjetivo.getProblema(idProblema));
+		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
+				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa).associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
+		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo)
+				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
+				.associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo).desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa).desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
+		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo)
+				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
+				.desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public String listaPesquisas(String ordem) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(ordem, "Valor invalido da ordem");
 		return controllerPesquisa.imprimePesquisas(ordem);
 	}
 
-
 //Associacao Pesquisa e Pesquisador:
-	
+
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
-		
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(emailPesquisador,
+				"Campo emailPesquisador nao pode ser nulo ou vazio.");
+
 		controllerPesquisa.associaPesquisador(idPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
 		return true;
-		
+
 	}
-	public boolean desassociaPesquisador(String codigoDaPesquisa,String emailPesquisador) {
+
+	public boolean desassociaPesquisador(String codigoDaPesquisa, String emailPesquisador) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoDaPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		controllerPesquisa.desassociaPesquisador(codigoDaPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
+		controllerPesquisa.desassociaPesquisador(codigoDaPesquisa,
+				controllerPesquisador.getPesquisador(emailPesquisador));
 		return true;
-		
+
 	}
-	
+
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
+				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
 		return controllerPesquisa.associaAtividade(codigoPesquisa, atividade);
 
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		return controllerPesquisa.getPesquisa(codigoPesquisa)
-				.desassociaAtividade(controllerAtividade.getAtividade(codigoAtividade));
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
+				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
+		return controllerPesquisa.desassociaAtividade(codigoPesquisa, atividade);
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
 		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
-		controllerAtividade.getAtividade(codigoAtividade).verificaEhAssociada();
 		controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
 		return controllerAtividade.cadastraResultado(codigoAtividade, resultado);
 	}
 
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado , "numeroResultado nao pode ser nulo ou negativo.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
 		return controllerAtividade.removeResultado(codigoAtividade, numeroResultado);
 	}
 
 	public String listaResultados(String codigoAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		return controllerAtividade.listaResultados(codigoAtividade);
 	}
 
 	public int getDuracao(String codigoAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		return controllerAtividade.getDuracao(codigoAtividade);
 	}
 
 //Busca por Palavra-chave:
 
-	private ArrayList<String> buscarPalavraChave(String palavraChave){
+	private ArrayList<String> buscarPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 		resultadosBusca.addAll(controllerPesquisa.procuraPalavraChave(palavraChave));
 		resultadosBusca.addAll(controllerPesquisador.procuraPalavraChave(palavraChave));
@@ -253,42 +271,42 @@ public class Psquiza {
 		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave));
 		resultadosBusca.addAll(controllerAtividade.procuraPalavraChave(palavraChave));
 
-		if(resultadosBusca.isEmpty()) {
+		if (resultadosBusca.isEmpty()) {
 			throw new RuntimeException("Nenhum resultado encontrado");
 		}
-		
+
 		return resultadosBusca;
 	}
 
 	public String busca(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
-		
+
 		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
 
 		return String.join(" | ", resultadosBusca);
 	}
-	
+
 	public int contaResultadosBusca(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
-		
+
 		int quantidadeTotal = buscarPalavraChave(palavraChave).size();
-		
+
 		return quantidadeTotal;
 	}
 
-	public String busca(String palavraChave, int numeroResultado){
+	public String busca(String palavraChave, int numeroResultado) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
-		
-		if(numeroResultado < 0) {
+
+		if (numeroResultado < 0) {
 			throw new IllegalArgumentException("Numero do resultado nao pode ser negativo");
 		}
-		
+
 		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
 
-		if(numeroResultado >= resultadosBusca.size()) {
+		if (numeroResultado >= resultadosBusca.size()) {
 			throw new RuntimeException("Entidade nao encontrada.");
 		}
-		
+
 		return resultadosBusca.get(numeroResultado - 1);
 	}
 }

@@ -252,6 +252,11 @@ public class ControllerPesquisa {
 		throw new IllegalArgumentException("Pesquisa nao encontrada.");
 	}
 	
+	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
+		verificaPesquisaExiste(codigoPesquisa);
+		return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
+		}
+	
 	/**
 	 * Procura em todos as pesquisas do mapa a palavra-chave passada como
 	 * parametro

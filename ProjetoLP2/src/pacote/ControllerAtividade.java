@@ -204,6 +204,7 @@ public class ControllerAtividade {
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		verificaAtividadeExiste(codigoAtividade);
+		atividades.get(codigoAtividade).verificaEhAssociada();
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
 

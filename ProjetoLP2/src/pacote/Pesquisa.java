@@ -302,6 +302,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 
 	/**
 	 * Desassocia uma atividade da pesquisa.
+	 * @param codigoPesquisa 
 	 * 
 	 * @param atividade - a atividade a ser desassociada
 	 * @return - o booleano que representa se a atividade foi desassociada a
@@ -314,6 +315,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
+
 	
 	/**
 	 * Procura nos atributos descricao e campo de interesse da pesquisa a palavra-chave passada como
