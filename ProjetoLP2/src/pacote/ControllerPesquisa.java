@@ -142,7 +142,7 @@ public class ControllerPesquisa {
 
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
 
-		if (pesquisa.getAtivacao() == false) {
+		if (!pesquisa.getAtivacao()) {
 			pesquisa.ativaPesquisa();
 		} else {
 			throw new IllegalArgumentException("Pesquisa ja ativada.");
