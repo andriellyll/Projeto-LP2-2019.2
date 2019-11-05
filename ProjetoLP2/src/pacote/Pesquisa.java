@@ -387,7 +387,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @return
 	 */
-
+  
 	public String getIdProblema() {
 		return problemaDaPesquisa.getCodigo();
 	}
