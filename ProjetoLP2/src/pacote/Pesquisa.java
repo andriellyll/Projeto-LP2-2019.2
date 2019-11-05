@@ -314,6 +314,13 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
+	
+	public boolean verificaAtividadeEhAssociada(Atividade atividade) {
+		if(atividadesAssociadas.contains(atividade)) {
+			return true;
+		}
+		throw new IllegalArgumentException("Atividade nao associada.");
+	}
 
 	/**
 	 * Procura nos atributos descricao e campo de interesse da pesquisa a palavra-chave passada como

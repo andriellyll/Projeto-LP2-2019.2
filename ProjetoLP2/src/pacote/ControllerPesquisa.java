@@ -258,6 +258,10 @@ public class ControllerPesquisa {
 		return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
 		}
 	
+	public boolean verificaPesquisaEhAssociada(String codigoPesquisa, Atividade atividade) {
+		return pesquisas.get(codigoPesquisa).verificaAtividadeEhAssociada(atividade);
+	}
+	
 	/**
 	 * Procura em todos as pesquisas do mapa a palavra-chave passada como
 	 * parametro

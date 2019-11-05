@@ -235,6 +235,8 @@ public class Psquiza {
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
 		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
+	//	Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
+	//	controllerPesquisa.verificaPesquisaEhAssociada(codigoPesquisa, atividade);
 		controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
 	}
 

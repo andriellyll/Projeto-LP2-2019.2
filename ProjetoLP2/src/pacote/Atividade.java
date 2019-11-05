@@ -25,7 +25,6 @@ public class Atividade {
 	private String nivelRisco;
 	private String descricaoRisco;
 	private List<Item> itens;
-	private Pesquisa pesquisaAssociada;
 	private int duracao;
 	private List<String> resultados;
 
@@ -49,6 +48,12 @@ public class Atividade {
 		this.resultados = new ArrayList<>();
 	}
 
+	/**
+	 * Gera um identificador unico da pesquisa que representa o seu lugar na
+	 * memoria.
+	 * 
+	 * @return o valor inteiro que representa o lugar da atividade na memoria
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +62,12 @@ public class Atividade {
 		return result;
 	}
 
+	/**
+	 * Verifica se duas atividades sao iguais a partir dos seus codigos. Caso as
+	 * atividades forem iguais retornara true, se forem diferentes retornara false.
+	 * 
+	 * @return - o booleano que representa se as atividades sao iguais ou nao.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -155,10 +166,6 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
-	public void associaPesquisaAtividade(Pesquisa pesquisa) {
-		this.pesquisaAssociada = pesquisa;
-	}
-
 	public void executaAtividade(int item, int duracao) {
 		verificaItemExiste(item);
 		if (itens.get((item - 1)).getSituacao().equals("REALIZADO")) {
@@ -166,11 +173,6 @@ public class Atividade {
 		}
 		setDuracao(duracao);
 		itens.get((item - 1)).executa();
-
-	}
-
-	public boolean verificaEhAssociada() {
-		return !(pesquisaAssociada == null);
 
 	}
 
@@ -245,6 +247,11 @@ public class Atividade {
 		return saida.substring(0, saida.length() - 3);
 	}
 
+	/**
+	 * Retorna a duracao em horas do tempo de execucao de uma atividade.
+	 * 
+	 * @return - a quantidade de horas de execucao de uma atividade
+	 */
 	public int getDuracao() {
 		return this.duracao;
 	}
