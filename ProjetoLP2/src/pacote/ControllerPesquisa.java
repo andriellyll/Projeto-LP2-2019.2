@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import utils.OrdenaPesquisaProblema;
+import utils.OrdenaPesquisasObjetivadas;
 import utils.OrdenaResultados;
 
 /**
@@ -336,19 +337,6 @@ public class ControllerPesquisa {
 	/**
 	 * 
 	 * 
-	 * @param listaDePesquisas
-	 * @return
-	 */
-	
-	private List<Pesquisa> ordenaPesquisasObjetivadas(Map<String, Pesquisa> listaDePesquisas) {
-		List<Pesquisa> listaOrdenada = new ArrayList<>();
-		
-		return listaOrdenada;
-	}
-	
-	/**
-	 * 
-	 * 
 	 * @param ordem
 	 * @return
 	 */
@@ -368,13 +356,25 @@ public class ControllerPesquisa {
 					naoTemProblema.add(estudo);
 				}
 			}
-			
 			Collections.sort(temProblema, new OrdenaPesquisaProblema());
 			Collections.sort(naoTemProblema);
 			pesquisasOrdenadas.addAll(temProblema);
 			pesquisasOrdenadas.addAll(naoTemProblema);
 		} else if ("OBJETIVOS".equals(ordem)) {
-			pesquisasOrdenadas = ordenaPesquisasObjetivadas(pesquisas);
+			List<Pesquisa> temObjetivos = new ArrayList<>();
+			List<Pesquisa> naoTemObjetivos = new ArrayList<>();
+			
+			for (Pesquisa estudo : pesquisas.values()) {
+				if (estudo.temObjetivos()) {
+					temObjetivos.add(estudo);
+				} else {
+					naoTemObjetivos.add(estudo);
+				}
+			}
+			Collections.sort(temObjetivos, new OrdenaPesquisasObjetivadas());
+			Collections.sort(naoTemObjetivos);
+			pesquisasOrdenadas.addAll(temObjetivos);
+			pesquisasOrdenadas.addAll(naoTemObjetivos);
 		} else if ("PESQUISA".equals(ordem)) {
 			pesquisasOrdenadas = ordenaPesquisas(pesquisas);
 		}
@@ -386,7 +386,6 @@ public class ControllerPesquisa {
 				todasPesquisas += pesquisasOrdenadas.get(i).toString() + " | ";
 			}
 		}
-		
 		return todasPesquisas;
 	}
 }

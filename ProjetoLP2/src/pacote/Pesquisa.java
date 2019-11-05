@@ -398,10 +398,27 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	public String getIdProblema() {
 		return problemaDaPesquisa.getCodigo();
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 
-//	public boolean temObjetivos() {
-//		for (Objetivo meta : objetivosDaPesquisa.values()) {
-//			
-//		}
-//	}
+	public boolean temObjetivos() {
+		if (objetivosDaPesquisa.size() >= 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	
+	public int getNumObjetivos() {
+		return this.objetivosDaPesquisa.size();
+	}
 }
