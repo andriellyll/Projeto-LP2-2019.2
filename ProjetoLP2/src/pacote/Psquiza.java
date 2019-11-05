@@ -134,7 +134,7 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
 		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		if (passo1 == true && passo2 == true) {
+		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
@@ -145,7 +145,7 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa).desassociaProblema(controllerProblemaObjetivo.getProblema(idProblema));
 		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema).desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		if (passo1 == true && passo2 == true) {
+		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
@@ -156,7 +156,7 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo).associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa).associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
-		if (passo1 == true && passo2 == true) {
+		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
@@ -167,7 +167,7 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo).desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa).desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
-		if (passo1 == true && passo2 == true) {
+		if (passo1 && passo2) {
 			return true;
 		}
 		return false;
