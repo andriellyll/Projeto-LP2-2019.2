@@ -23,21 +23,21 @@ public class ControllerPesquisa {
 	/**
 	 * Armazena todas as pesquisas cadastradas no sistema.
 	 */
-	
+
 	private Map<String, Pesquisa> pesquisas;
 
 	/**
 	 * Armazena os codigos(identificador da pesquisa) gerados pelo sistema, com o
 	 * ojetivo de gerenciar os mesmos.
 	 */
-	
+
 	private Map<String, Integer> codigos;
 
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
 	 * pesquisas e codigos.
 	 */
-	
+
 	public ControllerPesquisa() {
 		this.pesquisas = new HashMap<>();
 		this.codigos = new HashMap<>();
@@ -58,7 +58,7 @@ public class ControllerPesquisa {
 	 * @param campoDeInteresse - o campo de interesse da pesquisa
 	 * @return - o codigo(identificador unico) gerado
 	 */
-	
+
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
@@ -91,7 +91,7 @@ public class ControllerPesquisa {
 	 * @param conteudoASerAlterado - o paramentro a ser alterado
 	 * @param novoConteudo         - o novo conteudo a ser atribuido
 	 */
-	
+
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado,
@@ -124,7 +124,7 @@ public class ControllerPesquisa {
 	 * @param codigo - o identificador da pesquisa a ser desativada
 	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
-	
+
 	public void encerraPesquisa(String codigo, String motivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -145,7 +145,7 @@ public class ControllerPesquisa {
 	 * 
 	 * @param codigo - o identificador da pesquisa a ser ativada
 	 */
-	
+
 	public void ativaPesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -167,7 +167,7 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser exibida
 	 * @return - a representacao em string da pesquisa
 	 */
-	
+
 	public String exibePesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -185,7 +185,7 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser verificada
 	 * @return - o valor booleano que representa o status de ativacao da pesquisa
 	 */
-	
+
 	public boolean pesquisaEhAtiva(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -234,57 +234,71 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
 	}
-	
+
 	/**
+	 * Associa uma atividade a uma pesquisa a partir do codigo da pesquisa e da
+	 * atividade a ser associada. Caso a associacao obtenha sucesso sera retornado
+	 * true, caso nao ira retornar false
 	 * 
-	 * 
-	 * @param codigoPesquisa
-	 * @param atividade
-	 * @return
+	 * @param codigoPesquisa - o codigo da pesquisa a ter uma atividade associada
+	 * @param atividade      - a atividade a ser associada a pesquisa
+	 * @return - o booleano que representa se a associacao obteve sucesso (true) ou
+	 *         nao (false)
 	 */
 
 	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
-		if(pesquisas.containsKey(codigoPesquisa)) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
+				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		if (pesquisas.containsKey(codigoPesquisa)) {
 			if (pesquisas.get(codigoPesquisa).getAtivacao()) {
 				return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
 			}
 			throw new IllegalArgumentException("Pesquisa desativada.");
-		} 
+		}
 		throw new IllegalArgumentException("Pesquisa nao encontrada.");
 	}
-	
+
+	/**
+	 * Desassocia uma atividade de uma pesquisa a partir do codigo da pesquisa e da
+	 * atividade a ser desassociada. Caso a desassociacao obtenha sucesso sera retornado
+	 * true, caso nao ira retornar false
+	 * 
+	 * @param codigoPesquisa - o codigo da pesquisa a ter uma atividade desassociada
+	 * @param atividade - a atividade a ser desassociada a pesquisa
+	 * @return - o booleano que representa se a desassociacao obteve sucesso (true) ou
+	 *         nao (false)
+	 */
 	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
 		verificaPesquisaExiste(codigoPesquisa);
 		return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
-		}
-	
-	public boolean verificaPesquisaEhAssociada(String codigoPesquisa, Atividade atividade) {
-		return pesquisas.get(codigoPesquisa).verificaAtividadeEhAssociada(atividade);
 	}
-	
+
+	//public boolean verificaPesquisaEhAssociada(String codigoPesquisa, Atividade atividade) {
+		//return pesquisas.get(codigoPesquisa).verificaAtividadeEhAssociada(atividade);
+	//}
+
 	/**
-	 * Procura em todos as pesquisas do mapa a palavra-chave passada como
-	 * parametro
+	 * Procura em todos as pesquisas do mapa a palavra-chave passada como parametro
 	 * 
 	 * @param palavraChave palavra-chave que sera procurada
-	 * @return Lista de Strings com os campos dos atributos de pesquisa que contiverem a palavra-chave
+	 * @return Lista de Strings com os campos dos atributos de pesquisa que
+	 *         contiverem a palavra-chave
 	 */
-	
+
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
-		for (Pesquisa pesquisa: this.pesquisas.values()) {
+		for (Pesquisa pesquisa : this.pesquisas.values()) {
 			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));	
+				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));
 			}
 		}
-		
+
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-		
+
 		return resultadosBusca;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -292,15 +306,15 @@ public class ControllerPesquisa {
 	 * @param pesquisador
 	 * @return
 	 */
-	
+
 	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
 		pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
 		return true;
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -308,47 +322,48 @@ public class ControllerPesquisa {
 	 * @param pesquisador
 	 * @return
 	 */
-	
+
 	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
 		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @param listaDePesquisas
 	 * @return
 	 */
-	
+
 	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
-		List<Pesquisa> listaOrdenada = /**(ArrayList<Pesquisa>) listaDePesquisas.values();**/ new ArrayList<>();
-		
+		List<Pesquisa> listaOrdenada = /** (ArrayList<Pesquisa>) listaDePesquisas.values(); **/
+				new ArrayList<>();
+
 		for (Pesquisa estudo : listaDePesquisas.values()) {
 			listaOrdenada.add(estudo);
 		}
-		
+
 		Collections.sort(listaOrdenada);
 		return listaOrdenada;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @param ordem
 	 * @return
 	 */
-	
+
 	public String imprimePesquisas(String ordem) {
 		String todasPesquisas = "";
 		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
-		
+
 		if ("PROBLEMA".equals(ordem)) {
 			List<Pesquisa> temProblema = new ArrayList<>();
 			List<Pesquisa> naoTemProblema = new ArrayList<>();
-			
+
 			for (Pesquisa estudo : pesquisas.values()) {
 				if (estudo.temProblema()) {
 					temProblema.add(estudo);
@@ -363,7 +378,7 @@ public class ControllerPesquisa {
 		} else if ("OBJETIVOS".equals(ordem)) {
 			List<Pesquisa> temObjetivos = new ArrayList<>();
 			List<Pesquisa> naoTemObjetivos = new ArrayList<>();
-			
+
 			for (Pesquisa estudo : pesquisas.values()) {
 				if (estudo.temObjetivos()) {
 					temObjetivos.add(estudo);
@@ -378,7 +393,7 @@ public class ControllerPesquisa {
 		} else if ("PESQUISA".equals(ordem)) {
 			pesquisasOrdenadas = ordenaPesquisas(pesquisas);
 		}
-		
+
 		for (int i = 0; i < pesquisasOrdenadas.size(); i++) {
 			if (i == pesquisasOrdenadas.size() - 1) {
 				todasPesquisas += pesquisasOrdenadas.get(i).toString();

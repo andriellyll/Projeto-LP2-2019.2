@@ -23,58 +23,57 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	/**
 	 * Representa a decricao da pesquisa.
 	 */
-	
+
 	private String descricao;
 
 	/**
 	 * Representa o campo de interesse da pesquisa.
 	 */
-	
+
 	private String campoDeInteresse;
 
 	/**
 	 * Representa o codigo da pesquisa.
 	 */
-	
+
 	private String codigo;
 
 	/**
 	 * Representa o motivo de desativacao da pesquisa.
 	 */
-	
+
 	private String motivoDeDesativacao;
 
 	/**
 	 * Representa o estado de ativacao da pesquisa. Pode assumir o valor true ou
 	 * false.
 	 */
-	
+
 	private boolean ehAtivada;
-	
+
 	/**
 	 * 
 	 */
-	
+
 	private Problema problemaDaPesquisa;
-	
+
 	/**
 	 * 
 	 */
-	
+
 	private Set<Pesquisador> pesquisadoresAssociados;
-	
+
 	/**
 	 * 
 	 */
-	
+
 	private Set<Objetivo> objetivosDaPesquisa;
-	
+
 	/**
-	 * 
+	 * Armazena todas as atividades associadas a pesquisa.
 	 */
-	
 	private Set<Atividade> atividadesAssociadas;
-	
+
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
 	 * e do campo de interesse. Caso os parametros forem nulos ou vazios excecoes
@@ -219,14 +218,14 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @return
 	 */
-	
+
 	public boolean temProblema() {
 		if (problemaDaPesquisa != null) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -243,14 +242,14 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		problemaDaPesquisa = problema;
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @param problema
 	 * @return
 	 */
-	
+
 	public boolean desassociaProblema(Problema problema) {
 		if (problemaDaPesquisa != problema) {
 			return false;
@@ -258,14 +257,14 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		problemaDaPesquisa = null;
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @param objetivo
 	 * @return
 	 */
-	
+
 	public boolean associaObjetivo(Objetivo objetivo) {
 		if (objetivosDaPesquisa.contains(objetivo)) {
 			return false;
@@ -273,14 +272,14 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		objetivosDaPesquisa.add(objetivo);
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @param objetivo
 	 * @return
 	 */
-	
+
 	public boolean desassociaObjetivo(Objetivo objetivo) {
 		if (!objetivosDaPesquisa.contains(objetivo)) {
 			return false;
@@ -290,18 +289,18 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Associa uma atividade a pesquisa.
+	 * Associa uma atividade a pesquisa a partir da atividade passasa.
 	 * 
 	 * @param atividade - a atividade a ser adicionada na pesquisa
 	 * @return - o booleano que representa se a atividade foi associada a pesquisa
 	 */
 
 	public boolean associaAtividade(Atividade atividade) {
-			return atividadesAssociadas.add(atividade);
+		return atividadesAssociadas.add(atividade);
 	}
 
 	/**
-	 * Desassocia uma atividade da pesquisa. 
+	 * Desassocia uma atividade da pesquisa a partir da atividade passada.
 	 * 
 	 * @param atividade - a atividade a ser desassociada
 	 * @return - o booleano que representa se a atividade foi desassociada a
@@ -314,65 +313,66 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
-	
-	public boolean verificaAtividadeEhAssociada(Atividade atividade) {
-		if(atividadesAssociadas.contains(atividade)) {
-			return true;
-		}
-		throw new IllegalArgumentException("Atividade nao associada.");
-	}
+
+	//public boolean verificaAtividadeEhAssociada(Atividade atividade) {
+	//	if (atividadesAssociadas.contains(atividade)) {
+		//	return true;
+		//}
+		//throw new IllegalArgumentException("Atividade nao associada.");
+	//}
 
 	/**
-	 * Procura nos atributos descricao e campo de interesse da pesquisa a palavra-chave passada como
-	 * parametro
+	 * Procura nos atributos descricao e campo de interesse da pesquisa a
+	 * palavra-chave passada como parametro
 	 * 
-	 * @param palavraChave palavra-chave que sera buscada 
-	 * @return se a palavra-chave existir na String de descricao ou de campo de interesse, uma  lista com uma dessas  
-	 *         strings (ou as duas) sera retornada. Se nao, sera retornada uma lista vazia
+	 * @param palavraChave palavra-chave que sera buscada
+	 * @return se a palavra-chave existir na String de descricao ou de campo de
+	 *         interesse, uma lista com uma dessas strings (ou as duas) sera
+	 *         retornada. Se nao, sera retornada uma lista vazia
 	 */
-	
+
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 		if (this.descricao.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
-		if(this.campoDeInteresse.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);	
+		if (this.campoDeInteresse.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
 		return resultadosBusca;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @param pesquisador
 	 * @return
 	 */
-	
+
 	public boolean associaPesquisador(Pesquisador pesquisador) {
 		pesquisadoresAssociados.add(pesquisador);
 		return true;
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @param pesquisador
 	 * @return
 	 */
-	
+
 	public boolean desassociaPesquisador(Pesquisador pesquisador) {
 		pesquisadoresAssociados.remove(pesquisador);
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @return
 	 */
-	
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -383,22 +383,22 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * @param p
 	 * @return
 	 */
-	
+
 	@Override
 	public int compareTo(Pesquisa p) {
 		return p.getCodigo().compareTo(this.codigo);
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @return
 	 */
-  
+
 	public String getIdProblema() {
 		return problemaDaPesquisa.getCodigo();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -411,13 +411,13 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * 
 	 * @return
 	 */
-	
+
 	public int getNumObjetivos() {
 		return this.objetivosDaPesquisa.size();
 	}
