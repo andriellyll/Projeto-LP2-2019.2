@@ -29,6 +29,10 @@ public class Problema {
 	 */
 
 	private String codigo;
+	
+	/**
+	 * 
+	 */
 
 	private Set<Pesquisa> pesquisas;
 
@@ -138,6 +142,7 @@ public class Problema {
 	 * @return se a palavra-chave existir na String de descricao, essa string sera
 	 *         retornada. Se nao, sera retornada uma String vazia
 	 */
+	
 	public String procuraPalavraChave(String palavraChave) {
 		if (this.descricao.contains(palavraChave)) {
 			return this.codigo + ": " + this.descricao;

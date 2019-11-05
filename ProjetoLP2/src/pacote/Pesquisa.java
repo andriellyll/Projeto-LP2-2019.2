@@ -17,7 +17,7 @@ import java.util.Set;
  * @author Anna Beatriz Lucena
  */
 
-public class Pesquisa {
+public class Pesquisa implements Comparable<Pesquisa> {
 
 	/**
 	 * Representa a decricao da pesquisa.
@@ -56,6 +56,10 @@ public class Pesquisa {
 	
 	private Problema problemaDaPesquisa;
 	
+	/**
+	 * 
+	 */
+	
 	private Set<Pesquisador> pesquisadoresAssociados;
 	
 	/**
@@ -69,6 +73,7 @@ public class Pesquisa {
 	 */
 	
 	private Set<Atividade> atividadesAssociadas;
+	
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
 	 * e do campo de interesse. Caso os parametros forem nulos ou vazios excecoes
@@ -211,6 +216,19 @@ public class Pesquisa {
 	/**
 	 * 
 	 * 
+	 * @return
+	 */
+	
+	public boolean temProblema() {
+		if (problemaDaPesquisa != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * 
 	 * @param problema
 	 * @return
 	 */
@@ -263,7 +281,6 @@ public class Pesquisa {
 	 */
 	
 	public boolean desassociaObjetivo(Objetivo objetivo) {
-		//tem que fazer excessao neste
 		if (!objetivosDaPesquisa.contains(objetivo)) {
 			return false;
 		}
@@ -296,6 +313,7 @@ public class Pesquisa {
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
+	
 	/**
 	 * Procura nos atributos descricao e campo de interesse da pesquisa a palavra-chave passada como
 	 * parametro
@@ -304,6 +322,7 @@ public class Pesquisa {
 	 * @return se a palavra-chave existir na String de descricao ou de campo de interesse, uma  lista com uma dessas  
 	 *         strings (ou as duas) sera retornada. Se nao, sera retornada uma lista vazia
 	 */
+	
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 		if (this.descricao.contains(palavraChave)) {
@@ -315,14 +334,50 @@ public class Pesquisa {
 		return resultadosBusca;
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param pesquisador
+	 * @return
+	 */
+	
 	public boolean associaPesquisador(Pesquisador pesquisador) {
 		pesquisadoresAssociados.add(pesquisador);
 		return true;
 		
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @param pesquisador
+	 * @return
+	 */
+	
 	public boolean desassociaPesquisador(Pesquisador pesquisador) {
 		pesquisadoresAssociados.remove(pesquisador);
 		return true;
-		
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param p
+	 * @return
+	 */
+	
+	@Override
+	public int compareTo(Pesquisa p) {
+		return this.getCodigo().compareTo(p.getCodigo());
 	}
 }
