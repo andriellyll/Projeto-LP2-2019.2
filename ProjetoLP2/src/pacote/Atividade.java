@@ -166,6 +166,13 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
+	/**
+	 * Executa um item de uma atividade a partir de um numero inteiro que representa a ordem de
+	 * cadastro do item na atividade e da duracao da execucao do item.
+	 * 
+	 * @param item - o valor que representa a ordem de cadastro de um item na atividade
+	 * @param duracao - a duracao em horas da execucao do item
+	 */
 	public void executaAtividade(int item, int duracao) {
 		verificaItemExiste(item);
 		if (itens.get((item - 1)).getSituacao().equals("REALIZADO")) {
@@ -176,11 +183,25 @@ public class Atividade {
 
 	}
 
+	/**
+	 * Verifica se um item existe a partir do numero inteiro que representa a ordem de
+	 * cadastro do mesmo na atividade
+	 * 
+	 * @param item -  o valor que representa a ordem de cadastro de um item na atividade
+	 */
 	private void verificaItemExiste(int item) {
 		if (itens.size() < item) {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
 	}
+
+	/**
+	 * Altera a quantidade de horas que representa a duracao de execucao da
+	 * atividade.
+	 * 
+	 * @param duracao - a quantidade de horas a ser adicionada na duracao da execuca
+	 *                da atividade
+	 */
 	private void setDuracao(int duracao) {
 		this.duracao += duracao;
 	}
@@ -188,7 +209,7 @@ public class Atividade {
 	private List<String> procuraPalavraItem(String palavraChave) {
 		ArrayList<String> resultadosItens = new ArrayList<>();
 		for (Item item : itens) {
-			if(!item.procuraPalavraChave(palavraChave).isEmpty()) {
+			if (!item.procuraPalavraChave(palavraChave).isEmpty()) {
 				resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
 			}
 		}
@@ -209,33 +230,54 @@ public class Atividade {
 		if (this.descricao.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
-		if(this.descricaoRisco.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);	
+		if (this.descricaoRisco.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
-		if(!procuraPalavraItem(palavraChave).isEmpty()) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);		
+		if (!procuraPalavraItem(palavraChave).isEmpty()) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
 		return resultadosBusca;
 	}
 
+	/**
+	 * Cadastra um resultado obtido pela atividade, a partir da String que
+	 * representa o resultado
+	 * 
+	 * @param resultado - a String que representa o resultado obtido pela atividade
+	 * @return - o numero que representa a oredem de cadastro do resultado
+	 */
 	public int cadastraResultado(String resultado) {
 		resultados.add(resultado);
 		return resultados.indexOf(resultado) + 1;
 	}
 
+	/**
+	 * Remove um resultado obtido pela atividade a partir do numero que representa a
+	 * ordem de cadastro do resultado. Caso a remocao for feita com sucesso sera
+	 * retornado true, caso nao retornara false
+	 * 
+	 * @param numeroResultado - o numero que representa a ordem de cadastro do
+	 *                        resultado
+	 * 
+	 * @return - o booleano que representa se a remocao obteve sucesso (true) ou nao
+	 *         (false)
+	 */
 	public boolean removeResultado(int numeroResultado) {
 		if (resultados.size() >= numeroResultado) {
 			if (!(resultados.get(numeroResultado - 1).equals(""))) {
 				resultados.set(numeroResultado - 1, "");
 				return true;
-			} else {
-				return false;
 			}
-		} else {
-			throw new IllegalArgumentException("Resultado nao encontrado.");
+			return false;
 		}
+		throw new IllegalArgumentException("Resultado nao encontrado.");
 	}
 
+	/**
+	 * Gera e retorna a listagem dos resultados cadastrados na atividade
+	 * 
+	 * @return - a representacao em string de todos os resultados obtidos
+	 */
 	public String listaResultados() {
 		String saida = "";
 		for (int i = 0; i < resultados.size(); i++) {
