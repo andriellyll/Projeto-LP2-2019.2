@@ -244,7 +244,7 @@ public class Atividade {
 	 * representa o resultado
 	 * 
 	 * @param resultado - a String que representa o resultado obtido pela atividade
-	 * @return - o numero que representa a oredem de cadastro do resultado
+	 * @return - o numero que representa a ordem de cadastro do resultado
 	 */
 	public int cadastraResultado(String resultado) {
 		resultados.add(resultado);
