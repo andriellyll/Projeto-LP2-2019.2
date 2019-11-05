@@ -301,8 +301,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Desassocia uma atividade da pesquisa.
-	 * @param codigoPesquisa 
+	 * Desassocia uma atividade da pesquisa. 
 	 * 
 	 * @param atividade - a atividade a ser desassociada
 	 * @return - o booleano que representa se a atividade foi desassociada a
@@ -316,7 +315,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
 
-	
 	/**
 	 * Procura nos atributos descricao e campo de interesse da pesquisa a palavra-chave passada como
 	 * parametro
@@ -383,6 +381,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	public int compareTo(Pesquisa p) {
 		return this.getCodigo().compareTo(p.getCodigo());
 	}
+	
 	/**
 	 * 
 	 * 
@@ -393,8 +392,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		return problemaDaPesquisa.getCodigo();
 	}
 
-
-	
 //	public boolean temObjetivos() {
 //		for (Objetivo meta : objetivosDaPesquisa.values()) {
 //			
