@@ -25,7 +25,15 @@ public class Atividade {
 	private String nivelRisco;
 	private String descricaoRisco;
 	private List<Item> itens;
+	
+	/**
+	 * A duracao de execucao da atividade
+	 */
 	private int duracao;
+	
+	/**
+	 * A lista de resultados cadastrados na atividade.
+	 */
 	private List<String> resultados;
 
 	/**
