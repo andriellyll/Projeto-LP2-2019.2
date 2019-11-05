@@ -273,7 +273,7 @@ public class Atividade {
 	public boolean removeResultado(int numeroResultado) {
 		if (resultados.size() >= numeroResultado) {
 			if (!(resultados.get(numeroResultado - 1).equals(""))) {
-				resultados.set(numeroResultado - 1, "");
+				resultados.set(numeroResultado - 1, null);
 				return true;
 			}
 			return false;
@@ -289,7 +289,7 @@ public class Atividade {
 	public String listaResultados() {
 		String saida = "";
 		for (int i = 0; i < resultados.size(); i++) {
-			if (!(resultados.get(i).equals(""))) {
+			if (!(resultados.get(i) == null)) {
 				saida += resultados.get(i);
 				saida += " | ";
 			}
