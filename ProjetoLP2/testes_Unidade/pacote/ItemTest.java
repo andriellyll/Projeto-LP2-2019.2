@@ -21,7 +21,7 @@ class ItemTest {
 
 	@Test
 	public void testItemNulo() {
-		assertThrows(IllegalArgumentException.class, () -> new Item(null, 1));
+		assertThrows(NullPointerException.class, () -> new Item(null, 1));
 	}
 
 	@Test

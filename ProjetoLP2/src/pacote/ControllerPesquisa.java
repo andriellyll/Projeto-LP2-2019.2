@@ -1,7 +1,12 @@
 package pacote;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import utils.OrdenaResultados;
 
 /**
  * Controller responsavel por gerenciar as pesquisas no sistema. As
@@ -9,25 +14,28 @@ import java.util.Map;
  * pesquisa, ativar pesquisa, exibir pesquisa verificar se a pesquisa e ativa.
  * 
  * @author Anna Beatriz Lucena
- *
  */
+
 public class ControllerPesquisa {
 
 	/**
 	 * Armazena todas as pesquisas cadastradas no sistema.
 	 */
+	
 	private Map<String, Pesquisa> pesquisas;
 
 	/**
 	 * Armazena os codigos(identificador da pesquisa) gerados pelo sistema, com o
 	 * ojetivo de gerenciar os mesmos.
 	 */
+	
 	private Map<String, Integer> codigos;
 
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
 	 * pesquisas e codigos.
 	 */
+	
 	public ControllerPesquisa() {
 		this.pesquisas = new HashMap<>();
 		this.codigos = new HashMap<>();
@@ -48,6 +56,7 @@ public class ControllerPesquisa {
 	 * @param campoDeInteresse - o campo de interesse da pesquisa
 	 * @return - o codigo(identificador unico) gerado
 	 */
+	
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
@@ -66,7 +75,6 @@ public class ControllerPesquisa {
 			this.pesquisas.put(codigoPesquisa, new Pesquisa(codigoPesquisa, descricao, campoDeInteresse));
 		}
 		return codigoPesquisa;
-
 	}
 
 	/**
@@ -81,6 +89,7 @@ public class ControllerPesquisa {
 	 * @param conteudoASerAlterado - o paramentro a ser alterado
 	 * @param novoConteudo         - o novo conteudo a ser atribuido
 	 */
+	
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado,
@@ -88,7 +97,7 @@ public class ControllerPesquisa {
 		verificaPesquisaExiste(codigo);
 
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
-		if (pesquisa.getAtivacao() == false) {
+		if (!pesquisa.getAtivacao()) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 		if (conteudoASerAlterado.equals("descricao") || conteudoASerAlterado.equals("DESCRICAO")) {
@@ -101,7 +110,6 @@ public class ControllerPesquisa {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoConteudo, "Formato do campo de interesse invalido.");
 			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
 		}
-
 	}
 
 	/**
@@ -114,18 +122,17 @@ public class ControllerPesquisa {
 	 * @param codigo - o identificador da pesquisa a ser desativada
 	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
+	
 	public void encerraPesquisa(String codigo, String motivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
 
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
-		if (pesquisa.getAtivacao() == true) {
+		if (pesquisa.getAtivacao()) {
 			pesquisa.desativaPesquisa(motivo);
 		} else {
 			throw new IllegalArgumentException("Pesquisa desativada.");
-
 		}
-
 	}
 
 	/**
@@ -136,6 +143,7 @@ public class ControllerPesquisa {
 	 * 
 	 * @param codigo - o identificador da pesquisa a ser ativada
 	 */
+	
 	public void ativaPesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -147,7 +155,6 @@ public class ControllerPesquisa {
 		} else {
 			throw new IllegalArgumentException("Pesquisa ja ativada.");
 		}
-
 	}
 
 	/**
@@ -158,6 +165,7 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser exibida
 	 * @return - a representacao em string da pesquisa
 	 */
+	
 	public String exibePesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -165,7 +173,6 @@ public class ControllerPesquisa {
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
 
 		return pesquisa.toString();
-
 	}
 
 	/**
@@ -176,12 +183,26 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser verificada
 	 * @return - o valor booleano que representa o status de ativacao da pesquisa
 	 */
+	
 	public boolean pesquisaEhAtiva(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
 		return pesquisa.getAtivacao();
+	}
 
+//------------------------------------------------ Novas atualizacoes de ControllerPesquisa ----------------------------------------------------------------
+
+	/**
+	 * 
+	 * 
+	 * @param codigo
+	 */
+
+	private void verificaPesquisaAtivada(String codigo) {
+		if (pesquisas.get(codigo).getAtivacao() == false) {
+			throw new RuntimeException("Pesquisa desativada.");
+		}
 	}
 
 	/**
@@ -191,10 +212,169 @@ public class ControllerPesquisa {
 	 * 
 	 * @param codigo - o codigo da pesquisa a ser verificada
 	 */
+
 	private void verificaPesquisaExiste(String codigo) {
 		if (!pesquisas.containsKey(codigo)) {
 			throw new RuntimeException("Pesquisa nao encontrada.");
 		}
 	}
 
+	/**
+	 * Verifica se a pesquisa existe, a partir de um codigo, e caso ela exista sera
+	 * retornada.
+	 * 
+	 * @param codigo - o codigo da pesquisa a ser retornada
+	 * @return - a pesquisa solicitada a partir do codigo
+	 */
+
+	public Pesquisa getPesquisa(String codigo) {
+		verificaPesquisaExiste(codigo);
+		verificaPesquisaAtivada(codigo);
+		return this.pesquisas.get(codigo);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param codigoPesquisa
+	 * @param atividade
+	 * @return
+	 */
+
+	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		if(pesquisas.containsKey(codigoPesquisa)) {
+			if (pesquisas.get(codigoPesquisa).getAtivacao()) {
+				return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
+			}
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		} 
+		throw new IllegalArgumentException("Pesquisa nao encontrada.");
+	}
+	
+	/**
+	 * Procura em todos as pesquisas do mapa a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com os campos dos atributos de pesquisa que contiverem a palavra-chave
+	 */
+	
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Pesquisa pesquisa: this.pesquisas.values()) {
+			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));	
+			}
+		}
+		
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		
+		return resultadosBusca;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param codigoDaPesquisa
+	 * @param pesquisador
+	 * @return
+	 */
+	
+	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
+		return true;
+		
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param codigoDaPesquisa
+	 * @param pesquisador
+	 * @return
+	 */
+	
+	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
+		return true;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param listaDePesquisas
+	 * @return
+	 */
+	
+	private List<Pesquisa> ordenaPesquisasProblemas(Map<String, Pesquisa> listaDePesquisas) {
+		List<Pesquisa> listaOrdenada = new ArrayList<>();
+		List<Pesquisa> temProblema = new ArrayList<>();
+		List<Pesquisa> naoTemProblema = new ArrayList<>();
+		
+		for (Pesquisa estudo : pesquisas.values()) {
+			if (estudo.temProblema()) {
+				temProblema.add(estudo);
+			} else {
+				naoTemProblema.add(estudo);
+			}
+		}
+		Collections.sort(temProblema);
+		Collections.sort(naoTemProblema);
+		
+		for (int i = 0; i < temProblema.size(); i++) {
+			listaOrdenada.add(temProblema.get(i));
+		}
+		for(int i = 0; i < naoTemProblema.size(); i++) {
+			listaOrdenada.add(temProblema.get(i));
+		}
+		
+		return listaOrdenada;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param listaDePesquisas
+	 * @return
+	 */
+	
+	private List<Pesquisa> ordenaPesquisasObjetivadas(Map<String, Pesquisa> listaDePesquisas) {
+		List<Pesquisa> listaOrdenada = new ArrayList<>();
+		
+		return listaOrdenada;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	
+	public String imprimePesquisas(String ordem) {
+		String todasPesquisas = "";
+		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
+		
+		if ("PROBLEMA".equals(ordem)) {
+			pesquisasOrdenadas = ordenaPesquisasProblemas(pesquisas);
+		} else if ("OBJETIVOS".equals(ordem)) {
+			pesquisasOrdenadas = ordenaPesquisasObjetivadas(pesquisas);
+		} else if ("PESQUISA".equals(ordem)) {
+			
+		}
+		
+		for (int i = 0; i < pesquisasOrdenadas.size(); i++) {
+			if (i == pesquisasOrdenadas.size() - 1) {
+				todasPesquisas += pesquisasOrdenadas.get(i).toString();
+			} else {
+				todasPesquisas += pesquisasOrdenadas.get(i).toString() + " | ";
+			}
+		}
+		return todasPesquisas;
+	}
 }
