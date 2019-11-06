@@ -118,5 +118,43 @@ class ControllerPesquisaTest {
 		assertThrows(IllegalArgumentException.class, () -> controle.pesquisaEhAtiva("            "), "Codigo nao pode ser nulo ou vazio.");
 		assertThrows(RuntimeException.class, () -> controle.pesquisaEhAtiva("GEO2"), "Pesquisa nao encontrada.");
 	}
+	
+	@Test
+	public void testAssociaPesquisador() {
+		assertTrue(controle.associaPesquisador("ECO1", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));
+	}
+	
+	@Test
+	public void testAssociaPesquisadorPesquisaInexistente() {
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));		
+	}
+	
+	@Test
+	public void testAssociaPesquisadorPesquisaInativa() {
+		controle.encerraPesquisa("ECO1", "pipipi popopo");
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));		
+	}
+
+	@Test
+	public void testDesassociaPesquisador() {
+		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
+		controle.associaPesquisador("ECO1", pesquisador);
+		assertTrue(controle.desassociaPesquisador("ECO1", pesquisador));
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorPesquisaInexistente() {
+		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
+		controle.associaPesquisador("ECO1", pesquisador);
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", pesquisador));		
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorPesquisaInativa() {
+		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
+		controle.associaPesquisador("ECO1", pesquisador);
+		controle.encerraPesquisa("ECO1", "pipipi popopo");
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", pesquisador));		
+	}
 
 }

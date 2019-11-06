@@ -344,7 +344,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
 		if (this.campoDeInteresse.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);
+			resultadosBusca.add(this.codigo + ": " + this.campoDeInteresse);
 		}
 		return resultadosBusca;
 	}

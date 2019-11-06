@@ -239,10 +239,10 @@ public class Atividade {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
 		if (this.descricaoRisco.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);
+			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
 		}
 		if (!procuraPalavraItem(palavraChave).isEmpty()) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);
+			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
 		}
 		return resultadosBusca;
 	}
