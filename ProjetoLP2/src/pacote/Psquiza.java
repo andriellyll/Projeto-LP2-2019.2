@@ -311,7 +311,11 @@ public class Psquiza {
 	}
 
 //Busca por Palavra-chave:
-
+	/**
+	 * Metodo auxiliar que faz a busca da palavra chave em todos os controllers e, assim, em todas as entidades cadastradas no sistema.
+	 * @param palavraChave palavra que sera procurada nas entidades
+	 * @return um ArrayList de String de todos os resultados da busca, ja ordenada de acordo com cada classe, em ordem anti-lexicografica.
+	 */
 	private ArrayList<String> buscarPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 		resultadosBusca.addAll(controllerPesquisa.procuraPalavraChave(palavraChave));
@@ -326,7 +330,11 @@ public class Psquiza {
 
 		return resultadosBusca;
 	}
-
+	/**
+	 * Busca a palavra chave passada como parametro em todas as entidades no sistema e retorna uma String que contem todos os resultados da busca.
+	 * @param palavraChave palavra a ser buscada
+	 * @return String contendo todos os resultados da busca
+	 */
 	public String busca(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
 
@@ -334,7 +342,11 @@ public class Psquiza {
 
 		return String.join(" | ", resultadosBusca);
 	}
-
+	/**
+	 * Busca a palavra chave passada como parametro e retorna um inteiro que representa a quantidade de resultados obtidos na busca.
+	 * @param palavraChave palavra a ser buscada
+	 * @return quantidade de resultados
+	 */
 	public int contaResultadosBusca(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
 
@@ -342,7 +354,6 @@ public class Psquiza {
 
 		return quantidadeTotal;
 	}
-
 	public String busca(String palavraChave, int numeroResultado) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
 
