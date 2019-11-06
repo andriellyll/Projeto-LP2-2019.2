@@ -52,10 +52,16 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	private boolean ehAtivada;
 
 	/**
-	 * 
+	 * Representa o problema associado a esta pesquisa.
 	 */
 
 	private Problema problemaDaPesquisa;
+	
+	/**
+	 * Representa uma lista dos objetivos associados a esta pesquisa.
+	 */
+
+	private Set<Objetivo> objetivosDaPesquisa;
 
 	/**
 	 * 
@@ -64,14 +70,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	private Set<Pesquisador> pesquisadoresAssociados;
 
 	/**
-	 * 
-	 */
-
-	private Set<Objetivo> objetivosDaPesquisa;
-
-	/**
 	 * Armazena todas as atividades associadas a pesquisa.
 	 */
+	
 	private Set<Atividade> atividadesAssociadas;
 
 	/**
@@ -214,9 +215,10 @@ public class Pesquisa implements Comparable<Pesquisa> {
 //------------------------------------------------ Novas atualizacoes de Pesquisa --------------------------------------------------------------------------
 
 	/**
+	 * Metodo responsavel por verificar se esta pesquisa possui um problema
+	 * associado a ela.
 	 * 
-	 * 
-	 * @return
+	 * @return um booleano, que true representa sim, e false, nao
 	 */
 
 	public boolean temProblema() {
@@ -227,10 +229,12 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por associa a esta pesquisa um unico problema,
+	 * onde caso esse problema ja esteja associado ele retorna false e
+	 * caso exista ja um problema salvo na pesquisa, ele reporta um erro.
 	 * 
-	 * 
-	 * @param problema
-	 * @return
+	 * @param problema - valor que representa problema ao qual a pesquisa foi referenciada
+	 * @return um valor booleano correspondente a especificacao que o problema pertence
 	 */
 
 	public boolean associaProblema(Problema problema) {
@@ -244,10 +248,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por desassociar o problema desejado desta pesquisa,
+	 * onde caso esse problema a desejado a ser desassociado não for o mesmo salvo ele retorna false.
 	 * 
-	 * 
-	 * @param problema
-	 * @return
+	 * @param problema - valor que representa a pesquisa desejada a ser desassociada
+	 * @return um booleano referente a situacao do processo
 	 */
 
 	public boolean desassociaProblema(Problema problema) {
@@ -259,10 +264,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por associar um objetivo especifico a pesquisa, onde
+	 * caso este objetivo ja pertenca a lista de objetivos da pesquisa, ele retorna false.
 	 * 
-	 * 
-	 * @param objetivo
-	 * @return
+	 * @param objetivo - valor do objetivo a ser associado
+	 * @return um booleano referente a situacao do processo
 	 */
 
 	public boolean associaObjetivo(Objetivo objetivo) {
@@ -274,10 +280,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responavel por desassociar um objetivo especifico a pesquisa, onde
+	 * caso esse objetivo nao contenha na lista de objetivos da pesquisa, ele retorna false.
 	 * 
-	 * 
-	 * @param objetivo
-	 * @return
+	 * @param objetivo - valor do objetivo a ser associado
+	 * @return um booleano referente a situacao do processo
 	 */
 
 	public boolean desassociaObjetivo(Objetivo objetivo) {
@@ -368,9 +375,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por resgatar o codigo da Pesquisa
 	 * 
-	 * 
-	 * @return
+	 * @return em string, o codigo da pesquisa
 	 */
 
 	public String getCodigo() {
@@ -378,10 +385,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por comparar duas pesquisas, pelos seus codigos de identificacao,
+	 * para realizar uma ordenacao destas pesquisas.
 	 * 
-	 * 
-	 * @param p
-	 * @return
+	 * @param p pesquisa a ser comparada
+	 * @return comparacao das pesquisas
 	 */
 
 	@Override
@@ -390,9 +398,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por resgatar o ID do problema da pesquisa.
 	 * 
-	 * 
-	 * @return
+	 * @return uma string representando o codigo
 	 */
 
 	public String getIdProblema() {
@@ -400,9 +408,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por verificar se esta pesquisa possui algum objetivo associado a ela.
 	 * 
-	 * 
-	 * @return
+	 * @return um booleano, onde true representa sim, e false nao
 	 */
 
 	public boolean temObjetivos() {
@@ -413,9 +421,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
+	 * Metodo responsavel por resgatar a quantidade de objetivos que esta pesquisa possui.
 	 * 
-	 * 
-	 * @return
+	 * @return um inteiro representando a quantidade
 	 */
 
 	public int getNumObjetivos() {

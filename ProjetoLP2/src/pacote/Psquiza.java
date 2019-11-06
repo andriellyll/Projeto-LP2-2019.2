@@ -128,6 +128,15 @@ public class Psquiza {
 	}
 
 //Associacoes de Objetivos e Problema:
+	
+	/**
+	 * Metodo responsavel por associar um a pesquisa a um problema e
+	 * associar este mesmo problema a esta pesquisa.
+	 * 
+	 * @param idPesquisa - valor de identificacao da pesquisa
+	 * @param idProblema - valor de identificacao do problema
+	 * @return um booleano referente a situacao do processo
+	 */
 
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
@@ -141,6 +150,15 @@ public class Psquiza {
 		}
 		return false;
 	}
+	
+	/**
+	 * Metodo responsavel por desassociar uma pesquisa a um problema e
+	 * desassociar este problema a pesquisa.
+	 * 
+	 * @param idPesquisa - valor de identificacao da pesquisa
+	 * @param idProblema - valor de identificacao do problema
+	 * @return ujm booleano referente a situacao do processo
+	 */
 
 	public boolean desassociaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
@@ -154,6 +172,15 @@ public class Psquiza {
 		}
 		return false;
 	}
+	
+	/**
+	 * Metodo responsavel por associar um determinado objetivo a uma determinada pesquisa e
+	 * associar esta pesquisa a este objetivo.
+	 * 
+	 * @param idPesquisa - valor que identifica a pesquisa desejada
+	 * @param idObjetivo - valor que identifica o objetivo desejado
+	 * @return um booleano referente a situacao do processo
+	 */
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
@@ -167,6 +194,15 @@ public class Psquiza {
 		}
 		return false;
 	}
+	
+	/**
+	 * Metodo responsavel por desassociar um determinado objetivo a uma determinada pesquisa e
+	 * desassociar esta pesquisa a este objetivo.
+	 * 
+	 * @param idPesquisa - valor que identifica a pesquisa desejada
+	 * @param idObjetivo - valor que identifica o objetivo desejado
+	 * @return um booleano referente a situacao do processo
+	 */
 
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
@@ -180,6 +216,14 @@ public class Psquiza {
 		}
 		return false;
 	}
+	
+	/**
+	 * Metodo responsavel por lista pesquisas, referente a ordem especifica desejada pelo usuario,
+	 * podendo ser classicada por PROBLEMA, OBJETIVOS e/ou PESQUISA.
+	 * 
+	 * @param ordem - valor que representa a forma como o usuario quer que sejam listados suas pesquisas
+	 * @return uma string listando as pesquisa
+	 */
 
 	public String listaPesquisas(String ordem) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(ordem, "Valor invalido da ordem");

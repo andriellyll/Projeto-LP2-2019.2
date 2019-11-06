@@ -31,7 +31,7 @@ public class Problema {
 	private String codigo;
 	
 	/**
-	 * 
+	 * Atributo que lista as pesquisas associadas a este problema.
 	 */
 
 	private Set<Pesquisa> pesquisas;
@@ -105,10 +105,11 @@ public class Problema {
 //---------------------------------------------------- Novas atualizacoes de Problema ----------------------------------------------------------------------
 
 	/**
+	 * Metodo responsavel por associar uma pesquisa a este problema,
+	 * onde caso essa pesquisa ja esteja associada a este problema ele retorna false.
 	 * 
-	 * 
-	 * @param pesquisa
-	 * @return
+	 * @param pesquisa - valor da pesquisa a ser associada
+	 * @return um booleano referente a especificacao em que a pesquisa pertence
 	 */
 
 	public boolean associaPesquisa(Pesquisa pesquisa) {
@@ -120,10 +121,12 @@ public class Problema {
 	}
 	
 	/**
+	 * Metodo responsavel por desassociar uma determinada pesquisa,
+	 * onde caso essa pesquisa nao estiver salvo a lista de pesquisa,
+	 * ele retorna false.
 	 * 
-	 * 
-	 * @param pesquisa
-	 * @return
+	 * @param pesquisa - valor da pesquisa a ser desassociada
+	 * @return um booleano referente a especificacao em que a pesquisa pertence
 	 */
 	
 	public boolean desassociaPesquisa(Pesquisa pesquisa) {
@@ -149,6 +152,12 @@ public class Problema {
 		}
 		return "";
 	}
+	
+	/**
+	 * Metodo responsavel por resgatar o codigo de identificacao deste problema.
+	 * 
+	 * @return o codigo do problema
+	 */
 	
 	public String getCodigo() {
 		return this.codigo;

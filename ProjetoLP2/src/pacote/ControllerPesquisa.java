@@ -196,9 +196,85 @@ public class ControllerPesquisa {
 //------------------------------------------------ Novas atualizacoes de ControllerPesquisa ----------------------------------------------------------------
 
 	/**
+	 * Metodo responsavel por ordenar as pesquisas de acordo com seu codigo de identificacao,
+	 * ordenando-os de forma decrescente.
 	 * 
+	 * @param listaDePesquisas - Lista das pesquisas a serem ordenadas
+	 * @return lista ordenada das pesquisas
+	 */
+
+	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
+		List<Pesquisa> listaOrdenada = /** (ArrayList<Pesquisa>) listaDePesquisas.values(); **/
+				new ArrayList<>();
+
+		for (Pesquisa estudo : listaDePesquisas.values()) {
+			listaOrdenada.add(estudo);
+		}
+
+		Collections.sort(listaOrdenada);
+		return listaOrdenada;
+	}
+
+	/**
+	 * Metodo responsavel por imprimir as pesquisas, de acordo com a especificacao do usuario.
 	 * 
-	 * @param codigo
+	 * @param ordem - valor que representa a forma como o usuario quer que sejam listados suas pesquisas
+	 * @return uma string que imprime as pesquisas listadas, desejadas pelo usuario
+	 */
+
+	public String imprimePesquisas(String ordem) {
+		String todasPesquisas = "";
+		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
+
+		if ("PROBLEMA".equals(ordem)) {
+			List<Pesquisa> temProblema = new ArrayList<>();
+			List<Pesquisa> naoTemProblema = new ArrayList<>();
+
+			for (Pesquisa estudo : pesquisas.values()) {
+				if (estudo.temProblema()) {
+					temProblema.add(estudo);
+				} else {
+					naoTemProblema.add(estudo);
+				}
+			}
+			Collections.sort(temProblema, new OrdenaPesquisaProblema());
+			Collections.sort(naoTemProblema);
+			pesquisasOrdenadas.addAll(temProblema);
+			pesquisasOrdenadas.addAll(naoTemProblema);
+		} else if ("OBJETIVOS".equals(ordem)) {
+			List<Pesquisa> temObjetivos = new ArrayList<>();
+			List<Pesquisa> naoTemObjetivos = new ArrayList<>();
+
+			for (Pesquisa estudo : pesquisas.values()) {
+				if (estudo.temObjetivos()) {
+					temObjetivos.add(estudo);
+				} else {
+					naoTemObjetivos.add(estudo);
+				}
+			}
+			Collections.sort(temObjetivos, new OrdenaPesquisasObjetivadas());
+			Collections.sort(naoTemObjetivos);
+			pesquisasOrdenadas.addAll(temObjetivos);
+			pesquisasOrdenadas.addAll(naoTemObjetivos);
+		} else if ("PESQUISA".equals(ordem)) {
+			pesquisasOrdenadas = ordenaPesquisas(pesquisas);
+		}
+
+		for (int i = 0; i < pesquisasOrdenadas.size(); i++) {
+			if (i == pesquisasOrdenadas.size() - 1) {
+				todasPesquisas += pesquisasOrdenadas.get(i).toString();
+			} else {
+				todasPesquisas += pesquisasOrdenadas.get(i).toString() + " | ";
+			}
+		}
+		return todasPesquisas;
+	}
+	
+	/**
+	 * Verifica se uma pesquisa esta ativada para uso,
+	 * caso contrario ele apresenta um erro.
+	 * 
+	 * @param codigo - valor que vai ser verificado a ativacao ou nao
 	 */
 
 	private void verificaPesquisaAtivada(String codigo) {
@@ -222,7 +298,7 @@ public class ControllerPesquisa {
 	}
 
 	/**
-	 * Verifica se a pesquisa existe, a partir de um codigo, e caso ela exista sera
+	 * Verifica se a pesquisa existe e se ela esta ativada, a partir de um codigo, e caso ela exista sera
 	 * retornada.
 	 * 
 	 * @param codigo - o codigo da pesquisa a ser retornada
@@ -268,6 +344,7 @@ public class ControllerPesquisa {
 	 * @return - o booleano que representa se a desassociacao obteve sucesso (true) ou
 	 *         nao (false)
 	 */
+	
 	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
 		verificaPesquisaExiste(codigoPesquisa);
 		return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
@@ -328,79 +405,5 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigoDaPesquisa);
 		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
 		return true;
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param listaDePesquisas
-	 * @return
-	 */
-
-	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
-		List<Pesquisa> listaOrdenada = /** (ArrayList<Pesquisa>) listaDePesquisas.values(); **/
-				new ArrayList<>();
-
-		for (Pesquisa estudo : listaDePesquisas.values()) {
-			listaOrdenada.add(estudo);
-		}
-
-		Collections.sort(listaOrdenada);
-		return listaOrdenada;
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param ordem
-	 * @return
-	 */
-
-	public String imprimePesquisas(String ordem) {
-		String todasPesquisas = "";
-		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
-
-		if ("PROBLEMA".equals(ordem)) {
-			List<Pesquisa> temProblema = new ArrayList<>();
-			List<Pesquisa> naoTemProblema = new ArrayList<>();
-
-			for (Pesquisa estudo : pesquisas.values()) {
-				if (estudo.temProblema()) {
-					temProblema.add(estudo);
-				} else {
-					naoTemProblema.add(estudo);
-				}
-			}
-			Collections.sort(temProblema, new OrdenaPesquisaProblema());
-			Collections.sort(naoTemProblema);
-			pesquisasOrdenadas.addAll(temProblema);
-			pesquisasOrdenadas.addAll(naoTemProblema);
-		} else if ("OBJETIVOS".equals(ordem)) {
-			List<Pesquisa> temObjetivos = new ArrayList<>();
-			List<Pesquisa> naoTemObjetivos = new ArrayList<>();
-
-			for (Pesquisa estudo : pesquisas.values()) {
-				if (estudo.temObjetivos()) {
-					temObjetivos.add(estudo);
-				} else {
-					naoTemObjetivos.add(estudo);
-				}
-			}
-			Collections.sort(temObjetivos, new OrdenaPesquisasObjetivadas());
-			Collections.sort(naoTemObjetivos);
-			pesquisasOrdenadas.addAll(temObjetivos);
-			pesquisasOrdenadas.addAll(naoTemObjetivos);
-		} else if ("PESQUISA".equals(ordem)) {
-			pesquisasOrdenadas = ordenaPesquisas(pesquisas);
-		}
-
-		for (int i = 0; i < pesquisasOrdenadas.size(); i++) {
-			if (i == pesquisasOrdenadas.size() - 1) {
-				todasPesquisas += pesquisasOrdenadas.get(i).toString();
-			} else {
-				todasPesquisas += pesquisasOrdenadas.get(i).toString() + " | ";
-			}
-		}
-		return todasPesquisas;
 	}
 }

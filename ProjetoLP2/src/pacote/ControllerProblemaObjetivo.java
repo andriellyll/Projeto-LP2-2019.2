@@ -196,10 +196,10 @@ public class ControllerProblemaObjetivo {
 //---------------------------------- Novas atualizacoes de ControllerProblemaObjetivo -----------------------------------
 	
 	/**
+	 * Metodo responsavel por resgatar um determinado objetivo, existente.
 	 * 
-	 * 
-	 * @param idObjetivo
-	 * @return
+	 * @param idObjetivo - valor de identificacao do objetivo
+	 * @return o objetivo desejado pelo usuario
 	 */
 	
 	public Objetivo getObjetivo(String idObjetivo) {
@@ -208,10 +208,10 @@ public class ControllerProblemaObjetivo {
 	}
 	
 	/**
+	 * Metodo responsavel por pegar o problema pertencente a determinada pesquisa.
 	 * 
-	 * 
-	 * @param idProblema
-	 * @return
+	 * @param idProblema - valor que identifica o problema desejado
+	 * @return O problema desejado
 	 */
 	
 	public Problema getProblema(String idProblema) {
