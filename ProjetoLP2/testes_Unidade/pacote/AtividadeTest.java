@@ -134,7 +134,8 @@ class AtividadeTest {
 	
 	@Test
 	public void testRemoveResultado() {
-		
+		atividade.cadastraResultado("Monitoramento do facebook realizado com sucesso");
+		atividade.cadastraResultado("Monitoramento do slack realizado com sucesso");
 	}
 	
 	@Test

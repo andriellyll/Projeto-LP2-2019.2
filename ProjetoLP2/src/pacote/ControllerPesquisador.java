@@ -107,8 +107,17 @@ public class ControllerPesquisador {
 			this.pesquisadores.get(email).setNome(novoAtributo);
 		} else if (atributo.equals("FUNCAO")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo funcao nao pode ser nulo ou vazio.");
-
-			this.pesquisadores.get(email).setFuncao(novoAtributo);
+			
+			if(novoAtributo.equalsIgnoreCase("estudante")) {
+				this.pesquisadores.get(email).setFuncao( new Estudante());
+				
+			}else if(novoAtributo.equalsIgnoreCase("externo")){
+				this.pesquisadores.get(email).setFuncao( new Externo());
+				
+			}else if(novoAtributo.equalsIgnoreCase("professor")){
+				this.pesquisadores.get(email).setFuncao( new Professor());
+				
+			}
 		} else if (atributo.equals("BIOGRAFIA")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo biografia nao pode ser nulo ou vazio.");
 
