@@ -12,7 +12,6 @@ import utils.OrdenaResultados;
  * 
  * @author 
  */
-
 public class Psquiza {
 
 	private ControllerPesquisa controllerPesquisa;
@@ -301,10 +300,7 @@ public class Psquiza {
 				.associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
 		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
 				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		if (passo1 && passo2) {
-			return true;
-		}
-		return false;
+		return (passo1 && passo2);
 	}
 	
 	/**
@@ -322,10 +318,8 @@ public class Psquiza {
 				.desassociaProblema(controllerProblemaObjetivo.getProblema(idProblema));
 		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
 				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		if (passo1 && passo2) {
-			return true;
-		}
-		return false;
+		return (passo1 && passo2);
+		
 	}
 	
 	/**
@@ -361,10 +355,8 @@ public class Psquiza {
 				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
 				.desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
-		if (passo1 && passo2) {
-			return true;
-		}
-		return false;
+		return (passo1 && passo2);
+		
 	}
 	
 	/**
@@ -409,9 +401,8 @@ public class Psquiza {
 	 */
 	public boolean desassociaPesquisador(String codigoDaPesquisa, String emailPesquisador) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoDaPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		controllerPesquisa.desassociaPesquisador(codigoDaPesquisa,
+		return controllerPesquisa.desassociaPesquisador(codigoDaPesquisa,
 				controllerPesquisador.getPesquisador(emailPesquisador));
-		return true;
 	}
 
 //Associacao e Execucao de Atividades:
@@ -428,7 +419,9 @@ public class Psquiza {
 				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		Pesquisa pesquisa = controllerPesquisa.getPesquisa(codigoPesquisa);
 		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
+		controllerAtividade.associaPesquisa(pesquisa, codigoAtividade);
 		return controllerPesquisa.associaAtividade(codigoPesquisa, atividade);
 	}
 	
@@ -445,6 +438,7 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
+		controllerAtividade.desassociaPesquisa(codigoAtividade);
 		return controllerPesquisa.desassociaAtividade(codigoPesquisa, atividade);
 	}
 	
@@ -460,8 +454,6 @@ public class Psquiza {
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
 		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
-	//	Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
-	//	controllerPesquisa.verificaPesquisaEhAssociada(codigoPesquisa, atividade);
 		controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
 	}
 	

@@ -28,16 +28,21 @@ public class Atividade {
 	private String descricaoRisco;
 	private List<Item> itens;
 	
+	private Pesquisa pesquisa;
+
 	/**
 	 * A duracao de execucao da atividade
 	 */
 	private int duracao;
-	
+
 	/**
-	 * A lista de resultados cadastrados na atividade.
+	 * A sequencia de resultados cadastrados na atividade.
 	 */
 	private Map<Integer, String> resultados;
-	
+
+	/**
+	 * Armazena a quantidade de posicoes de resultados ja cadastradas
+	 */
 	private int posicoesCadastradas;
 
 	/**
@@ -49,7 +54,6 @@ public class Atividade {
 	 * @param descricaoRisco valor que relata o porque esta atividade possivel
 	 *                       determinado nivel de risco
 	 */
-
 	public Atividade(String codigo, String descricao, String nivelRisco, String descricaoRisco) {
 		this.codigo = codigo;
 		this.descricao = descricao;
@@ -59,6 +63,7 @@ public class Atividade {
 		this.duracao = 0;
 		this.resultados = new LinkedHashMap<>();
 		this.posicoesCadastradas = 0;
+		this.pesquisa = null;
 	}
 
 	/**
@@ -105,7 +110,6 @@ public class Atividade {
 	 * @param item   valor que descreve o novo item
 	 * @param codigo valor de identificacao do novo item
 	 */
-
 	public void adicionaItem(String item, int codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
 		Item novoItem = new Item(item, codigo);
@@ -119,7 +123,6 @@ public class Atividade {
 	 * 
 	 * @return um inteiro representando esta quantidade
 	 */
-
 	public int ItensPendentes() {
 		int numPendentes = 0;
 
@@ -136,7 +139,6 @@ public class Atividade {
 	 * 
 	 * @return um inteiro representando esta quantidade
 	 */
-
 	public int ItensRealizados() {
 		int numRealizados = 0;
 
@@ -153,7 +155,6 @@ public class Atividade {
 	 * 
 	 * @return Em formato de String, na representacao "SITUACAO - ITEM | "
 	 */
-
 	public String exibeItens() {
 		String retorno = "";
 
@@ -173,7 +174,6 @@ public class Atividade {
 	 * @return A representacao segue no formato "DESCRICAO (NIVEL DE RISCO -
 	 *         DESCRICAO RISCO)"
 	 */
-
 	@Override
 	public String toString() {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
@@ -182,13 +182,15 @@ public class Atividade {
 //--------------------------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
 
 	/**
-	 * Executa um item de uma atividade a partir de um numero inteiro que representa a ordem de
-	 * cadastro do item na atividade e da duracao da execucao do item.
+	 * Executa um item de uma atividade a partir de um numero inteiro que representa
+	 * a ordem de cadastro do item na atividade e da duracao da execucao do item.
 	 * 
-	 * @param item - o valor que representa a ordem de cadastro de um item na atividade
+	 * @param item    - o valor que representa a ordem de cadastro de um item na
+	 *                atividade
 	 * @param duracao - a duracao em horas da execucao do item
 	 */
 	public void executaAtividade(int item, int duracao) {
+		verificaAtividadeEhAssociada();
 		verificaItemExiste(item);
 		if (itens.get((item - 1)).getSituacao().equals("REALIZADO")) {
 			throw new IllegalArgumentException("Item ja executado.");
@@ -196,7 +198,14 @@ public class Atividade {
 		setDuracao(duracao);
 		itens.get((item - 1)).executa();
 	}
+
+	private void verificaAtividadeEhAssociada() {
+	if (pesquisa == null) {
+		throw new IllegalArgumentException("Atividade nao associada.");
+	}
 	
+}
+
 	/**
 	 * Retorna a duracao em horas do tempo de execucao de uma atividade.
 	 * 
@@ -205,7 +214,7 @@ public class Atividade {
 	public int getDuracao() {
 		return this.duracao;
 	}
-	
+
 	/**
 	 * Altera a quantidade de horas que representa a duracao de execucao da
 	 * atividade.
@@ -216,7 +225,7 @@ public class Atividade {
 	private void setDuracao(int duracao) {
 		this.duracao += duracao;
 	}
-	
+
 	/**
 	 * Cadastra um resultado obtido pela atividade, a partir da String que
 	 * representa o resultado
@@ -247,7 +256,7 @@ public class Atividade {
 			resultados.remove(numeroResultado);
 			return true;
 		}
-		if(numeroResultado > posicoesCadastradas) {
+		if (numeroResultado > posicoesCadastradas) {
 			throw new IllegalArgumentException("Resultado nao encontrado.");
 		}
 		return false;
@@ -268,17 +277,18 @@ public class Atividade {
 	}
 
 	/**
-	 * Verifica se um item existe a partir do numero inteiro que representa a ordem de
-	 * cadastro do mesmo na atividade
+	 * Verifica se um item existe a partir do numero inteiro que representa a ordem
+	 * de cadastro do mesmo na atividade
 	 * 
-	 * @param item -  o valor que representa a ordem de cadastro de um item na atividade
+	 * @param item - o valor que representa a ordem de cadastro de um item na
+	 *             atividade
 	 */
 	private void verificaItemExiste(int item) {
 		if (itens.size() < item) {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -316,5 +326,15 @@ public class Atividade {
 			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
 		}
 		return resultadosBusca;
+	}
+
+	public void associaPesquisa(Pesquisa pesquisa) {
+		this.pesquisa = pesquisa;
+		
+	}
+
+	public void desassociaPesquisa() {
+		this.pesquisa = null;
+		
 	}
 }
