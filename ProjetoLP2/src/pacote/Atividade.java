@@ -201,7 +201,7 @@ public class Atividade {
 
 	private void verificaAtividadeEhAssociada() {
 	if (pesquisa == null) {
-		throw new IllegalArgumentException("Atividade nao associada.");
+		throw new IllegalArgumentException("Atividade sem pesquisa associada.");
 	}
 	
 }
