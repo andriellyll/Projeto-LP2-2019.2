@@ -7,9 +7,14 @@ public class Professor implements Funcao{
 	private String data;
 	
 	public Professor() {
-		this.unidade = "";
 		this.formacao = "";
+		this.unidade = "";
 		this.data = "";
+	}
+	public void cadastraEspecialidade(String formacao, String unidade, String data) {
+		this.formacao = formacao;
+		this.unidade = unidade;
+		this.data = data;	
 	}
 
 }
