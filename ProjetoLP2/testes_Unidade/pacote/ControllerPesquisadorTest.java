@@ -303,4 +303,57 @@ class ControllerPesquisadorTest {
 		});
 	}
 
+	@Test
+	void alteraSemestrePesquisador(){
+		controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "semestre", "2");
+	}
+
+	@Test
+	void alteraSemestreNullPesquisador(){
+		assertThrows(NullPointerException.class, () -> {controllerPesquisador.alteraPesquisador(null, "semestre", "2");});
+		assertThrows(NullPointerException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", null, "2");});
+		assertThrows(NullPointerException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "semestre", null);});
+	}
+
+	@Test
+	void alteraSemestreVazioPesquisador(){
+		assertThrows(IllegalArgumentException.class, () -> {controllerPesquisador.alteraPesquisador("", "semestre", "2");});
+		assertThrows(IllegalArgumentException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "", "2");});
+		assertThrows(IllegalArgumentException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "semestre", "");});
+	}
+
+	@Test
+	void alteraSemestrePesquisadorIncompativel(){
+		controllerPesquisador.cadastraPesquisador("gauds", "professor", "aaaaaa", "gauds@computacao", "http://aaaa");
+		controllerPesquisador.cadastraPesquisador("toninho rodrigues", "externo", "toninho a bolonhesa", "toninho@rodrigues", "https://toninhoabolonhesa");
+		assertThrows(RuntimeException.class, () -> {controllerPesquisador.alteraPesquisador("gauds@computacao", "semestre", "2");});
+		assertThrows(RuntimeException.class, () -> {controllerPesquisador.alteraPesquisador("toninho@rodrigues", "semestre", "2");});
+	}
+
+	@Test
+	void alteraIEAPesquisador(){
+		controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "IEA", "8.5555");
+	}
+
+	@Test
+	void alteraIEANullPesquisador(){
+		assertThrows(NullPointerException.class, () -> {controllerPesquisador.alteraPesquisador(null, "IEA", "2");});
+		assertThrows(NullPointerException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", null, "2");});
+		assertThrows(NullPointerException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "IEA", null);});
+	}
+
+	@Test
+	void alteraIEAVazioPesquisador(){
+		assertThrows(IllegalArgumentException.class, () -> {controllerPesquisador.alteraPesquisador("", "IEA", "2");});
+		assertThrows(IllegalArgumentException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "", "2");});
+		assertThrows(IllegalArgumentException.class, () -> {controllerPesquisador.alteraPesquisador("andrielly11@ccc.ufcg,edu.br", "IEA", "");});
+	}
+
+	@Test
+	void alteraIEAPesquisadorIncompativel(){
+		controllerPesquisador.cadastraPesquisador("gauds", "professor", "aaaaaa", "gauds@computacao", "http://aaaa");
+		controllerPesquisador.cadastraPesquisador("toninho rodrigues", "externo", "toninho a bolonhesa", "toninho@rodrigues", "https://toninhoabolonhesa");
+		assertThrows(RuntimeException.class, () -> {controllerPesquisador.alteraPesquisador("gauds@computacao", "IEA", "2");});
+		assertThrows(RuntimeException.class, () -> {controllerPesquisador.alteraPesquisador("toninho@rodrigues", "IEA", "2");});
+	}
 }
