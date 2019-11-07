@@ -294,4 +294,15 @@ public class ControllerAtividade {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).getDuracao();
 	}
+
+	public void associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
+		verificaAtividadeExiste(codigoAtividade);
+		atividades.get(codigoAtividade).associaPesquisa(pesquisa);	
+	}
+
+	public void desassociaPesquisa(String codigoAtividade) {
+		verificaAtividadeExiste(codigoAtividade);
+		atividades.get(codigoAtividade).desassociaPesquisa();
+		
+	}
 }
