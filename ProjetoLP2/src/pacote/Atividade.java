@@ -1,7 +1,9 @@
 package pacote;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Para atingir um objetivo, e importante descrever e planejar atividades a
@@ -34,7 +36,9 @@ public class Atividade {
 	/**
 	 * A lista de resultados cadastrados na atividade.
 	 */
-	private List<String> resultados;
+	private Map<Integer, String> resultados;
+	
+	private int posicoesCadastradas;
 
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
@@ -53,7 +57,8 @@ public class Atividade {
 		this.descricaoRisco = descricaoRisco;
 		this.itens = new ArrayList<>();
 		this.duracao = 0;
-		this.resultados = new ArrayList<>();
+		this.resultados = new LinkedHashMap<>();
+		this.posicoesCadastradas = 0;
 	}
 
 	/**
@@ -220,8 +225,10 @@ public class Atividade {
 	 * @return - o numero que representa a ordem de cadastro do resultado
 	 */
 	public int cadastraResultado(String resultado) {
-		resultados.add(resultado);
-		return resultados.indexOf(resultado) + 1;
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
+		posicoesCadastradas++;
+		resultados.put(posicoesCadastradas, resultado);
+		return posicoesCadastradas;
 	}
 
 	/**
@@ -236,14 +243,14 @@ public class Atividade {
 	 *         (false)
 	 */
 	public boolean removeResultado(int numeroResultado) {
-		if (resultados.size() >= numeroResultado) {
-			if (!(resultados.get(numeroResultado - 1) == null)) {
-				resultados.set(numeroResultado - 1, null);
-				return true;
-			}
-			return false;
+		if (resultados.containsKey(numeroResultado)) {
+			resultados.remove(numeroResultado);
+			return true;
 		}
-		throw new IllegalArgumentException("Resultado nao encontrado.");
+		if(numeroResultado > posicoesCadastradas) {
+			throw new IllegalArgumentException("Resultado nao encontrado.");
+		}
+		return false;
 	}
 
 	/**
@@ -253,11 +260,9 @@ public class Atividade {
 	 */
 	public String listaResultados() {
 		String saida = "";
-		for (int i = 0; i < resultados.size(); i++) {
-			if (!(resultados.get(i) == null)) {
-				saida += resultados.get(i);
-				saida += " | ";
-			}
+		for (String resultado : resultados.values()) {
+			saida += resultado;
+			saida += " | ";
 		}
 		return saida.substring(0, saida.length() - 3);
 	}
