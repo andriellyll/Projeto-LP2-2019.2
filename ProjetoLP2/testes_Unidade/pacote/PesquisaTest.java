@@ -61,7 +61,7 @@ class PesquisaTest {
 
 	@Test
 	void testGetAtivacao() {
-		test2.desativaPesquisa("Essa merda e so um teste");
+		test2.desativaPesquisa("Essa negocio e so um teste");
 		assertTrue(test1.getAtivacao());
 		assertFalse(test2.getAtivacao());
 	}
