@@ -198,10 +198,14 @@ public class ControllerAtividade {
 		return this.atividades.get(codigo);
 	}
 
-	public void associaPesquisaAtividade(Pesquisa pesquisa, String codigoAtividade) {
-		this.atividades.get(codigoAtividade).associaPesquisaAtividade(pesquisa);
-	}
-
+	/**
+	 * Verifica se a atividade a ser executada existe, caso exista executa-a
+	 * 
+	 * @param codigoAtividade - o codigo da atividade a ser executada
+	 * @param item            - o valor que representa a ordem de cadastro de um
+	 *                        item na atividade
+	 * @param duracao         - a duracao em horas da execucao do item
+	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		verificaAtividadeExiste(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
@@ -224,26 +228,68 @@ public class ControllerAtividade {
 		}
 
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-		
+
 		return resultadosBusca;
 	}
 
+	/**
+	 * Cadastra um resultado obtido pela atividade, a partir do codigo que
+	 * represenrta a atividade e da String que representa o resultado.
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter um
+	 *                        resultado cadastrado
+	 * @param resultado       - a String que representa o resultado obtido pela
+	 *                        atividade
+	 * @return - o numero que representa a ordem de cadastro do resultado
+	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
+		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
 
 	}
 
+	/**
+	 * Remove um resultado obtido pela atividade a partir do codigo da atividade e
+	 * do numero que representa a ordem de cadastro do resultado. Caso a remocao for
+	 * feita com sucesso sera retornado true, caso nao retornara false
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter o
+	 *                        resultado removido
+	 * @param numeroResultado - o numero que representa a ordem de cadastro do
+	 *                        resultado
+	 * @return - o booleano que representa se a remocao obteve sucesso (true) ou nao
+	 *         (false)
+	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
 		if (atividades.containsKey(codigoAtividade)) {
-		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
-		} throw new IllegalArgumentException("Atividade nao encontrada");
+			return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 		}
+		throw new IllegalArgumentException("Atividade nao encontrada");
+	}
 
+	/**
+	 * Retorna a listagem dos resultados cadastrados na atividade a partir do codigo
+	 * da atividade
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter seus
+	 *                        resultados listados
+	 * @return - a representacao em string de todos os resultados obtidos na
+	 *         atividade
+	 */
 	public String listaResultados(String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).listaResultados();
 	}
 
+	/**
+	 * Retorna a duracao de execucao de uma atividade a partir do codigo da
+	 * atividade
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade que ira retornar
+	 *                        sua duracao
+	 * @return - o inteiro que representa a duracao (em horas) da execucao da
+	 *         atividade
+	 */
 	public int getDuracao(String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).getDuracao();

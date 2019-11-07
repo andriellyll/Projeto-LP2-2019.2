@@ -35,7 +35,6 @@ public class Facade {
 
 	public void ativaPesquisa(String codigo) {
 		this.psquiza.ativaPesquisa(codigo);
-
 	}
 
 	public String exibePesquisa(String codigo) {
