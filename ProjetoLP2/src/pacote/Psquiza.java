@@ -313,7 +313,7 @@ public class Psquiza {
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
 	 * @param idProblema - valor de identificacao do problema
-	 * @return ujm booleano referente a situacao do processo
+	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean desassociaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");

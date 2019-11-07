@@ -137,6 +137,7 @@ public class ValidadorDeEntradas {
 		}
 	}
 	
+	
 	public static void verificaNumeroNegativo(int item , String mensagem) {
 		if( item < 0) {
 			throw new IllegalArgumentException(mensagem);

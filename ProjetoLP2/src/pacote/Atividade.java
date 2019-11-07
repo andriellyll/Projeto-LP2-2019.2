@@ -174,6 +174,8 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
+//--------------------------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
+
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa a ordem de
 	 * cadastro do item na atividade e da duracao da execucao do item.
@@ -188,21 +190,17 @@ public class Atividade {
 		}
 		setDuracao(duracao);
 		itens.get((item - 1)).executa();
-
 	}
-
+	
 	/**
-	 * Verifica se um item existe a partir do numero inteiro que representa a ordem de
-	 * cadastro do mesmo na atividade
+	 * Retorna a duracao em horas do tempo de execucao de uma atividade.
 	 * 
-	 * @param item -  o valor que representa a ordem de cadastro de um item na atividade
+	 * @return - a quantidade de horas de execucao de uma atividade
 	 */
-	private void verificaItemExiste(int item) {
-		if (itens.size() < item) {
-			throw new IllegalArgumentException("Item nao encontrado.");
-		}
+	public int getDuracao() {
+		return this.duracao;
 	}
-
+	
 	/**
 	 * Altera a quantidade de horas que representa a duracao de execucao da
 	 * atividade.
@@ -213,40 +211,7 @@ public class Atividade {
 	private void setDuracao(int duracao) {
 		this.duracao += duracao;
 	}
-
-	private List<String> procuraPalavraItem(String palavraChave) {
-		ArrayList<String> resultadosItens = new ArrayList<>();
-		for (Item item : itens) {
-			if (!item.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
-			}
-		}
-		return resultadosItens;
-	}
-
-	/**
-	 * Procura nos atributos descricao, itens e descricao do risco da atividade a
-	 * palavra-chave passada como parametro
-	 * 
-	 * @param palavraChave palavra-chave que sera buscada
-	 * @return se a palavra-chave existir em algum dos campos, uma lista com uma ou
-	 *         mais dessas strings sera retornada. Se nao, sera retornada uma lista
-	 *         vazia
-	 */
-	public List<String> procuraPalavraChave(String palavraChave) {
-		ArrayList<String> resultadosBusca = new ArrayList<>();
-		if (this.descricao.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);
-		}
-		if (this.descricaoRisco.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
-		}
-		if (!procuraPalavraItem(palavraChave).isEmpty()) {
-			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
-		}
-		return resultadosBusca;
-	}
-
+	
 	/**
 	 * Cadastra um resultado obtido pela atividade, a partir da String que
 	 * representa o resultado
@@ -298,12 +263,53 @@ public class Atividade {
 	}
 
 	/**
-	 * Retorna a duracao em horas do tempo de execucao de uma atividade.
+	 * Verifica se um item existe a partir do numero inteiro que representa a ordem de
+	 * cadastro do mesmo na atividade
 	 * 
-	 * @return - a quantidade de horas de execucao de uma atividade
+	 * @param item -  o valor que representa a ordem de cadastro de um item na atividade
 	 */
-	public int getDuracao() {
-		return this.duracao;
+	private void verificaItemExiste(int item) {
+		if (itens.size() < item) {
+			throw new IllegalArgumentException("Item nao encontrado.");
+		}
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param palavraChave
+	 * @return
+	 */
+	private List<String> procuraPalavraItem(String palavraChave) {
+		ArrayList<String> resultadosItens = new ArrayList<>();
+		for (Item item : itens) {
+			if (!item.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
+			}
+		}
+		return resultadosItens;
 	}
 
+	/**
+	 * Procura nos atributos descricao, itens e descricao do risco da atividade a
+	 * palavra-chave passada como parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera buscada
+	 * @return se a palavra-chave existir em algum dos campos, uma lista com uma ou
+	 *         mais dessas strings sera retornada. Se nao, sera retornada uma lista
+	 *         vazia
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+		if (this.descricao.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);
+		}
+		if (this.descricaoRisco.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
+		}
+		if (!procuraPalavraItem(palavraChave).isEmpty()) {
+			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
+		}
+		return resultadosBusca;
+	}
 }

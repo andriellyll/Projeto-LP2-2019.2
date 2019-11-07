@@ -106,5 +106,39 @@ class AtividadeTest {
 		assertEquals(atividade.toString(), "Monitoramento de chats dos alunos de computacao do primeiro periodo. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.)");
 		 
 	}
-
+	
+	@Test
+	public void testExecutaAtividade() {
+		atividade.adicionaItem("Monitoramento facebook/messenger", 1);
+		atividade.executaAtividade(1, 10);
+		assertEquals(atividade.getDuracao(), 10);
+	}
+	
+	@Test
+	public void testExecutaAtividadeInvalido() {
+		assertThrows(IllegalArgumentException.class, () -> atividade.executaAtividade(2, 0), "Item nao encontrado.");
+	}
+	
+	@Test
+	public void testCadastraResultado() {
+		atividade.cadastraResultado("Monitoramento do facebook realizado com sucesso");
+		atividade.cadastraResultado("Monitoramento do slack realizado com sucesso");
+		assertEquals(atividade.listaResultados(), "Monitoramento do facebook realizado com sucesso | Monitoramento do slack realizado com sucesso");
+	}
+	
+	@Test
+	public void testCadastraResultadoInvalido() {
+		assertThrows(IllegalArgumentException.class, () -> atividade.cadastraResultado(null), "Campo resultado nao pode ser nulo ou vazio.");
+		assertThrows(IllegalArgumentException.class, () -> atividade.cadastraResultado("   "), "Campo resultado nao pode ser nulo ou vazio.");
+	}
+	
+	@Test
+	public void testRemoveResultado() {
+		
+	}
+	
+	@Test
+	public void testListaResultados() {
+		
+	}
 }
