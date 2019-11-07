@@ -8,4 +8,15 @@ public class Estudante implements Funcao{
 		this.semestre = 0;
 		this.IAE = 0;
 	}
+	
+	public Estudante(int semestre, double IEA) {
+		this.semestre = semestre;
+		this.IAE = IEA;
+	}
+	/*
+	public void cadastraEspecialidade(int semestre, double IEA) {
+		this.semestre = semestre;
+		this.IAE = IEA;
+	}
+	*/
 }

@@ -343,10 +343,7 @@ public class Psquiza {
 				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
 				.associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
-		if (passo1 && passo2) {
-			return true;
-		}
-		return false;
+		return passo1 && passo2;
 	}
 	
 	/**

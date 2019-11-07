@@ -197,4 +197,12 @@ public class Pesquisador {
 		}
 		return "";
 	}
+	
+	public void cadastraEspecialidadeProfessor(String formacao, String unidade, String data) {
+		if(!(funcao.getClass().equals(Professor.class))) {
+			throw new RuntimeException("Pesquisador nao compativel com a especialidade.");
+		}
+		Professor prof = (Professor)this.funcao;
+		prof.cadastraEspecialidade(formacao, unidade, data);
+	}
 }
