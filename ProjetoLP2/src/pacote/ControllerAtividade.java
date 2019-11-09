@@ -295,14 +295,14 @@ public class ControllerAtividade {
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 
-	public void associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
+	public boolean associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
-		atividades.get(codigoAtividade).associaPesquisa(pesquisa);	
+		return atividades.get(codigoAtividade).associaPesquisa(pesquisa);	
 	}
 
-	public void desassociaPesquisa(String codigoAtividade) {
+	public boolean desassociaPesquisa(String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
-		atividades.get(codigoAtividade).desassociaPesquisa();
+		return atividades.get(codigoAtividade).desassociaPesquisa();
 		
 	}
 }

@@ -10,7 +10,7 @@ import utils.OrdenaResultados;
 /**
  * 
  * 
- * @author 
+ * @author
  */
 public class Psquiza {
 
@@ -284,10 +284,10 @@ public class Psquiza {
 	}
 
 //Associacoes de Objetivos e Problema:
-	
+
 	/**
-	 * Metodo responsavel por associar um a pesquisa a um problema e
-	 * associar este mesmo problema a esta pesquisa.
+	 * Metodo responsavel por associar um a pesquisa a um problema e associar este
+	 * mesmo problema a esta pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
 	 * @param idProblema - valor de identificacao do problema
@@ -302,10 +302,10 @@ public class Psquiza {
 				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		return (passo1 && passo2);
 	}
-	
+
 	/**
-	 * Metodo responsavel por desassociar uma pesquisa a um problema e
-	 * desassociar este problema a pesquisa.
+	 * Metodo responsavel por desassociar uma pesquisa a um problema e desassociar
+	 * este problema a pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
 	 * @param idProblema - valor de identificacao do problema
@@ -319,12 +319,12 @@ public class Psquiza {
 		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
 				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		return (passo1 && passo2);
-		
+
 	}
-	
+
 	/**
-	 * Metodo responsavel por associar um determinado objetivo a uma determinada pesquisa e
-	 * associar esta pesquisa a este objetivo.
+	 * Metodo responsavel por associar um determinado objetivo a uma determinada
+	 * pesquisa e associar esta pesquisa a este objetivo.
 	 * 
 	 * @param idPesquisa - valor que identifica a pesquisa desejada
 	 * @param idObjetivo - valor que identifica o objetivo desejado
@@ -339,10 +339,10 @@ public class Psquiza {
 				.associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		return passo1 && passo2;
 	}
-	
+
 	/**
-	 * Metodo responsavel por desassociar um determinado objetivo a uma determinada pesquisa e
-	 * desassociar esta pesquisa a este objetivo.
+	 * Metodo responsavel por desassociar um determinado objetivo a uma determinada
+	 * pesquisa e desassociar esta pesquisa a este objetivo.
 	 * 
 	 * @param idPesquisa - valor que identifica a pesquisa desejada
 	 * @param idObjetivo - valor que identifica o objetivo desejado
@@ -356,14 +356,15 @@ public class Psquiza {
 		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
 				.desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		return (passo1 && passo2);
-		
+
 	}
-	
+
 	/**
-	 * Metodo responsavel por lista pesquisas, referente a ordem especifica desejada pelo usuario,
-	 * podendo ser classicada por PROBLEMA, OBJETIVOS e/ou PESQUISA.
+	 * Metodo responsavel por lista pesquisas, referente a ordem especifica desejada
+	 * pelo usuario, podendo ser classicada por PROBLEMA, OBJETIVOS e/ou PESQUISA.
 	 * 
-	 * @param ordem - valor que representa a forma como o usuario quer que sejam listados suas pesquisas
+	 * @param ordem - valor que representa a forma como o usuario quer que sejam
+	 *              listados suas pesquisas
 	 * @return uma string listando as pesquisa
 	 */
 	public String listaPesquisas(String ordem) {
@@ -391,7 +392,7 @@ public class Psquiza {
 		controllerPesquisa.associaPesquisador(idPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -420,11 +421,9 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		Pesquisa pesquisa = controllerPesquisa.getPesquisa(codigoPesquisa);
-		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
-		controllerAtividade.associaPesquisa(pesquisa, codigoAtividade);
-		return controllerPesquisa.associaAtividade(codigoPesquisa, atividade);
+		return controllerAtividade.associaPesquisa(pesquisa, codigoAtividade);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -437,11 +436,9 @@ public class Psquiza {
 				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-		Atividade atividade = controllerAtividade.getAtividade(codigoAtividade);
-		controllerAtividade.desassociaPesquisa(codigoAtividade);
-		return controllerPesquisa.desassociaAtividade(codigoPesquisa, atividade);
+		return controllerAtividade.desassociaPesquisa(codigoAtividade);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -456,7 +453,7 @@ public class Psquiza {
 		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
 		controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -470,7 +467,7 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
 		return controllerAtividade.cadastraResultado(codigoAtividade, resultado);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -484,7 +481,7 @@ public class Psquiza {
 		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
 		return controllerAtividade.removeResultado(codigoAtividade, numeroResultado);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -510,11 +507,14 @@ public class Psquiza {
 	}
 
 //Busca por Palavra-chave:
-	
+
 	/**
-	 * Metodo auxiliar que faz a busca da palavra chave em todos os controllers e, assim, em todas as entidades cadastradas no sistema.
+	 * Metodo auxiliar que faz a busca da palavra chave em todos os controllers e,
+	 * assim, em todas as entidades cadastradas no sistema.
+	 * 
 	 * @param palavraChave palavra que sera procurada nas entidades
-	 * @return um ArrayList de String de todos os resultados da busca, ja ordenada de acordo com cada classe, em ordem anti-lexicografica.
+	 * @return um ArrayList de String de todos os resultados da busca, ja ordenada
+	 *         de acordo com cada classe, em ordem anti-lexicografica.
 	 */
 	private ArrayList<String> buscarPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
@@ -526,9 +526,11 @@ public class Psquiza {
 
 		return resultadosBusca;
 	}
-	
+
 	/**
-	 * Busca a palavra chave passada como parametro em todas as entidades no sistema e retorna uma String que contem todos os resultados da busca.
+	 * Busca a palavra chave passada como parametro em todas as entidades no sistema
+	 * e retorna uma String que contem todos os resultados da busca.
+	 * 
 	 * @param palavraChave palavra a ser buscada
 	 * @return String contendo todos os resultados da busca
 	 */
@@ -539,9 +541,11 @@ public class Psquiza {
 
 		return String.join(" | ", resultadosBusca);
 	}
-	
+
 	/**
-	 * Busca a palavra chave passada como parametro e retorna um inteiro que representa a quantidade de resultados obtidos na busca.
+	 * Busca a palavra chave passada como parametro e retorna um inteiro que
+	 * representa a quantidade de resultados obtidos na busca.
+	 * 
 	 * @param palavraChave palavra a ser buscada
 	 * @return quantidade de resultados
 	 */
@@ -556,7 +560,7 @@ public class Psquiza {
 
 		return quantidadeTotal;
 	}
-	
+
 	/**
 	 * 
 	 * 
