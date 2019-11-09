@@ -69,11 +69,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 
 	private Set<Pesquisador> pesquisadoresAssociados;
 
-	/**
-	 * Armazena todas as atividades associadas a pesquisa.
-	 */
 
-	private Set<Atividade> atividadesAssociadas;
 
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
@@ -98,7 +94,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		this.ehAtivada = true;
 		this.problemaDaPesquisa = null;
 		this.objetivosDaPesquisa = new HashSet<>();
-		this.atividadesAssociadas = new HashSet<>();
 		this.pesquisadoresAssociados = new HashSet<>();
 	}
 
