@@ -136,10 +136,16 @@ public class ValidadorDeEntradas {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
-	
-	public static void verificaNumeroNegativo(int item , String mensagem) {
-		if( item < 0) {
+
+	/**
+	 * Verifica se a entrada(um inteiro) e igual e menor que 0. Caso for, uma
+	 * excecao do tipo IllegalArgumentException sera lancada.
+	 * 
+	 * @param item - o valor inteiro a ser verificado
+	 * @param mensagem - a mensagem de erro a ser exibida no lancamento da excecao.
+	 */
+	public static void verificaNumeroNegativo(int item, String mensagem) {
+		if (item < 0) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
