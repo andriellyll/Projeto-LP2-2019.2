@@ -524,10 +524,6 @@ public class Psquiza {
 		resultadosBusca.addAll(controllerProblemaObjetivo.procuraPalavraChaveObjetivo(palavraChave));
 		resultadosBusca.addAll(controllerAtividade.procuraPalavraChave(palavraChave));
 
-		if (resultadosBusca.isEmpty()) {
-			throw new RuntimeException("Nenhum resultado encontrado");
-		}
-
 		return resultadosBusca;
 	}
 	
@@ -551,6 +547,10 @@ public class Psquiza {
 	 */
 	public int contaResultadosBusca(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
+
+		if (buscarPalavraChave(palavraChave).isEmpty()) {
+			throw new RuntimeException("Nenhum resultado encontrado");
+		}
 
 		int quantidadeTotal = buscarPalavraChave(palavraChave).size();
 
