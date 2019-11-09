@@ -328,13 +328,15 @@ public class Atividade {
 		return resultadosBusca;
 	}
 
-	public void associaPesquisa(Pesquisa pesquisa) {
+	public boolean associaPesquisa(Pesquisa pesquisa) {
 		this.pesquisa = pesquisa;
+		return true;
 		
 	}
 
-	public void desassociaPesquisa() {
+	public boolean desassociaPesquisa() {
 		this.pesquisa = null;
+		return true;
 		
 	}
 }

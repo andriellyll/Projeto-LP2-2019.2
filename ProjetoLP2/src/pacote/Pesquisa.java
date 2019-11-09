@@ -56,7 +56,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 */
 
 	private Problema problemaDaPesquisa;
-	
+
 	/**
 	 * Representa uma lista dos objetivos associados a esta pesquisa.
 	 */
@@ -72,7 +72,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	/**
 	 * Armazena todas as atividades associadas a pesquisa.
 	 */
-	
+
 	private Set<Atividade> atividadesAssociadas;
 
 	/**
@@ -229,12 +229,14 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por associa a esta pesquisa um unico problema,
-	 * onde caso esse problema ja esteja associado ele retorna false e
-	 * caso exista ja um problema salvo na pesquisa, ele reporta um erro.
+	 * Metodo responsavel por associa a esta pesquisa um unico problema, onde caso
+	 * esse problema ja esteja associado ele retorna false e caso exista ja um
+	 * problema salvo na pesquisa, ele reporta um erro.
 	 * 
-	 * @param problema - valor que representa problema ao qual a pesquisa foi referenciada
-	 * @return um valor booleano correspondente a especificacao que o problema pertence
+	 * @param problema - valor que representa problema ao qual a pesquisa foi
+	 *                 referenciada
+	 * @return um valor booleano correspondente a especificacao que o problema
+	 *         pertence
 	 */
 
 	public boolean associaProblema(Problema problema) {
@@ -248,8 +250,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por desassociar o problema desejado desta pesquisa,
-	 * onde caso esse problema a desejado a ser desassociado não for o mesmo salvo ele retorna false.
+	 * Metodo responsavel por desassociar o problema desejado desta pesquisa, onde
+	 * caso esse problema a desejado a ser desassociado não for o mesmo salvo ele
+	 * retorna false.
 	 * 
 	 * @param problema - valor que representa a pesquisa desejada a ser desassociada
 	 * @return um booleano referente a situacao do processo
@@ -264,8 +267,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por associar um objetivo especifico a pesquisa, onde
-	 * caso este objetivo ja pertenca a lista de objetivos da pesquisa, ele retorna false.
+	 * Metodo responsavel por associar um objetivo especifico a pesquisa, onde caso
+	 * este objetivo ja pertenca a lista de objetivos da pesquisa, ele retorna
+	 * false.
 	 * 
 	 * @param objetivo - valor do objetivo a ser associado
 	 * @return um booleano referente a situacao do processo
@@ -281,7 +285,8 @@ public class Pesquisa implements Comparable<Pesquisa> {
 
 	/**
 	 * Metodo responavel por desassociar um objetivo especifico a pesquisa, onde
-	 * caso esse objetivo nao contenha na lista de objetivos da pesquisa, ele retorna false.
+	 * caso esse objetivo nao contenha na lista de objetivos da pesquisa, ele
+	 * retorna false.
 	 * 
 	 * @param objetivo - valor do objetivo a ser associado
 	 * @return um booleano referente a situacao do processo
@@ -294,39 +299,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		objetivosDaPesquisa.remove(objetivo);
 		return true;
 	}
-
-	/**
-	 * Associa uma atividade a pesquisa a partir da atividade passasa.
-	 * 
-	 * @param atividade - a atividade a ser adicionada na pesquisa
-	 * @return - o booleano que representa se a atividade foi associada a pesquisa
-	 */
-
-	public boolean associaAtividade(Atividade atividade) {
-		return atividadesAssociadas.add(atividade);
-	}
-
-	/**
-	 * Desassocia uma atividade da pesquisa a partir da atividade passada.
-	 * 
-	 * @param atividade - a atividade a ser desassociada
-	 * @return - o booleano que representa se a atividade foi desassociada a
-	 *         pesquisa
-	 */
-
-	public boolean desassociaAtividade(Atividade atividade) {
-		if (getAtivacao()) {
-			return atividadesAssociadas.remove(atividade);
-		}
-		throw new IllegalArgumentException("Pesquisa desativada.");
-	}
-
-	//public boolean verificaAtividadeEhAssociada(Atividade atividade) {
-	//	if (atividadesAssociadas.contains(atividade)) {
-		//	return true;
-		//}
-		//throw new IllegalArgumentException("Atividade nao associada.");
-	//}
 
 	/**
 	 * Procura nos atributos descricao e campo de interesse da pesquisa a
@@ -385,8 +357,8 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por comparar duas pesquisas, pelos seus codigos de identificacao,
-	 * para realizar uma ordenacao destas pesquisas.
+	 * Metodo responsavel por comparar duas pesquisas, pelos seus codigos de
+	 * identificacao, para realizar uma ordenacao destas pesquisas.
 	 * 
 	 * @param p pesquisa a ser comparada
 	 * @return comparacao das pesquisas
@@ -408,7 +380,8 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por verificar se esta pesquisa possui algum objetivo associado a ela.
+	 * Metodo responsavel por verificar se esta pesquisa possui algum objetivo
+	 * associado a ela.
 	 * 
 	 * @return um booleano, onde true representa sim, e false nao
 	 */
@@ -421,7 +394,8 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por resgatar a quantidade de objetivos que esta pesquisa possui.
+	 * Metodo responsavel por resgatar a quantidade de objetivos que esta pesquisa
+	 * possui.
 	 * 
 	 * @return um inteiro representando a quantidade
 	 */
