@@ -12,11 +12,11 @@ public class Facade {
 
 
 	public Facade() {
-		psquiza = new Psquiza();
 		controllerPesquisa = new ControllerPesquisa();
 		controllerPesquisador = new ControllerPesquisador();
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
 		controllerAtividade = new ControllerAtividade();
+		psquiza = new Psquiza(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo, controllerAtividade);
 	}
 
 	public static void main(String[] args) {

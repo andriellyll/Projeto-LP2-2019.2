@@ -140,7 +140,11 @@ public class Pesquisador {
 	 * @return a representacao em string
 	 */
 	public String toString() {
+<<<<<<< HEAD
 		if(funcao.equalsIgnoreCase("Externo")) {
+=======
+		if(funcao.equalsIgnoreCase("Externo") || especialidade == null) {
+>>>>>>> a819ea4d407009dad5b00ab01cc1cc2f326227b2
 			return this.nome + " (" + this.funcao + ")" + " - " + this.biografia + " - " + this.email + " - " + this.foto;
 		}
 		return especialidade.toString(nome, funcao, biografia, email, foto);
