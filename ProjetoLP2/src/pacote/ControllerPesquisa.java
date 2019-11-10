@@ -17,27 +17,23 @@ import utils.OrdenaResultados;
  * 
  * @author Anna Beatriz Lucena
  */
-
 public class ControllerPesquisa {
 
 	/**
 	 * Armazena todas as pesquisas cadastradas no sistema.
 	 */
-
 	private Map<String, Pesquisa> pesquisas;
 
 	/**
 	 * Armazena os codigos(identificador da pesquisa) gerados pelo sistema, com o
 	 * ojetivo de gerenciar os mesmos.
 	 */
-
 	private Map<String, Integer> codigos;
 
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
 	 * pesquisas e codigos.
 	 */
-
 	public ControllerPesquisa() {
 		this.pesquisas = new HashMap<>();
 		this.codigos = new HashMap<>();
@@ -58,7 +54,6 @@ public class ControllerPesquisa {
 	 * @param campoDeInteresse - o campo de interesse da pesquisa
 	 * @return - o codigo(identificador unico) gerado
 	 */
-
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
@@ -91,7 +86,6 @@ public class ControllerPesquisa {
 	 * @param conteudoASerAlterado - o paramentro a ser alterado
 	 * @param novoConteudo         - o novo conteudo a ser atribuido
 	 */
-
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado,
@@ -124,7 +118,6 @@ public class ControllerPesquisa {
 	 * @param codigo - o identificador da pesquisa a ser desativada
 	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
-
 	public void encerraPesquisa(String codigo, String motivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -145,7 +138,6 @@ public class ControllerPesquisa {
 	 * 
 	 * @param codigo - o identificador da pesquisa a ser ativada
 	 */
-
 	public void ativaPesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -167,7 +159,6 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser exibida
 	 * @return - a representacao em string da pesquisa
 	 */
-
 	public String exibePesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -185,7 +176,6 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser verificada
 	 * @return - o valor booleano que representa o status de ativacao da pesquisa
 	 */
-
 	public boolean pesquisaEhAtiva(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -202,7 +192,6 @@ public class ControllerPesquisa {
 	 * @param listaDePesquisas - Lista das pesquisas a serem ordenadas
 	 * @return lista ordenada das pesquisas
 	 */
-
 	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
 		List<Pesquisa> listaOrdenada = /** (ArrayList<Pesquisa>) listaDePesquisas.values(); **/
 				new ArrayList<>();
@@ -223,7 +212,6 @@ public class ControllerPesquisa {
 	 *              listados suas pesquisas
 	 * @return uma string que imprime as pesquisas listadas, desejadas pelo usuario
 	 */
-
 	public String imprimePesquisas(String ordem) {
 		String todasPesquisas = "";
 		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
@@ -278,7 +266,6 @@ public class ControllerPesquisa {
 	 * 
 	 * @param codigo - valor que vai ser verificado a ativacao ou nao
 	 */
-
 	private void verificaPesquisaAtivada(String codigo) {
 		if (pesquisas.get(codigo).getAtivacao() == false) {
 			throw new RuntimeException("Pesquisa desativada.");
@@ -292,7 +279,6 @@ public class ControllerPesquisa {
 	 * 
 	 * @param codigo - o codigo da pesquisa a ser verificada
 	 */
-
 	private void verificaPesquisaExiste(String codigo) {
 		if (!pesquisas.containsKey(codigo)) {
 			throw new RuntimeException("Pesquisa nao encontrada.");
@@ -306,7 +292,6 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser retornada
 	 * @return - a pesquisa solicitada a partir do codigo
 	 */
-
 	public Pesquisa getPesquisa(String codigo) {
 		verificaPesquisaExiste(codigo);
 		verificaPesquisaAtivada(codigo);
@@ -346,7 +331,6 @@ public class ControllerPesquisa {
 	 * @param pesquisador
 	 * @return
 	 */
-
 	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
@@ -361,7 +345,6 @@ public class ControllerPesquisa {
 	 * @param pesquisador
 	 * @return
 	 */
-
 	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);

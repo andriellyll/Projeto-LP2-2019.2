@@ -8,7 +8,6 @@ import java.util.Set;
  * 
  * @author Helen Bento Cavalcanti
  */
-
 public class Problema {
 
 	/**
@@ -98,12 +97,13 @@ public class Problema {
 	public String getCodigo() {
 		return this.codigo;
 	}
-	
+
 	/**
 	 * Procura no atributo descricao do problema a palavra-chave passada como
 	 * parametro
 	 * 
-	 * @param palavraChave palavra-chave que sera pesquisada na descricao do problema
+	 * @param palavraChave palavra-chave que sera pesquisada na descricao do
+	 *                     problema
 	 * @return se a palavra-chave existir na String de descricao, essa string sera
 	 *         retornada. Se nao, sera retornada uma String vazia
 	 */

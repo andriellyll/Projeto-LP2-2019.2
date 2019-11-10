@@ -28,12 +28,15 @@ public class Pesquisador {
 	 * Funcao do pesquisador (Professor, aluno ou externo)
 	 */
 	private String funcao;
+
+	/**
+	 * 
+	 */
+	private Funcao especialidade;
+
 	/**
 	 * Boolean que representa se o pesquisador esta ou nao ativo
 	 */
-	
-	private Funcao especialidade;
-	
 	private boolean isAtivo;
 
 	/**
@@ -112,11 +115,10 @@ public class Pesquisador {
 	 * @param novaFuncao novo valor para o atributo foto
 	 */
 	public void setFuncao(String novaFuncao) {
-		
 
 		this.funcao = novaFuncao;
 		this.especialidade = null;
-		
+
 	}
 
 	/**
@@ -140,11 +142,12 @@ public class Pesquisador {
 	 * @return a representacao em string
 	 */
 	public String toString() {
-		if(funcao.equalsIgnoreCase("Externo") || especialidade == null) {
-			return this.nome + " (" + this.funcao + ")" + " - " + this.biografia + " - " + this.email + " - " + this.foto;
+		if (funcao.equalsIgnoreCase("Externo") || especialidade == null) {
+			return this.nome + " (" + this.funcao + ")" + " - " + this.biografia + " - " + this.email + " - "
+					+ this.foto;
 		}
 		return especialidade.toString(nome, funcao, biografia, email, foto);
-		
+
 	}
 
 	/**
@@ -206,36 +209,37 @@ public class Pesquisador {
 		}
 		return "";
 	}
-	
+
 	public void cadastraEspecialidadeProfessor(String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(unidade, "Campo unidade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(data, "Campo data nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaData(data, "Atributo data com formato invalido.");
-		
-		if(!(funcao.equalsIgnoreCase("Professor"))) {
+
+		if (!(funcao.equalsIgnoreCase("Professor"))) {
 			throw new RuntimeException("Pesquisador nao compativel com a especialidade.");
 		}
 		this.especialidade = new Professor(formacao, unidade, data);
 	}
+
 	public void cadastraEspecialidadeAluno(int semestre, double IEA) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
 		ValidadorDeEntradas.verificaIEA(IEA, "Atributo IEA com formato invalido.");
-				
-		if(!(funcao.equalsIgnoreCase("Estudante"))) {
+
+		if (!(funcao.equalsIgnoreCase("Estudante"))) {
 			throw new RuntimeException("Pesquisador nao compativel com a especialidade.");
 		}
 		this.especialidade = new Aluno(semestre, IEA);
 	}
-	
+
 	public String getFuncao() {
 		return this.funcao;
 	}
 
 	public void setEspecialidade(String atributo, String novoAtributo) {
 		especialidade.setEspecialidade(atributo, novoAtributo);
-		
+
 	}
 }
