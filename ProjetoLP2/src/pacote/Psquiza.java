@@ -22,12 +22,13 @@ public class Psquiza {
 	/**
 	 * 
 	 * 
-	 * @param controllerAtividade 
-	 * @param controllerProblemaObjetivo 
-	 * @param controllerPesquisador 
-	 * @param controllerPesquisa 
+	 * @param controllerAtividade
+	 * @param controllerProblemaObjetivo
+	 * @param controllerPesquisador
+	 * @param controllerPesquisa
 	 */
-	public Psquiza(ControllerPesquisa controllerPesquisa, ControllerPesquisador controllerPesquisador, ControllerProblemaObjetivo controllerProblemaObjetivo, ControllerAtividade controllerAtividade) {
+	public Psquiza(ControllerPesquisa controllerPesquisa, ControllerPesquisador controllerPesquisador,
+			ControllerProblemaObjetivo controllerProblemaObjetivo, ControllerAtividade controllerAtividade) {
 		this.controllerPesquisa = controllerPesquisa;
 		this.controllerPesquisador = controllerPesquisador;
 		this.controllerProblemaObjetivo = controllerProblemaObjetivo;
@@ -126,7 +127,8 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(emailPesquisador,
 				"Campo emailPesquisador nao pode ser nulo ou vazio.");
-		return controllerPesquisa.associaPesquisador(idPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
+		return controllerPesquisa.associaPesquisador(idPesquisa,
+				controllerPesquisador.getPesquisador(emailPesquisador));
 	}
 
 	/**
@@ -138,7 +140,8 @@ public class Psquiza {
 	 */
 	public boolean desassociaPesquisador(String codigoDaPesquisa, String emailPesquisador) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoDaPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		return controllerPesquisa.desassociaPesquisador(codigoDaPesquisa,controllerPesquisador.getPesquisador(emailPesquisador));
+		return controllerPesquisa.desassociaPesquisador(codigoDaPesquisa,
+				controllerPesquisador.getPesquisador(emailPesquisador));
 	}
 
 //Associacao e Execucao de Atividades:
