@@ -17,7 +17,6 @@ import java.util.Set;
  * 
  * @author Anna Beatriz Lucena
  */
-
 public class Pesquisa implements Comparable<Pesquisa> {
 
 	/**
@@ -223,9 +222,8 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por desassociar o problema desta pesquisa, onde
-	 * caso não tenha nenhum problema associado a esta pesquisa,
-	 * ele retorna false.
+	 * Metodo responsavel por desassociar o problema desta pesquisa, onde caso não
+	 * tenha nenhum problema associado a esta pesquisa, ele retorna false.
 	 * 
 	 * @return um booleano referente a situacao do processo
 	 */
@@ -236,6 +234,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		}
 		return false;
 	}
+
 	/**
 	 * Metodo responsavel por associar um objetivo especifico a pesquisa, onde caso
 	 * este objetivo ja pertenca a lista de objetivos da pesquisa, ele retorna
@@ -267,7 +266,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		objetivosDaPesquisa.remove(objetivo);
 		return true;
 	}
-	
+
 	/**
 	 * Metodo responsavel por resgatar o codigo da Pesquisa
 	 * 

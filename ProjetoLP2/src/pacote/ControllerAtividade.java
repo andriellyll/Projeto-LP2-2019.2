@@ -16,7 +16,6 @@ import utils.OrdenaResultados;
  * 
  * @author Henrique Lemos
  */
-
 public class ControllerAtividade {
 
 	/**
@@ -26,16 +25,22 @@ public class ControllerAtividade {
 	 * proximo número disponivel para gerar um codigo.
 	 * 
 	 */
-
 	private Map<String, Atividade> atividades;
+
+	/**
+	 * 
+	 */
 	private int idVago = 1;
+
+	/**
+	 * 
+	 */
 	private int idVagoItem = 1;
 
 	/**
 	 * Contrutor da Classe responsavel por controlar as informacoes das atividades.
 	 * Ele inicializa o mapa de atividades.
 	 */
-
 	public ControllerAtividade() {
 		this.atividades = new HashMap<>();
 	}
@@ -46,7 +51,6 @@ public class ControllerAtividade {
 	 * 
 	 * @return O codigo, no formato A + valor
 	 */
-
 	private String criadorCodigo() {
 		String codigo = "A" + idVago;
 		idVago += 1;
@@ -59,7 +63,6 @@ public class ControllerAtividade {
 	 * 
 	 * @return Um inteiro representando o codigo
 	 */
-
 	private int criadorCodigoItem() {
 		int codigo = idVagoItem;
 		idVagoItem += 1;
@@ -74,7 +77,6 @@ public class ControllerAtividade {
 	 * @param codigo valor ao qual vai ser utilizado para verificar se ja existe uma
 	 *               atividade com este codigo
 	 */
-
 	private void verificaAtividadeExiste(String codigo) {
 		if (atividades.containsKey(codigo) == false) {
 			throw new IllegalArgumentException("Atividade nao encontrada");
@@ -93,7 +95,6 @@ public class ControllerAtividade {
 	 *                       ser feito para mitigar o risco.
 	 * @return Uma String do codigo da atividade criada
 	 */
-
 	public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo Descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
@@ -113,7 +114,6 @@ public class ControllerAtividade {
 	 * 
 	 * @param codigo valor que identifica a atividade que deve ser apagada
 	 */
-
 	public void apagaAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -128,7 +128,6 @@ public class ControllerAtividade {
 	 * @return impressao no formato "DESCRICAO (NIVEL_RISCO - DESCRICAO_RISCO) |
 	 *         SITUACAO - ITEM".
 	 */
-
 	public String exibeAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -148,7 +147,6 @@ public class ControllerAtividade {
 	 *               adicionado
 	 * @param item   valor que descreve o item a ser criado
 	 */
-
 	public void cadastraItem(String codigo, String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
@@ -165,7 +163,6 @@ public class ControllerAtividade {
 	 *               devem ser contados
 	 * @return um inteiro identificando o numero de itens pendentes
 	 */
-
 	public int contaItensPendentes(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -180,7 +177,6 @@ public class ControllerAtividade {
 	 *               devem ser contados
 	 * @return um inteiro identificando o numero de itens pendentes
 	 */
-
 	public int contaItensRealizados(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -297,12 +293,12 @@ public class ControllerAtividade {
 
 	public boolean associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
-		return atividades.get(codigoAtividade).associaPesquisa(pesquisa);	
+		return atividades.get(codigoAtividade).associaPesquisa(pesquisa);
 	}
 
 	public boolean desassociaPesquisa(String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).desassociaPesquisa();
-		
+
 	}
 }

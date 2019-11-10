@@ -29,8 +29,8 @@ public class ControllerPesquisador {
 	/**
 	 * Verifica se o pesquisador esta cadastrado no sistema, a partir de seu email.
 	 * 
-	 * @param email email do pesquisador
-	 * @param message 
+	 * @param email   email do pesquisador
+	 * @param message
 	 */
 	private void verificaPesquisadorExiste(String email, String message) {
 		if (!pesquisadores.containsKey(email)) {
@@ -68,10 +68,9 @@ public class ControllerPesquisador {
 
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
-		
-		Pesquisador pesquisador = new Pesquisador(nome,funcao, biografia, email, fotoUrl);
+
+		Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoUrl);
 		this.pesquisadores.put(email, pesquisador);
-		
 
 	}
 
@@ -96,7 +95,7 @@ public class ControllerPesquisador {
 		} else if (atributo.equals("FUNCAO")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo funcao nao pode ser nulo ou vazio.");
 			this.pesquisadores.get(email).setFuncao(novoAtributo);
-			
+
 		} else if (atributo.equals("BIOGRAFIA")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo biografia nao pode ser nulo ou vazio.");
 
@@ -114,10 +113,12 @@ public class ControllerPesquisador {
 			ValidadorDeEntradas.verificaURL(novoAtributo);
 
 			this.pesquisadores.get(email).setFoto(novoAtributo);
-		} else if (atributo.equalsIgnoreCase("FORMACAO") || atributo.equalsIgnoreCase("UNIDADE") || atributo.equalsIgnoreCase("DATA") || atributo.equalsIgnoreCase("SEMESTRE") ||atributo.equalsIgnoreCase("IEA")) {
+		} else if (atributo.equalsIgnoreCase("FORMACAO") || atributo.equalsIgnoreCase("UNIDADE")
+				|| atributo.equalsIgnoreCase("DATA") || atributo.equalsIgnoreCase("SEMESTRE")
+				|| atributo.equalsIgnoreCase("IEA")) {
 			Pesquisador pesquisador = pesquisadores.get(email);
 			pesquisador.setEspecialidade(atributo, novoAtributo);
-		}else {
+		} else {
 			throw new RuntimeException("Atributo invalido.");
 		}
 	}
@@ -195,18 +196,18 @@ public class ControllerPesquisador {
 				resultadosBusca.add(pesquisador.procuraPalavraChave(palavraChave));
 			}
 		}
-		
+
 		Collections.sort(resultadosBusca, new OrdenaResultados());
 
 		return resultadosBusca;
 	}
-	
+
 	public Pesquisador getPesquisador(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo emailPesquisador nao pode ser nulo ou vazio.");
 		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 		return pesquisadores.get(email);
 	}
-	
+
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
@@ -214,29 +215,29 @@ public class ControllerPesquisador {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(data, "Campo data nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaData(data, "Atributo data com formato invalido.");
 		verificaPesquisadorExiste(email, "Pesquisadora nao encontrada.");
-		
-		
+
 		pesquisadores.get(email).cadastraEspecialidadeProfessor(formacao, unidade, data);
 	}
-	
+
 	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
 		ValidadorDeEntradas.verificaIEA(IEA, "Atributo IEA com formato invalido.");
 		verificaPesquisadorExiste(email, "Pesquisadora nao encontrada.");
 		pesquisadores.get(email).cadastraEspecialidadeAluno(semestre, IEA);
-		
+
 	}
-	
-	public String listaPesquisadores(String tipo) { 
+
+	public String listaPesquisadores(String tipo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
 		ArrayList<String> saida = new ArrayList<>();
-		
-		if(!(tipo.equalsIgnoreCase("Estudante") || tipo.equalsIgnoreCase("Professor") || tipo.equalsIgnoreCase("Externo") )) {
+
+		if (!(tipo.equalsIgnoreCase("Estudante") || tipo.equalsIgnoreCase("Professor")
+				|| tipo.equalsIgnoreCase("Externo"))) {
 			throw new RuntimeException("Tipo " + tipo + " inexistente.");
 		}
 		for (Pesquisador pesquisador : pesquisadores.values()) {
-			if(pesquisador.getFuncao().equalsIgnoreCase(tipo)) {
+			if (pesquisador.getFuncao().equalsIgnoreCase(tipo)) {
 				saida.add(pesquisador.toString());
 			}
 		}

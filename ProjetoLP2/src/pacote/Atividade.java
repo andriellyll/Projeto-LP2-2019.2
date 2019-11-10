@@ -27,7 +27,7 @@ public class Atividade {
 	private String nivelRisco;
 	private String descricaoRisco;
 	private List<Item> itens;
-	
+
 	private Pesquisa pesquisa;
 
 	/**
@@ -200,11 +200,11 @@ public class Atividade {
 	}
 
 	private void verificaAtividadeEhAssociada() {
-	if (pesquisa == null) {
-		throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		if (pesquisa == null) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		}
+
 	}
-	
-}
 
 	/**
 	 * Retorna a duracao em horas do tempo de execucao de uma atividade.
@@ -343,6 +343,6 @@ public class Atividade {
 		}
 		this.pesquisa = null;
 		return true;
-		
+
 	}
 }
