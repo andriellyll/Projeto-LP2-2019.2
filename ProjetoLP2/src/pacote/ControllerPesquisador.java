@@ -68,22 +68,9 @@ public class ControllerPesquisador {
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
 		
-		if(funcao.equalsIgnoreCase("estudante")) {
-			
-			Pesquisador pesquisador = new Pesquisador(nome,new Estudante(), biografia, email, fotoUrl);
-			this.pesquisadores.put(email, pesquisador);
-			
-		}else if(funcao.equalsIgnoreCase("externo")){
-			
-			Pesquisador pesquisador = new Pesquisador(nome,new Externo(), biografia, email, fotoUrl);
-			this.pesquisadores.put(email, pesquisador);
-			
-		}else if(funcao.equalsIgnoreCase("professor")){
-			
-			Pesquisador pesquisador = new Pesquisador(nome,new Professor(), biografia, email, fotoUrl);
-			this.pesquisadores.put(email, pesquisador);
-			
-		}
+		Pesquisador pesquisador = new Pesquisador(nome,funcao, biografia, email, fotoUrl);
+		this.pesquisadores.put(email, pesquisador);
+		
 
 	}
 
@@ -107,17 +94,8 @@ public class ControllerPesquisador {
 			this.pesquisadores.get(email).setNome(novoAtributo);
 		} else if (atributo.equals("FUNCAO")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo funcao nao pode ser nulo ou vazio.");
+			this.pesquisadores.get(email).setFuncao(novoAtributo);
 			
-			if(novoAtributo.equalsIgnoreCase("estudante")) {
-				this.pesquisadores.get(email).setFuncao( new Estudante());
-				
-			}else if(novoAtributo.equalsIgnoreCase("externo")){
-				this.pesquisadores.get(email).setFuncao( new Externo());
-				
-			}else if(novoAtributo.equalsIgnoreCase("professor")){
-				this.pesquisadores.get(email).setFuncao( new Professor());
-				
-			}
 		} else if (atributo.equals("BIOGRAFIA")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo biografia nao pode ser nulo ou vazio.");
 
@@ -135,7 +113,10 @@ public class ControllerPesquisador {
 			ValidadorDeEntradas.verificaURL(novoAtributo);
 
 			this.pesquisadores.get(email).setFoto(novoAtributo);
-		} else {
+		} else if (atributo.equalsIgnoreCase("FORMACAO") || atributo.equalsIgnoreCase("UNIDADE") || atributo.equalsIgnoreCase("DATA") || atributo.equalsIgnoreCase("SEMESTRE") ||atributo.equalsIgnoreCase("IEA")) {
+			Pesquisador pesquisador = pesquisadores.get(email);
+			pesquisador.setEspecialidade(atributo, novoAtributo);
+		}else {
 			throw new RuntimeException("Atributo invalido.");
 		}
 	}
@@ -222,6 +203,34 @@ public class ControllerPesquisador {
 	public Pesquisador getPesquisador(String email) {
 		verificaPesquisadorExiste(email);
 		return pesquisadores.get(email);
+	}
+	
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(unidade, "Campo unidade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(data, "Campo data nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaData(data, "Atributo data com formato invalido.");
+		pesquisadores.get(email).cadastraEspecialidadeProfessor(formacao, unidade, data);
+	}
+	
+	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
+		ValidadorDeEntradas.verificaIEA(IEA, "Atributo IEA com formato invalido.");
+		pesquisadores.get(email).cadastraEspecialidadeAluno(semestre, IEA);
+		
+	}
+	
+	public String listaPesquisadores(String tipo) { 
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+		ArrayList<String> saida = new ArrayList<>();
+		for (Pesquisador pesquisador : pesquisadores.values()) {
+			if(pesquisador.getFuncao().equalsIgnoreCase(tipo)) {
+				saida.add(pesquisador.toString());
+			}
+		}
+		return String.join(" | ", saida);
 	}
 
 }

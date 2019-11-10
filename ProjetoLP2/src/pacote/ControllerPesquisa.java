@@ -327,7 +327,7 @@ public class ControllerPesquisa {
 				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		if (pesquisas.containsKey(codigoPesquisa)) {
 			if (pesquisas.get(codigoPesquisa).getAtivacao()) {
-				return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
+				//return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
 			}
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
@@ -347,7 +347,8 @@ public class ControllerPesquisa {
 	
 	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
 		verificaPesquisaExiste(codigoPesquisa);
-		return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
+		//return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
+		return true;
 	}
 
 	//public boolean verificaPesquisaEhAssociada(String codigoPesquisa, Atividade atividade) {
@@ -387,8 +388,7 @@ public class ControllerPesquisa {
 	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
-		pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
-		return true;
+		return this.pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
 
 	}
 
@@ -403,7 +403,6 @@ public class ControllerPesquisa {
 	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
-		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
-		return true;
+		return this.pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
 	}
 }

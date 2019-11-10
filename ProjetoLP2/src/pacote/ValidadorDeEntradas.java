@@ -1,6 +1,7 @@
 
 package pacote;
 
+
 /**
  * Responsavel por validar todas as entradas do sistema.
  * 
@@ -148,6 +149,34 @@ public class ValidadorDeEntradas {
 		if (item < 0) {
 			throw new IllegalArgumentException(mensagem);
 		}
+	}
+	
+	public static void verificaSemestre(int semestre, String mensagem) {
+		if(semestre < 1) {
+			throw new IllegalArgumentException(mensagem);
+		}
+		
+	}
+
+	public static void verificaIEA(double IEA, String mensagem) {
+		if(IEA < 0 || IEA > 10) {
+			throw new IllegalArgumentException(mensagem);
+		}
+		
+	}
+	
+	public static void verificaData(String data, String mensagem) {
+		
+		String[] lista = data.split("/");
+		
+		if(lista.length != 3) {
+			throw new IllegalArgumentException(mensagem);
+		}
+		if(lista[0].length() != 2 || lista[1].length() != 2 || lista[2].length() != 4) {
+			throw new IllegalArgumentException(mensagem);
+		}
+		
+		
 	}
 
 }

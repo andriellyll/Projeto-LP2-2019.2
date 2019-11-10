@@ -20,13 +20,17 @@ public class Psquiza {
 	private ControllerAtividade controllerAtividade;
 
 	/**
+	 * @param controllerAtividade 
+	 * @param controllerProblemaObjetivo 
+	 * @param controllerPesquisador 
+	 * @param controllerPesquisa 
 	 * 
 	 */
-	public Psquiza() {
-		controllerPesquisa = new ControllerPesquisa();
-		controllerPesquisador = new ControllerPesquisador();
-		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
-		controllerAtividade = new ControllerAtividade();
+	public Psquiza(ControllerPesquisa controllerPesquisa, ControllerPesquisador controllerPesquisador, ControllerProblemaObjetivo controllerProblemaObjetivo, ControllerAtividade controllerAtividade) {
+		this.controllerPesquisa = controllerPesquisa;
+		this.controllerPesquisador = controllerPesquisador;
+		this.controllerProblemaObjetivo = controllerProblemaObjetivo;
+		this.controllerAtividade = controllerAtividade;
 	}
 
 //Associacoes de Objetivos e Problema:
