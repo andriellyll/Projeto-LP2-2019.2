@@ -10,7 +10,6 @@ public class Facade {
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
 	private ControllerAtividade controllerAtividade;
 
-
 	public Facade() {
 		psquiza = new Psquiza();
 		controllerPesquisa = new ControllerPesquisa();
