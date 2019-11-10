@@ -387,8 +387,7 @@ public class ControllerPesquisa {
 	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
-		pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
-		return true;
+		return this.pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
 
 	}
 
@@ -403,7 +402,6 @@ public class ControllerPesquisa {
 	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
-		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
-		return true;
+		return this.pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
 	}
 }

@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 class PesquisadorTest {
 
 
-		Pesquisador pesquisador1 = new Pesquisador("Anna", new Estudante(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
+		Pesquisador pesquisador1 = new Pesquisador("Anna", new Aluno(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
 	
 	@Test
 	void criaPesquisNomeNulo() {
 		assertThrows(NullPointerException.class, () -> {
-			new Pesquisador(null, new Estudante(), "Perfeita demais",
+			new Pesquisador(null, new Aluno(), "Perfeita demais",
 					"andrielly11@ccc.ufcg.edu.br", "https://godspeed");
 		});
 	}
 	@Test
 	void criaPequisadorNomeVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Pesquisador("", new Estudante(), "Perfeita demais", "andrielly11@ccc.ufcg.edu.br",
+			new Pesquisador("", new Aluno(), "Perfeita demais", "andrielly11@ccc.ufcg.edu.br",
 					"https://godspeed");
 		});
 
@@ -49,7 +49,7 @@ class PesquisadorTest {
 	@Test
 	void criaPequisadorBiografiaNula() {
 		assertThrows(NullPointerException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), null, "andrielly11@ccc.ufcg.edu.br",
+			new Pesquisador("Andrielly", new Aluno(), null, "andrielly11@ccc.ufcg.edu.br",
 					"https://godspeed");
 		});
 
@@ -58,7 +58,7 @@ class PesquisadorTest {
 	@Test
 	void criaPequisadorBiografiaVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "", "andrielly11@ccc.ufcg.edu.br",
+			new Pesquisador("Andrielly", new Aluno(), "", "andrielly11@ccc.ufcg.edu.br",
 					"https://godspeed");
 		});
 
@@ -67,7 +67,7 @@ class PesquisadorTest {
 	@Test
 	void criaPequisadorEmailNulo() {
 		assertThrows(NullPointerException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "Perfeita demais", null,
+			new Pesquisador("Andrielly", new Aluno(), "Perfeita demais", null,
 					"https://godspeed");
 		});
 
@@ -76,7 +76,7 @@ class PesquisadorTest {
 	@Test
 	void criaPequisadorEmailVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "Perfeita demais", "",
+			new Pesquisador("Andrielly", new Aluno(), "Perfeita demais", "",
 					"https://godspeed");
 		});
 
@@ -85,7 +85,7 @@ class PesquisadorTest {
 	@Test
 	void criaPequisadorUrlNula() {
 		assertThrows(NullPointerException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "Perfeita demais",
+			new Pesquisador("Andrielly", new Aluno(), "Perfeita demais",
 					"andrielly11@ccc.ufcg.edu.br", null);
 		});
 
@@ -94,7 +94,7 @@ class PesquisadorTest {
 	@Test
 	void criaPequisadorUrlVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "Perfeita demais",
+			new Pesquisador("Andrielly", new Aluno(), "Perfeita demais",
 					"andrielly11@ccc.ufcg.edu.br", "");
 		});
 
@@ -103,15 +103,15 @@ class PesquisadorTest {
 	@Test
 	void criaPequisadorEmailInvalido() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "Perfeita demais", "drica@",
+			new Pesquisador("Andrielly", new Aluno(), "Perfeita demais", "drica@",
 					"https://teste");
 		});
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "Perfeita demais", "@drica",
+			new Pesquisador("Andrielly", new Aluno(), "Perfeita demais", "@drica",
 					"https://teste");
 		});
 		assertThrows(IllegalArgumentException.class, () -> {
-			new Pesquisador("Andrielly", new Estudante(), "Perfeita demais", "a",
+			new Pesquisador("Andrielly", new Aluno(), "Perfeita demais", "a",
 					"https://teste");
 		});
 
@@ -224,12 +224,12 @@ class PesquisadorTest {
 	}
 	@Test
 	void testHashCode() {
-		Pesquisador pesquisador2 = new Pesquisador("Anna", new Estudante(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
+		Pesquisador pesquisador2 = new Pesquisador("Anna", new Aluno(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
 	assertEquals(pesquisador1.hashCode(), pesquisador2.hashCode());
 	}
 	@Test
 	void testEquals() {
-		Pesquisador pesquisador2 = new Pesquisador("Anna", new Estudante(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
+		Pesquisador pesquisador2 = new Pesquisador("Anna", new Aluno(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
 		assertTrue(pesquisador1.equals(pesquisador2));
 		assertTrue(pesquisador1.equals(pesquisador1));
 		assertFalse(pesquisador1.equals(null));
@@ -237,7 +237,7 @@ class PesquisadorTest {
 	}
 	@Test
 	void testToString() {
-		Pesquisador pesquisador2 = new Pesquisador("Anna", new Estudante(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
+		Pesquisador pesquisador2 = new Pesquisador("Anna", new Aluno(), "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
 		assertEquals(pesquisador2.toString(), "Anna (estudante) - gosta de matematica - anna.lira@ccc.ufcg.edu.br - https://annabeatrizlucena.com");
 	}
 }
