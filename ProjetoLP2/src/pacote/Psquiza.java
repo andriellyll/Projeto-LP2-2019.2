@@ -36,7 +36,7 @@ public class Psquiza {
 	}
 
 //Associacoes de Objetivos e Problema:
-
+	
 	/**
 	 * Metodo responsavel por associar um problema a uma pesquisa.
 	 * 

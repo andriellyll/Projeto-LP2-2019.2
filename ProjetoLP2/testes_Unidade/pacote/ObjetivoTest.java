@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 public class ObjetivoTest {
 
+	Objetivo objetivo = new Objetivo("GERAL","Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.", 4,2, "O1");
+	
 	@Test
 	public void testObjetivoNull() {
 		assertThrows(NullPointerException.class, () -> {
@@ -59,5 +61,51 @@ public class ObjetivoTest {
 	public void testToString() {
 		Objetivo objetivo = new Objetivo("GERAL", "Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.", 4, 2, "O1");
 		assertEquals("O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6", objetivo.toString());
+	}
+	
+	@Test
+	public void associaPesquisa() {
+		Pesquisa pesquisa = new Pesquisa("SEG1", "Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		assertTrue(objetivo.associaPesquisa(pesquisa));
+	}
+	
+	@Test
+	public void associaPesquisaJaAssociada() {
+		Pesquisa pesquisa = new Pesquisa("SEG1", "Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		objetivo.associaPesquisa(pesquisa);
+		assertFalse(objetivo.associaPesquisa(pesquisa));
+	}
+	
+	@Test
+	public void associaComOutraPesquisaJaAssociada() {
+		Pesquisa pesquisa = new Pesquisa("SEG1", "Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		objetivo.associaPesquisa(pesquisa);
+		Pesquisa pesquisa2 = new Pesquisa("SEG2", "extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		assertThrows(RuntimeException.class, () -> {
+			objetivo.associaPesquisa(pesquisa2);
+		});
+	}
+	
+	@Test
+	public void desassociaPesquisaAssociada() {
+		Pesquisa pesquisa = new Pesquisa("SEG1", "Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		objetivo.associaPesquisa(pesquisa);
+		assertTrue(objetivo.desassociaPesquisa(pesquisa));
+	}
+	
+	@Test
+	public void desassociaPesquisaNaoAssociada() {
+		Pesquisa pesquisa = new Pesquisa("SEG1", "Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		objetivo.associaPesquisa(pesquisa);
+		Pesquisa pesquisa2 = new Pesquisa("SEG2", "extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		assertFalse(objetivo.desassociaPesquisa(pesquisa2));
+		
 	}
 }
