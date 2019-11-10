@@ -150,8 +150,8 @@ public class Facade {
 		return psquiza.associaProblema(idPesquisa, idProblema);
 	}
 
-	public boolean desassociaProblema(String idPesquisa, String idProblema) {
-		return psquiza.desassociaProblema(idPesquisa, idProblema);
+	public boolean desassociaProblema(String idPesquisa) {
+		return psquiza.desassociaProblema(idPesquisa);
 	}
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {

@@ -14,27 +14,18 @@ public class Problema {
 	/**
 	 * Atributo em string que representa a descricao desse problema.
 	 */
-
 	private String descricao;
 
 	/**
 	 * Atributo inteiro que representa a viabilidade que um problema tem de ser
 	 * resolvido.
 	 */
-
 	private int viabilidade;
 
 	/**
 	 * Atributo em string que representa o id daquele problema.
 	 */
-
 	private String codigo;
-	
-	/**
-	 * Atributo que lista as pesquisas associadas a este problema.
-	 */
-
-	private Set<Pesquisa> pesquisas;
 
 	/**
 	 * Metodo construtor de Problema que recebe como parametro sua descricao,
@@ -46,14 +37,12 @@ public class Problema {
 	 *                    problema tem de ser resolvido.
 	 * @param codigo      atributo em string que representa o id daquele problema.
 	 */
-
 	public Problema(String descricao, int viabilidade, String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
 		this.descricao = descricao;
 		this.viabilidade = viabilidade;
 		this.codigo = codigo;
-		this.pesquisas = new HashSet<>();
 	}
 
 	/**
@@ -61,7 +50,6 @@ public class Problema {
 	 * 
 	 * @return o codigo inteiro.
 	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,7 +63,6 @@ public class Problema {
 	 * 
 	 * @return um booleano que expressa se os objetos sao iguais.
 	 */
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -97,7 +84,6 @@ public class Problema {
 	 * Metodo que representa textualmente um prolema, com seu codigo, descricao e
 	 * sua viabilidade.
 	 */
-
 	public String toString() {
 		return codigo + " - " + descricao + " - " + viabilidade;
 	}
@@ -105,36 +91,12 @@ public class Problema {
 //---------------------------------------------------- Novas atualizacoes de Problema ----------------------------------------------------------------------
 
 	/**
-	 * Metodo responsavel por associar uma pesquisa a este problema,
-	 * onde caso essa pesquisa ja esteja associada a este problema ele retorna false.
+	 * Metodo responsavel por resgatar o codigo de identificacao deste problema.
 	 * 
-	 * @param pesquisa - valor da pesquisa a ser associada
-	 * @return um booleano referente a especificacao em que a pesquisa pertence
+	 * @return o codigo do problema
 	 */
-
-	public boolean associaPesquisa(Pesquisa pesquisa) {
-		if (pesquisas.contains(pesquisa)) {
-			return false;
-		}
-		pesquisas.add(pesquisa);
-		return true;
-	}
-	
-	/**
-	 * Metodo responsavel por desassociar uma determinada pesquisa,
-	 * onde caso essa pesquisa nao estiver salvo a lista de pesquisa,
-	 * ele retorna false.
-	 * 
-	 * @param pesquisa - valor da pesquisa a ser desassociada
-	 * @return um booleano referente a especificacao em que a pesquisa pertence
-	 */
-	
-	public boolean desassociaPesquisa(Pesquisa pesquisa) {
-		if (!pesquisas.contains(pesquisa)) {
-			return false;
-		}
-		pesquisas.remove(pesquisa);
-		return true;
+	public String getCodigo() {
+		return this.codigo;
 	}
 	
 	/**
@@ -145,21 +107,10 @@ public class Problema {
 	 * @return se a palavra-chave existir na String de descricao, essa string sera
 	 *         retornada. Se nao, sera retornada uma String vazia
 	 */
-	
 	public String procuraPalavraChave(String palavraChave) {
 		if (this.descricao.contains(palavraChave)) {
 			return this.codigo + ": " + this.descricao;
 		}
 		return "";
-	}
-	
-	/**
-	 * Metodo responsavel por resgatar o codigo de identificacao deste problema.
-	 * 
-	 * @return o codigo do problema
-	 */
-	
-	public String getCodigo() {
-		return this.codigo;
 	}
 }

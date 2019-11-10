@@ -20,11 +20,12 @@ public class Psquiza {
 	private ControllerAtividade controllerAtividade;
 
 	/**
+	 * 
+	 * 
 	 * @param controllerAtividade 
 	 * @param controllerProblemaObjetivo 
 	 * @param controllerPesquisador 
 	 * @param controllerPesquisa 
-	 * 
 	 */
 	public Psquiza(ControllerPesquisa controllerPesquisa, ControllerPesquisador controllerPesquisador, ControllerProblemaObjetivo controllerProblemaObjetivo, ControllerAtividade controllerAtividade) {
 		this.controllerPesquisa = controllerPesquisa;
@@ -36,8 +37,7 @@ public class Psquiza {
 //Associacoes de Objetivos e Problema:
 
 	/**
-	 * Metodo responsavel por associar um a pesquisa a um problema e associar este
-	 * mesmo problema a esta pesquisa.
+	 * Metodo responsavel por associar um problema a uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
 	 * @param idProblema - valor de identificacao do problema
@@ -46,30 +46,19 @@ public class Psquiza {
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa)
+		return controllerPesquisa.getPesquisa(idPesquisa)
 				.associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
-		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
-				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		return (passo1 && passo2);
 	}
 
 	/**
-	 * Metodo responsavel por desassociar uma pesquisa a um problema e desassociar
-	 * este problema a pesquisa.
+	 * Metodo responsavel por desassociar o problema de uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
-	 * @param idProblema - valor de identificacao do problema
 	 * @return um booleano referente a situacao do processo
 	 */
-	public boolean desassociaProblema(String idPesquisa, String idProblema) {
+	public boolean desassociaProblema(String idPesquisa) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerPesquisa.getPesquisa(idPesquisa)
-				.desassociaProblema(controllerProblemaObjetivo.getProblema(idProblema));
-		boolean passo2 = controllerProblemaObjetivo.getProblema(idProblema)
-				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		return (passo1 && passo2);
-
+		return controllerPesquisa.getPesquisa(idPesquisa).desassociaProblema();
 	}
 
 	/**
@@ -105,8 +94,7 @@ public class Psquiza {
 				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
 		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
 				.desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
-		return (passo1 && passo2);
-
+		return passo1 && passo2;
 	}
 
 	/**
