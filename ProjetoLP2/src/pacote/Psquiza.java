@@ -139,8 +139,7 @@ public class Psquiza {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(emailPesquisador,
 				"Campo emailPesquisador nao pode ser nulo ou vazio.");
 
-		controllerPesquisa.associaPesquisador(idPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
-		return true;
+		return controllerPesquisa.associaPesquisador(idPesquisa, controllerPesquisador.getPesquisador(emailPesquisador));
 	}
 
 	/**

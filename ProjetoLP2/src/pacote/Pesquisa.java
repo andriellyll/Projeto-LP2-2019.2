@@ -328,7 +328,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 			return false;
 		}
 		pesquisadoresAssociados.add(pesquisador);
-		return false;
+		return true;
 
 	}
 
@@ -344,7 +344,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 			return false;
 		}
 		pesquisadoresAssociados.remove(pesquisador);
-		return false;
+		return true;
 	}
 
 	/**

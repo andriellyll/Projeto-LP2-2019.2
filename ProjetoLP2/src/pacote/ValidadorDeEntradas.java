@@ -175,6 +175,9 @@ public class ValidadorDeEntradas {
 		if(lista[0].length() != 2 || lista[1].length() != 2 || lista[2].length() != 4) {
 			throw new IllegalArgumentException(mensagem);
 		}
+		if(Integer.parseInt(lista[0]) > 31 || Integer.parseInt(lista[1]) > 12 || Integer.parseInt(lista[2]) > 2019) {
+			throw new IllegalArgumentException(mensagem);
+		}
 		
 		
 	}

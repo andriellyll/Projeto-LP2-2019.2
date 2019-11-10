@@ -224,7 +224,7 @@ public class Pesquisador {
 		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
 		ValidadorDeEntradas.verificaIEA(IEA, "Atributo IEA com formato invalido.");
 				
-		if(!(funcao.equalsIgnoreCase("Aluno"))) {
+		if(!(funcao.equalsIgnoreCase("Estudante"))) {
 			throw new RuntimeException("Pesquisador nao compativel com a especialidade.");
 		}
 		this.especialidade = new Aluno(semestre, IEA);
