@@ -310,6 +310,11 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
 	}
+	
+	public void validaPesquisa(String codigo) {
+		verificaPesquisaExiste(codigo);
+		verificaPesquisaAtivada(codigo);
+	}
 
 	/**
 	 * Associa uma atividade a uma pesquisa a partir do codigo da pesquisa e da

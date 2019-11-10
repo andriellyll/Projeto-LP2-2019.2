@@ -329,12 +329,18 @@ public class Atividade {
 	}
 
 	public boolean associaPesquisa(Pesquisa pesquisa) {
+		if (this.pesquisa == pesquisa) {
+			return false;
+		}
 		this.pesquisa = pesquisa;
 		return true;
-		
+
 	}
 
 	public boolean desassociaPesquisa() {
+		if (this.pesquisa == null) {
+			return false;
+		}
 		this.pesquisa = null;
 		return true;
 		

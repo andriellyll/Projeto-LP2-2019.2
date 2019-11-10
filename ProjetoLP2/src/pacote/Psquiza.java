@@ -171,6 +171,7 @@ public class Psquiza {
 				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		controllerPesquisa.validaPesquisa(codigoPesquisa);
 		return controllerAtividade.desassociaPesquisa(codigoAtividade);
 	}
 
