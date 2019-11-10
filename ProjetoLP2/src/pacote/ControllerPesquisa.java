@@ -196,8 +196,8 @@ public class ControllerPesquisa {
 //------------------------------------------------ Novas atualizacoes de ControllerPesquisa ----------------------------------------------------------------
 
 	/**
-	 * Metodo responsavel por ordenar as pesquisas de acordo com seu codigo de identificacao,
-	 * ordenando-os de forma decrescente.
+	 * Metodo responsavel por ordenar as pesquisas de acordo com seu codigo de
+	 * identificacao, ordenando-os de forma decrescente.
 	 * 
 	 * @param listaDePesquisas - Lista das pesquisas a serem ordenadas
 	 * @return lista ordenada das pesquisas
@@ -216,9 +216,11 @@ public class ControllerPesquisa {
 	}
 
 	/**
-	 * Metodo responsavel por imprimir as pesquisas, de acordo com a especificacao do usuario.
+	 * Metodo responsavel por imprimir as pesquisas, de acordo com a especificacao
+	 * do usuario.
 	 * 
-	 * @param ordem - valor que representa a forma como o usuario quer que sejam listados suas pesquisas
+	 * @param ordem - valor que representa a forma como o usuario quer que sejam
+	 *              listados suas pesquisas
 	 * @return uma string que imprime as pesquisas listadas, desejadas pelo usuario
 	 */
 
@@ -269,10 +271,10 @@ public class ControllerPesquisa {
 		}
 		return todasPesquisas;
 	}
-	
+
 	/**
-	 * Verifica se uma pesquisa esta ativada para uso,
-	 * caso contrario ele apresenta um erro.
+	 * Verifica se uma pesquisa esta ativada para uso, caso contrario ele apresenta
+	 * um erro.
 	 * 
 	 * @param codigo - valor que vai ser verificado a ativacao ou nao
 	 */
@@ -298,8 +300,8 @@ public class ControllerPesquisa {
 	}
 
 	/**
-	 * Verifica se a pesquisa existe e se ela esta ativada, a partir de um codigo, e caso ela exista sera
-	 * retornada.
+	 * Verifica se a pesquisa existe e se ela esta ativada, a partir de um codigo, e
+	 * caso ela exista sera retornada.
 	 * 
 	 * @param codigo - o codigo da pesquisa a ser retornada
 	 * @return - a pesquisa solicitada a partir do codigo
@@ -310,55 +312,11 @@ public class ControllerPesquisa {
 		verificaPesquisaAtivada(codigo);
 		return this.pesquisas.get(codigo);
 	}
-	
+
 	public void validaPesquisa(String codigo) {
 		verificaPesquisaExiste(codigo);
 		verificaPesquisaAtivada(codigo);
 	}
-
-	/**
-	 * Associa uma atividade a uma pesquisa a partir do codigo da pesquisa e da
-	 * atividade a ser associada. Caso a associacao obtenha sucesso sera retornado
-	 * true, caso nao ira retornar false
-	 * 
-	 * @param codigoPesquisa - o codigo da pesquisa a ter uma atividade associada
-	 * @param atividade      - a atividade a ser associada a pesquisa
-	 * @return - o booleano que representa se a associacao obteve sucesso (true) ou
-	 *         nao (false)
-	 */
-
-	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
-				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
-		if (pesquisas.containsKey(codigoPesquisa)) {
-			if (pesquisas.get(codigoPesquisa).getAtivacao()) {
-				//return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
-			}
-			throw new IllegalArgumentException("Pesquisa desativada.");
-		}
-		throw new IllegalArgumentException("Pesquisa nao encontrada.");
-	}
-
-	/**
-	 * Desassocia uma atividade de uma pesquisa a partir do codigo da pesquisa e da
-	 * atividade a ser desassociada. Caso a desassociacao obtenha sucesso sera retornado
-	 * true, caso nao ira retornar false
-	 * 
-	 * @param codigoPesquisa - o codigo da pesquisa a ter uma atividade desassociada
-	 * @param atividade - a atividade a ser desassociada a pesquisa
-	 * @return - o booleano que representa se a desassociacao obteve sucesso (true) ou
-	 *         nao (false)
-	 */
-	
-	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
-		verificaPesquisaExiste(codigoPesquisa);
-		//return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
-		return true;
-	}
-
-	//public boolean verificaPesquisaEhAssociada(String codigoPesquisa, Atividade atividade) {
-		//return pesquisas.get(codigoPesquisa).verificaAtividadeEhAssociada(atividade);
-	//}
 
 	/**
 	 * Procura em todos as pesquisas do mapa a palavra-chave passada como parametro
@@ -367,7 +325,6 @@ public class ControllerPesquisa {
 	 * @return Lista de Strings com os campos dos atributos de pesquisa que
 	 *         contiverem a palavra-chave
 	 */
-
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
