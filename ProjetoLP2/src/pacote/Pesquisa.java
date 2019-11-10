@@ -324,8 +324,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 */
 
 	public boolean associaPesquisador(Pesquisador pesquisador) {
+		if (pesquisadoresAssociados.contains(pesquisador)) {
+			return false;
+		}
 		pesquisadoresAssociados.add(pesquisador);
-		return true;
+		return false;
 
 	}
 
@@ -337,8 +340,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 */
 
 	public boolean desassociaPesquisador(Pesquisador pesquisador) {
+		if (!pesquisadoresAssociados.contains(pesquisador)) {
+			return false;
+		}
 		pesquisadoresAssociados.remove(pesquisador);
-		return true;
+		return false;
 	}
 
 	/**
