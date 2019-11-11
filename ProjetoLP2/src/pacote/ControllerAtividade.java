@@ -16,7 +16,7 @@ import utils.OrdenaResultados;
  * 
  * @author Henrique Lemos
  */
-public class ControllerAtividade {
+public class ControllerAtividade implements Buscavel {
 
 	/**
 	 * Conjunto de Atividades reunidas em um mapa onde cada atividade e identificada

@@ -17,7 +17,7 @@ import utils.OrdenaResultados;
  * 
  * @author Anna Beatriz Lucena
  */
-public class ControllerPesquisa {
+public class ControllerPesquisa implements Buscavel{
 
 	/**
 	 * Armazena todas as pesquisas cadastradas no sistema.
