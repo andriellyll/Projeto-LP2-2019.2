@@ -9,6 +9,7 @@ public class Facade {
 	private ControllerPesquisador controllerPesquisador;
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
 	private ControllerAtividade controllerAtividade;
+	private ControllerBusca controllerBusca;
 
 	public Facade() {
 		controllerPesquisa = new ControllerPesquisa();
@@ -17,6 +18,7 @@ public class Facade {
 		controllerAtividade = new ControllerAtividade();
 		psquiza = new Psquiza(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo,
 				controllerAtividade);
+		controllerBusca = new ControllerBusca(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo, controllerAtividade);
 	}
 
 	public static void main(String[] args) {
@@ -209,14 +211,14 @@ public class Facade {
 //Busca por Palavra-chave:
 
 	public String busca(String termo) {
-		return psquiza.busca(termo);
+		return controllerBusca.busca(termo);
 	}
 
 	public String busca(String termo, int numeroDoResultado) {
-		return psquiza.busca(termo, numeroDoResultado);
+		return controllerBusca.busca(termo, numeroDoResultado);
 	}
 
 	public int contaResultadosBusca(String termo) {
-		return psquiza.contaResultadosBusca(termo);
+		return controllerBusca.contaResultadosBusca(termo);
 	}
 }

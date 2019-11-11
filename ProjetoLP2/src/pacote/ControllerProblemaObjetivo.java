@@ -12,7 +12,7 @@ import java.util.Map;
 
 import utils.OrdenaResultados;
 
-public class ControllerProblemaObjetivo {
+public class ControllerProblemaObjetivo implements Buscavel {
 
 	/**
 	 * Coleção que armazena os problemas, tendo como chave uma string e como valor
@@ -211,7 +211,7 @@ public class ControllerProblemaObjetivo {
 	 * @return Lista de Strings com as descricoes dos problemas que contiverem a
 	 *         palavra-chave
 	 */
-	public List<String> procuraPalavraChaveProblema(String palavraChave) {
+	private List<String> procuraPalavraChaveProblema(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Problema problema : this.problemas.values()) {
@@ -232,7 +232,7 @@ public class ControllerProblemaObjetivo {
 	 * @return Lista de Strings com as descricoes dos objetivos que contiverem a
 	 *         palavra-chave
 	 */
-	public List<String> procuraPalavraChaveObjetivo(String palavraChave) {
+	private List<String> procuraPalavraChaveObjetivo(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Objetivo objetivo : this.objetivos.values()) {
@@ -245,4 +245,12 @@ public class ControllerProblemaObjetivo {
 
 		return resultadosBusca;
 	}
+
+	@Override
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultados = (ArrayList<String>) procuraPalavraChaveProblema(palavraChave);
+		resultados.addAll(procuraPalavraChaveObjetivo(palavraChave));
+		return resultados;
+	}
+	
 }
