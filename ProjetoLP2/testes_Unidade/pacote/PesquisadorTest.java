@@ -241,8 +241,21 @@ public class PesquisadorTest {
 		assertEquals(pesquisador2.toString(), "Anna (estudante) - gosta de matematica - anna.lira@ccc.ufcg.edu.br - https://annabeatrizlucena.com");
 	}
 	@Test
-	void testbusca() {
-		
+	void testBusca() {
+		assertEquals("anna.lira@ccc.ufcg.edu.br: gosta de matematica", pesquisador1.procuraPalavraChave("matematica"));
+		assertEquals("", pesquisador1.procuraPalavraChave("fisica"));
+	}
+	@Test
+	void testBuscaNull() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisador1.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	void testBuscaVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador1.procuraPalavraChave("");
+		});
 	}
 	@Test 
 	void cadastraEspecialidadeProfessor() {
@@ -291,7 +304,7 @@ public class PesquisadorTest {
 	}
 	@Test 
 	void cadastraEspecialidadeProfessorPesquisadorIncompativel() {
-		Pesquisador pesquisador3 = new Pesquisador("nishinoya", "externo", "melhor libero pfto quem discorda eh nazista", "kageyama@tobio", "https://rollingthunder");
+		Pesquisador pesquisador3 = new Pesquisador("nishinoya", "externo", "melhor libero pfto quem discorda eh nazista", "nishinoya@lindo", "https://rollingthunder");
 		assertThrows(RuntimeException.class, () -> {
 			pesquisador1.cadastraEspecialidadeProfessor("Doutorado", "UASC", "0707/2007");		
 		});
@@ -325,5 +338,92 @@ public class PesquisadorTest {
 		assertThrows(RuntimeException.class, () -> {
 			pesquisador3.cadastraEspecialidadeProfessor("Doutorado", "UASC", "77/07/2007");		
 		});
+	}
+	@Test
+	void setEspecialidadeProfessor() {
+		Pesquisador pesquisador2 = new Pesquisador("gauds", "professor", "gosta de cha de cha", "matheus@computacao", "http://matheus");
+		pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "UASC", "07/07/2007");
+		assertEquals("gauds (professor) - gosta de cha de cha - matheus@computacao - http://matheus - Doutorado - UASC - 07/07/2007", pesquisador2.toString());
+		
+		pesquisador2.setEspecialidade("formacao", "Pos-Doutorado");
+		assertEquals("gauds (professor) - gosta de cha de cha - matheus@computacao - http://matheus - Pos-Doutorado - UASC - 07/07/2007", pesquisador2.toString());
+		
+		pesquisador2.setEspecialidade("unidade", "DSC");
+		assertEquals("gauds (professor) - gosta de cha de cha - matheus@computacao - http://matheus - Pos-Doutorado - DSC - 07/07/2007", pesquisador2.toString());
+		
+		pesquisador2.setEspecialidade("data", "12/12/2012");
+		assertEquals("gauds (professor) - gosta de cha de cha - matheus@computacao - http://matheus - Pos-Doutorado - DSC - 12/12/2012", pesquisador2.toString());
+		
+	}
+	@Test
+	void setEspecialidadeALuno() {
+		pesquisador1.cadastraEspecialidadeAluno(1, 8.9);
+		assertEquals("Anna (estudante) - gosta de matematica - anna.lira@ccc.ufcg.edu.br - https://annabeatrizlucena.com - 1o SEMESTRE - 8.9", pesquisador1.toString());
+		
+		pesquisador1.setEspecialidade("semestre", "2");
+		assertEquals("Anna (estudante) - gosta de matematica - anna.lira@ccc.ufcg.edu.br - https://annabeatrizlucena.com - 2o SEMESTRE - 8.9", pesquisador1.toString());
+		
+		pesquisador1.setEspecialidade("IEA", "8.6");
+		assertEquals("Anna (estudante) - gosta de matematica - anna.lira@ccc.ufcg.edu.br - https://annabeatrizlucena.com - 2o SEMESTRE - 8.6", pesquisador1.toString());
+		
+	}
+	@Test
+	void setEspecialidadeNull() {
+		pesquisador1.cadastraEspecialidadeAluno(1, 8.9);
+		assertThrows(NullPointerException.class, () -> {
+			pesquisador1.setEspecialidade(null, "3");		
+		});
+		assertThrows(NullPointerException.class, () -> {
+			pesquisador1.setEspecialidade("semestre", null);		
+		});
+	}
+	@Test
+	void setEspecialidadeVazio() {
+		pesquisador1.cadastraEspecialidadeAluno(1, 8.9);
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador1.setEspecialidade("", "3");		
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador1.setEspecialidade("semestre", "");		
+		});
+	}
+	@Test 
+	void setEspecialidadePesquisadorIncompativel() {
+		Pesquisador pesquisador2 = new Pesquisador("eliane", "professor", "linda pfta", "eliane@computacao", "http://eliane");
+		Pesquisador pesquisador3 = new Pesquisador("nishinoya", "externo", "melhor libero pfto quem discorda eh nazista", "kageyama@tobio", "https://rollingthunder");
+		
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador1.setEspecialidade("formacao", "Doutorado");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador1.setEspecialidade("unidade", "UASC");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador1.setEspecialidade("data", "11/11/2011");		
+		});
+		
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador2.setEspecialidade("semestre", "4");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador2.setEspecialidade("IEA", "9.9");		
+		});
+		
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador3.setEspecialidade("formacao", "Doutorado");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador3.setEspecialidade("unidade", "UASC");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador3.setEspecialidade("data", "11/11/2011");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador3.setEspecialidade("semestre", "4");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador3.setEspecialidade("IEA", "9.9");		
+		});
+		
 	}
 }

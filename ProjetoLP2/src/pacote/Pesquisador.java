@@ -206,6 +206,7 @@ public class Pesquisador {
 	 *         retornada. Se nao, sera retornada uma String vazia
 	 */
 	public String procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		if (biografia.contains(palavraChave)) {
 			return this.email + ": " + biografia;
 		}
@@ -265,6 +266,9 @@ public class Pesquisador {
 	 * @param novoAtributo
 	 */
 	public void setEspecialidade(String atributo, String novoAtributo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novo atributo nao pode ser nulo ou vazio.");
+		
 		especialidade.setEspecialidade(atributo, novoAtributo);
 	}
 }
