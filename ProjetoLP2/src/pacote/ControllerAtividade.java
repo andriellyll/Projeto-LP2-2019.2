@@ -238,7 +238,7 @@ public class ControllerAtividade implements Buscavel {
 
 	/**
 	 * Cadastra um resultado obtido pela atividade, a partir do codigo que
-	 * represenrta a atividade e da String que representa o resultado.
+	 * representa a atividade e da String que representa o resultado.
 	 * 
 	 * @param codigoAtividade - o codigo que representa a atividade a ter um
 	 *                        resultado cadastrado
@@ -314,11 +314,11 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
+	 * Associa uma pesquisa a uma atividade a partir do codigo da pesquisa a ser associada e do codigo da atividade.
 	 * 
-	 * 
-	 * @param pesquisa
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoPesquisa - o codigo da pesquisa a ser associada a uma atividade
+	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa associada
+	 * @return - valor booleano true (se a associacao obtiver sucesso) e false (caso a associacao nao obtenha sucesso)
 	 */
 	public boolean associaPesquisa(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
@@ -330,10 +330,11 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
+	 * Desassocia uma pesquisa de uma atividade a partir do codigo da pesquisa a ser desassociada e do codigo da atividade.
 	 * 
-	 * 
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoPesquisa - o codigo da pesquisa a ser desassociada 
+	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa desassociada
+	 * @return - valor booleano true (se a desassociacao obtiver sucesso) e false (caso a desassociacao nao obtenha sucesso)
 	 */
 	public boolean desassociaPesquisa(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
