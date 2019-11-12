@@ -28,6 +28,9 @@ public class Atividade {
 	private String descricaoRisco;
 	private List<Item> itens;
 
+	/**
+	 * Armazena a pesquisa associada a atividade
+	 */
 	private Pesquisa pesquisa;
 
 	/**
@@ -199,6 +202,10 @@ public class Atividade {
 		itens.get((item - 1)).executa();
 	}
 
+	/**
+	 * Verifica se uma atividade tem uma pesquisa associada, caso nao tenha uma
+	 * excecao sera lancada.
+	 */
 	private void verificaAtividadeEhAssociada() {
 		if (pesquisa == null) {
 			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
@@ -328,6 +335,12 @@ public class Atividade {
 		return resultadosBusca;
 	}
 
+	/**
+	 * Associa uma pesquisa a atividade, a partir da pesquisa passada como parametro
+	 * 
+	 * @param pesquisa - a pesquisa a ser associada a atividade
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da associacao
+	 */
 	public boolean associaPesquisa(Pesquisa pesquisa) {
 		if (this.pesquisa == pesquisa) {
 			return false;
@@ -337,6 +350,14 @@ public class Atividade {
 
 	}
 
+	/**
+	 * Desassocia uma pesquisa da atividade
+	 * 
+	 * @param pesquisa - a pesquisa a ser associada a atividade
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da desassociacao
+	 * 
+	 * @return
+	 */
 	public boolean desassociaPesquisa() {
 		if (this.pesquisa == null) {
 			return false;
