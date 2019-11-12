@@ -11,13 +11,18 @@ package pacote;
 public class Item {
 
 	/**
-	 * Cada item apresenta um codigo que identifica este item, uma descricao deste
-	 * item e sua situacao (PENDENTE ou REALIZADO).
+	 * Cada item apresenta um codigo que identifica este item.
 	 */
 	private int codigo;
 
+	/**
+	 * Uma descricao deste item.
+	 */
 	private String item;
 
+	/**
+	 * Sua situacao (PENDENTE ou REALIZADO).
+	 */
 	private String situacao;
 
 	/**
@@ -63,11 +68,23 @@ public class Item {
 		return situacao + " - " + item;
 	}
 
+//------------------------------------- Novas atualizacoes de Item -------------------------------------------------------
+
+	/**
+	 * 
+	 * @return
+	 */
 	public void executa() {
 		this.situacao = "REALIZADO";
 
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param palavraChave
+	 * @return
+	 */
 	public String procuraPalavraChave(String palavraChave) {
 		if (item.contains(palavraChave)) {
 			return item;

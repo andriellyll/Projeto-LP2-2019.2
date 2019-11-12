@@ -14,6 +14,7 @@ import utils.OrdenaResultados;
  * @author Andrielly de Lima Lucena - 119110268
  */
 public class ControllerPesquisador implements Buscavel {
+
 	/**
 	 * Colecao que armazena objetos Pesquisador
 	 */
@@ -71,7 +72,6 @@ public class ControllerPesquisador implements Buscavel {
 
 		Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoUrl);
 		this.pesquisadores.put(email, pesquisador);
-
 	}
 
 	/**
@@ -202,12 +202,26 @@ public class ControllerPesquisador implements Buscavel {
 		return resultadosBusca;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public Pesquisador getPesquisador(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo emailPesquisador nao pode ser nulo ou vazio.");
 		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 		return pesquisadores.get(email);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param email
+	 * @param formacao
+	 * @param unidade
+	 * @param data
+	 */
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
@@ -219,6 +233,13 @@ public class ControllerPesquisador implements Buscavel {
 		pesquisadores.get(email).cadastraEspecialidadeProfessor(formacao, unidade, data);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param email
+	 * @param semestre
+	 * @param IEA
+	 */
 	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
@@ -228,6 +249,12 @@ public class ControllerPesquisador implements Buscavel {
 
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param tipo
+	 * @return
+	 */
 	public String listaPesquisadores(String tipo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
 		ArrayList<String> saida = new ArrayList<>();
@@ -243,5 +270,4 @@ public class ControllerPesquisador implements Buscavel {
 		}
 		return String.join(" | ", saida);
 	}
-
 }

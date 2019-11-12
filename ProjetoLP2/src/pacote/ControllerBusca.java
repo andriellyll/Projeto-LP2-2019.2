@@ -6,9 +6,9 @@ import java.util.ArrayList;
  * Controller responsavel pelos metodos de busca de palavra-chave.
  * 
  * @author Andrielly de Lima Lucena - 119110268
- *
  */
 public class ControllerBusca {
+
 	/**
 	 * Colecao de entidades que implementam a interface buscavel, ou seja, que tem o
 	 * metodo de busca.

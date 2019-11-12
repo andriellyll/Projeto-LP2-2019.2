@@ -1,8 +1,5 @@
 package pacote;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Representa um problema, a ser resolvido em um contexto de uma pesquisa.
  * 
@@ -87,7 +84,7 @@ public class Problema {
 		return codigo + " - " + descricao + " - " + viabilidade;
 	}
 
-//---------------------------------------------------- Novas atualizacoes de Problema ----------------------------------------------------------------------
+//------------------------------------- Novas atualizacoes de Problema --------------------------------------------------
 
 	/**
 	 * Metodo responsavel por resgatar o codigo de identificacao deste problema.

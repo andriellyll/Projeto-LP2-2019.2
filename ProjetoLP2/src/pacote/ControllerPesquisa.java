@@ -183,8 +183,54 @@ public class ControllerPesquisa implements Buscavel{
 		return pesquisa.getAtivacao();
 	}
 
-//------------------------------------------------ Novas atualizacoes de ControllerPesquisa ----------------------------------------------------------------
+//------------------------------------- Novas atualizacoes de ControllerPesquisa ----------------------------------------
 
+	/**
+	 * Metodo responsavel por associar um problema a uma pesquisa.
+	 * 
+	 * @param idPesquisa - valor de identificacao da pesquisa
+	 * @param problema objeto do problema a ser associado
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean associaProblema(String idPesquisa, Problema problema) {
+		validaPesquisa(idPesquisa);
+		return pesquisas.get(idPesquisa).associaProblema(problema);
+	}
+	
+	/**
+	 * Metodo responsavel por desassociar o problema de uma pesquisa.
+	 * 
+	 * @param idPesquisa - valor de identificacao da pesquisa
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean desassociaProblema(String idPesquisa) {
+		validaPesquisa(idPesquisa);
+		return pesquisas.get(idPesquisa).desassociaProblema();
+	}
+	
+	/**
+	 * Metodo responsavel por associar um objetivo a uma pesquisa.
+	 * 
+	 * @param idPesquisa - valor de identificacao da pesquisa
+	 * @param objetivo objeto do objetivo a ser associado
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean associaObjetivo(String idPesquisa, Objetivo objetivo) {
+		return pesquisas.get(idPesquisa).associaObjetivo(objetivo);
+	}
+	
+	/**
+	 * Metodo responsavel por desassociar um objetivo de uma pesquisa.
+	 * 
+	 * @param idPesquisa - valor de identificacao da pesquisa
+	 * @param objetivo objeto do objetivo a ser desassociado
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean desassociaObjetivo(String idPesquisa, Objetivo objetivo) {
+		validaPesquisa(idPesquisa);
+		return pesquisas.get(idPesquisa).desassociaObjetivo(objetivo);
+	}
+	
 	/**
 	 * Metodo responsavel por ordenar as pesquisas de acordo com seu codigo de
 	 * identificacao, ordenando-os de forma decrescente.
@@ -293,11 +339,15 @@ public class ControllerPesquisa implements Buscavel{
 	 * @return - a pesquisa solicitada a partir do codigo
 	 */
 	public Pesquisa getPesquisa(String codigo) {
-		verificaPesquisaExiste(codigo);
-		verificaPesquisaAtivada(codigo);
+		validaPesquisa(codigo);
 		return this.pesquisas.get(codigo);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param codigo
+	 */
 	public void validaPesquisa(String codigo) {
 		verificaPesquisaExiste(codigo);
 		verificaPesquisaAtivada(codigo);
@@ -318,9 +368,7 @@ public class ControllerPesquisa implements Buscavel{
 				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));
 			}
 		}
-
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-
 		return resultadosBusca;
 	}
 

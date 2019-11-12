@@ -1,12 +1,5 @@
 package pacote;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-import javax.management.RuntimeErrorException;
-
-import utils.OrdenaResultados;
-
 /**
  * 
  * 
@@ -47,8 +40,7 @@ public class Psquiza {
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
-		return controllerPesquisa.getPesquisa(idPesquisa)
-				.associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
+		return controllerPesquisa.associaProblema(idPesquisa, controllerProblemaObjetivo.getProblema(idProblema));
 	}
 
 	/**
@@ -59,7 +51,7 @@ public class Psquiza {
 	 */
 	public boolean desassociaProblema(String idPesquisa) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		return controllerPesquisa.getPesquisa(idPesquisa).desassociaProblema();
+		return controllerPesquisa.desassociaProblema(idPesquisa);
 	}
 
 	/**
@@ -73,10 +65,8 @@ public class Psquiza {
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo)
-				.associaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
-				.associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
+		boolean passo1 = controllerProblemaObjetivo.associaPesquisa(idObjetivo, controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo2 = controllerPesquisa.associaObjetivo(idPesquisa, controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		return passo1 && passo2;
 	}
 
@@ -91,10 +81,8 @@ public class Psquiza {
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerProblemaObjetivo.getObjetivo(idObjetivo)
-				.desassociaPesquisa(controllerPesquisa.getPesquisa(idPesquisa));
-		boolean passo2 = controllerPesquisa.getPesquisa(idPesquisa)
-				.desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
+		boolean passo1 = controllerProblemaObjetivo.desassociaPesquisa(idObjetivo, controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo2 = controllerPesquisa.desassociaObjetivo(idPesquisa, controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		return passo1 && passo2;
 	}
 

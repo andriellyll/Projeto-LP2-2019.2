@@ -183,6 +183,28 @@ public class ControllerProblemaObjetivo implements Buscavel {
 //---------------------------------- Novas atualizacoes de ControllerProblemaObjetivo -----------------------------------
 
 	/**
+	 * Metodo responsavel por associar uma pesquisa a um objetivo.
+	 * 
+	 * @param idObjetivo - valor de identificacao do objetivo
+	 * @param pesquisa objeto pesquisa a ser associado
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean associaPesquisa(String idObjetivo, Pesquisa pesquisa) {
+		return objetivos.get(idObjetivo).associaPesquisa(pesquisa);
+	}
+	
+	/**
+	 * Metodo responsavel por desassociar uma pesquisa de um objetivo.
+	 * 
+	 * @param idObjetivo - valor de identificacao do objetivo
+	 * @param pesquisa objeto pesquisa a ser desassociado
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean desassociaPesquisa(String idObjetivo, Pesquisa pesquisa) {
+		return objetivos.get(idObjetivo).desassociaPesquisa(pesquisa);
+	}
+	
+	/**
 	 * Metodo responsavel por resgatar um determinado objetivo, existente.
 	 * 
 	 * @param idObjetivo - valor de identificacao do objetivo
@@ -246,11 +268,16 @@ public class ControllerProblemaObjetivo implements Buscavel {
 		return resultadosBusca;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param palavraChave
+	 * @return
+	 */
 	@Override
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultados = (ArrayList<String>) procuraPalavraChaveProblema(palavraChave);
 		resultados.addAll(procuraPalavraChaveObjetivo(palavraChave));
 		return resultados;
 	}
-	
 }

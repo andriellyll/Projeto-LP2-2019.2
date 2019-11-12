@@ -21,19 +21,18 @@ public class ControllerAtividade implements Buscavel {
 	/**
 	 * Conjunto de Atividades reunidas em um mapa onde cada atividade e identificada
 	 * pelo codigo A + valor começando a partir de 1 (ex: A13), gerado
-	 * automaticamente pelo sistema. O idVago auxilia o gerador de codigo qual o
-	 * proximo número disponivel para gerar um codigo.
-	 * 
+	 * automaticamente pelo sistema. 
 	 */
 	private Map<String, Atividade> atividades;
 
 	/**
-	 * 
+	 * O idVago auxilia o gerador de codigo qual o proximo numero disponivel para 
+	 * gerar um codigo.
 	 */
 	private int idVago = 1;
 
 	/**
-	 * 
+	 *  O idVagoItem auxilia com o proximo numero disponivel para gerar um codigo.
 	 */
 	private int idVagoItem = 1;
 
@@ -183,6 +182,8 @@ public class ControllerAtividade implements Buscavel {
 		return atividades.get(codigo).ItensRealizados();
 	}
 
+//--------------------------------- Novas atualizacoes de ControllerAtividade -------------------------------------------
+
 	/**
 	 * Retorna uma atividade a partir do seu codigo identificador
 	 * 
@@ -222,9 +223,7 @@ public class ControllerAtividade implements Buscavel {
 				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));
 			}
 		}
-
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-
 		return resultadosBusca;
 	}
 
@@ -291,14 +290,26 @@ public class ControllerAtividade implements Buscavel {
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param pesquisa
+	 * @param codigoAtividade
+	 * @return
+	 */
 	public boolean associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).associaPesquisa(pesquisa);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param codigoAtividade
+	 * @return
+	 */
 	public boolean desassociaPesquisa(String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).desassociaPesquisa();
-
 	}
 }

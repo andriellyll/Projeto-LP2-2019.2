@@ -212,6 +212,13 @@ public class Pesquisador {
 		return "";
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param formacao
+	 * @param unidade
+	 * @param data
+	 */
 	public void cadastraEspecialidadeProfessor(String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
@@ -225,6 +232,12 @@ public class Pesquisador {
 		this.especialidade = new Professor(formacao, unidade, data);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param semestre
+	 * @param IEA
+	 */
 	public void cadastraEspecialidadeAluno(int semestre, double IEA) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
@@ -236,12 +249,22 @@ public class Pesquisador {
 		this.especialidade = new Aluno(semestre, IEA);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public String getFuncao() {
 		return this.funcao;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param atributo
+	 * @param novoAtributo
+	 */
 	public void setEspecialidade(String atributo, String novoAtributo) {
 		especialidade.setEspecialidade(atributo, novoAtributo);
-
 	}
 }

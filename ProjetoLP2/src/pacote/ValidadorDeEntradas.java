@@ -1,6 +1,4 @@
-
 package pacote;
-
 
 /**
  * Responsavel por validar todas as entradas do sistema.
@@ -57,7 +55,6 @@ public class ValidadorDeEntradas {
 	 * @param email - o email a ser validado
 	 */
 	public static void verificaEmail(String email) {
-
 		if (email.startsWith("@") || email.endsWith("@") || (email.indexOf("@") == -1)) {
 			throw new IllegalArgumentException("Formato de email invalido.");
 		}
@@ -151,20 +148,36 @@ public class ValidadorDeEntradas {
 		}
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param semestre
+	 * @param mensagem
+	 */
 	public static void verificaSemestre(int semestre, String mensagem) {
 		if(semestre < 1) {
 			throw new IllegalArgumentException(mensagem);
 		}
-		
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param IEA
+	 * @param mensagem
+	 */
 	public static void verificaIEA(double IEA, String mensagem) {
 		if(IEA < 0 || IEA > 10) {
 			throw new IllegalArgumentException(mensagem);
 		}
-		
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param data
+	 * @param mensagem
+	 */
 	public static void verificaData(String data, String mensagem) {
 		
 		String[] lista = data.split("/");
@@ -178,8 +191,5 @@ public class ValidadorDeEntradas {
 		if(Integer.parseInt(lista[0]) > 31 || Integer.parseInt(lista[1]) > 12 || Integer.parseInt(lista[2]) > 2019) {
 			throw new IllegalArgumentException(mensagem);
 		}
-		
-		
 	}
-
 }
