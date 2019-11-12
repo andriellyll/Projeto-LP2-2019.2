@@ -29,7 +29,7 @@ public class Psquiza {
 	}
 
 //Associacoes de Objetivos e Problema:
-	
+
 	/**
 	 * Metodo responsavel por associar um problema a uma pesquisa.
 	 * 
@@ -65,8 +65,10 @@ public class Psquiza {
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerProblemaObjetivo.associaPesquisa(idObjetivo, controllerPesquisa.getPesquisa(idPesquisa));
-		boolean passo2 = controllerPesquisa.associaObjetivo(idPesquisa, controllerProblemaObjetivo.getObjetivo(idObjetivo));
+		boolean passo1 = controllerProblemaObjetivo.associaPesquisa(idObjetivo,
+				controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo2 = controllerPesquisa.associaObjetivo(idPesquisa,
+				controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		return passo1 && passo2;
 	}
 
@@ -81,8 +83,10 @@ public class Psquiza {
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		boolean passo1 = controllerProblemaObjetivo.desassociaPesquisa(idObjetivo, controllerPesquisa.getPesquisa(idPesquisa));
-		boolean passo2 = controllerPesquisa.desassociaObjetivo(idPesquisa, controllerProblemaObjetivo.getObjetivo(idObjetivo));
+		boolean passo1 = controllerProblemaObjetivo.desassociaPesquisa(idObjetivo,
+				controllerPesquisa.getPesquisa(idPesquisa));
+		boolean passo2 = controllerPesquisa.desassociaObjetivo(idPesquisa,
+				controllerProblemaObjetivo.getObjetivo(idObjetivo));
 		return passo1 && passo2;
 	}
 
@@ -135,11 +139,13 @@ public class Psquiza {
 //Associacao e Execucao de Atividades:
 
 	/**
+	 * Associa uma atividade a uma pesquisa, a partir do codigo da pesquisa a ser
+	 * associada e do codigo da atividade a ser associada. Retornara true se for
+	 * associada com sucesso e false caso nao.
 	 * 
-	 * 
-	 * @param codigoPesquisa
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoPesquisa  - o codigo da pesquisa a ser associada
+	 * @param codigoAtividade - o codigo da atividade a ser associada
+	 * @return - o valor booleano e que representa o sucesso ou nao da associacao
 	 */
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
@@ -151,11 +157,13 @@ public class Psquiza {
 	}
 
 	/**
+	 * Desassocia uma atividade a uma pesquisa, a partir do codigo da pesquisa a ser
+	 * desassociada e do codigo da atividade a ser desassociada. Retornara true se
+	 * for desassociada com sucesso e false caso nao for.
 	 * 
-	 * 
-	 * @param codigoPesquisa
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoPesquisa  - o codigo da pesquisa a ser associada
+	 * @param codigoAtividade - o codigo da atividade a ser associada
+	 * @return - o valor booleano que representa o sucesso ou nao da desassociacao
 	 */
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
@@ -167,11 +175,12 @@ public class Psquiza {
 	}
 
 	/**
+	 * Executa um item de uma atividade a partir do codigo da atividade, do inteiro
+	 * que representa o item e da duracao de execucao do item.
 	 * 
-	 * 
-	 * @param codigoAtividade
-	 * @param item
-	 * @param duracao
+	 * @param codigoAtividade - o codigo da atividade a ser executada.
+	 * @param item            - inteiro que representa o item
+	 * @param duracao         - a duracao de execucao do item
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
@@ -182,11 +191,12 @@ public class Psquiza {
 	}
 
 	/**
+	 * Cadastra um resultado (uma String) de uma atividade, a partir do codigo da
+	 * atividade e do resultado a ser cadastrado. Retornara o inteiro que representa o cadastro do resultado
 	 * 
-	 * 
-	 * @param codigoAtividade
-	 * @param resultado
-	 * @return
+	 * @param codigoAtividade - o codigo da atividade a ter seu resultado cadastrado
+	 * @param resultado - o resultado a ser atribuido
+	 * @return - o valor inteiro que representa o cadastro do resultado
 	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
@@ -196,10 +206,11 @@ public class Psquiza {
 	}
 
 	/**
+	 * Removeum resultado (uma String) de uma atividade, a partir do codigo da
+	 * atividade e do inteiro que representa esse resultado.Retornara true se for removido com sucesso e false caso nao for.
 	 * 
-	 * 
-	 * @param codigoAtividade
-	 * @param numeroResultado
+	 * @param codigoAtividade - o codigo da atividade a ter seu resultado removido
+	 * @param numeroResultado -  o valor inteiro que representa o resultado a ser removido
 	 * @return
 	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
@@ -210,10 +221,10 @@ public class Psquiza {
 	}
 
 	/**
+	 * Lista os resultados cadastrados em uma atividade, a partir do codigo da atividade.
 	 * 
-	 * 
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoAtividade - codigo da atividade a ter seus resultados listados
+	 * @return - a lista de todos os resultados cadastrados
 	 */
 	public String listaResultados(String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
@@ -222,10 +233,10 @@ public class Psquiza {
 	}
 
 	/**
+	 * Retorna a duracao total em horas de uma atividade.
 	 * 
-	 * 
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoAtividade - o codigo da atividade a ter sua duracao exibida
+	 * @return - a duracao em horas da atividade.
 	 */
 	public int getDuracao(String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
