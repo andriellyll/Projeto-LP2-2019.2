@@ -17,27 +17,23 @@ import utils.OrdenaResultados;
  * 
  * @author Anna Beatriz Lucena
  */
-
-public class ControllerPesquisa {
+public class ControllerPesquisa implements Buscavel{
 
 	/**
 	 * Armazena todas as pesquisas cadastradas no sistema.
 	 */
-
 	private Map<String, Pesquisa> pesquisas;
 
 	/**
 	 * Armazena os codigos(identificador da pesquisa) gerados pelo sistema, com o
 	 * ojetivo de gerenciar os mesmos.
 	 */
-
 	private Map<String, Integer> codigos;
 
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
 	 * pesquisas e codigos.
 	 */
-
 	public ControllerPesquisa() {
 		this.pesquisas = new HashMap<>();
 		this.codigos = new HashMap<>();
@@ -58,7 +54,6 @@ public class ControllerPesquisa {
 	 * @param campoDeInteresse - o campo de interesse da pesquisa
 	 * @return - o codigo(identificador unico) gerado
 	 */
-
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
@@ -91,7 +86,6 @@ public class ControllerPesquisa {
 	 * @param conteudoASerAlterado - o paramentro a ser alterado
 	 * @param novoConteudo         - o novo conteudo a ser atribuido
 	 */
-
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado,
@@ -124,7 +118,6 @@ public class ControllerPesquisa {
 	 * @param codigo - o identificador da pesquisa a ser desativada
 	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
-
 	public void encerraPesquisa(String codigo, String motivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -145,7 +138,6 @@ public class ControllerPesquisa {
 	 * 
 	 * @param codigo - o identificador da pesquisa a ser ativada
 	 */
-
 	public void ativaPesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -167,7 +159,6 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser exibida
 	 * @return - a representacao em string da pesquisa
 	 */
-
 	public String exibePesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -185,7 +176,6 @@ public class ControllerPesquisa {
 	 * @param codigo - o codigo da pesquisa a ser verificada
 	 * @return - o valor booleano que representa o status de ativacao da pesquisa
 	 */
-
 	public boolean pesquisaEhAtiva(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
@@ -196,147 +186,12 @@ public class ControllerPesquisa {
 //------------------------------------------------ Novas atualizacoes de ControllerPesquisa ----------------------------------------------------------------
 
 	/**
+	 * Metodo responsavel por ordenar as pesquisas de acordo com seu codigo de
+	 * identificacao, ordenando-os de forma decrescente.
 	 * 
-	 * 
-	 * @param codigo
+	 * @param listaDePesquisas - Lista das pesquisas a serem ordenadas
+	 * @return lista ordenada das pesquisas
 	 */
-
-	private void verificaPesquisaAtivada(String codigo) {
-		if (pesquisas.get(codigo).getAtivacao() == false) {
-			throw new RuntimeException("Pesquisa desativada.");
-		}
-	}
-
-	/**
-	 * Verifica se uma pesquisa existe cadastrada no sistema a partir do seu codigo
-	 * identificador. Caso a pesquisa nao esteja cadastrada no sistema uma excecao
-	 * sera lancada.
-	 * 
-	 * @param codigo - o codigo da pesquisa a ser verificada
-	 */
-
-	private void verificaPesquisaExiste(String codigo) {
-		if (!pesquisas.containsKey(codigo)) {
-			throw new RuntimeException("Pesquisa nao encontrada.");
-		}
-	}
-
-	/**
-	 * Verifica se a pesquisa existe, a partir de um codigo, e caso ela exista sera
-	 * retornada.
-	 * 
-	 * @param codigo - o codigo da pesquisa a ser retornada
-	 * @return - a pesquisa solicitada a partir do codigo
-	 */
-
-	public Pesquisa getPesquisa(String codigo) {
-		verificaPesquisaExiste(codigo);
-		verificaPesquisaAtivada(codigo);
-		return this.pesquisas.get(codigo);
-	}
-
-	/**
-	 * Associa uma atividade a uma pesquisa a partir do codigo da pesquisa e da
-	 * atividade a ser associada. Caso a associacao obtenha sucesso sera retornado
-	 * true, caso nao ira retornar false
-	 * 
-	 * @param codigoPesquisa - o codigo da pesquisa a ter uma atividade associada
-	 * @param atividade      - a atividade a ser associada a pesquisa
-	 * @return - o booleano que representa se a associacao obteve sucesso (true) ou
-	 *         nao (false)
-	 */
-
-	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
-				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
-		if (pesquisas.containsKey(codigoPesquisa)) {
-			if (pesquisas.get(codigoPesquisa).getAtivacao()) {
-				return pesquisas.get(codigoPesquisa).associaAtividade(atividade);
-			}
-			throw new IllegalArgumentException("Pesquisa desativada.");
-		}
-		throw new IllegalArgumentException("Pesquisa nao encontrada.");
-	}
-
-	/**
-	 * Desassocia uma atividade de uma pesquisa a partir do codigo da pesquisa e da
-	 * atividade a ser desassociada. Caso a desassociacao obtenha sucesso sera retornado
-	 * true, caso nao ira retornar false
-	 * 
-	 * @param codigoPesquisa - o codigo da pesquisa a ter uma atividade desassociada
-	 * @param atividade - a atividade a ser desassociada a pesquisa
-	 * @return - o booleano que representa se a desassociacao obteve sucesso (true) ou
-	 *         nao (false)
-	 */
-	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
-		verificaPesquisaExiste(codigoPesquisa);
-		return pesquisas.get(codigoPesquisa).desassociaAtividade(atividade);
-	}
-
-	//public boolean verificaPesquisaEhAssociada(String codigoPesquisa, Atividade atividade) {
-		//return pesquisas.get(codigoPesquisa).verificaAtividadeEhAssociada(atividade);
-	//}
-
-	/**
-	 * Procura em todos as pesquisas do mapa a palavra-chave passada como parametro
-	 * 
-	 * @param palavraChave palavra-chave que sera procurada
-	 * @return Lista de Strings com os campos dos atributos de pesquisa que
-	 *         contiverem a palavra-chave
-	 */
-
-	public List<String> procuraPalavraChave(String palavraChave) {
-		ArrayList<String> resultadosBusca = new ArrayList<>();
-
-		for (Pesquisa pesquisa : this.pesquisas.values()) {
-			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));
-			}
-		}
-
-		Collections.sort(resultadosBusca, new OrdenaResultados());
-
-		return resultadosBusca;
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param codigoDaPesquisa
-	 * @param pesquisador
-	 * @return
-	 */
-
-	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
-		verificaPesquisaExiste(codigoDaPesquisa);
-		verificaPesquisaAtivada(codigoDaPesquisa);
-		pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
-		return true;
-
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param codigoDaPesquisa
-	 * @param pesquisador
-	 * @return
-	 */
-
-	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
-		verificaPesquisaExiste(codigoDaPesquisa);
-		verificaPesquisaAtivada(codigoDaPesquisa);
-		pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
-		return true;
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param listaDePesquisas
-	 * @return
-	 */
-
 	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
 		List<Pesquisa> listaOrdenada = /** (ArrayList<Pesquisa>) listaDePesquisas.values(); **/
 				new ArrayList<>();
@@ -350,12 +205,13 @@ public class ControllerPesquisa {
 	}
 
 	/**
+	 * Metodo responsavel por imprimir as pesquisas, de acordo com a especificacao
+	 * do usuario.
 	 * 
-	 * 
-	 * @param ordem
-	 * @return
+	 * @param ordem - valor que representa a forma como o usuario quer que sejam
+	 *              listados suas pesquisas
+	 * @return uma string que imprime as pesquisas listadas, desejadas pelo usuario
 	 */
-
 	public String imprimePesquisas(String ordem) {
 		String todasPesquisas = "";
 		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
@@ -402,5 +258,96 @@ public class ControllerPesquisa {
 			}
 		}
 		return todasPesquisas;
+	}
+
+	/**
+	 * Verifica se uma pesquisa esta ativada para uso, caso contrario ele apresenta
+	 * um erro.
+	 * 
+	 * @param codigo - valor que vai ser verificado a ativacao ou nao
+	 */
+	private void verificaPesquisaAtivada(String codigo) {
+		if (pesquisas.get(codigo).getAtivacao() == false) {
+			throw new RuntimeException("Pesquisa desativada.");
+		}
+	}
+
+	/**
+	 * Verifica se uma pesquisa existe cadastrada no sistema a partir do seu codigo
+	 * identificador. Caso a pesquisa nao esteja cadastrada no sistema uma excecao
+	 * sera lancada.
+	 * 
+	 * @param codigo - o codigo da pesquisa a ser verificada
+	 */
+	private void verificaPesquisaExiste(String codigo) {
+		if (!pesquisas.containsKey(codigo)) {
+			throw new RuntimeException("Pesquisa nao encontrada.");
+		}
+	}
+
+	/**
+	 * Verifica se a pesquisa existe e se ela esta ativada, a partir de um codigo, e
+	 * caso ela exista sera retornada.
+	 * 
+	 * @param codigo - o codigo da pesquisa a ser retornada
+	 * @return - a pesquisa solicitada a partir do codigo
+	 */
+	public Pesquisa getPesquisa(String codigo) {
+		verificaPesquisaExiste(codigo);
+		verificaPesquisaAtivada(codigo);
+		return this.pesquisas.get(codigo);
+	}
+
+	public void validaPesquisa(String codigo) {
+		verificaPesquisaExiste(codigo);
+		verificaPesquisaAtivada(codigo);
+	}
+
+	/**
+	 * Procura em todos as pesquisas do mapa a palavra-chave passada como parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com os campos dos atributos de pesquisa que
+	 *         contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+
+		for (Pesquisa pesquisa : this.pesquisas.values()) {
+			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));
+			}
+		}
+
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+
+		return resultadosBusca;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param codigoDaPesquisa
+	 * @param pesquisador
+	 * @return
+	 */
+	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		return this.pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
+
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param codigoDaPesquisa
+	 * @param pesquisador
+	 * @return
+	 */
+	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+		verificaPesquisaExiste(codigoDaPesquisa);
+		verificaPesquisaAtivada(codigoDaPesquisa);
+		return this.pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
 	}
 }

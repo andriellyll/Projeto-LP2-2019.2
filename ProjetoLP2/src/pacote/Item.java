@@ -8,16 +8,16 @@ package pacote;
  * 
  * @author Henrique Lemos
  */
-
 public class Item {
 
 	/**
 	 * Cada item apresenta um codigo que identifica este item, uma descricao deste
 	 * item e sua situacao (PENDENTE ou REALIZADO).
 	 */
-
 	private int codigo;
+
 	private String item;
+
 	private String situacao;
 
 	/**
@@ -27,7 +27,6 @@ public class Item {
 	 * @param item   valor que descreve o item a ser realizado
 	 * @param codigo valor que identifica o item na lista de itens.
 	 */
-
 	public Item(String item, int codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
 		this.item = item;
@@ -41,7 +40,6 @@ public class Item {
 	 * 
 	 * @return Uma String mostrando a situacao do item
 	 */
-
 	public String getSituacao() {
 		return situacao;
 	}
@@ -51,7 +49,6 @@ public class Item {
 	 * 
 	 * @return Um inteiro mostrando o codigo do item
 	 */
-
 	public int getCodigo() {
 		return codigo;
 	}
@@ -61,7 +58,6 @@ public class Item {
 	 * 
 	 * @return A representacao que segue no formato "SITUACAO - ITEM"
 	 */
-
 	@Override
 	public String toString() {
 		return situacao + " - " + item;

@@ -13,7 +13,7 @@ import utils.OrdenaResultados;
  * 
  * @author Andrielly de Lima Lucena - 119110268
  */
-public class ControllerPesquisador {
+public class ControllerPesquisador implements Buscavel {
 	/**
 	 * Colecao que armazena objetos Pesquisador
 	 */
@@ -29,11 +29,12 @@ public class ControllerPesquisador {
 	/**
 	 * Verifica se o pesquisador esta cadastrado no sistema, a partir de seu email.
 	 * 
-	 * @param email email do pesquisador
+	 * @param email   email do pesquisador
+	 * @param message
 	 */
-	private void verificaPesquisadorExiste(String email) {
+	private void verificaPesquisadorExiste(String email, String message) {
 		if (!pesquisadores.containsKey(email)) {
-			throw new RuntimeException("Pesquisador nao encontrado");
+			throw new RuntimeException(message);
 		}
 	}
 
@@ -67,23 +68,9 @@ public class ControllerPesquisador {
 
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
-		
-		if(funcao.equalsIgnoreCase("estudante")) {
-			
-			Pesquisador pesquisador = new Pesquisador(nome,new Estudante(), biografia, email, fotoUrl);
-			this.pesquisadores.put(email, pesquisador);
-			
-		}else if(funcao.equalsIgnoreCase("externo")){
-			
-			Pesquisador pesquisador = new Pesquisador(nome,new Externo(), biografia, email, fotoUrl);
-			this.pesquisadores.put(email, pesquisador);
-			
-		}else if(funcao.equalsIgnoreCase("professor")){
-			
-			Pesquisador pesquisador = new Pesquisador(nome,new Professor(), biografia, email, fotoUrl);
-			this.pesquisadores.put(email, pesquisador);
-			
-		}
+
+		Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoUrl);
+		this.pesquisadores.put(email, pesquisador);
 
 	}
 
@@ -98,7 +85,7 @@ public class ControllerPesquisador {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Atributo nao pode ser vazio ou nulo.");
 
-		verificaPesquisadorExiste(email);
+		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 		verificaPesquisadorInativo(email);
 
 		if (atributo.equals("NOME")) {
@@ -107,8 +94,8 @@ public class ControllerPesquisador {
 			this.pesquisadores.get(email).setNome(novoAtributo);
 		} else if (atributo.equals("FUNCAO")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo funcao nao pode ser nulo ou vazio.");
-
 			this.pesquisadores.get(email).setFuncao(novoAtributo);
+
 		} else if (atributo.equals("BIOGRAFIA")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo biografia nao pode ser nulo ou vazio.");
 
@@ -126,6 +113,11 @@ public class ControllerPesquisador {
 			ValidadorDeEntradas.verificaURL(novoAtributo);
 
 			this.pesquisadores.get(email).setFoto(novoAtributo);
+		} else if (atributo.equalsIgnoreCase("FORMACAO") || atributo.equalsIgnoreCase("UNIDADE")
+				|| atributo.equalsIgnoreCase("DATA") || atributo.equalsIgnoreCase("SEMESTRE")
+				|| atributo.equalsIgnoreCase("IEA")) {
+			Pesquisador pesquisador = pesquisadores.get(email);
+			pesquisador.setEspecialidade(atributo, novoAtributo);
 		} else {
 			throw new RuntimeException("Atributo invalido.");
 		}
@@ -139,7 +131,7 @@ public class ControllerPesquisador {
 	public void desativaPesquisador(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 
-		verificaPesquisadorExiste(email);
+		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 		verificaPesquisadorInativo(email);
 
 		this.pesquisadores.get(email).desativaPesquisador();
@@ -153,7 +145,7 @@ public class ControllerPesquisador {
 	public void ativaPesquisador(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 
-		verificaPesquisadorExiste(email);
+		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 
 		if (pesquisadores.get(email).ehAtivo())
 			throw new RuntimeException("Pesquisador ja ativado.");
@@ -168,9 +160,9 @@ public class ControllerPesquisador {
 	 * @return a representacao textual do pesquisador
 	 */
 	public String exibePesquisador(String email) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Email nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 
-		verificaPesquisadorExiste(email);
+		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 		verificaPesquisadorInativo(email);
 
 		return this.pesquisadores.get(email).toString();
@@ -184,7 +176,7 @@ public class ControllerPesquisador {
 	 */
 	public boolean pesquisadorEhAtivo(String email) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Email nao pode ser vazio ou nulo.");
-		verificaPesquisadorExiste(email);
+		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 
 		return this.pesquisadores.get(email).ehAtivo();
 	}
@@ -204,15 +196,52 @@ public class ControllerPesquisador {
 				resultadosBusca.add(pesquisador.procuraPalavraChave(palavraChave));
 			}
 		}
-		
+
 		Collections.sort(resultadosBusca, new OrdenaResultados());
 
 		return resultadosBusca;
 	}
-	
+
 	public Pesquisador getPesquisador(String email) {
-		verificaPesquisadorExiste(email);
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+		verificaPesquisadorExiste(email, "Pesquisador nao encontrado");
 		return pesquisadores.get(email);
+	}
+
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(unidade, "Campo unidade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(data, "Campo data nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaData(data, "Atributo data com formato invalido.");
+		verificaPesquisadorExiste(email, "Pesquisadora nao encontrada.");
+
+		pesquisadores.get(email).cadastraEspecialidadeProfessor(formacao, unidade, data);
+	}
+
+	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
+		ValidadorDeEntradas.verificaIEA(IEA, "Atributo IEA com formato invalido.");
+		verificaPesquisadorExiste(email, "Pesquisadora nao encontrada.");
+		pesquisadores.get(email).cadastraEspecialidadeAluno(semestre, IEA);
+
+	}
+
+	public String listaPesquisadores(String tipo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+		ArrayList<String> saida = new ArrayList<>();
+
+		if (!(tipo.equalsIgnoreCase("Estudante") || tipo.equalsIgnoreCase("Professor")
+				|| tipo.equalsIgnoreCase("Externo"))) {
+			throw new RuntimeException("Tipo " + tipo + " inexistente.");
+		}
+		for (Pesquisador pesquisador : pesquisadores.values()) {
+			if (pesquisador.getFuncao().equalsIgnoreCase(tipo)) {
+				saida.add(pesquisador.toString());
+			}
+		}
+		return String.join(" | ", saida);
 	}
 
 }

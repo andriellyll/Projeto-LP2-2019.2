@@ -7,6 +7,6 @@ Andrielly de Lima Lucena - 119110268
 
 Anna Beatriz Lucena Lira - 119110382
 
-Helen Bento Cavalcanti - 119110551
+Helen Bento Cavalcanti - 119110498
 
-Henrique Lemos Leite - 
+Henrique Lemos Leite - 119110551
