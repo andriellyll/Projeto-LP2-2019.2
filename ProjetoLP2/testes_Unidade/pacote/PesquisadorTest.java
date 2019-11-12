@@ -4,13 +4,18 @@ package pacote;
  */
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PesquisadorTest {
-
-
-		Pesquisador pesquisador1 = new Pesquisador("Anna", "estudante", "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
+public class PesquisadorTest {
 	
+	Pesquisador pesquisador1;
+	
+	@BeforeEach
+	public void criaPesquisador() {
+		pesquisador1 = new Pesquisador("Anna", "estudante", "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");		
+		
+	}
 	@Test
 	void criaPesquisNomeNulo() {
 		assertThrows(NullPointerException.class, () -> {
@@ -35,7 +40,6 @@ class PesquisadorTest {
 		});
 
 	}
-
 	@Test
 	void criaPequisadorFuncaoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -44,7 +48,6 @@ class PesquisadorTest {
 		});
 
 	}
-
 	@Test
 	void criaPequisadorBiografiaNula() {
 		assertThrows(NullPointerException.class, () -> {
@@ -236,5 +239,91 @@ class PesquisadorTest {
 	void testToString() {
 		Pesquisador pesquisador2 = new Pesquisador("Anna", "estudante", "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");
 		assertEquals(pesquisador2.toString(), "Anna (estudante) - gosta de matematica - anna.lira@ccc.ufcg.edu.br - https://annabeatrizlucena.com");
+	}
+	@Test
+	void testbusca() {
+		
+	}
+	@Test 
+	void cadastraEspecialidadeProfessor() {
+		Pesquisador pesquisador2 = new Pesquisador("eliane", "professor", "linda pfta", "eliane@computacao", "http://eliane");
+		pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "UASC", "07/07/2007");
+		assertEquals("eliane (professor) - linda pfta - eliane@computacao - http://eliane - Doutorado - UASC - 07/07/2007", pesquisador2.toString());
+	}
+	@Test 
+	void cadastraEspecialidadeProfessorNull() {
+		Pesquisador pesquisador2 = new Pesquisador("eliane", "professor", "linda pfta", "eliane@computacao", "http://eliane");
+		assertThrows(NullPointerException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor(null, "UASC", "07/07/2007");		
+		});
+		assertThrows(NullPointerException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("Doutorado", null, "07/07/2007");		
+		});
+		assertThrows(NullPointerException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "UASC", null);		
+		});
+	}
+	@Test 
+	void cadastraEspecialidadeProfessorVazio() {
+		Pesquisador pesquisador2 = new Pesquisador("eliane", "professor", "linda pfta", "eliane@computacao", "http://eliane");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("", "UASC", "07/07/2007");		
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "  ", "07/07/2007");		
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "UASC", "   ");		
+		});
+	}
+	@Test 
+	void cadastraEspecialidadeProfessorDataInvalida() {
+		Pesquisador pesquisador2 = new Pesquisador("eliane", "professor", "linda pfta", "eliane@computacao", "http://eliane");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "UASC", "0707/2007");		
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "UASC", "77/07/2007");		
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador2.cadastraEspecialidadeProfessor("Doutorado", "UASC", "07/777/2007");		
+		});
+	}
+	@Test 
+	void cadastraEspecialidadeProfessorPesquisadorIncompativel() {
+		Pesquisador pesquisador3 = new Pesquisador("nishinoya", "externo", "melhor libero pfto quem discorda eh nazista", "kageyama@tobio", "https://rollingthunder");
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador1.cadastraEspecialidadeProfessor("Doutorado", "UASC", "0707/2007");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador3.cadastraEspecialidadeProfessor("Doutorado", "UASC", "77/07/2007");		
+		});
+	}
+	@Test 
+	void cadastraEspecialidadeAluno() {
+		pesquisador1.cadastraEspecialidadeAluno(1, 9.9);
+		assertEquals("Anna (estudante) - gosta de matematica - anna.lira@ccc.ufcg.edu.br - https://annabeatrizlucena.com - 1o SEMESTRE - 9.9", pesquisador1.toString());
+	}
+	@Test 
+	void cadastraEspecialidadeAlunoAtributosInvalidos() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador1.cadastraEspecialidadeAluno(0, 9.9);		
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador1.cadastraEspecialidadeAluno(1, 15);		
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador1.cadastraEspecialidadeAluno(2, -1.0);		
+		});
+	}
+	@Test 
+	void cadastraEspecialidadeAlunoPesquisadorIncompativel() {
+		Pesquisador pesquisador3 = new Pesquisador("nishinoya", "externo", "melhor libero pfto quem discorda eh nazista", "kageyama@tobio", "https://rollingthunder");
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador1.cadastraEspecialidadeProfessor("Doutorado", "UASC", "0707/2007");		
+		});
+		assertThrows(RuntimeException.class, () -> {
+			pesquisador3.cadastraEspecialidadeProfessor("Doutorado", "UASC", "77/07/2007");		
+		});
 	}
 }

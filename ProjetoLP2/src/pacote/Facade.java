@@ -5,135 +5,145 @@ import easyaccept.EasyAccept;
 public class Facade {
 
 	private Psquiza psquiza;
+	private ControllerPesquisa controllerPesquisa;
+	private ControllerPesquisador controllerPesquisador;
+	private ControllerProblemaObjetivo controllerProblemaObjetivo;
+	private ControllerAtividade controllerAtividade;
+	private ControllerBusca controllerBusca;
 
 	public Facade() {
-		psquiza = new Psquiza();
+		controllerPesquisa = new ControllerPesquisa();
+		controllerPesquisador = new ControllerPesquisador();
+		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
+		controllerAtividade = new ControllerAtividade();
+		psquiza = new Psquiza(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo,
+				controllerAtividade);
+		controllerBusca = new ControllerBusca(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo, controllerAtividade);
 	}
 
 	public static void main(String[] args) {
 		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
 				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				 "testes_aceitacao/use_case_6.txt","testes_aceitacao/use_case_7.txt", "testes_aceitacao/use_case_8.txt"
-		};
+				"testes_aceitacao/use_case_6.txt", "testes_aceitacao/use_case_7.txt",
+				"testes_aceitacao/use_case_8.txt" };
 		EasyAccept.main(args);
 	}
 
 //Pesquisa:
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
-		return this.psquiza.cadastraPesquisa(descricao, campoDeInteresse);
+		return this.controllerPesquisa.cadastraPesquisa(descricao, campoDeInteresse);
 	}
 
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
-		this.psquiza.alteraPesquisa(codigo, conteudoASerAlterado, novoConteudo);
+		this.controllerPesquisa.alteraPesquisa(codigo, conteudoASerAlterado, novoConteudo);
 	}
 
 	public void encerraPesquisa(String codigo, String motivo) {
-		this.psquiza.encerraPesquisa(codigo, motivo);
+		this.controllerPesquisa.encerraPesquisa(codigo, motivo);
 
 	}
 
 	public void ativaPesquisa(String codigo) {
-		this.psquiza.ativaPesquisa(codigo);
-
+		this.controllerPesquisa.ativaPesquisa(codigo);
 	}
 
 	public String exibePesquisa(String codigo) {
-		return this.psquiza.exibePesquisa(codigo);
+		return this.controllerPesquisa.exibePesquisa(codigo);
 	}
 
 	public boolean pesquisaEhAtiva(String codigo) {
-		return this.psquiza.pesquisaEhAtiva(codigo);
+		return this.controllerPesquisa.pesquisaEhAtiva(codigo);
 	}
 
 //Pesquisador:
 
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
-		psquiza.cadastraPesquisador(nome, funcao, biografia, email, fotoUrl);
+		this.controllerPesquisador.cadastraPesquisador(nome, funcao, biografia, email, fotoUrl);
 	}
 
 	public void alteraPesquisador(String email, String atributo, String novoAtributo) {
-		psquiza.alteraPesquisador(email, atributo, novoAtributo);
+		this.controllerPesquisador.alteraPesquisador(email, atributo, novoAtributo);
 	}
 
 	public void desativaPesquisador(String email) {
-		psquiza.desativaPesquisador(email);
+		this.controllerPesquisador.desativaPesquisador(email);
 	}
 
 	public void ativaPesquisador(String email) {
-		psquiza.ativaPesquisador(email);
+		this.controllerPesquisador.ativaPesquisador(email);
 	}
 
 	public String exibePesquisador(String email) {
-		return psquiza.exibePesquisador(email);
+		return this.controllerPesquisador.exibePesquisador(email);
 	}
 
 	public boolean pesquisadorEhAtivo(String email) {
-		return psquiza.pesquisadorEhAtivo(email);
+		return this.controllerPesquisador.pesquisadorEhAtivo(email);
 	}
-	
-	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-		return; //psquiza.cadastraEspecialidadeProfessor(email,formacao, unidade,data);
-	}
-	
-	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
 
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		this.controllerPesquisador.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
 	}
-	
+
+	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
+		this.controllerPesquisador.cadastraEspecialidadeAluno(email, semestre, IEA);
+	}
+
 	public String listaPesquisadores(String tipo) {
-		return "";
+		return controllerPesquisador.listaPesquisadores(tipo);
 	}
 
 //Problema e Objetivo:
 
 	public String cadastraProblema(String descricao, int viabilidade) {
-		return psquiza.cadastraProblema(descricao, viabilidade);
+		return this.controllerProblemaObjetivo.cadastraProblema(descricao, viabilidade);
 	}
 
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
-		return psquiza.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
+		return this.controllerProblemaObjetivo.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
 	}
 
 	public void apagarProblema(String codigo) {
-		psquiza.apagarProblema(codigo);
+		this.controllerProblemaObjetivo.apagarProblema(codigo);
 	}
 
 	public void apagarObjetivo(String codigo) {
-		psquiza.apagarObjetivo(codigo);
+		this.controllerProblemaObjetivo.apagarObjetivo(codigo);
 	}
 
 	public String exibeProblema(String codigo) {
-		return psquiza.exibeProblema(codigo);
+		return this.controllerProblemaObjetivo.exibeProblema(codigo);
 	}
 
 	public String exibeObjetivo(String codigo) {
-		return psquiza.exibeObjetivo(codigo);
+		return this.controllerProblemaObjetivo.exibeObjetivo(codigo);
 	}
 
 //Atividade:
 
 	public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco) {
-		return psquiza.cadastraAtividade(descricao, nivelRisco, descricaoRisco);
+		return this.controllerAtividade.cadastraAtividade(descricao, nivelRisco, descricaoRisco);
 	}
 
 	public void apagaAtividade(String codigo) {
-		psquiza.apagaAtividade(codigo);
+		this.controllerAtividade.apagaAtividade(codigo);
 	}
 
 	public void cadastraItem(String codigo, String item) {
-		psquiza.cadastraItem(codigo, item);
+		this.controllerAtividade.cadastraItem(codigo, item);
 	}
 
 	public String exibeAtividade(String codigo) {
-		return psquiza.exibeAtividade(codigo);
+		return this.controllerAtividade.exibeAtividade(codigo);
 	}
 
 	public int contaItensPendentes(String codigo) {
-		return psquiza.contaItensPendentes(codigo);
+		return this.controllerAtividade.contaItensPendentes(codigo);
 	}
 
 	public int contaItensRealizados(String codigo) {
-		return psquiza.contaItensRealizados(codigo);
+		return this.controllerAtividade.contaItensRealizados(codigo);
 	}
 
 //Associacoes de Objetivos e Problema:
@@ -142,8 +152,8 @@ public class Facade {
 		return psquiza.associaProblema(idPesquisa, idProblema);
 	}
 
-	public boolean desassociaProblema(String idPesquisa, String idProblema) {
-		return psquiza.desassociaProblema(idPesquisa, idProblema);
+	public boolean desassociaProblema(String idPesquisa) {
+		return psquiza.desassociaProblema(idPesquisa);
 	}
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
@@ -171,7 +181,7 @@ public class Facade {
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-	return psquiza.associaAtividade(codigoPesquisa, codigoAtividade);
+		return psquiza.associaAtividade(codigoPesquisa, codigoAtividade);
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
@@ -200,15 +210,15 @@ public class Facade {
 
 //Busca por Palavra-chave:
 
-	public String busca(String termo){
-		return psquiza.busca(termo);
+	public String busca(String termo) {
+		return controllerBusca.busca(termo);
 	}
 
 	public String busca(String termo, int numeroDoResultado) {
-		return psquiza.busca(termo, numeroDoResultado);
+		return controllerBusca.busca(termo, numeroDoResultado);
 	}
 
 	public int contaResultadosBusca(String termo) {
-		return psquiza.contaResultadosBusca(termo);
+		return controllerBusca.contaResultadosBusca(termo);
 	}
 }

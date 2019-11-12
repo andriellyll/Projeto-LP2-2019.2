@@ -16,26 +16,30 @@ import utils.OrdenaResultados;
  * 
  * @author Henrique Lemos
  */
-
-public class ControllerAtividade {
+public class ControllerAtividade implements Buscavel {
 
 	/**
 	 * Conjunto de Atividades reunidas em um mapa onde cada atividade e identificada
 	 * pelo codigo A + valor começando a partir de 1 (ex: A13), gerado
-	 * automaticamente pelo sistema. O idVago auxilia o gerador de codigo qual o
-	 * proximo número disponivel para gerar um codigo.
-	 * 
+	 * automaticamente pelo sistema. 
 	 */
-
 	private Map<String, Atividade> atividades;
+
+	/**
+	 * O idVago auxilia o gerador de codigo qual o proximo numero disponivel para 
+	 * gerar um codigo.
+	 */
 	private int idVago = 1;
+
+	/**
+	 *  O idVagoItem auxilia com o proximo numero disponivel para gerar um codigo.
+	 */
 	private int idVagoItem = 1;
 
 	/**
 	 * Contrutor da Classe responsavel por controlar as informacoes das atividades.
 	 * Ele inicializa o mapa de atividades.
 	 */
-
 	public ControllerAtividade() {
 		this.atividades = new HashMap<>();
 	}
@@ -46,7 +50,6 @@ public class ControllerAtividade {
 	 * 
 	 * @return O codigo, no formato A + valor
 	 */
-
 	private String criadorCodigo() {
 		String codigo = "A" + idVago;
 		idVago += 1;
@@ -59,7 +62,6 @@ public class ControllerAtividade {
 	 * 
 	 * @return Um inteiro representando o codigo
 	 */
-
 	private int criadorCodigoItem() {
 		int codigo = idVagoItem;
 		idVagoItem += 1;
@@ -74,7 +76,6 @@ public class ControllerAtividade {
 	 * @param codigo valor ao qual vai ser utilizado para verificar se ja existe uma
 	 *               atividade com este codigo
 	 */
-
 	private void verificaAtividadeExiste(String codigo) {
 		if (atividades.containsKey(codigo) == false) {
 			throw new IllegalArgumentException("Atividade nao encontrada");
@@ -93,7 +94,6 @@ public class ControllerAtividade {
 	 *                       ser feito para mitigar o risco.
 	 * @return Uma String do codigo da atividade criada
 	 */
-
 	public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo Descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
@@ -113,7 +113,6 @@ public class ControllerAtividade {
 	 * 
 	 * @param codigo valor que identifica a atividade que deve ser apagada
 	 */
-
 	public void apagaAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -128,7 +127,6 @@ public class ControllerAtividade {
 	 * @return impressao no formato "DESCRICAO (NIVEL_RISCO - DESCRICAO_RISCO) |
 	 *         SITUACAO - ITEM".
 	 */
-
 	public String exibeAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -148,7 +146,6 @@ public class ControllerAtividade {
 	 *               adicionado
 	 * @param item   valor que descreve o item a ser criado
 	 */
-
 	public void cadastraItem(String codigo, String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
@@ -165,7 +162,6 @@ public class ControllerAtividade {
 	 *               devem ser contados
 	 * @return um inteiro identificando o numero de itens pendentes
 	 */
-
 	public int contaItensPendentes(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -180,12 +176,13 @@ public class ControllerAtividade {
 	 *               devem ser contados
 	 * @return um inteiro identificando o numero de itens pendentes
 	 */
-
 	public int contaItensRealizados(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
 		return atividades.get(codigo).ItensRealizados();
 	}
+
+//--------------------------------- Novas atualizacoes de ControllerAtividade -------------------------------------------
 
 	/**
 	 * Retorna uma atividade a partir do seu codigo identificador
@@ -198,10 +195,14 @@ public class ControllerAtividade {
 		return this.atividades.get(codigo);
 	}
 
-	public void associaPesquisaAtividade(Pesquisa pesquisa, String codigoAtividade) {
-		this.atividades.get(codigoAtividade).associaPesquisaAtividade(pesquisa);
-	}
-
+	/**
+	 * Verifica se a atividade a ser executada existe, caso exista executa-a
+	 * 
+	 * @param codigoAtividade - o codigo da atividade a ser executada
+	 * @param item            - o valor que representa a ordem de cadastro de um
+	 *                        item na atividade
+	 * @param duracao         - a duracao em horas da execucao do item
+	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		verificaAtividadeExiste(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
@@ -222,30 +223,93 @@ public class ControllerAtividade {
 				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));
 			}
 		}
-
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-		
 		return resultadosBusca;
 	}
 
+	/**
+	 * Cadastra um resultado obtido pela atividade, a partir do codigo que
+	 * represenrta a atividade e da String que representa o resultado.
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter um
+	 *                        resultado cadastrado
+	 * @param resultado       - a String que representa o resultado obtido pela
+	 *                        atividade
+	 * @return - o numero que representa a ordem de cadastro do resultado
+	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
+		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
 
 	}
 
+	/**
+	 * Remove um resultado obtido pela atividade a partir do codigo da atividade e
+	 * do numero que representa a ordem de cadastro do resultado. Caso a remocao for
+	 * feita com sucesso sera retornado true, caso nao retornara false
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter o
+	 *                        resultado removido
+	 * @param numeroResultado - o numero que representa a ordem de cadastro do
+	 *                        resultado
+	 * @return - o booleano que representa se a remocao obteve sucesso (true) ou nao
+	 *         (false)
+	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
 		if (atividades.containsKey(codigoAtividade)) {
-		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
-		} throw new IllegalArgumentException("Atividade nao encontrada");
+			return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 		}
+		throw new IllegalArgumentException("Atividade nao encontrada");
+	}
 
+	/**
+	 * Retorna a listagem dos resultados cadastrados na atividade a partir do codigo
+	 * da atividade
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter seus
+	 *                        resultados listados
+	 * @return - a representacao em string de todos os resultados obtidos na
+	 *         atividade
+	 */
 	public String listaResultados(String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).listaResultados();
 	}
 
+	/**
+	 * Retorna a duracao de execucao de uma atividade a partir do codigo da
+	 * atividade
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade que ira retornar
+	 *                        sua duracao
+	 * @return - o inteiro que representa a duracao (em horas) da execucao da
+	 *         atividade
+	 */
 	public int getDuracao(String codigoAtividade) {
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).getDuracao();
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param pesquisa
+	 * @param codigoAtividade
+	 * @return
+	 */
+	public boolean associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
+		verificaAtividadeExiste(codigoAtividade);
+		return atividades.get(codigoAtividade).associaPesquisa(pesquisa);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param codigoAtividade
+	 * @return
+	 */
+	public boolean desassociaPesquisa(String codigoAtividade) {
+		verificaAtividadeExiste(codigoAtividade);
+		return atividades.get(codigoAtividade).desassociaPesquisa();
 	}
 }
