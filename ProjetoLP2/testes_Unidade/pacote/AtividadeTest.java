@@ -17,6 +17,7 @@ class AtividadeTest {
 		
 		Period data = Period.ofDays(8);
 		atividade = new Atividade("A1", "Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO", "Por se tratar de apenas um monitoramento, o risco nao e elevado.");
+		atividade.adicionaItem("Monitoramento facebook/messenger", 1);
 	}
 	
 	@Test
@@ -107,11 +108,11 @@ class AtividadeTest {
 		 
 	}
 	
+//----------------------------------------- Novos testes Atividade ------------------------------------------------------
+
 	@Test
 	public void testExecutaAtividade() {
-		atividade.adicionaItem("Monitoramento facebook/messenger", 1);
 		atividade.executaAtividade(1, 10);
-		assertEquals(atividade.getDuracao(), 10);
 	}
 	
 	@Test

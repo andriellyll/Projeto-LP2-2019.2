@@ -182,7 +182,7 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
-//--------------------------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
+//---------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
 
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa
