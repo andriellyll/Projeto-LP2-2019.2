@@ -28,6 +28,7 @@ class ControllerPesquisaTest {
 				"Ecologia, Desastre Ambiental, Meio Ambiente, Natureza");
 		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
+		controllerPesquisador.cadastraPesquisador("bia", "estudante", "linda pfta", "bia@pfta", "http://bia");
 	}
 
 	@Test
@@ -183,44 +184,86 @@ class ControllerPesquisaTest {
 				"Codigo nao pode ser nulo ou vazio.");
 		assertThrows(RuntimeException.class, () -> controle.pesquisaEhAtiva("GEO2"), "Pesquisa nao encontrada.");
 	}
+	@Test
+	public void testAssociaPesquisador() {
+		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
+	}
+	
+	@Test
+	public void testAssociaPesquisadorJaAssociado() {
+		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
+		assertFalse(controle.associaPesquisador("ECO1", "bia@pfta"));
+	}
+	
+	@Test
+	public void testAssociaPesquisadorPesquisaInexistente() {
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testAssociaPesquisadorPesquisaInativa() {
+		controle.encerraPesquisa("ECO1", "pipipi popopo");
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testAssociaPesquisadorInexistente() {
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "drica@aaa"));		
+	}
+	
+	@Test
+	public void testAssociaPesquisadorNull() {
+		assertThrows(NullPointerException.class, () -> controle.associaPesquisador(null, "bia@pfta"));
+		assertThrows(NullPointerException.class, () -> controle.associaPesquisador("ECO1", null));
+	}
+	
+	@Test
+	public void testAssociaPesquisadorVazio() {
+		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("", "bia@pfta"));
+		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("ECO1", ""));
+	}
+	
+	@Test
+	public void testDesassociaPesquisador() {
+		controle.associaPesquisador("ECO1", "bia@pfta");
+		assertTrue(controle.desassociaPesquisador("ECO1", "bia@pfta"));
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorJaDesassociado() {
+		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
+		assertTrue(controle.desassociaPesquisador("ECO1", "bia@pfta"));
+		assertFalse(controle.desassociaPesquisador("ECO1", "bia@pfta"));
+	}
 
-//	@Test
-//	public void testAssociaPesquisador() {
-//		assertTrue(controle.associaPesquisador("ECO1", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));
-//	}
-//	
-//	@Test
-//	public void testAssociaPesquisadorPesquisaInexistente() {
-//		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));		
-//	}
-//	
-//	@Test
-//	public void testAssociaPesquisadorPesquisaInativa() {
-//		controle.encerraPesquisa("ECO1", "pipipi popopo");
-//		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));		
-//	}
-//
-//	@Test
-//	public void testDesassociaPesquisador() {
-//		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
-//		controle.associaPesquisador("ECO1", pesquisador);
-//		assertTrue(controle.desassociaPesquisador("ECO1", pesquisador));
-//	}
-//	
-//	@Test
-//	public void testDesassociaPesquisadorPesquisaInexistente() {
-//		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
-//		controle.associaPesquisador("ECO1", pesquisador);
-//		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", pesquisador));		
-//	}
-//	
-//	@Test
-//	public void testDesassociaPesquisadorPesquisaInativa() {
-//		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
-//		controle.associaPesquisador("ECO1", pesquisador);
-//		controle.encerraPesquisa("ECO1", "pipipi popopo");
-//		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", pesquisador));		
-//	}
+	@Test
+	public void testDesassociaPesquisadorNull() {
+		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador(null, "bia@pfta"));
+		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador("ECO1", null));
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorVazio() {
+		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("", "bia@pfta"));
+		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("ECO1", ""));
+	}	
+	@Test
+	public void testDesassociaPesquisadorPesquisaInexistente() {
+		controle.associaPesquisador("ECO1", "bia@pfta");
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorPesquisaInativa() {
+		controle.associaPesquisador("ECO1", "bia@pfta");
+		controle.encerraPesquisa("ECO1", "pipipi popopo");
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorInexistente() {
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "drica@aaa"));		
+	}
 
 	@Test
 	public void testImprimePesquisasOrdemProblema() {
