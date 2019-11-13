@@ -295,5 +295,17 @@ class PesquisaTest {
 		ex.add("SEG2: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
 		assertEquals( test3.procuraPalavraChave("Chefes"), ex);
 	}
+	@Test
+	void testprocuraPalavraChaveNull() {
+		assertThrows(NullPointerException.class, () -> {
+			test1.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	void testprocuraPalavraChaveVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			test1.procuraPalavraChave("");
+		});
+	}
 	
 }

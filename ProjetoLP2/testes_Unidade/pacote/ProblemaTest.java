@@ -26,5 +26,25 @@ public class ProblemaTest {
 		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
 		assertEquals("P1 - A dificuldade da predicao do sistema eleitoral brasileiro - 1", problema.toString());
 	}
-
+	@Test
+	void testBusca() {
+		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
+		assertEquals("P1: A dificuldade da predicao do sistema eleitoral brasileiro" , problema.procuraPalavraChave("dificuldade"));
+		assertEquals("", problema.procuraPalavraChave("Aumentar"));
+	}
+	@Test
+	void testBuscaNull() {
+		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
+		assertThrows(NullPointerException.class, () -> {
+			problema.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	void testBuscaVazio() {
+		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
+		assertThrows(IllegalArgumentException.class, () -> {
+			problema.procuraPalavraChave("");
+		});
+	}
 }
+

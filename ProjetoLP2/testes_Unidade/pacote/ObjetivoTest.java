@@ -108,4 +108,21 @@ public class ObjetivoTest {
 		assertFalse(objetivo.desassociaPesquisa(pesquisa2));
 		
 	}
+	@Test
+	void testBusca() {
+		assertEquals("O1: Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao." , objetivo.procuraPalavraChave("Diminuir"));
+		assertEquals("", objetivo.procuraPalavraChave("Aumentar"));
+	}
+	@Test
+	void testBuscaNull() {
+		assertThrows(NullPointerException.class, () -> {
+			objetivo.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	void testBuscaVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			objetivo.procuraPalavraChave("");
+		});
+	}
 }
