@@ -157,4 +157,18 @@ class ControllerPesquisaTest {
 		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", pesquisador));		
 	}
 
+	@Test
+	public void testImprimePesquisasOrdemProblema() {
+		assertEquals( "GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores" , controle.imprimePesquisas("PROBLEMA"));
+	}
+	
+	@Test
+	public void testImprimePesquisasOrdemObjetivos() {
+		assertEquals( "GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores" , controle.imprimePesquisas("OBJETIVOS"));
+	}
+	
+	@Test
+	public void testImprimePesquisasOrdemPesquisa() {
+		assertEquals( "GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores" , controle.imprimePesquisas("PESQUISA"));
+	}
 }

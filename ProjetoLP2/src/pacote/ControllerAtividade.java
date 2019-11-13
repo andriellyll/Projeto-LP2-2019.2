@@ -16,27 +16,35 @@ import utils.OrdenaResultados;
  * 
  * @author Henrique Lemos
  */
-
-public class ControllerAtividade {
+public class ControllerAtividade implements Buscavel {
 
 	/**
 	 * Conjunto de Atividades reunidas em um mapa onde cada atividade e identificada
 	 * pelo codigo A + valor começando a partir de 1 (ex: A13), gerado
-	 * automaticamente pelo sistema. O idVago auxilia o gerador de codigo qual o
-	 * proximo número disponivel para gerar um codigo.
-	 * 
+	 * automaticamente pelo sistema. 
 	 */
-
 	private Map<String, Atividade> atividades;
+
+	/**
+	 * O idVago auxilia o gerador de codigo qual o proximo numero disponivel para 
+	 * gerar um codigo.
+	 */
 	private int idVago = 1;
+
+	/**
+	 *  O idVagoItem auxilia com o proximo numero disponivel para gerar um codigo.
+	 */
 	private int idVagoItem = 1;
+
+	private ControllerPesquisa controllerPesquisa;
 
 	/**
 	 * Contrutor da Classe responsavel por controlar as informacoes das atividades.
 	 * Ele inicializa o mapa de atividades.
+	 * @param controllerPesquisa 
 	 */
-
-	public ControllerAtividade() {
+	public ControllerAtividade(ControllerPesquisa controllerPesquisa) {
+		this.controllerPesquisa = controllerPesquisa;
 		this.atividades = new HashMap<>();
 	}
 
@@ -46,7 +54,6 @@ public class ControllerAtividade {
 	 * 
 	 * @return O codigo, no formato A + valor
 	 */
-
 	private String criadorCodigo() {
 		String codigo = "A" + idVago;
 		idVago += 1;
@@ -59,7 +66,6 @@ public class ControllerAtividade {
 	 * 
 	 * @return Um inteiro representando o codigo
 	 */
-
 	private int criadorCodigoItem() {
 		int codigo = idVagoItem;
 		idVagoItem += 1;
@@ -74,7 +80,6 @@ public class ControllerAtividade {
 	 * @param codigo valor ao qual vai ser utilizado para verificar se ja existe uma
 	 *               atividade com este codigo
 	 */
-
 	private void verificaAtividadeExiste(String codigo) {
 		if (atividades.containsKey(codigo) == false) {
 			throw new IllegalArgumentException("Atividade nao encontrada");
@@ -93,7 +98,6 @@ public class ControllerAtividade {
 	 *                       ser feito para mitigar o risco.
 	 * @return Uma String do codigo da atividade criada
 	 */
-
 	public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo Descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
@@ -113,7 +117,6 @@ public class ControllerAtividade {
 	 * 
 	 * @param codigo valor que identifica a atividade que deve ser apagada
 	 */
-
 	public void apagaAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -128,7 +131,6 @@ public class ControllerAtividade {
 	 * @return impressao no formato "DESCRICAO (NIVEL_RISCO - DESCRICAO_RISCO) |
 	 *         SITUACAO - ITEM".
 	 */
-
 	public String exibeAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -148,7 +150,6 @@ public class ControllerAtividade {
 	 *               adicionado
 	 * @param item   valor que descreve o item a ser criado
 	 */
-
 	public void cadastraItem(String codigo, String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
@@ -165,7 +166,6 @@ public class ControllerAtividade {
 	 *               devem ser contados
 	 * @return um inteiro identificando o numero de itens pendentes
 	 */
-
 	public int contaItensPendentes(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
@@ -180,12 +180,13 @@ public class ControllerAtividade {
 	 *               devem ser contados
 	 * @return um inteiro identificando o numero de itens pendentes
 	 */
-
 	public int contaItensRealizados(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo);
 		return atividades.get(codigo).ItensRealizados();
 	}
+
+//--------------------------------- Novas atualizacoes de ControllerAtividade -------------------------------------------
 
 	/**
 	 * Retorna uma atividade a partir do seu codigo identificador
@@ -207,6 +208,11 @@ public class ControllerAtividade {
 	 * @param duracao         - a duracao em horas da execucao do item
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
+		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
@@ -226,15 +232,13 @@ public class ControllerAtividade {
 				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));
 			}
 		}
-
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-
 		return resultadosBusca;
 	}
 
 	/**
 	 * Cadastra um resultado obtido pela atividade, a partir do codigo que
-	 * represenrta a atividade e da String que representa o resultado.
+	 * representa a atividade e da String que representa o resultado.
 	 * 
 	 * @param codigoAtividade - o codigo que representa a atividade a ter um
 	 *                        resultado cadastrado
@@ -243,6 +247,10 @@ public class ControllerAtividade {
 	 * @return - o numero que representa a ordem de cadastro do resultado
 	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
 
@@ -261,6 +269,10 @@ public class ControllerAtividade {
 	 *         (false)
 	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
+		
 		if (atividades.containsKey(codigoAtividade)) {
 			return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 		}
@@ -277,6 +289,9 @@ public class ControllerAtividade {
 	 *         atividade
 	 */
 	public String listaResultados(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).listaResultados();
 	}
@@ -291,18 +306,44 @@ public class ControllerAtividade {
 	 *         atividade
 	 */
 	public int getDuracao(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 
-	public boolean associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
+	/**
+	 * Associa uma pesquisa a uma atividade a partir do codigo da pesquisa a ser associada e do codigo da atividade.
+	 * 
+	 * @param codigoPesquisa - o codigo da pesquisa a ser associada a uma atividade
+	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa associada
+	 * @return - valor booleano true (se a associacao obtiver sucesso) e false (caso a associacao nao obtenha sucesso)
+	 */
+	public boolean associaPesquisa(String codigoPesquisa, String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
+				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigoAtividade);
-		return atividades.get(codigoAtividade).associaPesquisa(pesquisa);	
+		return atividades.get(codigoAtividade).associaPesquisa(controllerPesquisa.getPesquisa(codigoPesquisa));
 	}
 
-	public boolean desassociaPesquisa(String codigoAtividade) {
+	/**
+	 * Desassocia uma pesquisa de uma atividade a partir do codigo da pesquisa a ser desassociada e do codigo da atividade.
+	 * 
+	 * @param codigoPesquisa - o codigo da pesquisa a ser desassociada 
+	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa desassociada
+	 * @return - valor booleano true (se a desassociacao obtiver sucesso) e false (caso a desassociacao nao obtenha sucesso)
+	 */
+	public boolean desassociaPesquisa(String codigoPesquisa, String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
+				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		controllerPesquisa.validaPesquisa(codigoPesquisa);
+
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).desassociaPesquisa();
-		
 	}
 }

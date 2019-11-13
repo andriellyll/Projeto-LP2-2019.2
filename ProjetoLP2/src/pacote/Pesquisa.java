@@ -17,59 +17,48 @@ import java.util.Set;
  * 
  * @author Anna Beatriz Lucena
  */
-
 public class Pesquisa implements Comparable<Pesquisa> {
 
 	/**
 	 * Representa a decricao da pesquisa.
 	 */
-
 	private String descricao;
 
 	/**
 	 * Representa o campo de interesse da pesquisa.
 	 */
-
 	private String campoDeInteresse;
 
 	/**
 	 * Representa o codigo da pesquisa.
 	 */
-
 	private String codigo;
 
 	/**
 	 * Representa o motivo de desativacao da pesquisa.
 	 */
-
 	private String motivoDeDesativacao;
 
 	/**
 	 * Representa o estado de ativacao da pesquisa. Pode assumir o valor true ou
 	 * false.
 	 */
-
 	private boolean ehAtivada;
 
 	/**
 	 * Representa o problema associado a esta pesquisa.
 	 */
-
 	private Problema problemaDaPesquisa;
 
 	/**
 	 * Representa uma lista dos objetivos associados a esta pesquisa.
 	 */
-
 	private Set<Objetivo> objetivosDaPesquisa;
 
 	/**
 	 * 
 	 */
-
 	private Set<Pesquisador> pesquisadoresAssociados;
-
-
 
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
@@ -81,13 +70,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * @param descricao        - a descricao da pesquisa
 	 * @param campoDeInteresse - o campo de interesse da pesquisa
 	 */
-
 	public Pesquisa(String codigo, String descricao, String campoDeInteresse) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Descricao nao pode ser nula ou vazia.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(campoDeInteresse, "Formato do campo de interesse invalido.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaCampoDeInteresse(campoDeInteresse);
-
 		this.descricao = descricao;
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
@@ -104,7 +91,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
-
 	public void desativaPesquisa(String motivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(motivo, "Motivo nao pode ser nulo ou vazio.");
 		this.ehAtivada = false;
@@ -114,7 +100,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	/**
 	 * Ativa a pesquisa (altera a ativacao da pesquisa para true)
 	 */
-
 	public void ativaPesquisa() {
 		this.ehAtivada = true;
 	}
@@ -125,7 +110,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @return - o status de ativacao da pesquisa
 	 */
-
 	public boolean getAtivacao() {
 		return this.ehAtivada;
 	}
@@ -137,7 +121,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @param novaDescricao - a nova descricao da pesquisa
 	 */
-
 	public void setDescricao(String novaDescricao) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novaDescricao, "Descricao nao pode ser nula ou vazia.");
 		this.descricao = novaDescricao;
@@ -150,7 +133,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @param novoCampo - o novo campo de interesse da pesquisa
 	 */
-
 	public void setCampo(String novoCampo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoCampo, "Formato do campo de interesse invalido.");
 		ValidadorDeEntradas.validaCampoDeInteresse(novoCampo);
@@ -163,7 +145,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @return - o valor inteiro que representa a posicao da pesquisa na memoria
 	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -178,7 +159,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @return - o booleano que representa se as pesquisas sao iguais ou nao.
 	 */
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -202,7 +182,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @return - a representacao em string da pesquisa
 	 */
-
 	public String toString() {
 		return this.codigo + " - " + this.descricao + " - " + this.campoDeInteresse;
 	}
@@ -215,7 +194,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * 
 	 * @return um booleano, que true representa sim, e false, nao
 	 */
-
 	public boolean temProblema() {
 		if (problemaDaPesquisa != null) {
 			return true;
@@ -233,7 +211,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * @return um valor booleano correspondente a especificacao que o problema
 	 *         pertence
 	 */
-
 	public boolean associaProblema(Problema problema) {
 		if (problemaDaPesquisa == problema) {
 			return false;
@@ -245,20 +222,17 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * Metodo responsavel por desassociar o problema desejado desta pesquisa, onde
-	 * caso esse problema a desejado a ser desassociado não for o mesmo salvo ele
-	 * retorna false.
+	 * Metodo responsavel por desassociar o problema desta pesquisa, onde caso não
+	 * tenha nenhum problema associado a esta pesquisa, ele retorna false.
 	 * 
-	 * @param problema - valor que representa a pesquisa desejada a ser desassociada
 	 * @return um booleano referente a situacao do processo
 	 */
-
-	public boolean desassociaProblema(Problema problema) {
-		if (problemaDaPesquisa != problema) {
-			return false;
+	public boolean desassociaProblema() {
+		if (problemaDaPesquisa != null) {
+			problemaDaPesquisa = null;
+			return true;
 		}
-		problemaDaPesquisa = null;
-		return true;
+		return false;
 	}
 
 	/**
@@ -269,7 +243,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * @param objetivo - valor do objetivo a ser associado
 	 * @return um booleano referente a situacao do processo
 	 */
-
 	public boolean associaObjetivo(Objetivo objetivo) {
 		if (objetivosDaPesquisa.contains(objetivo)) {
 			return false;
@@ -286,13 +259,65 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * @param objetivo - valor do objetivo a ser associado
 	 * @return um booleano referente a situacao do processo
 	 */
-
 	public boolean desassociaObjetivo(Objetivo objetivo) {
 		if (!objetivosDaPesquisa.contains(objetivo)) {
 			return false;
 		}
 		objetivosDaPesquisa.remove(objetivo);
 		return true;
+	}
+
+	/**
+	 * Metodo responsavel por resgatar o codigo da Pesquisa
+	 * 
+	 * @return em string, o codigo da pesquisa
+	 */
+	public String getCodigo() {
+		return codigo;
+	}
+
+	/**
+	 * Metodo responsavel por comparar duas pesquisas, pelos seus codigos de
+	 * identificacao, para realizar uma ordenacao destas pesquisas.
+	 * 
+	 * @param p pesquisa a ser comparada
+	 * @return comparacao das pesquisas
+	 */
+	@Override
+	public int compareTo(Pesquisa p) {
+		return p.getCodigo().compareTo(this.codigo);
+	}
+
+	/**
+	 * Metodo responsavel por resgatar o ID do problema da pesquisa.
+	 * 
+	 * @return uma string representando o codigo
+	 */
+	public String getIdProblema() {
+		return problemaDaPesquisa.getCodigo();
+	}
+
+	/**
+	 * Metodo responsavel por verificar se esta pesquisa possui algum objetivo
+	 * associado a ela.
+	 * 
+	 * @return um booleano, onde true representa sim, e false nao
+	 */
+	public boolean temObjetivos() {
+		if (objetivosDaPesquisa.size() >= 1) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Metodo responsavel por resgatar a quantidade de objetivos que esta pesquisa
+	 * possui.
+	 * 
+	 * @return um inteiro representando a quantidade
+	 */
+	public int getNumObjetivos() {
+		return this.objetivosDaPesquisa.size();
 	}
 
 	/**
@@ -304,7 +329,6 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 *         interesse, uma lista com uma dessas strings (ou as duas) sera
 	 *         retornada. Se nao, sera retornada uma lista vazia
 	 */
-
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 		if (this.descricao.contains(palavraChave)) {
@@ -322,13 +346,12 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * @param pesquisador
 	 * @return
 	 */
-
 	public boolean associaPesquisador(Pesquisador pesquisador) {
 		if (pesquisadoresAssociados.contains(pesquisador)) {
 			return false;
 		}
 		pesquisadoresAssociados.add(pesquisador);
-		return false;
+		return true;
 
 	}
 
@@ -338,70 +361,11 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 * @param pesquisador
 	 * @return
 	 */
-
 	public boolean desassociaPesquisador(Pesquisador pesquisador) {
 		if (!pesquisadoresAssociados.contains(pesquisador)) {
 			return false;
 		}
 		pesquisadoresAssociados.remove(pesquisador);
-		return false;
-	}
-
-	/**
-	 * Metodo responsavel por resgatar o codigo da Pesquisa
-	 * 
-	 * @return em string, o codigo da pesquisa
-	 */
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	/**
-	 * Metodo responsavel por comparar duas pesquisas, pelos seus codigos de
-	 * identificacao, para realizar uma ordenacao destas pesquisas.
-	 * 
-	 * @param p pesquisa a ser comparada
-	 * @return comparacao das pesquisas
-	 */
-
-	@Override
-	public int compareTo(Pesquisa p) {
-		return p.getCodigo().compareTo(this.codigo);
-	}
-
-	/**
-	 * Metodo responsavel por resgatar o ID do problema da pesquisa.
-	 * 
-	 * @return uma string representando o codigo
-	 */
-
-	public String getIdProblema() {
-		return problemaDaPesquisa.getCodigo();
-	}
-
-	/**
-	 * Metodo responsavel por verificar se esta pesquisa possui algum objetivo
-	 * associado a ela.
-	 * 
-	 * @return um booleano, onde true representa sim, e false nao
-	 */
-
-	public boolean temObjetivos() {
-		if (objetivosDaPesquisa.size() >= 1) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Metodo responsavel por resgatar a quantidade de objetivos que esta pesquisa
-	 * possui.
-	 * 
-	 * @return um inteiro representando a quantidade
-	 */
-
-	public int getNumObjetivos() {
-		return this.objetivosDaPesquisa.size();
+		return true;
 	}
 }

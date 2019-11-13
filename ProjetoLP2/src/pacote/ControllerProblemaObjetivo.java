@@ -12,38 +12,33 @@ import java.util.Map;
 
 import utils.OrdenaResultados;
 
-public class ControllerProblemaObjetivo {
+public class ControllerProblemaObjetivo implements Buscavel {
 
 	/**
 	 * Coleção que armazena os problemas, tendo como chave uma string e como valor
 	 * um objeto Problema.
 	 */
-
 	private Map<String, Problema> problemas;
-	
+
 	/**
 	 * Coleção que armazena os objetivos, tendo como chave uma string e como valor
 	 * um objeto Objetivo.
 	 */
-	
 	private Map<String, Objetivo> objetivos;
-	
+
 	/**
 	 * Atributo que controla o numero de problemas que ja foram cadastrados.
 	 */
-	
 	private int controlaNumeroProblemas;
-	
+
 	/**
 	 * Atributo que controla o numero de objetivos que ja foram cadastrados.
 	 */
-	
 	private int controlaNumeroObjetivos;
 
 	/**
 	 * Construtor do ControllerProblemaObjetivo .
 	 */
-	
 	public ControllerProblemaObjetivo() {
 		this.problemas = new HashMap<>();
 		this.objetivos = new HashMap<>();
@@ -58,7 +53,6 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo, recebe como parametro o codigo do problema.
 	 * @return um booleano que vai informar se o problema existe ou nao.
 	 */
-	
 	private boolean problemaExiste(String codigo) {
 		if (!problemas.containsKey(codigo)) {
 			throw new IllegalArgumentException("Problema nao encontrado");
@@ -73,7 +67,6 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo, recebe como parametro o codigo do objetivo.
 	 * @return um booleano que vai informar se o objetivo existe ou nao.
 	 */
-	
 	private boolean objetivoExiste(String codigo) {
 		if (!objetivos.containsKey(codigo)) {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
@@ -89,9 +82,8 @@ public class ControllerProblemaObjetivo {
 	 * @param viabilidade, representa a viabilidade do problema.
 	 * @return retorna uma string que representa o codigo do problema.
 	 */
-	
 	public String cadastraProblema(String descricao, int viabilidade) {
-		
+
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
 
@@ -113,7 +105,6 @@ public class ControllerProblemaObjetivo {
 	 * @param viabilidade representa a viabilidade do objetivo.
 	 * @return retorna uma string que representa o codigo do objetivo.
 	 */
-	
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
 
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
@@ -134,7 +125,6 @@ public class ControllerProblemaObjetivo {
 	 * 
 	 * @param codigo representa o codigo do problema.
 	 */
-	
 	public void apagarProblema(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 
@@ -148,7 +138,6 @@ public class ControllerProblemaObjetivo {
 	 * 
 	 * @param codigo representa o codigo do objetivo.
 	 */
-
 	public void apagarObjetivo(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 
@@ -164,7 +153,6 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo representa o codigo do prolema.
 	 * @return uma string com a representacao textual do problema.
 	 */
-	
 	public String exibeProblema(String codigo) {
 		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
@@ -182,7 +170,6 @@ public class ControllerProblemaObjetivo {
 	 * @param codigo representa o codigo do objetivo.
 	 * @return uma string com a representacao textual do objetivo.
 	 */
-	
 	public String exibeObjetivo(String codigo) {
 		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
@@ -194,6 +181,28 @@ public class ControllerProblemaObjetivo {
 	}
 
 //---------------------------------- Novas atualizacoes de ControllerProblemaObjetivo -----------------------------------
+
+	/**
+	 * Metodo responsavel por associar uma pesquisa a um objetivo.
+	 * 
+	 * @param idObjetivo - valor de identificacao do objetivo
+	 * @param pesquisa objeto pesquisa a ser associado
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean associaPesquisa(String idObjetivo, Pesquisa pesquisa) {
+		return objetivos.get(idObjetivo).associaPesquisa(pesquisa);
+	}
+	
+	/**
+	 * Metodo responsavel por desassociar uma pesquisa de um objetivo.
+	 * 
+	 * @param idObjetivo - valor de identificacao do objetivo
+	 * @param pesquisa objeto pesquisa a ser desassociado
+	 * @return um booleano referente a situacao do processo
+	 */
+	public boolean desassociaPesquisa(String idObjetivo, Pesquisa pesquisa) {
+		return objetivos.get(idObjetivo).desassociaPesquisa(pesquisa);
+	}
 	
 	/**
 	 * Metodo responsavel por resgatar um determinado objetivo, existente.
@@ -201,65 +210,74 @@ public class ControllerProblemaObjetivo {
 	 * @param idObjetivo - valor de identificacao do objetivo
 	 * @return o objetivo desejado pelo usuario
 	 */
-	
 	public Objetivo getObjetivo(String idObjetivo) {
 		objetivoExiste(idObjetivo);
 		return this.objetivos.get(idObjetivo);
 	}
-	
+
 	/**
 	 * Metodo responsavel por pegar o problema pertencente a determinada pesquisa.
 	 * 
 	 * @param idProblema - valor que identifica o problema desejado
 	 * @return O problema desejado
 	 */
-	
 	public Problema getProblema(String idProblema) {
 		problemaExiste(idProblema);
 		return this.problemas.get(idProblema);
 	}
-	
+
 	/**
-	 * Procura em todos os problemas do mapa a palavra-chave passada como
-	 * parametro
+	 * Procura em todos os problemas do mapa a palavra-chave passada como parametro
 	 * 
 	 * @param palavraChave palavra-chave que sera procurada
-	 * @return Lista de Strings com as descricoes dos problemas que contiverem a palavra-chave
+	 * @return Lista de Strings com as descricoes dos problemas que contiverem a
+	 *         palavra-chave
 	 */
-	
-	public List<String> procuraPalavraChaveProblema(String palavraChave) {
+	private List<String> procuraPalavraChaveProblema(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Problema problema : this.problemas.values()) {
 			if (!problema.procuraPalavraChave(palavraChave).equals("")) {
-				resultadosBusca.add(problema.procuraPalavraChave(palavraChave));	
+				resultadosBusca.add(problema.procuraPalavraChave(palavraChave));
 			}
 		}
-		
+
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-		
+
 		return resultadosBusca;
 	}
-	
+
 	/**
-	 * Procura em todos os objetivos do mapa a palavra-chave passada como
-	 * parametro
+	 * Procura em todos os objetivos do mapa a palavra-chave passada como parametro
 	 * 
 	 * @param palavraChave palavra-chave que sera procurada
-	 * @return Lista de Strings com as descricoes dos objetivos que contiverem a palavra-chave
+	 * @return Lista de Strings com as descricoes dos objetivos que contiverem a
+	 *         palavra-chave
 	 */
-	
-	public List<String> procuraPalavraChaveObjetivo(String palavraChave) {
+	private List<String> procuraPalavraChaveObjetivo(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
-		for (Objetivo objetivo: this.objetivos.values()) {
+		for (Objetivo objetivo : this.objetivos.values()) {
 			if (!objetivo.procuraPalavraChave(palavraChave).equals("")) {
-				resultadosBusca.add(objetivo.procuraPalavraChave(palavraChave));	
+				resultadosBusca.add(objetivo.procuraPalavraChave(palavraChave));
 			}
 		}
-		
+
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-		
+
 		return resultadosBusca;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param palavraChave
+	 * @return
+	 */
+	@Override
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ArrayList<String> resultados = (ArrayList<String>) procuraPalavraChaveProblema(palavraChave);
+		resultados.addAll(procuraPalavraChaveObjetivo(palavraChave));
+		return resultados;
 	}
 }
