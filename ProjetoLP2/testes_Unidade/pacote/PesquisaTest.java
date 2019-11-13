@@ -2,6 +2,8 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -261,4 +263,37 @@ class PesquisaTest {
 	void verificaPesquisaTemProblemaSemProblemaAssociado() {
 		assertFalse(test1.temProblema());
 	}
+	
+	@Test
+	void procuraPalavraChaveDescricao() {
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("SEG1: Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		assertEquals( test1.procuraPalavraChave("Chefes"), ex);
+	}
+	@Test
+	void procuraPalavraChaveDescricaoListaVazia() {
+		ArrayList<String> ex = new ArrayList<>();
+		assertEquals( test1.procuraPalavraChave("Chefa"), ex);
+		
+	}
+	@Test
+	void procuraPalavraChaveCampoDeInteresse() {
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("SEG1: Seguranca publica");
+		assertEquals( test1.procuraPalavraChave("Seguranca"), ex);
+	}
+	@Test
+	void procuraPalavraChaveCampoDeInteresseListaVazia() {
+		ArrayList<String> ex = new ArrayList<>();
+		assertEquals( test1.procuraPalavraChave("Seguro"), ex);
+	}
+	@Test
+	void procuraPalavraChaveDescricaoECampoDeInteresse() {
+		Pesquisa test3 = new Pesquisa("SEG2", "Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("SEG2: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		assertEquals( test3.procuraPalavraChave("Chefes"), ex);
+	}
+	
 }
