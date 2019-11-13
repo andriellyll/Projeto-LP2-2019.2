@@ -306,4 +306,8 @@ class PesquisaTest {
 		});
 	}
 	
+	@Test
+	void testCompareTo() {
+		assertEquals(test1.compareTo(test2), -17);
+	}
 }
