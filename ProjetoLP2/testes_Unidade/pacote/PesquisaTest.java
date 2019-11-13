@@ -310,4 +310,32 @@ class PesquisaTest {
 	void testCompareTo() {
 		assertEquals(test1.compareTo(test2), -17);
 	}
+	
+	@Test
+	void testAssociaPesquisador() {
+		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
+		assertTrue(test1.associaPesquisador(p));
+	}
+	
+	@Test
+	void testAssociaPesquisadorJaAssociado() {
+		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
+		assertTrue(test1.associaPesquisador(p));
+		assertFalse(test1.associaPesquisador(p));
+	}
+	
+	@Test
+	void testDesassociaPesquisador() {
+		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
+		assertTrue(test1.associaPesquisador(p));
+		assertTrue(test1.desassociaPesquisador(p));
+	}
+	
+	@Test
+	void testDesassociaPesquisadorJaAssociado() {
+		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
+		assertTrue(test1.associaPesquisador(p));
+		assertTrue(test1.desassociaPesquisador(p));
+		assertFalse(test1.desassociaPesquisador(p));
+	}
 }
