@@ -2,6 +2,8 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -136,7 +138,7 @@ class ControllerPesquisaTest {
 		controle.ativaPesquisa("ECO1");
 		assertTrue(controle.pesquisaEhAtiva("ECO1"));
 	}
-	
+
 	@Test
 	void validaPesquisa() {
 		controle.encerraPesquisa("GEO1", "NAO QUERO MAIS");
@@ -240,21 +242,25 @@ class ControllerPesquisaTest {
 				"GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores",
 				controle.imprimePesquisas("PESQUISA"));
 	}
-	
+
 	@Test
 	public void ImprimePesquisasOrdem() {
 		controle.cadastraPesquisa("lalalalala", "nao sei");
 		controle.associaProblema("NAO1", "P1");
 		controle.associaObjetivo("NAO1", "O1");
-		assertEquals("NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores", controle.imprimePesquisas("PROBLEMA"));
+		assertEquals(
+				"NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores",
+				controle.imprimePesquisas("PROBLEMA"));
 	}
-	
+
 	@Test
 	public void ImprimePesquisasOrdemProblema() {
 		controle.cadastraPesquisa("lalalalala", "nao sei");
 		controle.associaProblema("ECO1", "P1");
 		controle.associaObjetivo("NAO1", "O1");
-		assertEquals("NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores", controle.imprimePesquisas("OBJETIVOS"));
+		assertEquals(
+				"NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores",
+				controle.imprimePesquisas("OBJETIVOS"));
 	}
 
 	@Test
@@ -380,4 +386,48 @@ class ControllerPesquisaTest {
 		controle.associaObjetivo("GEO1", "O1");
 		assertThrows(IllegalArgumentException.class, () -> controle.desassociaObjetivo("GEO1", ""));
 	}
+
+	@Test
+	void procuraPalavraChave() {
+		controle.cadastraPesquisa(
+				"Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		controle.cadastraPesquisa("Seguranca", "Ufcg");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("UFC1: Seguranca");
+		ex.add("SEG1: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		ex.add("SEG1: Seguranca publica");
+		assertEquals(controle.procuraPalavraChave("Seguranca"), ex);
+	}
+
+	@Test
+	void testprocuraPalavraChaveNull() {
+		controle.cadastraPesquisa(
+				"Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		controle.cadastraPesquisa("Seguranca", "Ufcg");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("UFC1: Seguranca");
+		ex.add("SEG1: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		ex.add("SEG1: Seguranca publica");
+		assertThrows(NullPointerException.class, () -> {
+			controle.procuraPalavraChave(null);
+		});
+	}
+
+	@Test
+	void testprocuraPalavraChaveVazio() {
+		controle.cadastraPesquisa(
+				"Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		controle.cadastraPesquisa("Seguranca", "Ufcg");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("UFC1: Seguranca");
+		ex.add("SEG1: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		ex.add("SEG1: Seguranca publica");
+		assertThrows(IllegalArgumentException.class, () -> {
+			controle.procuraPalavraChave("");
+		});
+	}
+
 }

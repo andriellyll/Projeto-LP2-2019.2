@@ -389,6 +389,7 @@ public class ControllerPesquisa implements Buscavel {
 	 *         contiverem a palavra-chave
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Pesquisa pesquisa : this.pesquisas.values()) {
