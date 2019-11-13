@@ -86,6 +86,7 @@ public class Item {
 	 * @return
 	 */
 	public String procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		if (item.contains(palavraChave)) {
 			return item;
 		}
