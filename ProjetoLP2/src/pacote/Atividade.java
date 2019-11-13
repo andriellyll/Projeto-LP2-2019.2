@@ -58,6 +58,11 @@ public class Atividade {
 	 *                       determinado nivel de risco
 	 */
 	public Atividade(String codigo, String descricao, String nivelRisco, String descricaoRisco) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo Descricao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.nivelRisco = nivelRisco;
