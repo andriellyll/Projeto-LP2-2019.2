@@ -29,6 +29,7 @@ public class Professor implements Funcao{
 		}else if(atributo.equalsIgnoreCase("unidade")) {
 			this.unidade = novoAtributo;
 		}else if(atributo.equalsIgnoreCase("data")) {
+			ValidadorDeEntradas.verificaData(novoAtributo, "Atributo data com formato invalido.");
 			this.data = novoAtributo;
 		}else {
 			throw new RuntimeException("Atributo invalido.");

@@ -116,6 +116,9 @@ public class ControllerPesquisador implements Buscavel {
 		} else if (atributo.equalsIgnoreCase("FORMACAO") || atributo.equalsIgnoreCase("UNIDADE")
 				|| atributo.equalsIgnoreCase("DATA") || atributo.equalsIgnoreCase("SEMESTRE")
 				|| atributo.equalsIgnoreCase("IEA")) {
+			ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio.");
+			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novo atributo nao pode ser nulo ou vazio.");
+			
 			Pesquisador pesquisador = pesquisadores.get(email);
 			pesquisador.setEspecialidade(atributo, novoAtributo);
 		} else {
