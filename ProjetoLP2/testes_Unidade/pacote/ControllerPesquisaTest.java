@@ -24,6 +24,8 @@ class ControllerPesquisaTest {
 		controle.cadastraPesquisa("Equador na encruzilhada regional", "Geopolitica, America Latina, Intenacional");
 		controle.cadastraPesquisa("Oleo em Boipeba leva turistas a evitar mar e mudar programacao",
 				"Ecologia, Desastre Ambiental, Meio Ambiente, Natureza");
+		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
+		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
 	}
 
 	@Test
@@ -134,6 +136,12 @@ class ControllerPesquisaTest {
 		controle.ativaPesquisa("ECO1");
 		assertTrue(controle.pesquisaEhAtiva("ECO1"));
 	}
+	
+	@Test
+	void validaPesquisa() {
+		controle.encerraPesquisa("GEO1", "NAO QUERO MAIS");
+		assertThrows(RuntimeException.class, () -> controle.validaPesquisa("GEO1"));
+	}
 
 	@Test
 	void testAtivaPesquisaInvalido() {
@@ -232,116 +240,144 @@ class ControllerPesquisaTest {
 				"GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores",
 				controle.imprimePesquisas("PESQUISA"));
 	}
+	
+	@Test
+	public void ImprimePesquisasOrdem() {
+		controle.cadastraPesquisa("lalalalala", "nao sei");
+		controle.associaProblema("NAO1", "P1");
+		controle.associaObjetivo("NAO1", "O1");
+		assertEquals("NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores", controle.imprimePesquisas("PROBLEMA"));
+	}
+	
+	@Test
+	public void ImprimePesquisasOrdemProblema() {
+		controle.cadastraPesquisa("lalalalala", "nao sei");
+		controle.associaProblema("ECO1", "P1");
+		controle.associaObjetivo("NAO1", "O1");
+		assertEquals("NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores", controle.imprimePesquisas("OBJETIVOS"));
+	}
+
+	@Test
+	public void testImprimePesquisasOrdemInvalida() {
+		assertThrows(IllegalArgumentException.class, () -> controle.imprimePesquisas("Qualquer"));
+	}
 
 	@Test
 	public void associaProblema() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		assertTrue(controle.associaProblema("GEO1", "P1"));
 	}
 
 	@Test
 	public void associaProblemaIdPesquisaNulo() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		assertThrows(NullPointerException.class, () -> controle.associaProblema(null, "P1"));
 	}
 
 	@Test
 	public void associaProblemaIdPesquisaVazio() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		assertThrows(IllegalArgumentException.class, () -> controle.associaProblema("", "P1"));
 	}
 
 	@Test
 	public void associaProblemaNulo() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		assertThrows(NullPointerException.class,
 				() -> controle.associaProblema("um grande problema na minha vida", null));
 	}
 
 	@Test
 	public void associaProblemaVazio() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		assertThrows(IllegalArgumentException.class,
 				() -> controle.associaProblema("um grande problema na minha vida", ""));
 	}
 
 	@Test
+	public void associaProblemaJaAssociado() {
+		controle.associaProblema("GEO1", "P1");
+		assertFalse(controle.associaProblema("GEO1", "P1"));
+	}
+
+	@Test
+	public void associaProblemaComOutroProblemaJaAssociado() {
+		controle.associaProblema("GEO1", "P1");
+		controllerProblemaObjetivo.cadastraProblema("lalalalalala", 3);
+		assertThrows(RuntimeException.class, () -> controle.associaProblema("GEO1", "P2"));
+
+	}
+
+	@Test
 	public void desassociaProblema() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controle.associaProblema("GEO1", "P1");
 		assertTrue(controle.desassociaProblema("GEO1"));
 	}
-	
+
 	@Test
 	public void desassociaProblemaIdPesquisaNulo() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controle.associaProblema("GEO1", "P1");
-		assertThrows(NullPointerException.class,
-				() -> controle.desassociaProblema(null));
-		
+		assertThrows(NullPointerException.class, () -> controle.desassociaProblema(null));
+
 	}
+
 	@Test
 	public void desassociaProblemaIdPesquisaVazio() {
-		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controle.associaProblema("GEO1", "P1");
-		assertThrows(IllegalArgumentException.class,
-				() -> controle.desassociaProblema(""));
+		assertThrows(IllegalArgumentException.class, () -> controle.desassociaProblema(""));
 	}
-	
+
 	@Test
 	public void associaObjetivo() {
-		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
 		controle.associaObjetivo("GEO1", "O1");
 	}
+
+	@Test
+	public void associaObjetivoIdPesquisaNulo() {
+		assertThrows(NullPointerException.class, () -> controle.associaObjetivo(null, "O1"));
+	}
+
+	@Test
+	public void associaObjetivoIdPesquisaVazio() {
+		assertThrows(IllegalArgumentException.class, () -> controle.associaObjetivo("", "O1"));
+	}
+
+	@Test
+	public void associaObjetivoNulo() {
+		assertThrows(NullPointerException.class,
+				() -> controle.associaObjetivo("um grande problema na minha vida", null));
+	}
+
+	@Test
+	public void associaObjetivoVazio() {
+		assertThrows(IllegalArgumentException.class,
+				() -> controle.associaObjetivo("um grande problema na minha vida", ""));
+	}
+
+	@Test
+	public void desassociaObjetivo() {
+		controle.associaObjetivo("GEO1", "O1");
+		assertTrue(controle.desassociaObjetivo("GEO1", "O1"));
+	}
+
+	@Test
+	public void desassociaObjetivoIdPesquisaNulo() {
+		controle.associaObjetivo("GEO1", "O1");
+		assertThrows(NullPointerException.class, () -> controle.desassociaObjetivo(null, "O1"));
+
+	}
+
+	@Test
+	public void desassociaObjetivoIdPesquisaVazio() {
+		controle.associaObjetivo("GEO1", "O1");
+		assertThrows(IllegalArgumentException.class, () -> controle.desassociaObjetivo("", "O1"));
+	}
+
+	@Test
+	public void desassociaObjetivoNulo() {
+		controle.associaObjetivo("GEO1", "O1");
+		assertThrows(NullPointerException.class, () -> controle.desassociaObjetivo("GEO1", null));
+
+	}
+
+	@Test
+	public void desassociaObjetivoVazio() {
+		controle.associaObjetivo("GEO1", "O1");
+		assertThrows(IllegalArgumentException.class, () -> controle.desassociaObjetivo("GEO1", ""));
+	}
 }
-//	@Test
-//	public void associaObjetivoIdPesquisaNulo() {
-//		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
-//		assertThrows(NullPointerException.class, () -> controle.associaObjetivo(null, "O1"));
-//	}
-//
-//	@Test
-//	public void associaObjetivoIdPesquisaVazio() {
-//		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
-//		assertThrows(IllegalArgumentException.class, () -> controle.associaObjetivo("", "O1"));
-//	}
-//
-//	@Test
-//	public void associaObjetivoNulo() {
-//		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
-//		assertThrows(NullPointerException.class,
-//				() -> controle.associaObjetivo("um grande problema na minha vida", null));
-//	}
-//
-//	@Test
-//	public void associaObjetivoVazio() {
-//		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
-//		assertThrows(IllegalArgumentException.class,
-//				() -> controle.associaProblema("um grande problema na minha vida", ""));
-//	}
-//
-//	@Test
-//	public void desassociaObjetivo() {
-//		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
-//		controle.associaProblema("GEO1", "P1");
-//		assertTrue(controle.desassociaProblema("GEO1"));
-//	}
-//	
-//	@Test
-//	public void desassociaObjetivoIdPesquisaNulo() {
-//		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
-//		controle.associaProblema("GEO1", "P1");
-//		assertThrows(NullPointerException.class,
-//				() -> controle.desassociaProblema(null));
-//		
-//	}
-//	@Test
-//	public void desassociaObjetivoIdPesquisaVazio() {
-//		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
-//		controle.associaProblema("GEO1", "P1");
-//		assertThrows(IllegalArgumentException.class,
-//				() -> controle.desassociaProblema(""));
-//	}
-//
-//	
-//}
