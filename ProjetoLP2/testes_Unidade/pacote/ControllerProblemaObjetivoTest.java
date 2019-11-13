@@ -210,4 +210,20 @@ public class ControllerProblemaObjetivoTest {
 			controllerProbObj.exibeObjetivo("O1");
 		});
 	}
+	
+	@Test
+	public void associaPesquisa() {
+		controllerProbObj.cadastraObjetivo("GERAL", "o melhor objetivo", 2, 3);
+		Pesquisa pesquisa = new Pesquisa("MEL1","alunos de cc estao cansados", "melhorar rendimento");
+		controllerProbObj.associaPesquisa("O1", pesquisa);
+		
+	}
+	
+	@Test
+	public void desassociaPesquisa() {
+		controllerProbObj.cadastraObjetivo("GERAL", "o melhor objetivo", 2, 3);
+		Pesquisa pesquisa = new Pesquisa("MEL1","alunos de cc estao cansados", "melhorar rendimento");
+		controllerProbObj.desassociaPesquisa("O1", pesquisa);
+		
+	}
 }
