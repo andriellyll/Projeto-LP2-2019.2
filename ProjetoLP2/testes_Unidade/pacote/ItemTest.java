@@ -38,5 +38,22 @@ class ItemTest {
 	public void testToString() {
 		assertEquals(item.toString(), "PENDENTE - Monitoramento slack");
 	}
+	@Test
+	public void testBusca() {
+		assertEquals("Monitoramento slack" , item.procuraPalavraChave("slack"));
+		assertEquals("", item.procuraPalavraChave("Aumentar"));
+	}
+	@Test
+	public void testBuscaNull() {
+		assertThrows(NullPointerException.class, () -> {
+			item.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	public void testBuscaVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			item.procuraPalavraChave("");
+		});
+	}
 
 }

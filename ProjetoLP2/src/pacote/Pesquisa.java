@@ -330,6 +330,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	 *         retornada. Se nao, sera retornada uma lista vazia
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 		if (this.descricao.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricao);
