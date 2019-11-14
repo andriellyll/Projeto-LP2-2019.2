@@ -186,7 +186,7 @@ public class ControllerAtividade implements Buscavel {
 		return atividades.get(codigo).ItensRealizados();
 	}
 
-//--------------------------------- Novas atualizacoes de ControllerAtividade -------------------------------------------
+//--------------------------------- ControllerAtividade (Parte 2) -------------------------------------------
 
 	/**
 	 * Retorna uma atividade a partir do seu codigo identificador
@@ -346,5 +346,12 @@ public class ControllerAtividade implements Buscavel {
 
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).desassociaPesquisa();
+	}
+
+//----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
+	
+	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
+		// TODO Auto-generated method stub
+		
 	}
 }
