@@ -301,21 +301,6 @@ public class Atividade {
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param palavraChave
-	 * @return
-	 */
-	private List<String> procuraPalavraItem(String palavraChave) {
-		ArrayList<String> resultadosItens = new ArrayList<>();
-		for (Item item : itens) {
-			if (!item.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
-			}
-		}
-		return resultadosItens;
-	}
 
 	/**
 	 * Procura nos atributos descricao, itens e descricao do risco da atividade a
@@ -334,9 +319,7 @@ public class Atividade {
 		if (this.descricaoRisco.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
 		}
-		if (!procuraPalavraItem(palavraChave).isEmpty()) {
-			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
-		}
+
 		return resultadosBusca;
 	}
 
