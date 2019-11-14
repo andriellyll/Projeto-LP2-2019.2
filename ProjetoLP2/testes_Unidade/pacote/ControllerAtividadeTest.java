@@ -2,6 +2,8 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +47,7 @@ public class ControllerAtividadeTest {
 		controllerAtividade.cadastraAtividade("Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO","Por se tratar de apenas um monitoramento, o risco nao e elevado.");
 		controllerAtividade.exibeAtividade("A2");
 		controllerAtividade.apagaAtividade("A2");
-		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.exibeAtividade("A1"));
+		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.exibeAtividade("A2"));
 	}
 	
 	@Test
@@ -104,7 +106,7 @@ public class ControllerAtividadeTest {
 	
 	@Test
 	public void testCadastraItemAtividadeNaoExiste() {
-		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.cadastraItem("A1","Monitoramento facebook/messenger"));
+		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.cadastraItem("A2","Monitoramento facebook/messenger"));
 	}
 
 	@Test
@@ -113,7 +115,7 @@ public class ControllerAtividadeTest {
 		controllerAtividade.cadastraItem("A2", "Monitoramento facebook/messenger");
 		controllerAtividade.cadastraItem("A2", "Monitoramento slack");
 		controllerAtividade.cadastraItem("A2", "Monitoramento discord");
-		assertEquals(controllerAtividade.contaItensPendentes("A1"), 3);
+		assertEquals(controllerAtividade.contaItensPendentes("A2"), 3);
 	}
 
 	@Test
@@ -271,4 +273,29 @@ public class ControllerAtividadeTest {
 		assertThrows(RuntimeException.class, () -> controllerAtividade.desassociaPesquisa("BUL3", "A1"), "Pesquisa desativada.");
 		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.desassociaPesquisa("BUL1", "A2"), "Atividade nao encontrada");
 	}
+	@Test
+	public void procuraPalavraChaveDescricoes() {
+		controllerAtividade.cadastraAtividade("teste", "ALTO", "eh teste");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("A2: teste");
+		ex.add("A2: eh teste");
+		ex.add("A1: E so um teste hahahahahahahha");
+		
+		assertEquals(controllerAtividade.procuraPalavraChave("teste"), ex);
+		
+	}
+	
+	@Test
+	public void testprocuraPalavraChaveNull() {
+		assertThrows(NullPointerException.class, () -> {
+			controllerAtividade.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	public void testprocuraPalavraChaveVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			controllerAtividade.procuraPalavraChave("");
+		});
+	}
+	
 }

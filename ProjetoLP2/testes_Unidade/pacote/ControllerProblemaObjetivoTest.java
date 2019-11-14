@@ -2,6 +2,8 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -225,5 +227,28 @@ public class ControllerProblemaObjetivoTest {
 		Pesquisa pesquisa = new Pesquisa("MEL1","alunos de cc estao cansados", "melhorar rendimento");
 		controllerProbObj.desassociaPesquisa("O1", pesquisa);
 		
+	}
+	@Test
+	void procuraPalavraChave() {
+		controllerProbObj.cadastraProblema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", 2);
+		controllerProbObj.cadastraObjetivo("GERAL", "Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.", 4, 2);
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("P1: O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo");
+		ex.add("O1: Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.");
+		
+		assertEquals(controllerProbObj.procuraPalavraChave("alunos"), ex);
+		
+	}
+	@Test
+	void testprocuraPalavraChaveNull() {
+		assertThrows(NullPointerException.class, () -> {
+			controllerProbObj.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	void testprocuraPalavraChaveVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			controllerProbObj.procuraPalavraChave("");
+		});
 	}
 }

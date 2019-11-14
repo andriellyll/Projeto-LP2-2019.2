@@ -1,5 +1,6 @@
 package pacote;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,8 +16,12 @@ import java.util.Map;
  * @author Henrique Lemos
  */
 
-public class Atividade {
+public class Atividade implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6324762890418621301L;
 	/**
 	 * Cada atividade apresenta uma descricao dela, um nivel de risco apresentado em
 	 * ate tres niveis, a descricao deste risco, a quantidade de dias e seus itens
@@ -47,6 +52,16 @@ public class Atividade {
 	 * Armazena a quantidade de posicoes de resultados ja cadastradas
 	 */
 	private int posicoesCadastradas;
+	
+	/**
+	 * 
+	 */
+	private int posicao;
+	
+	/**
+	 * 
+	 */
+	private Atividade proximaPosicao;
 
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
@@ -187,7 +202,7 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
-//---------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
+//---------------------------------------- Atividade (Parte 2) ---------------------------------------------------------------------
 
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa
@@ -301,21 +316,6 @@ public class Atividade {
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param palavraChave
-	 * @return
-	 */
-	private List<String> procuraPalavraItem(String palavraChave) {
-		ArrayList<String> resultadosItens = new ArrayList<>();
-		for (Item item : itens) {
-			if (!item.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
-			}
-		}
-		return resultadosItens;
-	}
 
 	/**
 	 * Procura nos atributos descricao, itens e descricao do risco da atividade a
@@ -334,9 +334,7 @@ public class Atividade {
 		if (this.descricaoRisco.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
 		}
-		if (!procuraPalavraItem(palavraChave).isEmpty()) {
-			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
-		}
+
 		return resultadosBusca;
 	}
 
@@ -371,4 +369,12 @@ public class Atividade {
 		return true;
 
 	}
+	
+//------------------------------------- Atividade (Parte 3) ------------------------------------------
+
+	public void atribuiPosicao(int valorPosicao) {
+		this.posicao = valorPosicao;
+	}
+
+
 }

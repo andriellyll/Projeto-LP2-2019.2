@@ -24,13 +24,17 @@ public class Aluno implements Funcao {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novoAtributo nao pode ser nulo ou vazio");
 		
 		if (atributo.equalsIgnoreCase("semestre")) {
-			ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
+			int novoSemestre = Integer.parseInt(novoAtributo);
 			
-			this.semestre = Integer.parseInt(novoAtributo);
+			ValidadorDeEntradas.verificaSemestre(novoSemestre, "Atributo semestre com formato invalido.");
+			
+			this.semestre = novoSemestre;
 		} else if (atributo.equalsIgnoreCase("IEA")) {
-			ValidadorDeEntradas.verificaIEA(IEA, "Atributo IEA com formato invalido.");
+			double novoIEA = Double.parseDouble(novoAtributo);
+			
+			ValidadorDeEntradas.verificaIEA(novoIEA, "Atributo IEA com formato invalido.");
 
-			this.IEA = Double.parseDouble(novoAtributo);
+			this.IEA = novoIEA;
 		} else {
 			throw new RuntimeException("Atributo invalido.");
 		}

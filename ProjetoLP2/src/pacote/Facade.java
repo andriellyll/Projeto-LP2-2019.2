@@ -15,7 +15,8 @@ public class Facade {
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
 		controllerPesquisa = new ControllerPesquisa(controllerPesquisador, controllerProblemaObjetivo);
 		controllerAtividade = new ControllerAtividade(controllerPesquisa);
-		controllerBusca = new ControllerBusca(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo, controllerAtividade);
+		controllerBusca = new ControllerBusca(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo,
+				controllerAtividade);
 	}
 
 	public static void main(String[] args) {
@@ -217,5 +218,49 @@ public class Facade {
 
 	public int contaResultadosBusca(String termo) {
 		return controllerBusca.contaResultadosBusca(termo);
+	}
+
+//Ordem das Atividades:
+
+	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
+		this.controllerAtividade.defineProximaAtividade(idPrecedente, idSubsequente);
+	}
+
+	public void tiraProximaAtividade(String idPrecedente) {
+
+	}
+
+	public int contaProximos(String idPrecedente) {
+		return 0;
+	}
+
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		return null;
+	}
+
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+		return null;
+	}
+
+//Proxima Atividade:
+
+//Resultados:
+
+//Persistencia:
+
+	public void salva() {
+		this.controllerPesquisa.iniciaArquivamento();
+		this.controllerPesquisador.iniciaArquivamento();
+		this.controllerAtividade.iniciaArquivamento();
+		this.controllerProblemaObjetivo.iniciaArquivamento();
+
+	}
+
+	public void carrega() {
+
+		this.controllerPesquisa.finalizaArquivamento();
+		this.controllerPesquisador.finalizaArquivamento();
+		this.controllerAtividade.finalizaArquivamento();
+		this.controllerProblemaObjetivo.finalizaArquivamento();
 	}
 }

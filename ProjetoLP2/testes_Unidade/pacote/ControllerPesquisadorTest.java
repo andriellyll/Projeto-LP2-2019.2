@@ -5,6 +5,7 @@ package pacote;
  */
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -662,5 +663,30 @@ class ControllerPesquisadorTest {
 		
 		assertThrows(RuntimeException.class, () -> {controllerPesquisador.listaPesquisadores("drica linda");});
 		
+	}
+	
+	@Test
+	void procuraPalavraChave() {
+		controllerPesquisador.cadastraPesquisador("gauds", "professor", "bolonhesa", "gauds@computacao", "http://aaaa");
+		controllerPesquisador.cadastraPesquisador("toninho rodrigues", "externo", "toninho a bolonhesa", "toninho@rodrigues", "https://toninhoabolonhesa");
+		
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("toninho@rodrigues: toninho a bolonhesa");
+		ex.add("gauds@computacao: bolonhesa");
+		
+		assertEquals(controllerPesquisador.procuraPalavraChave("bolonhesa"), ex);
+		
+	}
+	@Test
+	void testprocuraPalavraChaveNull() {
+		assertThrows(NullPointerException.class, () -> {
+			controllerPesquisador.procuraPalavraChave(null);
+		});
+	}
+	@Test
+	void testprocuraPalavraChaveVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			controllerPesquisador.procuraPalavraChave("");
+		});
 	}
 }

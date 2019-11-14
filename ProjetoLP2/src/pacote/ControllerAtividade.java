@@ -186,7 +186,7 @@ public class ControllerAtividade implements Buscavel {
 		return atividades.get(codigo).ItensRealizados();
 	}
 
-//--------------------------------- Novas atualizacoes de ControllerAtividade -------------------------------------------
+//--------------------------------- ControllerAtividade (Parte 2) -------------------------------------------
 
 	/**
 	 * Retorna uma atividade a partir do seu codigo identificador
@@ -225,6 +225,7 @@ public class ControllerAtividade implements Buscavel {
 	 *         contiverem a palavra-chave
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Atividade atividade : this.atividades.values()) {
@@ -345,5 +346,24 @@ public class ControllerAtividade implements Buscavel {
 
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).desassociaPesquisa();
+	}
+
+//----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
+	
+	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
+		atividades.get(idPrecedente).atribuiPosicao(1);
+		
+
+		
+	}
+
+	public void iniciaArquivamento() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finalizaArquivamento() {
+		// TODO Auto-generated method stub
+		
 	}
 }
