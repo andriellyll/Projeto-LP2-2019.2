@@ -47,7 +47,7 @@ public class ControllerAtividadeTest {
 		controllerAtividade.cadastraAtividade("Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO","Por se tratar de apenas um monitoramento, o risco nao e elevado.");
 		controllerAtividade.exibeAtividade("A2");
 		controllerAtividade.apagaAtividade("A2");
-		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.exibeAtividade("A1"));
+		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.exibeAtividade("A2"));
 	}
 	
 	@Test
@@ -106,7 +106,7 @@ public class ControllerAtividadeTest {
 	
 	@Test
 	public void testCadastraItemAtividadeNaoExiste() {
-		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.cadastraItem("A1","Monitoramento facebook/messenger"));
+		assertThrows(IllegalArgumentException.class, () -> controllerAtividade.cadastraItem("A2","Monitoramento facebook/messenger"));
 	}
 
 	@Test
@@ -115,7 +115,7 @@ public class ControllerAtividadeTest {
 		controllerAtividade.cadastraItem("A2", "Monitoramento facebook/messenger");
 		controllerAtividade.cadastraItem("A2", "Monitoramento slack");
 		controllerAtividade.cadastraItem("A2", "Monitoramento discord");
-		assertEquals(controllerAtividade.contaItensPendentes("A1"), 3);
+		assertEquals(controllerAtividade.contaItensPendentes("A2"), 3);
 	}
 
 	@Test
