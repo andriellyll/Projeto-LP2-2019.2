@@ -218,4 +218,21 @@ public class Facade {
 	public int contaResultadosBusca(String termo) {
 		return controllerBusca.contaResultadosBusca(termo);
 	}
+	
+//Ordem das Atividades:
+	
+	
+	
+//Proxima Atividade:
+	
+	
+	
+//Resultados:
+	
+	
+	
+//Persistencia:
+	
+	
+	
 }
