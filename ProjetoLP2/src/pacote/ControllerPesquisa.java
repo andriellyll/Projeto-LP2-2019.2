@@ -1,5 +1,11 @@
 package pacote;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -439,12 +445,43 @@ public class ControllerPesquisa implements Buscavel {
 // -----------------------------------------------------------Novas Atualizacoes (Parte 3)----------------------------------------------
 
 	public void iniciaArquivamento() {
-		// TODO Auto-generated method stub
+//		lerArquivos();
 
 	}
 
 	public void finalizaArquivamento() {
-		// TODO Auto-generated method stub
+		escreverArquivos();
 
 	}
+
+	private void escreverArquivos() {
+		 ObjectOutputStream oosPesquisas = null;
+
+	        try {
+	        	oosPesquisas = new ObjectOutputStream(new FileOutputStream("saves"+ File.separator + "ControllerPesquisa.dat"));
+	        	oosPesquisas.writeObject(this.pesquisas);
+
+	        } catch (IOException e2) {
+	            e2.printStackTrace();
+	        }
+	    }
+
+//	private void lerArquivos() {
+//		 ObjectInputStream oisPesquisas = null;
+//
+//	        try {
+//	        	oisPesquisas = new ObjectInputStream(new FileInputStream( "saves"+ File.separator + "ControllerPesquisa.dat"));
+//	            Map<String, Pesquisa> pesquisasCadastradas = (HashMap<String, Pesquisa>) oisPesquisas.readObject();
+//	            this.pesquisas = pesquisasCadastradas;
+//	        
+//	        } catch (IOException e) {
+//	            this.escreverArquivos();
+//	            this.iniciaArquivamento();
+//
+//	        } catch (ClassNotFoundException e) {
+//	            e.printStackTrace();
+//	        }
+//
+//	}
+
 }
