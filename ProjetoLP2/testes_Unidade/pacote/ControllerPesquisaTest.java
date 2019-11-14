@@ -472,5 +472,4 @@ class ControllerPesquisaTest {
 			controle.procuraPalavraChave("");
 		});
 	}
-
 }
