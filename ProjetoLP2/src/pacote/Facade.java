@@ -251,6 +251,11 @@ public class Facade {
 	
 //Persistencia:
 	
+	public void salva() {
+		
+	}
 	
-	
+	public void carrega() {
+		
+	}
 }
