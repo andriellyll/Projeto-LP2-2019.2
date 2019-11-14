@@ -281,4 +281,16 @@ public class ControllerProblemaObjetivo implements Buscavel {
 		resultados.addAll(procuraPalavraChaveObjetivo(palavraChave));
 		return resultados;
 	}
+
+	// -----------------------------------------------------------Novas Atualizacoes (Parte 3)----------------------------------------------
+	
+	public void iniciaArquivamento() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finalizaArquivamento() {
+		// TODO Auto-generated method stub
+		
+	}
 }
