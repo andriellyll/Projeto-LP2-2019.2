@@ -310,7 +310,6 @@ class PesquisaTest {
 	void testCompareTo() {
 		assertEquals(test1.compareTo(test2), -17);
 	}
-	
 	@Test
 	void testAssociaPesquisador() {
 		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
