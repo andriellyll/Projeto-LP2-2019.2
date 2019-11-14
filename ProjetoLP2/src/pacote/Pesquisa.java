@@ -1,5 +1,10 @@
 package pacote;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -357,7 +362,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * 
+	
 	 * 
 	 * @param pesquisador
 	 * @return
@@ -368,5 +373,33 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		}
 		pesquisadoresAssociados.remove(pesquisador);
 		return true;
+	}
+	
+	private String gerarResumo() {
+		
+		String resumo = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores";
+		
+		for (Pesquisador pesquisador: pesquisadoresAssociados) {
+			resumo += System.lineSeparator() + "\t\t-" + pesquisador.toString();
+		}
+		
+		resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t-" + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";
+		
+		for (Objetivo objetivo : objetivosDaPesquisa) {
+			resumo += System.lineSeparator() + "\t\t-" + objetivo.toString();
+		}
+		
+		return resumo;
+	}
+	
+	/**
+	 * @throws IOException 
+	 * 
+	 */
+	public void gravarResumo() throws IOException {
+		OutputStream out = new FileOutputStream(new File(this.codigo  + ".txt"));
+		String resumo = gerarResumo();
+		out.write(resumo.getBytes(), 0, resumo.length());
+		out.close();
 	}
 }
