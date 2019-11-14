@@ -2,6 +2,8 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +28,7 @@ class ControllerPesquisaTest {
 				"Ecologia, Desastre Ambiental, Meio Ambiente, Natureza");
 		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
+		controllerPesquisador.cadastraPesquisador("bia", "estudante", "linda pfta", "bia@pfta", "http://bia");
 	}
 
 	@Test
@@ -136,7 +139,7 @@ class ControllerPesquisaTest {
 		controle.ativaPesquisa("ECO1");
 		assertTrue(controle.pesquisaEhAtiva("ECO1"));
 	}
-	
+
 	@Test
 	void validaPesquisa() {
 		controle.encerraPesquisa("GEO1", "NAO QUERO MAIS");
@@ -181,44 +184,86 @@ class ControllerPesquisaTest {
 				"Codigo nao pode ser nulo ou vazio.");
 		assertThrows(RuntimeException.class, () -> controle.pesquisaEhAtiva("GEO2"), "Pesquisa nao encontrada.");
 	}
+	@Test
+	public void testAssociaPesquisador() {
+		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
+	}
+	
+	@Test
+	public void testAssociaPesquisadorJaAssociado() {
+		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
+		assertFalse(controle.associaPesquisador("ECO1", "bia@pfta"));
+	}
+	
+	@Test
+	public void testAssociaPesquisadorPesquisaInexistente() {
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testAssociaPesquisadorPesquisaInativa() {
+		controle.encerraPesquisa("ECO1", "pipipi popopo");
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testAssociaPesquisadorInexistente() {
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "drica@aaa"));		
+	}
+	
+	@Test
+	public void testAssociaPesquisadorNull() {
+		assertThrows(NullPointerException.class, () -> controle.associaPesquisador(null, "bia@pfta"));
+		assertThrows(NullPointerException.class, () -> controle.associaPesquisador("ECO1", null));
+	}
+	
+	@Test
+	public void testAssociaPesquisadorVazio() {
+		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("", "bia@pfta"));
+		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("ECO1", ""));
+	}
+	
+	@Test
+	public void testDesassociaPesquisador() {
+		controle.associaPesquisador("ECO1", "bia@pfta");
+		assertTrue(controle.desassociaPesquisador("ECO1", "bia@pfta"));
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorJaDesassociado() {
+		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
+		assertTrue(controle.desassociaPesquisador("ECO1", "bia@pfta"));
+		assertFalse(controle.desassociaPesquisador("ECO1", "bia@pfta"));
+	}
 
-//	@Test
-//	public void testAssociaPesquisador() {
-//		assertTrue(controle.associaPesquisador("ECO1", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));
-//	}
-//	
-//	@Test
-//	public void testAssociaPesquisadorPesquisaInexistente() {
-//		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));		
-//	}
-//	
-//	@Test
-//	public void testAssociaPesquisadorPesquisaInativa() {
-//		controle.encerraPesquisa("ECO1", "pipipi popopo");
-//		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa")));		
-//	}
-//
-//	@Test
-//	public void testDesassociaPesquisador() {
-//		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
-//		controle.associaPesquisador("ECO1", pesquisador);
-//		assertTrue(controle.desassociaPesquisador("ECO1", pesquisador));
-//	}
-//	
-//	@Test
-//	public void testDesassociaPesquisadorPesquisaInexistente() {
-//		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
-//		controle.associaPesquisador("ECO1", pesquisador);
-//		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", pesquisador));		
-//	}
-//	
-//	@Test
-//	public void testDesassociaPesquisadorPesquisaInativa() {
-//		Pesquisador pesquisador =  new Pesquisador("Helen", null, "linda", "helen@linda.com", "https://aaaaaa");
-//		controle.associaPesquisador("ECO1", pesquisador);
-//		controle.encerraPesquisa("ECO1", "pipipi popopo");
-//		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", pesquisador));		
-//	}
+	@Test
+	public void testDesassociaPesquisadorNull() {
+		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador(null, "bia@pfta"));
+		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador("ECO1", null));
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorVazio() {
+		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("", "bia@pfta"));
+		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("ECO1", ""));
+	}	
+	@Test
+	public void testDesassociaPesquisadorPesquisaInexistente() {
+		controle.associaPesquisador("ECO1", "bia@pfta");
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorPesquisaInativa() {
+		controle.associaPesquisador("ECO1", "bia@pfta");
+		controle.encerraPesquisa("ECO1", "pipipi popopo");
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "bia@pfta"));		
+	}
+	
+	@Test
+	public void testDesassociaPesquisadorInexistente() {
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "drica@aaa"));		
+	}
 
 	@Test
 	public void testImprimePesquisasOrdemProblema() {
@@ -240,21 +285,25 @@ class ControllerPesquisaTest {
 				"GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores",
 				controle.imprimePesquisas("PESQUISA"));
 	}
-	
+
 	@Test
 	public void ImprimePesquisasOrdem() {
 		controle.cadastraPesquisa("lalalalala", "nao sei");
 		controle.associaProblema("NAO1", "P1");
 		controle.associaObjetivo("NAO1", "O1");
-		assertEquals("NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores", controle.imprimePesquisas("PROBLEMA"));
+		assertEquals(
+				"NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores",
+				controle.imprimePesquisas("PROBLEMA"));
 	}
-	
+
 	@Test
 	public void ImprimePesquisasOrdemProblema() {
 		controle.cadastraPesquisa("lalalalala", "nao sei");
 		controle.associaProblema("ECO1", "P1");
 		controle.associaObjetivo("NAO1", "O1");
-		assertEquals("NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores", controle.imprimePesquisas("OBJETIVOS"));
+		assertEquals(
+				"NAO1 - lalalalala - nao sei | GEO1 - Equador na encruzilhada regional - Geopolitica, America Latina, Intenacional | ECO2 - Oleo em Boipeba leva turistas a evitar mar e mudar programacao - Ecologia, Desastre Ambiental, Meio Ambiente, Natureza | ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores",
+				controle.imprimePesquisas("OBJETIVOS"));
 	}
 
 	@Test
@@ -380,4 +429,48 @@ class ControllerPesquisaTest {
 		controle.associaObjetivo("GEO1", "O1");
 		assertThrows(IllegalArgumentException.class, () -> controle.desassociaObjetivo("GEO1", ""));
 	}
+
+	@Test
+	void procuraPalavraChave() {
+		controle.cadastraPesquisa(
+				"Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		controle.cadastraPesquisa("Seguranca", "Ufcg");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("UFC1: Seguranca");
+		ex.add("SEG1: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		ex.add("SEG1: Seguranca publica");
+		assertEquals(controle.procuraPalavraChave("Seguranca"), ex);
+	}
+
+	@Test
+	void testprocuraPalavraChaveNull() {
+		controle.cadastraPesquisa(
+				"Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		controle.cadastraPesquisa("Seguranca", "Ufcg");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("UFC1: Seguranca");
+		ex.add("SEG1: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		ex.add("SEG1: Seguranca publica");
+		assertThrows(NullPointerException.class, () -> {
+			controle.procuraPalavraChave(null);
+		});
+	}
+
+	@Test
+	void testprocuraPalavraChaveVazio() {
+		controle.cadastraPesquisa(
+				"Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+				"Seguranca publica");
+		controle.cadastraPesquisa("Seguranca", "Ufcg");
+		ArrayList<String> ex = new ArrayList<>();
+		ex.add("UFC1: Seguranca");
+		ex.add("SEG1: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
+		ex.add("SEG1: Seguranca publica");
+		assertThrows(IllegalArgumentException.class, () -> {
+			controle.procuraPalavraChave("");
+		});
+	}
+
 }
