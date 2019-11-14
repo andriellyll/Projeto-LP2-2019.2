@@ -221,7 +221,25 @@ public class Facade {
 	
 //Ordem das Atividades:
 	
+	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
+		this.controllerAtividade.defineProximaAtividade(idPrecedente, idSubsequente);
+	}
 	
+	public void tiraProximaAtividade(String idPrecedente) {
+		
+	}
+	
+	public int contaProximos(String idPrecedente) {
+		return 0;
+	}
+	
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		return null;
+	}
+	
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+		return null;
+	}
 	
 //Proxima Atividade:
 	
