@@ -42,6 +42,7 @@ public class ControllerBusca {
 	 *         de acordo com cada classe, em ordem anti-lexicografica.
 	 */
 	private ArrayList<String> buscarPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Buscavel buscavel : buscaveis) {
