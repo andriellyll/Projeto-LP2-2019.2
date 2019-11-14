@@ -28,6 +28,9 @@ public class Atividade {
 	private String descricaoRisco;
 	private List<Item> itens;
 
+	/**
+	 * Armazena a pesquisa associada a atividade
+	 */
 	private Pesquisa pesquisa;
 
 	/**
@@ -55,6 +58,11 @@ public class Atividade {
 	 *                       determinado nivel de risco
 	 */
 	public Atividade(String codigo, String descricao, String nivelRisco, String descricaoRisco) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo Descricao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.nivelRisco = nivelRisco;
@@ -179,7 +187,7 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
-//--------------------------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
+//---------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
 
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa
@@ -199,6 +207,10 @@ public class Atividade {
 		itens.get((item - 1)).executa();
 	}
 
+	/**
+	 * Verifica se uma atividade tem uma pesquisa associada, caso nao tenha uma
+	 * excecao sera lancada.
+	 */
 	private void verificaAtividadeEhAssociada() {
 		if (pesquisa == null) {
 			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
@@ -289,21 +301,6 @@ public class Atividade {
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param palavraChave
-	 * @return
-	 */
-	private List<String> procuraPalavraItem(String palavraChave) {
-		ArrayList<String> resultadosItens = new ArrayList<>();
-		for (Item item : itens) {
-			if (!item.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosItens.add(this.codigo + ": " + item.procuraPalavraChave(palavraChave));
-			}
-		}
-		return resultadosItens;
-	}
 
 	/**
 	 * Procura nos atributos descricao, itens e descricao do risco da atividade a
@@ -322,12 +319,16 @@ public class Atividade {
 		if (this.descricaoRisco.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
 		}
-		if (!procuraPalavraItem(palavraChave).isEmpty()) {
-			resultadosBusca.addAll(procuraPalavraItem(palavraChave));
-		}
+
 		return resultadosBusca;
 	}
 
+	/**
+	 * Associa uma pesquisa a atividade, a partir da pesquisa passada como parametro
+	 * 
+	 * @param pesquisa - a pesquisa a ser associada a atividade
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da associacao
+	 */
 	public boolean associaPesquisa(Pesquisa pesquisa) {
 		if (this.pesquisa == pesquisa) {
 			return false;
@@ -337,6 +338,14 @@ public class Atividade {
 
 	}
 
+	/**
+	 * Desassocia uma pesquisa da atividade
+	 * 
+	 * @param pesquisa - a pesquisa a ser associada a atividade
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da desassociacao
+	 * 
+	 * @return
+	 */
 	public boolean desassociaPesquisa() {
 		if (this.pesquisa == null) {
 			return false;

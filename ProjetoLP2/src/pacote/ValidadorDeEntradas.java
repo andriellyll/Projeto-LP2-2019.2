@@ -143,7 +143,7 @@ public class ValidadorDeEntradas {
 	 * @param mensagem - a mensagem de erro a ser exibida no lancamento da excecao.
 	 */
 	public static void verificaNumeroNegativo(int item, String mensagem) {
-		if (item < 0) {
+		if (item <= 0) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}

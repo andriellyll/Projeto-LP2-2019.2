@@ -24,11 +24,15 @@ public class Professor implements Funcao{
 
 	@Override
 	public void setEspecialidade(String atributo, String novoAtributo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novoAtributo nao pode ser nulo ou vazio");
+	
 		if(atributo.equalsIgnoreCase("formacao")) {
 			this.formacao = novoAtributo;
 		}else if(atributo.equalsIgnoreCase("unidade")) {
 			this.unidade = novoAtributo;
 		}else if(atributo.equalsIgnoreCase("data")) {
+			ValidadorDeEntradas.verificaData(novoAtributo, "Atributo data com formato invalido.");
 			this.data = novoAtributo;
 		}else {
 			throw new RuntimeException("Atributo invalido.");

@@ -276,6 +276,7 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	 */
 	@Override
 	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		ArrayList<String> resultados = (ArrayList<String>) procuraPalavraChaveProblema(palavraChave);
 		resultados.addAll(procuraPalavraChaveObjetivo(palavraChave));
 		return resultados;

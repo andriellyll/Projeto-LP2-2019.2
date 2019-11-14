@@ -17,7 +17,7 @@ import utils.OrdenaResultados;
  * 
  * @author Anna Beatriz Lucena
  */
-public class ControllerPesquisa implements Buscavel{
+public class ControllerPesquisa implements Buscavel {
 
 	/**
 	 * Armazena todas as pesquisas cadastradas no sistema.
@@ -30,11 +30,21 @@ public class ControllerPesquisa implements Buscavel{
 	 */
 	private Map<String, Integer> codigos;
 
+	private ControllerPesquisador controllerPesquisador;
+
+	private ControllerProblemaObjetivo controllerProblemaObjetivo;
+
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
 	 * pesquisas e codigos.
+	 * 
+	 * @param controllerProblemaObjetivo
+	 * @param controllerPesquisador
 	 */
-	public ControllerPesquisa() {
+	public ControllerPesquisa(ControllerPesquisador controllerPesquisador,
+			ControllerProblemaObjetivo controllerProblemaObjetivo) {
+		this.controllerPesquisador = controllerPesquisador;
+		this.controllerProblemaObjetivo = controllerProblemaObjetivo;
 		this.pesquisas = new HashMap<>();
 		this.codigos = new HashMap<>();
 	}
@@ -144,7 +154,7 @@ public class ControllerPesquisa implements Buscavel{
 
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
 
-		if (pesquisa.getAtivacao() == false) {
+		if (!pesquisa.getAtivacao()) {
 			pesquisa.ativaPesquisa();
 		} else {
 			throw new IllegalArgumentException("Pesquisa ja ativada.");
@@ -189,14 +199,16 @@ public class ControllerPesquisa implements Buscavel{
 	 * Metodo responsavel por associar um problema a uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
-	 * @param problema objeto do problema a ser associado
+	 * @param problema   objeto do problema a ser associado
 	 * @return um booleano referente a situacao do processo
 	 */
-	public boolean associaProblema(String idPesquisa, Problema problema) {
+	public boolean associaProblema(String idPesquisa, String idProblema) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		validaPesquisa(idPesquisa);
-		return pesquisas.get(idPesquisa).associaProblema(problema);
+		return pesquisas.get(idPesquisa).associaProblema(controllerProblemaObjetivo.getProblema(idProblema));
 	}
-	
+
 	/**
 	 * Metodo responsavel por desassociar o problema de uma pesquisa.
 	 * 
@@ -204,33 +216,41 @@ public class ControllerPesquisa implements Buscavel{
 	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean desassociaProblema(String idPesquisa) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		validaPesquisa(idPesquisa);
 		return pesquisas.get(idPesquisa).desassociaProblema();
 	}
-	
+
 	/**
 	 * Metodo responsavel por associar um objetivo a uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
-	 * @param objetivo objeto do objetivo a ser associado
+	 * @param objetivo   objeto do objetivo a ser associado
 	 * @return um booleano referente a situacao do processo
 	 */
-	public boolean associaObjetivo(String idPesquisa, Objetivo objetivo) {
-		return pesquisas.get(idPesquisa).associaObjetivo(objetivo);
+	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		boolean passo1 = controllerProblemaObjetivo.associaPesquisa(idObjetivo, this.getPesquisa(idPesquisa));
+		return passo1 && pesquisas.get(idPesquisa).associaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
 	}
-	
+
 	/**
 	 * Metodo responsavel por desassociar um objetivo de uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
-	 * @param objetivo objeto do objetivo a ser desassociado
+	 * @param objetivo   objeto do objetivo a ser desassociado
 	 * @return um booleano referente a situacao do processo
 	 */
-	public boolean desassociaObjetivo(String idPesquisa, Objetivo objetivo) {
+	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		validaPesquisa(idPesquisa);
-		return pesquisas.get(idPesquisa).desassociaObjetivo(objetivo);
+		boolean passo1 = controllerProblemaObjetivo.desassociaPesquisa(idObjetivo, pesquisas.get(idPesquisa));
+		return passo1
+				&& pesquisas.get(idPesquisa).desassociaObjetivo(controllerProblemaObjetivo.getObjetivo(idObjetivo));
 	}
-	
+
 	/**
 	 * Metodo responsavel por ordenar as pesquisas de acordo com seu codigo de
 	 * identificacao, ordenando-os de forma decrescente.
@@ -259,6 +279,12 @@ public class ControllerPesquisa implements Buscavel{
 	 * @return uma string que imprime as pesquisas listadas, desejadas pelo usuario
 	 */
 	public String imprimePesquisas(String ordem) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(ordem, "Valor invalido da ordem");
+
+		if (!"PROBLEMA".equals(ordem) && !"OBJETIVOS".equals(ordem) && !"PESQUISA".equals(ordem)) {
+			throw new IllegalArgumentException("Valor invalido da ordem");
+		}
+
 		String todasPesquisas = "";
 		List<Pesquisa> pesquisasOrdenadas = new ArrayList<>();
 
@@ -344,9 +370,11 @@ public class ControllerPesquisa implements Buscavel{
 	}
 
 	/**
+	 * Valida uma pesquisa a partir do codigo da pesquisa. A validacao verifica se a
+	 * pesquisa e cadastrada no sistema e se a mesma e ativada. Caso isso for falso,
+	 * excecoes serao lancadas.
 	 * 
-	 * 
-	 * @param codigo
+	 * @param codigo - o codigo da pesquisa a ser validada
 	 */
 	public void validaPesquisa(String codigo) {
 		verificaPesquisaExiste(codigo);
@@ -361,6 +389,7 @@ public class ControllerPesquisa implements Buscavel{
 	 *         contiverem a palavra-chave
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Pesquisa pesquisa : this.pesquisas.values()) {
@@ -379,10 +408,14 @@ public class ControllerPesquisa implements Buscavel{
 	 * @param pesquisador
 	 * @return
 	 */
-	public boolean associaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
-		verificaPesquisaExiste(codigoDaPesquisa);
-		verificaPesquisaAtivada(codigoDaPesquisa);
-		return this.pesquisas.get(codigoDaPesquisa).associaPesquisador(pesquisador);
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(emailPesquisador,
+				"Campo emailPesquisador nao pode ser nulo ou vazio.");
+		verificaPesquisaExiste(idPesquisa);
+		verificaPesquisaAtivada(idPesquisa);
+		return this.pesquisas.get(idPesquisa)
+				.associaPesquisador(controllerPesquisador.getPesquisador(emailPesquisador));
 
 	}
 
@@ -393,9 +426,13 @@ public class ControllerPesquisa implements Buscavel{
 	 * @param pesquisador
 	 * @return
 	 */
-	public boolean desassociaPesquisador(String codigoDaPesquisa, Pesquisador pesquisador) {
+	public boolean desassociaPesquisador(String codigoDaPesquisa, String emailPesquisador) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoDaPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(emailPesquisador,
+				"Campo emailPesquisador nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigoDaPesquisa);
 		verificaPesquisaAtivada(codigoDaPesquisa);
-		return this.pesquisas.get(codigoDaPesquisa).desassociaPesquisador(pesquisador);
+		return this.pesquisas.get(codigoDaPesquisa)
+				.desassociaPesquisador(controllerPesquisador.getPesquisador(emailPesquisador));
 	}
 }

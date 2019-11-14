@@ -4,7 +4,6 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 
-	private Psquiza psquiza;
 	private ControllerPesquisa controllerPesquisa;
 	private ControllerPesquisador controllerPesquisador;
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
@@ -12,12 +11,10 @@ public class Facade {
 	private ControllerBusca controllerBusca;
 
 	public Facade() {
-		controllerPesquisa = new ControllerPesquisa();
 		controllerPesquisador = new ControllerPesquisador();
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
-		controllerAtividade = new ControllerAtividade();
-		psquiza = new Psquiza(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo,
-				controllerAtividade);
+		controllerPesquisa = new ControllerPesquisa(controllerPesquisador, controllerProblemaObjetivo);
+		controllerAtividade = new ControllerAtividade(controllerPesquisa);
 		controllerBusca = new ControllerBusca(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo, controllerAtividade);
 	}
 
@@ -149,63 +146,63 @@ public class Facade {
 //Associacoes de Objetivos e Problema:
 
 	public boolean associaProblema(String idPesquisa, String idProblema) {
-		return psquiza.associaProblema(idPesquisa, idProblema);
+		return controllerPesquisa.associaProblema(idPesquisa, idProblema);
 	}
 
 	public boolean desassociaProblema(String idPesquisa) {
-		return psquiza.desassociaProblema(idPesquisa);
+		return controllerPesquisa.desassociaProblema(idPesquisa);
 	}
 
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
-		return psquiza.associaObjetivo(idPesquisa, idObjetivo);
+		return controllerPesquisa.associaObjetivo(idPesquisa, idObjetivo);
 	}
 
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
-		return psquiza.desassociaObjetivo(idPesquisa, idObjetivo);
+		return controllerPesquisa.desassociaObjetivo(idPesquisa, idObjetivo);
 	}
 
 	public String listaPesquisas(String ordem) {
-		return psquiza.listaPesquisas(ordem);
+		return controllerPesquisa.imprimePesquisas(ordem);
 	}
 
 //Associacao e Especializacao da Pesquisadora:
 
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
-		return psquiza.associaPesquisador(idPesquisa, emailPesquisador);
+		return controllerPesquisa.associaPesquisador(idPesquisa, emailPesquisador);
 	}
 
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
-		return psquiza.desassociaPesquisador(idPesquisa, emailPesquisador);
+		return controllerPesquisa.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 
 //Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return psquiza.associaAtividade(codigoPesquisa, codigoAtividade);
+		return controllerAtividade.associaPesquisa(codigoPesquisa, codigoAtividade);
 	}
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return psquiza.desassociaAtividade(codigoPesquisa, codigoAtividade);
+		return controllerAtividade.desassociaPesquisa(codigoPesquisa, codigoAtividade);
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		psquiza.executaAtividade(codigoAtividade, item, duracao);
+		controllerAtividade.executaAtividade(codigoAtividade, item, duracao);
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
-		return psquiza.cadastraResultado(codigoAtividade, resultado);
+		return controllerAtividade.cadastraResultado(codigoAtividade, resultado);
 	}
 
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
-		return psquiza.removeResultado(codigoAtividade, numeroResultado);
+		return controllerAtividade.removeResultado(codigoAtividade, numeroResultado);
 	}
 
 	public String listaResultados(String codigoAtividade) {
-		return psquiza.listaResultados(codigoAtividade);
+		return controllerAtividade.listaResultados(codigoAtividade);
 	}
 
 	public int getDuracao(String codigoAtividade) {
-		return psquiza.getDuracao(codigoAtividade);
+		return controllerAtividade.getDuracao(codigoAtividade);
 	}
 
 //Busca por Palavra-chave:

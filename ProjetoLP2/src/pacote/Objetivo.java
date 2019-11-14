@@ -77,6 +77,7 @@ public class Objetivo {
 	 *         retornada. Se nao, sera retornada uma String vazia
 	 */
 	public String procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		if (this.descricao.contains(palavraChave)) {
 			return this.codigo + ": " + this.descricao;
 		}

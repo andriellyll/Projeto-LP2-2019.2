@@ -36,11 +36,15 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	private int idVagoItem = 1;
 
+	private ControllerPesquisa controllerPesquisa;
+
 	/**
 	 * Contrutor da Classe responsavel por controlar as informacoes das atividades.
 	 * Ele inicializa o mapa de atividades.
+	 * @param controllerPesquisa 
 	 */
-	public ControllerAtividade() {
+	public ControllerAtividade(ControllerPesquisa controllerPesquisa) {
+		this.controllerPesquisa = controllerPesquisa;
 		this.atividades = new HashMap<>();
 	}
 
@@ -204,6 +208,11 @@ public class ControllerAtividade implements Buscavel {
 	 * @param duracao         - a duracao em horas da execucao do item
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
+		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
@@ -216,6 +225,7 @@ public class ControllerAtividade implements Buscavel {
 	 *         contiverem a palavra-chave
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Atividade atividade : this.atividades.values()) {
@@ -229,7 +239,7 @@ public class ControllerAtividade implements Buscavel {
 
 	/**
 	 * Cadastra um resultado obtido pela atividade, a partir do codigo que
-	 * represenrta a atividade e da String que representa o resultado.
+	 * representa a atividade e da String que representa o resultado.
 	 * 
 	 * @param codigoAtividade - o codigo que representa a atividade a ter um
 	 *                        resultado cadastrado
@@ -238,6 +248,10 @@ public class ControllerAtividade implements Buscavel {
 	 * @return - o numero que representa a ordem de cadastro do resultado
 	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
 
@@ -256,6 +270,10 @@ public class ControllerAtividade implements Buscavel {
 	 *         (false)
 	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
+		
 		if (atividades.containsKey(codigoAtividade)) {
 			return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 		}
@@ -272,6 +290,9 @@ public class ControllerAtividade implements Buscavel {
 	 *         atividade
 	 */
 	public String listaResultados(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).listaResultados();
 	}
@@ -286,29 +307,43 @@ public class ControllerAtividade implements Buscavel {
 	 *         atividade
 	 */
 	public int getDuracao(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 
 	/**
+	 * Associa uma pesquisa a uma atividade a partir do codigo da pesquisa a ser associada e do codigo da atividade.
 	 * 
-	 * 
-	 * @param pesquisa
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoPesquisa - o codigo da pesquisa a ser associada a uma atividade
+	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa associada
+	 * @return - valor booleano true (se a associacao obtiver sucesso) e false (caso a associacao nao obtenha sucesso)
 	 */
-	public boolean associaPesquisa(Pesquisa pesquisa, String codigoAtividade) {
+	public boolean associaPesquisa(String codigoPesquisa, String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
+				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigoAtividade);
-		return atividades.get(codigoAtividade).associaPesquisa(pesquisa);
+		return atividades.get(codigoAtividade).associaPesquisa(controllerPesquisa.getPesquisa(codigoPesquisa));
 	}
 
 	/**
+	 * Desassocia uma pesquisa de uma atividade a partir do codigo da pesquisa a ser desassociada e do codigo da atividade.
 	 * 
-	 * 
-	 * @param codigoAtividade
-	 * @return
+	 * @param codigoPesquisa - o codigo da pesquisa a ser desassociada 
+	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa desassociada
+	 * @return - valor booleano true (se a desassociacao obtiver sucesso) e false (caso a desassociacao nao obtenha sucesso)
 	 */
-	public boolean desassociaPesquisa(String codigoAtividade) {
+	public boolean desassociaPesquisa(String codigoPesquisa, String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
+				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		controllerPesquisa.validaPesquisa(codigoPesquisa);
+
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).desassociaPesquisa();
 	}

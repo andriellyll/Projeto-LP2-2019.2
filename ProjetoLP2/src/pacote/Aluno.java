@@ -20,10 +20,21 @@ public class Aluno implements Funcao {
 
 	@Override
 	public void setEspecialidade(String atributo, String novoAtributo) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novoAtributo nao pode ser nulo ou vazio");
+		
 		if (atributo.equalsIgnoreCase("semestre")) {
-			this.semestre = Integer.parseInt(novoAtributo);
+			int novoSemestre = Integer.parseInt(novoAtributo);
+			
+			ValidadorDeEntradas.verificaSemestre(novoSemestre, "Atributo semestre com formato invalido.");
+			
+			this.semestre = novoSemestre;
 		} else if (atributo.equalsIgnoreCase("IEA")) {
-			this.IEA = Double.parseDouble(novoAtributo);
+			double novoIEA = Double.parseDouble(novoAtributo);
+			
+			ValidadorDeEntradas.verificaIEA(novoIEA, "Atributo IEA com formato invalido.");
+
+			this.IEA = novoIEA;
 		} else {
 			throw new RuntimeException("Atributo invalido.");
 		}
