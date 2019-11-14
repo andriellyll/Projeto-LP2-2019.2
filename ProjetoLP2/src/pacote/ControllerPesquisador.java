@@ -275,4 +275,16 @@ public class ControllerPesquisador implements Buscavel {
 		}
 		return String.join(" | ", saida);
 	}
+
+	// -----------------------------------------------------------Novas Atualizacoes (Parte 3)----------------------------------------------
+	
+	public void iniciaArquivamento() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finalizaArquivamento() {
+		// TODO Auto-generated method stub
+		
+	}
 }

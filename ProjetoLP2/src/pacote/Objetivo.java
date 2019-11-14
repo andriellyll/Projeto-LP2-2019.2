@@ -1,5 +1,7 @@
 package pacote;
 
+import java.io.Serializable;
+
 /**
  * Representa um objetivo, seja ele geral ou especifico, que esta inserido em um
  * contexto de uma pesquisa.
@@ -7,7 +9,12 @@ package pacote;
  * @author Helen Bento Cavalcanti
  *
  */
-public class Objetivo {
+public class Objetivo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 747427585918157717L;
 
 	/**
 	 * Atributo em string que representa o tipo da pesquisa, que pode ser geral ou

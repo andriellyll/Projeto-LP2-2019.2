@@ -435,4 +435,16 @@ public class ControllerPesquisa implements Buscavel {
 		return this.pesquisas.get(codigoDaPesquisa)
 				.desassociaPesquisador(controllerPesquisador.getPesquisador(emailPesquisador));
 	}
+
+// -----------------------------------------------------------Novas Atualizacoes (Parte 3)----------------------------------------------
+
+	public void iniciaArquivamento() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void finalizaArquivamento() {
+		// TODO Auto-generated method stub
+
+	}
 }

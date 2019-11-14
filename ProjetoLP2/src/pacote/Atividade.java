@@ -1,5 +1,6 @@
 package pacote;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,8 +16,12 @@ import java.util.Map;
  * @author Henrique Lemos
  */
 
-public class Atividade {
+public class Atividade implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6324762890418621301L;
 	/**
 	 * Cada atividade apresenta uma descricao dela, um nivel de risco apresentado em
 	 * ate tres niveis, a descricao deste risco, a quantidade de dias e seus itens

@@ -356,4 +356,14 @@ public class ControllerAtividade implements Buscavel {
 
 		
 	}
+
+	public void iniciaArquivamento() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finalizaArquivamento() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,11 +1,18 @@
 package pacote;
 
+import java.io.Serializable;
+
 /**
  * Representa um problema, a ser resolvido em um contexto de uma pesquisa.
  * 
  * @author Helen Bento Cavalcanti
  */
-public class Problema {
+public class Problema implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7657930956736629418L;
 
 	/**
 	 * Atributo em string que representa a descricao desse problema.
