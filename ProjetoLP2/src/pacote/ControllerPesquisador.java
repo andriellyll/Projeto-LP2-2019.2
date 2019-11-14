@@ -192,6 +192,7 @@ public class ControllerPesquisador implements Buscavel {
 	 * @return Lista de Strings com as biografias que contiverem a palavra-chave
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
 		
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
