@@ -47,6 +47,16 @@ public class Atividade {
 	 * Armazena a quantidade de posicoes de resultados ja cadastradas
 	 */
 	private int posicoesCadastradas;
+	
+	/**
+	 * 
+	 */
+	private int posicao;
+	
+	/**
+	 * 
+	 */
+	private Atividade proximaPosicao;
 
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
@@ -187,7 +197,7 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
-//---------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
+//---------------------------------------- Atividade (Parte 2) ---------------------------------------------------------------------
 
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa
@@ -354,4 +364,12 @@ public class Atividade {
 		return true;
 
 	}
+	
+//------------------------------------- Atividade (Parte 3) ------------------------------------------
+
+	public void atribuiPosicao(int valorPosicao) {
+		this.posicao = valorPosicao;
+	}
+
+
 }

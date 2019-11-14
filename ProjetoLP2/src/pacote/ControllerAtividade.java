@@ -351,7 +351,9 @@ public class ControllerAtividade implements Buscavel {
 //----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
 	
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
-		// TODO Auto-generated method stub
+		atividades.get(idPrecedente).atribuiPosicao(1);
+		
+
 		
 	}
 }
