@@ -20,9 +20,8 @@ class AtividadeTest {
 		Period data = Period.ofDays(8);
 		atividade = new Atividade("A1", "Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO", "Por se tratar de apenas um monitoramento, o risco nao e elevado.");
 		atividade.adicionaItem("Monitoramento facebook/messenger", 1);
-		new Pesquisa("PAR1", "Nao acredito que tenho que fazer isso ate aqui.", "Para ninguem");
-//		controllerAtividade.cadastraAtividade("Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO", "Por se tratar de apenas um monitoramento, o risco nao e elevado.");
-//		controllerAtividade.associaPesquisa("PAR1", "A1");
+		Pesquisa pesquisa = new Pesquisa("PAR1", "Nao acredito que tenho que fazer isso ate aqui.", "Para ninguem");
+		atividade.associaPesquisa(pesquisa);
 	}
 	
 	@Test
@@ -117,34 +116,76 @@ class AtividadeTest {
 	@Test
 	public void testExecutaAtividade() {
 		atividade.executaAtividade(1, 10);
+		assertEquals(atividade.getDuracao(), 10);
 	}
 	
-//	@Test
-//	public void testExecutaAtividadeInvalido() {
-//		assertThrows(IllegalArgumentException.class, () -> atividade.executaAtividade(2, 0), "Item nao encontrado.");
-//	}
-//	
-//	@Test
-//	public void testCadastraResultado() {
-//		atividade.cadastraResultado("Monitoramento do facebook realizado com sucesso");
-//		atividade.cadastraResultado("Monitoramento do slack realizado com sucesso");
-//		assertEquals(atividade.listaResultados(), "Monitoramento do facebook realizado com sucesso | Monitoramento do slack realizado com sucesso");
-//	}
-//	
-//	@Test
-//	public void testCadastraResultadoInvalido() {
-//		assertThrows(IllegalArgumentException.class, () -> atividade.cadastraResultado(null), "Campo resultado nao pode ser nulo ou vazio.");
-//		assertThrows(IllegalArgumentException.class, () -> atividade.cadastraResultado("   "), "Campo resultado nao pode ser nulo ou vazio.");
-//	}
-//	
-//	@Test
-//	public void testRemoveResultado() {
-//		atividade.cadastraResultado("Monitoramento do facebook realizado com sucesso");
-//		atividade.cadastraResultado("Monitoramento do slack realizado com sucesso");
-//	}
-//	
-//	@Test
-//	public void testListaResultados() {
-//		
-//	}
+	@Test
+	public void testExecutaAtividadeInvalido() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.executaAtividade(1, 10);
+		assertThrows(IllegalArgumentException.class, () -> atividade.executaAtividade(2, 30), "Item nao encontrado.");
+		assertThrows(IllegalArgumentException.class, () -> atividade.executaAtividade(1, 25), "Item ja executado.");
+		assertThrows(IllegalArgumentException.class, () -> atividade2.executaAtividade(1, 30), "Atividade sem associacoes com pesquisas.");
+	}
+	
+	@Test
+	public void testCadastraResultado() {
+		atividade.cadastraResultado("Monitoramento do facebook realizado com sucesso");
+		atividade.cadastraResultado("Monitoramento do slack realizado com sucesso");
+		assertEquals(atividade.listaResultados(), "Monitoramento do facebook realizado com sucesso | Monitoramento do slack realizado com sucesso");
+	}
+	
+	@Test
+	public void testCadastraResultadoInvalido() {
+		assertThrows(NullPointerException.class, () -> atividade.cadastraResultado(null), "Campo resultado nao pode ser nulo ou vazio.");
+		assertThrows(IllegalArgumentException.class, () -> atividade.cadastraResultado("   "), "Campo resultado nao pode ser nulo ou vazio.");
+	}
+	
+	@Test
+	public void testRemoveResultado() {
+		atividade.cadastraResultado("Monitoramento do facebook realizado com sucesso");
+		atividade.cadastraResultado("Monitoramento do slack realizado com sucesso");
+		atividade.removeResultado(2);
+		assertEquals(atividade.listaResultados(), "Monitoramento do facebook realizado com sucesso");
+	}
+	
+	@Test
+	public void testRemoveResultadoInvalido() {
+		atividade.cadastraResultado("Esse grupo e so sucesso");
+		atividade.cadastraResultado("Monitoramento do slack realizado com sucesso");
+		atividade.removeResultado(2);
+		assertFalse(atividade.removeResultado(2));
+		assertThrows(IllegalArgumentException.class, () -> atividade.removeResultado(3), "Resultado nao encontrado.");
+	}
+	
+	@Test
+	public void testListaResultados() {
+		atividade.cadastraResultado("Esse grupo e so sucesso");
+		atividade.cadastraResultado("Ainda mais com o melhor professor e os melhores monitores");
+		assertEquals(atividade.listaResultados(), "Esse grupo e so sucesso | Ainda mais com o melhor professor e os melhores monitores");
+	}
+	
+	@Test
+	public void testAssociaPesquisa() {
+		Pesquisa pesquisa = new Pesquisa("PAR2", "Mas uma pesquisa para ajudar nos testes", "Para testar");
+		assertTrue(atividade.associaPesquisa(pesquisa));
+	}
+	
+	@Test
+	public void testAssociaPesquisaInvalido() {
+		Pesquisa pesquisa = new Pesquisa("PAR3", "Olha a pesquisa ai gente", "Para ninguem");
+		atividade.associaPesquisa(pesquisa);
+		assertFalse(atividade.associaPesquisa(pesquisa));
+	}
+	
+	@Test
+	public void testDesassociaPesquisa() {
+		assertTrue(atividade.desassociaPesquisa());
+	}
+	
+	@Test
+	public void testDesassociaPesquisaInvalido() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		assertFalse(atividade2.desassociaPesquisa());
+	}
 }
