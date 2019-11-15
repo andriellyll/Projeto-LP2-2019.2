@@ -1,8 +1,13 @@
 package pacote;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +22,12 @@ import java.util.Set;
  * 
  * @author Anna Beatriz Lucena
  */
-public class Pesquisa implements Comparable<Pesquisa> {
+public class Pesquisa implements Comparable<Pesquisa>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7431197778358334391L;
 
 	/**
 	 * Representa a decricao da pesquisa.
@@ -56,10 +66,13 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	private Set<Objetivo> objetivosDaPesquisa;
 
 	/**
-	 * 
+	 * Conjunto de pesquisadores associados a pesquisa.
 	 */
 	private Set<Pesquisador> pesquisadoresAssociados;
-
+	/**
+	 * Conjunto de atividades associadas a pesquisa.
+	 */
+	private Set<Atividade> atividadesAssociadas;
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
 	 * e do campo de interesse. Caso os parametros forem nulos ou vazios excecoes
@@ -80,8 +93,9 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		this.codigo = codigo;
 		this.ehAtivada = true;
 		this.problemaDaPesquisa = null;
-		this.objetivosDaPesquisa = new HashSet<>();
-		this.pesquisadoresAssociados = new HashSet<>();
+		this.objetivosDaPesquisa = new LinkedHashSet<>();
+		this.pesquisadoresAssociados = new LinkedHashSet<>();
+		this.atividadesAssociadas = new LinkedHashSet<>();
 	}
 
 	/**
@@ -357,7 +371,7 @@ public class Pesquisa implements Comparable<Pesquisa> {
 	}
 
 	/**
-	 * 
+	
 	 * 
 	 * @param pesquisador
 	 * @return
@@ -368,5 +382,67 @@ public class Pesquisa implements Comparable<Pesquisa> {
 		}
 		pesquisadoresAssociados.remove(pesquisador);
 		return true;
+	}
+	/**
+	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas informacoes (pesquisadores, objetivos, atividades e problema).
+	 * @return a String resumo
+	 */
+	private String gerarResumo() {
+		
+		String resumo = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores";
+		
+		for (Pesquisador pesquisador: pesquisadoresAssociados) {
+			resumo += System.lineSeparator() + "\t\t-" + pesquisador.toString();
+		}
+		
+		if(this.problemaDaPesquisa != null) {
+			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t-" + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";			
+		}
+		
+		for (Objetivo objetivo : objetivosDaPesquisa) {
+			resumo += System.lineSeparator() + "\t\t-" + objetivo.toString();
+		}
+		
+		for (Atividade atividade : atividadesAssociadas) {
+			resumo += System.lineSeparator() + "\t\t-" + atividade.toString();
+		}
+		
+		return resumo;
+	}
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre os pesquisadores, objetivos, atividades e problema da pesquisa.
+	 * @throws IOException 
+	 * 
+	 */
+	public void gravarResumo() throws IOException {
+		OutputStream out = new FileOutputStream(new File(this.codigo  + ".txt"));
+		String resumo = gerarResumo();
+		out.write(resumo.getBytes(), 0, resumo.length());
+		out.close();
+	}
+	/**
+	 * Metodo auxiliar que gera uma String que contem os resultados da pesquisa e os itens realizados.
+	 * @return String dos resultados
+	 */
+	private String resultadosPesquisa() {
+		String resultados = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
+		
+		for (Atividade atividade : atividadesAssociadas) {
+			resultados += System.lineSeparator() + "\t\t" + atividade.getResultados();
+		}
+		
+		return resultados;
+	}
+	
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre os pesquisadores, objetivos, atividades e problema da pesquisa.
+	 * @throws IOException 
+	 * 
+	 */
+	public void gravarResultados() throws IOException {
+		OutputStream out = new FileOutputStream(new File(this.codigo  + "-Resultados.txt"));
+		String resultados = resultadosPesquisa();
+		out.write(resultados.getBytes(), 0, resultados.length());
+		out.close();
 	}
 }

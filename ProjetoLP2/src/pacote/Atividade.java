@@ -1,5 +1,6 @@
 package pacote;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,17 +16,36 @@ import java.util.Map;
  * @author Henrique Lemos
  */
 
-public class Atividade {
+public class Atividade implements Serializable {
 
 	/**
-	 * Cada atividade apresenta uma descricao dela, um nivel de risco apresentado em
-	 * ate tres niveis, a descricao deste risco, a quantidade de dias e seus itens
-	 * para a conclusao da atividade, para obtencao de um resultado.
+	 * 
+	 */
+	private static final long serialVersionUID = -6324762890418621301L;
+	
+	/**
+	 * Codigo de identificacao unico de atividade
 	 */
 	private String codigo;
+	
+	/**
+	 * Cada atividade apresenta sua descricao
+	 */
 	private String descricao;
+	
+	/**
+	 * Um nivel de risco apresentado classificado em ate tres niveis
+	 */
 	private String nivelRisco;
+	
+	/**
+	 * Descricao do risco
+	 */
 	private String descricaoRisco;
+	
+	/**
+	 * Seus itens para a conclusao da atividade, para obtencao de um resultado.
+	 */
 	private List<Item> itens;
 
 	/**
@@ -47,6 +67,11 @@ public class Atividade {
 	 * Armazena a quantidade de posicoes de resultados ja cadastradas
 	 */
 	private int posicoesCadastradas;
+	
+	/**
+	 * 
+	 */
+	private Atividade seguinteNaCadeia;
 
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
@@ -187,7 +212,7 @@ public class Atividade {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
-//---------------------------------------- Novas atualizacoes de Atividade ---------------------------------------------------------------------
+//---------------------------------------- Atividade (Parte 2) ---------------------------------------------------------------------
 
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa
@@ -353,5 +378,58 @@ public class Atividade {
 		this.pesquisa = null;
 		return true;
 
+	}
+	
+//------------------------------------- Atividade (Parte 3) ------------------------------------------
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public boolean existeProximo() {
+		if (seguinteNaCadeia != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public Atividade getSeguinteNaCadeia() {
+		return seguinteNaCadeia;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param proximo
+	 */
+	public void adicionaNaCadeia(Atividade proximo) {
+		if (this.seguinteNaCadeia == null) {
+			this.seguinteNaCadeia = proximo;
+		}
+		if (proximo.ehLoop(this)) {
+			throw new RuntimeException("Criacao de loops negada.");
+		}
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param compara
+	 * @return
+	 */
+	private boolean ehLoop(Atividade compara) {
+		if (this.seguinteNaCadeia == null) {
+			return this.equals(compara);
+		}
+		if (this.equals(compara)) {
+			return true;
+		}
+		return this.seguinteNaCadeia.ehLoop(compara);
 	}
 }

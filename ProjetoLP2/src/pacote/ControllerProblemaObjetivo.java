@@ -1,5 +1,10 @@
 package pacote;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -186,24 +191,24 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	 * Metodo responsavel por associar uma pesquisa a um objetivo.
 	 * 
 	 * @param idObjetivo - valor de identificacao do objetivo
-	 * @param pesquisa objeto pesquisa a ser associado
+	 * @param pesquisa   objeto pesquisa a ser associado
 	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean associaPesquisa(String idObjetivo, Pesquisa pesquisa) {
 		return objetivos.get(idObjetivo).associaPesquisa(pesquisa);
 	}
-	
+
 	/**
 	 * Metodo responsavel por desassociar uma pesquisa de um objetivo.
 	 * 
 	 * @param idObjetivo - valor de identificacao do objetivo
-	 * @param pesquisa objeto pesquisa a ser desassociado
+	 * @param pesquisa   objeto pesquisa a ser desassociado
 	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean desassociaPesquisa(String idObjetivo, Pesquisa pesquisa) {
 		return objetivos.get(idObjetivo).desassociaPesquisa(pesquisa);
 	}
-	
+
 	/**
 	 * Metodo responsavel por resgatar um determinado objetivo, existente.
 	 * 
@@ -280,5 +285,42 @@ public class ControllerProblemaObjetivo implements Buscavel {
 		ArrayList<String> resultados = (ArrayList<String>) procuraPalavraChaveProblema(palavraChave);
 		resultados.addAll(procuraPalavraChaveObjetivo(palavraChave));
 		return resultados;
+	}
+
+	// -----------------------------------------------------------Novas Atualizacoes
+	// (Parte 3)----------------------------------------------
+	public void salvar() {
+
+		ObjectOutputStream oosProblemas = null;
+		ObjectOutputStream oosObjetivos = null;
+
+		try {
+			oosProblemas = new ObjectOutputStream(new FileOutputStream("problema.txt"));
+			oosObjetivos = new ObjectOutputStream(new FileOutputStream("objetivo.txt"));
+			oosProblemas.writeObject(problemas);
+			oosObjetivos.writeObject(objetivos);
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public void carregar() {
+
+		ObjectInputStream oisProblemas = null;
+		ObjectInputStream oisObjetivos = null;
+
+		try {
+			oisProblemas = new ObjectInputStream(new FileInputStream("problema.txt"));
+			oisObjetivos = new ObjectInputStream(new FileInputStream("objetivo.txt"));
+			this.problemas = (HashMap<String, Problema>) oisProblemas.readObject();
+			this.objetivos = (HashMap<String, Objetivo>) oisObjetivos.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
 	}
 }

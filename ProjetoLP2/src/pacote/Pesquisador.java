@@ -1,5 +1,7 @@
 package pacote;
 
+import java.io.Serializable;
+
 /**
  * Representacao de um Pesquisador no sistema. Cada pesquisador e identificado
  * unicamente pelo seu email.
@@ -7,7 +9,11 @@ package pacote;
  * @author Andrielly de Lima Lucena - 119110268
  *
  */
-public class Pesquisador {
+public class Pesquisador implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4111587496949639749L;
 	/**
 	 * Nome do pesquisador
 	 */

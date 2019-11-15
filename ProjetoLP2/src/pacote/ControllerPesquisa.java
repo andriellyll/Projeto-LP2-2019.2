@@ -1,5 +1,10 @@
 package pacote;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -435,4 +440,48 @@ public class ControllerPesquisa implements Buscavel {
 		return this.pesquisas.get(codigoDaPesquisa)
 				.desassociaPesquisador(controllerPesquisador.getPesquisador(emailPesquisador));
 	}
+
+// -----------------------------------------------------------Novas Atualizacoes (Parte 3)----------------------------------------------
+	public void salvar() {
+
+		ObjectOutputStream oosPesquisas = null;
+		try {
+			oosPesquisas = new ObjectOutputStream(new FileOutputStream("pesquisa.txt"));
+			oosPesquisas.writeObject(pesquisas);
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public void carregar() {
+
+		ObjectInputStream oisPesquisas = null;
+
+		try {
+			oisPesquisas = new ObjectInputStream(new FileInputStream("pesquisa.txt"));
+			this.pesquisas = (HashMap <String, Pesquisa>)oisPesquisas.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+	}
+	
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		verificaPesquisaExiste(codigoPesquisa);
+		
+		pesquisas.get(codigoPesquisa).gravarResumo();
+	}
+	
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		verificaPesquisaExiste(codigoPesquisa);
+		
+		pesquisas.get(codigoPesquisa).gravarResumo();
+	}
+
 }

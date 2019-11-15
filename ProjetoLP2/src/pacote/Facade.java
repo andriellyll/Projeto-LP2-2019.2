@@ -15,14 +15,15 @@ public class Facade {
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
 		controllerPesquisa = new ControllerPesquisa(controllerPesquisador, controllerProblemaObjetivo);
 		controllerAtividade = new ControllerAtividade(controllerPesquisa);
-		controllerBusca = new ControllerBusca(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo, controllerAtividade);
+		controllerBusca = new ControllerBusca(controllerPesquisa, controllerPesquisador, controllerProblemaObjetivo,
+				controllerAtividade);
 	}
 
 	public static void main(String[] args) {
 		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
 				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
 				"testes_aceitacao/use_case_6.txt", "testes_aceitacao/use_case_7.txt",
-				"testes_aceitacao/use_case_8.txt" };
+				"testes_aceitacao/use_case_8.txt", "testes_aceitacao/use_case_9.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -217,5 +218,48 @@ public class Facade {
 
 	public int contaResultadosBusca(String termo) {
 		return controllerBusca.contaResultadosBusca(termo);
+	}
+
+//Ordem das Atividades:
+
+	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
+		this.controllerAtividade.defineProximaAtividade(idPrecedente, idSubsequente);
+	}
+
+	public void tiraProximaAtividade(String idPrecedente) {
+
+	}
+
+	public int contaProximos(String idPrecedente) {
+		return 0;
+	}
+
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		return null;
+	}
+
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+		return null;
+	}
+
+//Proxima Atividade:
+
+//Resultados:
+
+//Persistencia:
+
+	public void salva() {
+		this.controllerPesquisa.salvar();
+		this.controllerPesquisador.salvar();
+		this.controllerAtividade.salvar();
+		this.controllerProblemaObjetivo.salvar();
+
+	}
+
+	public void carrega() {
+		this.controllerPesquisa.carregar();
+		this.controllerPesquisador.carregar();
+		this.controllerAtividade.carregar();
+		this.controllerProblemaObjetivo.carregar();
 	}
 }

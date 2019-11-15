@@ -1,5 +1,11 @@
 package pacote;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -117,8 +123,9 @@ public class ControllerPesquisador implements Buscavel {
 				|| atributo.equalsIgnoreCase("DATA") || atributo.equalsIgnoreCase("SEMESTRE")
 				|| atributo.equalsIgnoreCase("IEA")) {
 			ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio.");
-			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novo atributo nao pode ser nulo ou vazio.");
-			
+			ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo,
+					"Campo novo atributo nao pode ser nulo ou vazio.");
+
 			Pesquisador pesquisador = pesquisadores.get(email);
 			pesquisador.setEspecialidade(atributo, novoAtributo);
 		} else {
@@ -193,7 +200,7 @@ public class ControllerPesquisador implements Buscavel {
 	 */
 	public List<String> procuraPalavraChave(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
-		
+
 		ArrayList<String> resultadosBusca = new ArrayList<>();
 
 		for (Pesquisador pesquisador : this.pesquisadores.values()) {
@@ -274,5 +281,36 @@ public class ControllerPesquisador implements Buscavel {
 			}
 		}
 		return String.join(" | ", saida);
+	}
+
+	// -----------------------------------------------------------Novas Atualizacoes
+	// (Parte 3)----------------------------------------------
+
+	public void salvar() {
+
+		ObjectOutputStream oosPesquisadores = null;
+		try {
+			oosPesquisadores = new ObjectOutputStream(new FileOutputStream("pesquisador.txt"));
+			oosPesquisadores.writeObject(pesquisadores);
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public void carregar() {
+
+		ObjectInputStream oisPesquisadores = null;
+
+		try {
+			oisPesquisadores = new ObjectInputStream(new FileInputStream("pesquisador.txt"));
+			this.pesquisadores = (HashMap <String, Pesquisador>)oisPesquisadores.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
 	}
 }
