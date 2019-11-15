@@ -361,26 +361,38 @@ public class ControllerAtividade implements Buscavel {
 
 //----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
 
+	/**
+	 * 
+	 * 
+	 * @param idPrecedente
+	 * @param idSubsequente
+	 */
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idSubsequente, "Atividade nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(idSubsequente);
-		verificaAtividadeExiste(idSubsequente);
-		if (atividades.get(idPrecedente).estaNaCadeia()) {
-			if (atividades.get(idPrecedente).existeProximo()) {
-				atividades.get(idPrecedente).adicionaNaCadeia(0, atividades.get(idSubsequente));
-			} else {
 
-			}
-		} else {
-
+//----------------------------------------------------------------------------------------------------------------
+		
+		if (!atividades.containsKey(idPrecedente)) {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
 		}
-//		if (!atividades.get(idPrecedente).estaNaCadeia()) {
-//			
-//		}
-
+		if (!atividades.containsKey(idSubsequente)) {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+		
+//----------------------------------------------------------------------------------------------------------------
+//		verificaAtividadeExiste(idPrecedente);
+//		verificaAtividadeExiste(idSubsequente);
+		
+		if (atividades.get(idPrecedente).existeProximo()) {
+			throw new RuntimeException("Atividade ja possui uma subsequente.");
+		}
+		atividades.get(idPrecedente).adicionaNaCadeia(atividades.get(idSubsequente));
 	}
+	
+	
 
+	
 	public void salvar() {
 
 		ObjectOutputStream oosAtividades = null;

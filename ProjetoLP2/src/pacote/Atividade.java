@@ -71,11 +71,6 @@ public class Atividade implements Serializable {
 	/**
 	 * 
 	 */
-	private int posicaoNaCadeia;
-	
-	/**
-	 * 
-	 */
 	private Atividade seguinteNaCadeia;
 
 	/**
@@ -386,14 +381,12 @@ public class Atividade implements Serializable {
 	}
 	
 //------------------------------------- Atividade (Parte 3) ------------------------------------------
-
-	public boolean estaNaCadeia() {
-		if (posicaoNaCadeia != 0) {
-			return true;
-		}
-		return false;
-	}
 	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public boolean existeProximo() {
 		if (seguinteNaCadeia != null) {
 			return true;
@@ -401,10 +394,42 @@ public class Atividade implements Serializable {
 		return false;
 	}
 	
-	public void adicionaNaCadeia(int valorPosicao, Atividade proximo) {
-		this.posicaoNaCadeia = valorPosicao;
-		this.seguinteNaCadeia = proximo;
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public Atividade getSeguinteNaCadeia() {
+		return seguinteNaCadeia;
 	}
 
-
+	/**
+	 * 
+	 * 
+	 * @param proximo
+	 */
+	public void adicionaNaCadeia(Atividade proximo) {
+		if (this.seguinteNaCadeia == null) {
+			this.seguinteNaCadeia = proximo;
+		}
+		if (proximo.ehLoop(this)) {
+			throw new RuntimeException("Criacao de loops negada.");
+		}
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param compara
+	 * @return
+	 */
+	private boolean ehLoop(Atividade compara) {
+		if (this.seguinteNaCadeia == null) {
+			return this.equals(compara);
+		}
+		if (this.equals(compara)) {
+			return true;
+		}
+		return this.seguinteNaCadeia.ehLoop(compara);
+	}
 }
