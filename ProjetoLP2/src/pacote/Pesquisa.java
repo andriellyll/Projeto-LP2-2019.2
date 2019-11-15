@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,7 +23,12 @@ import java.util.Set;
  * 
  * @author Anna Beatriz Lucena
  */
-public class Pesquisa implements Comparable<Pesquisa> {
+public class Pesquisa implements Comparable<Pesquisa>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7431197778358334391L;
 
 	/**
 	 * Representa a decricao da pesquisa.
