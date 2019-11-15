@@ -443,45 +443,32 @@ public class ControllerPesquisa implements Buscavel {
 	}
 
 // -----------------------------------------------------------Novas Atualizacoes (Parte 3)----------------------------------------------
+	public void salvar() {
 
-	public void iniciaArquivamento() {
-//		lerArquivos();
+		ObjectOutputStream oosPesquisas = null;
+		try {
+			oosPesquisas = new ObjectOutputStream(new FileOutputStream("pesquisa.txt"));
+			oosPesquisas.writeObject(pesquisas);
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
 
 	}
 
-	public void finalizaArquivamento() {
-		escreverArquivos();
+	@SuppressWarnings("unchecked")
+	public void carregar() {
 
+		ObjectInputStream oisPesquisas = null;
+
+		try {
+			oisPesquisas = new ObjectInputStream(new FileInputStream("pesquisa.txt"));
+			this.pesquisas = (HashMap <String, Pesquisa>)oisPesquisas.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
 	}
-
-	private void escreverArquivos() {
-		 ObjectOutputStream oosPesquisas = null;
-
-	        try {
-	        	oosPesquisas = new ObjectOutputStream(new FileOutputStream("saves"+ File.separator + "ControllerPesquisa.dat"));
-	        	oosPesquisas.writeObject(this.pesquisas);
-
-	        } catch (IOException e2) {
-	            e2.printStackTrace();
-	        }
-	    }
-
-//	private void lerArquivos() {
-//		 ObjectInputStream oisPesquisas = null;
-//
-//	        try {
-//	        	oisPesquisas = new ObjectInputStream(new FileInputStream( "saves"+ File.separator + "ControllerPesquisa.dat"));
-//	            Map<String, Pesquisa> pesquisasCadastradas = (HashMap<String, Pesquisa>) oisPesquisas.readObject();
-//	            this.pesquisas = pesquisasCadastradas;
-//	        
-//	        } catch (IOException e) {
-//	            this.escreverArquivos();
-//	            this.iniciaArquivamento();
-//
-//	        } catch (ClassNotFoundException e) {
-//	            e.printStackTrace();
-//	        }
-//
-//	}
 
 }
