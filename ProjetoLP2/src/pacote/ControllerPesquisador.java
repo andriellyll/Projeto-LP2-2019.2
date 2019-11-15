@@ -75,8 +75,9 @@ public class ControllerPesquisador implements Buscavel {
 
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
-
-		Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoUrl);
+		
+		int ordemCadastro = pesquisadores.size();
+		Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoUrl, ordemCadastro);
 		this.pesquisadores.put(email, pesquisador);
 	}
 

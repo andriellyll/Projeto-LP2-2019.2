@@ -25,6 +25,8 @@ public class Item {
 	 */
 	private String situacao;
 
+	private int duracao;
+
 	/**
 	 * Construtor que cria um novo item a partir de uma descricao do item e seu
 	 * codigo unico.
@@ -72,11 +74,16 @@ public class Item {
 
 	/**
 	 * 
+	 * @param duracao 
 	 * @return
 	 */
-	public void executa() {
+	public void executa(int duracao) {
 		this.situacao = "REALIZADO";
-
+		this.duracao = duracao;
+	}
+	
+	public String exibeItem() {
+		return this.codigo + " - " + this.duracao;
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package pacote;
 
+import java.io.IOException;
+
 import easyaccept.EasyAccept;
 
 public class Facade {
@@ -20,10 +22,10 @@ public class Facade {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "pacote.Facade", "testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
-				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_6.txt", "testes_aceitacao/use_case_7.txt",
-				"testes_aceitacao/use_case_8.txt", "testes_aceitacao/use_case_9.txt" };
+		args = new String[] { "pacote.Facade", "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
+				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
+				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt",
+				"easyaccept/use_case_08.txt", "easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -245,6 +247,14 @@ public class Facade {
 //Proxima Atividade:
 
 //Resultados:
+	
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		controllerPesquisa.gravarResumo(codigoPesquisa);
+	}
+	
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		controllerPesquisa.gravarResultados(codigoPesquisa);
+	}
 
 //Persistencia:
 
