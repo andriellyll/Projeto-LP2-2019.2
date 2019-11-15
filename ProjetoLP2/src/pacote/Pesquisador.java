@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Andrielly de Lima Lucena - 119110268
  *
  */
-public class Pesquisador implements Serializable {
+public class Pesquisador implements Serializable, Comparable<Pesquisador> {
 	/**
 	 * 
 	 */
@@ -44,6 +44,7 @@ public class Pesquisador implements Serializable {
 	 * Boolean que representa se o pesquisador esta ou nao ativo
 	 */
 	private boolean isAtivo;
+	private int ordemDeCadastro;
 
 	/**
 	 * Constroi um pesquisador a partir do nome, funcao, biografia, email e URL da
@@ -55,7 +56,7 @@ public class Pesquisador implements Serializable {
 	 * @param email     email do pesquisador
 	 * @param fotoUrl   URL da foto do pesquisador
 	 */
-	public Pesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
+	public Pesquisador(String nome, String funcao, String biografia, String email, String fotoUrl, int ordemDeCadastro) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(nome, "Campo nome nao pode ser nulo ou vazio");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(funcao, "Campo funcao nao pode ser nulo ou vazio");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(biografia, "Campo biografia nao pode ser nulo ou vazio");
@@ -70,6 +71,7 @@ public class Pesquisador implements Serializable {
 		this.foto = fotoUrl;
 		this.funcao = funcao;
 		this.isAtivo = true;
+		this.ordemDeCadastro = ordemDeCadastro;
 	}
 
 	/**
@@ -276,5 +278,14 @@ public class Pesquisador implements Serializable {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novo atributo nao pode ser nulo ou vazio.");
 		
 		especialidade.setEspecialidade(atributo, novoAtributo);
+	}
+
+	@Override
+	public int compareTo(Pesquisador pesquisador2) {
+		return this.ordemDeCadastro - pesquisador2.getOrdemDeCadastro();
+	}
+
+	private int getOrdemDeCadastro() {
+		return this.ordemDeCadastro;
 	}
 }

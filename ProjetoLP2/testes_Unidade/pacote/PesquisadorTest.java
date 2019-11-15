@@ -14,21 +14,21 @@ public class PesquisadorTest {
 	
 	@BeforeEach
 	public void criaPesquisador() {
-		pesquisador1 = new Pesquisador("Anna", "estudante", "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com");		
+		pesquisador1 = new Pesquisador("Anna", "estudante", "gosta de matematica", "anna.lira@ccc.ufcg.edu.br", "https://annabeatrizlucena.com", 1);		
 		
 	}
 	@Test
 	void criaPesquisNomeNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			new Pesquisador(null, "estudante", "Perfeita demais",
-					"andrielly11@ccc.ufcg.edu.br", "https://godspeed");
+					"andrielly11@ccc.ufcg.edu.br", "https://godspeed", 2);
 		});
 	}
 	@Test
 	void criaPequisadorNomeVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			new Pesquisador("", "estudante", "Perfeita demais", "andrielly11@ccc.ufcg.edu.br",
-					"https://godspeed");
+					"https://godspeed", 2);
 		});
 
 	}
@@ -37,7 +37,7 @@ public class PesquisadorTest {
 	void criaPequisadorFuncaoNula() {
 		assertThrows(NullPointerException.class, () -> {
 			new Pesquisador("Andrielly", null, "Perfeita demais",
-					"andrielly11@ccc.ufcg.edu.br", "https://godspeed");
+					"andrielly11@ccc.ufcg.edu.br", "https://godspeed", 2);
 		});
 
 	}
@@ -45,7 +45,7 @@ public class PesquisadorTest {
 	void criaPequisadorFuncaoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			new Pesquisador("Andrielly", "", "Perfeita demais", "andrielly11@ccc.ufcg.edu.br",
-					"https://godspeed");
+					"https://godspeed", 2);
 		});
 
 	}
@@ -53,7 +53,7 @@ public class PesquisadorTest {
 	void criaPequisadorBiografiaNula() {
 		assertThrows(NullPointerException.class, () -> {
 			new Pesquisador("Andrielly", "estudante", null, "andrielly11@ccc.ufcg.edu.br",
-					"https://godspeed");
+					"https://godspeed", 2);
 		});
 
 	}
@@ -62,7 +62,7 @@ public class PesquisadorTest {
 	void criaPequisadorBiografiaVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			new Pesquisador("Andrielly", "estudante", "", "andrielly11@ccc.ufcg.edu.br",
-					"https://godspeed");
+					"https://godspeed", 2);
 		});
 
 	}
@@ -71,7 +71,7 @@ public class PesquisadorTest {
 	void criaPequisadorEmailNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			new Pesquisador("Andrielly", "estudante", "Perfeita demais", null,
-					"https://godspeed");
+					"https://godspeed", 2);
 		});
 
 	}
@@ -80,7 +80,7 @@ public class PesquisadorTest {
 	void criaPequisadorEmailVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			new Pesquisador("Andrielly", "estudante", "Perfeita demais", "",
-					"https://godspeed");
+					"https://godspeed", 2);
 		});
 
 	}

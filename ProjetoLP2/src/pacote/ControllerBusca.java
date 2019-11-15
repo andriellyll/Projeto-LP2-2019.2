@@ -104,7 +104,7 @@ public class ControllerBusca {
 
 		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
 
-		if (numeroResultado >= resultadosBusca.size()) {
+		if (numeroResultado > resultadosBusca.size()) {
 			throw new RuntimeException("Entidade nao encontrada.");
 		}
 
