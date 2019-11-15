@@ -249,18 +249,17 @@ public class Facade {
 //Persistencia:
 
 	public void salva() {
-		this.controllerPesquisa.iniciaArquivamento();
-		this.controllerPesquisador.iniciaArquivamento();
-		this.controllerAtividade.iniciaArquivamento();
-		this.controllerProblemaObjetivo.iniciaArquivamento();
+		this.controllerPesquisa.salvar();
+		this.controllerPesquisador.salvar();
+		//this.controllerAtividade.salvar();
+		this.controllerProblemaObjetivo.salvar();
 
 	}
 
 	public void carrega() {
-
-		this.controllerPesquisa.finalizaArquivamento();
-		this.controllerPesquisador.finalizaArquivamento();
-		this.controllerAtividade.finalizaArquivamento();
-		this.controllerProblemaObjetivo.finalizaArquivamento();
+		this.controllerPesquisa.carregar();
+		this.controllerPesquisador.carregar();
+	//	this.controllerAtividade.carregar();
+		this.controllerProblemaObjetivo.carregar();
 	}
 }
