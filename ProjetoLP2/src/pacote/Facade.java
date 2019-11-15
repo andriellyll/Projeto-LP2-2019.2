@@ -251,7 +251,7 @@ public class Facade {
 	public void salva() {
 		this.controllerPesquisa.salvar();
 		this.controllerPesquisador.salvar();
-		//this.controllerAtividade.salvar();
+		this.controllerAtividade.salvar();
 		this.controllerProblemaObjetivo.salvar();
 
 	}
@@ -259,7 +259,7 @@ public class Facade {
 	public void carrega() {
 		this.controllerPesquisa.carregar();
 		this.controllerPesquisador.carregar();
-	//	this.controllerAtividade.carregar();
+		this.controllerAtividade.carregar();
 		this.controllerProblemaObjetivo.carregar();
 	}
 }

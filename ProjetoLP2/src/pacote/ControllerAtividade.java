@@ -1,5 +1,10 @@
 package pacote;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,18 +26,18 @@ public class ControllerAtividade implements Buscavel {
 	/**
 	 * Conjunto de Atividades reunidas em um mapa onde cada atividade e identificada
 	 * pelo codigo A + valor começando a partir de 1 (ex: A13), gerado
-	 * automaticamente pelo sistema. 
+	 * automaticamente pelo sistema.
 	 */
 	private Map<String, Atividade> atividades;
 
 	/**
-	 * O idVago auxilia o gerador de codigo qual o proximo numero disponivel para 
+	 * O idVago auxilia o gerador de codigo qual o proximo numero disponivel para
 	 * gerar um codigo.
 	 */
 	private int idVago = 1;
 
 	/**
-	 *  O idVagoItem auxilia com o proximo numero disponivel para gerar um codigo.
+	 * O idVagoItem auxilia com o proximo numero disponivel para gerar um codigo.
 	 */
 	private int idVagoItem = 1;
 
@@ -41,7 +46,8 @@ public class ControllerAtividade implements Buscavel {
 	/**
 	 * Contrutor da Classe responsavel por controlar as informacoes das atividades.
 	 * Ele inicializa o mapa de atividades.
-	 * @param controllerPesquisa 
+	 * 
+	 * @param controllerPesquisa
 	 */
 	public ControllerAtividade(ControllerPesquisa controllerPesquisa) {
 		this.controllerPesquisa = controllerPesquisa;
@@ -212,7 +218,7 @@ public class ControllerAtividade implements Buscavel {
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
 		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
-		
+
 		verificaAtividadeExiste(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
@@ -251,7 +257,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
-		
+
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
 
@@ -273,7 +279,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
-		
+
 		if (atividades.containsKey(codigoAtividade)) {
 			return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 		}
@@ -292,7 +298,7 @@ public class ControllerAtividade implements Buscavel {
 	public String listaResultados(String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-		
+
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).listaResultados();
 	}
@@ -309,17 +315,19 @@ public class ControllerAtividade implements Buscavel {
 	public int getDuracao(String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-		
+
 		verificaAtividadeExiste(codigoAtividade);
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 
 	/**
-	 * Associa uma pesquisa a uma atividade a partir do codigo da pesquisa a ser associada e do codigo da atividade.
+	 * Associa uma pesquisa a uma atividade a partir do codigo da pesquisa a ser
+	 * associada e do codigo da atividade.
 	 * 
-	 * @param codigoPesquisa - o codigo da pesquisa a ser associada a uma atividade
+	 * @param codigoPesquisa  - o codigo da pesquisa a ser associada a uma atividade
 	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa associada
-	 * @return - valor booleano true (se a associacao obtiver sucesso) e false (caso a associacao nao obtenha sucesso)
+	 * @return - valor booleano true (se a associacao obtiver sucesso) e false (caso
+	 *         a associacao nao obtenha sucesso)
 	 */
 	public boolean associaPesquisa(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
@@ -331,11 +339,14 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
-	 * Desassocia uma pesquisa de uma atividade a partir do codigo da pesquisa a ser desassociada e do codigo da atividade.
+	 * Desassocia uma pesquisa de uma atividade a partir do codigo da pesquisa a ser
+	 * desassociada e do codigo da atividade.
 	 * 
-	 * @param codigoPesquisa - o codigo da pesquisa a ser desassociada 
-	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa desassociada
-	 * @return - valor booleano true (se a desassociacao obtiver sucesso) e false (caso a desassociacao nao obtenha sucesso)
+	 * @param codigoPesquisa  - o codigo da pesquisa a ser desassociada
+	 * @param codigoAtividade - o codigo da atividade a ter uma pesquisa
+	 *                        desassociada
+	 * @return - valor booleano true (se a desassociacao obtiver sucesso) e false
+	 *         (caso a desassociacao nao obtenha sucesso)
 	 */
 	public boolean desassociaPesquisa(String codigoPesquisa, String codigoAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa,
@@ -349,7 +360,7 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 //----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
-	
+
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idSubsequente, "Atividade nao pode ser nulo ou vazio.");
@@ -359,27 +370,42 @@ public class ControllerAtividade implements Buscavel {
 			if (atividades.get(idPrecedente).existeProximo()) {
 				atividades.get(idPrecedente).adicionaNaCadeia(0, atividades.get(idSubsequente));
 			} else {
-				
+
 			}
 		} else {
-			
+
 		}
 //		if (!atividades.get(idPrecedente).estaNaCadeia()) {
 //			
 //		}
-		
-		
 
-		
 	}
 
-	public void iniciaArquivamento() {
-		// TODO Auto-generated method stub
-		
+	public void salvar() {
+
+		ObjectOutputStream oosAtividades = null;
+		try {
+			oosAtividades = new ObjectOutputStream(new FileOutputStream("atividade.txt"));
+			oosAtividades.writeObject(atividades);
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+
 	}
 
-	public void finalizaArquivamento() {
-		// TODO Auto-generated method stub
-		
+	@SuppressWarnings("unchecked")
+	public void carregar() {
+
+		ObjectInputStream oisAtividades = null;
+
+		try {
+			oisAtividades = new ObjectInputStream(new FileInputStream("atividades.txt"));
+			this.atividades = (HashMap<String, Atividade>) oisAtividades.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
 	}
 }
