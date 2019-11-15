@@ -1,6 +1,5 @@
 package pacote;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -469,6 +468,20 @@ public class ControllerPesquisa implements Buscavel {
 			e.printStackTrace();
 
 		}
+	}
+	
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		verificaPesquisaExiste(codigoPesquisa);
+		
+		pesquisas.get(codigoPesquisa).gravarResumo();
+	}
+	
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		verificaPesquisaExiste(codigoPesquisa);
+		
+		pesquisas.get(codigoPesquisa).gravarResumo();
 	}
 
 }
