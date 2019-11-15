@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A pesquisa e atividade base para a estruturação e criação de um novo
@@ -93,9 +92,9 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		this.codigo = codigo;
 		this.ehAtivada = true;
 		this.problemaDaPesquisa = null;
-		this.objetivosDaPesquisa = new LinkedHashSet<>();
-		this.pesquisadoresAssociados = new LinkedHashSet<>();
-		this.atividadesAssociadas = new LinkedHashSet<>();
+		this.objetivosDaPesquisa = new TreeSet<>();
+		this.pesquisadoresAssociados = new TreeSet<>();
+		this.atividadesAssociadas = new TreeSet<>();
 	}
 
 	/**
@@ -383,6 +382,33 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		pesquisadoresAssociados.remove(pesquisador);
 		return true;
 	}
+	
+	/**
+	 * Associa uma atividade a pesquisa a partir da atividade passasa.
+	 * 
+	 * @param atividade - a atividade a ser adicionada na pesquisa
+	 * @return - o booleano que representa se a atividade foi associada a pesquisa
+	 */
+
+	public boolean associaAtividade(Atividade atividade) {
+		return atividadesAssociadas.add(atividade);
+	}
+
+	/**
+	 * Desassocia uma atividade da pesquisa a partir da atividade passada.
+	 * 
+	 * @param atividade - a atividade a ser desassociada
+	 * @return - o booleano que representa se a atividade foi desassociada a
+	 *         pesquisa
+	 */
+
+	public boolean desassociaAtividade(Atividade atividade) {
+		if (getAtivacao()) {
+			return atividadesAssociadas.remove(atividade);
+		}
+		throw new IllegalArgumentException("Pesquisa desativada.");
+	}
+
 	/**
 	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas informacoes (pesquisadores, objetivos, atividades e problema).
 	 * @return a String resumo
@@ -404,7 +430,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		}
 		
 		for (Atividade atividade : atividadesAssociadas) {
-			resumo += System.lineSeparator() + "\t\t-" + atividade.toString();
+			resumo += System.lineSeparator() + "\t\t-" + atividade.exibeAtividade();
 		}
 		
 		return resumo;
@@ -415,7 +441,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * 
 	 */
 	public void gravarResumo() throws IOException {
-		OutputStream out = new FileOutputStream(new File(this.codigo  + ".txt"));
+		OutputStream out = new FileOutputStream(new File("_" + this.codigo  + ".txt"));
 		String resumo = gerarResumo();
 		out.write(resumo.getBytes(), 0, resumo.length());
 		out.close();

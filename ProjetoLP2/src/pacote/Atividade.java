@@ -16,7 +16,7 @@ import java.util.Map;
  * @author Henrique Lemos
  */
 
-public class Atividade implements Serializable {
+public class Atividade implements Serializable, Comparable<Atividade> {
 
 	/**
 	 * 
@@ -229,7 +229,7 @@ public class Atividade implements Serializable {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
 		setDuracao(duracao);
-		itens.get((item - 1)).executa();
+		itens.get((item - 1)).executa(duracao);
 	}
 
 	/**
@@ -431,5 +431,40 @@ public class Atividade implements Serializable {
 			return true;
 		}
 		return this.seguinteNaCadeia.ehLoop(compara);
+	}
+	
+	public String exibeAtividade() {
+		
+		String representacao = this.toString();
+		
+		for (Item item : itens) {
+			representacao += System.lineSeparator() + "\t\t- " + item.toString();
+		}
+		
+		return representacao;
+	}
+	
+	public String getResultados() {
+		
+		String resultados = " - " + this.descricao;
+		
+		for (Item item : itens) {
+			resultados += System.lineSeparator() + "\t\t- " + item.exibeItem();
+		}
+		
+		for (String resultado : this.resultados.values()) {
+			resultados += System.lineSeparator() + "\t\t- " + resultado;
+		}
+		
+		return resultados;
+	}
+
+	@Override
+	public int compareTo(Atividade atividade2) {
+		return this.codigo.compareTo(atividade2.getCodigo());
+	}
+
+	private String getCodigo() {
+		return this.codigo;
 	}
 }

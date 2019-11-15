@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Helen Bento Cavalcanti
  *
  */
-public class Objetivo implements Serializable {
+public class Objetivo implements Serializable, Comparable<Objetivo> {
 
 	/**
 	 * 
@@ -168,5 +168,14 @@ public class Objetivo implements Serializable {
 		}
 		pesquisaDoObjetivo = null;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Objetivo objetivo2) {
+		return this.codigo.compareTo(objetivo2.getCodigo());
+	}
+
+	private String getCodigo() {
+		return this.codigo;
 	}
 }

@@ -335,6 +335,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigoAtividade);
+		controllerPesquisa.getPesquisa(codigoPesquisa).associaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).associaPesquisa(controllerPesquisa.getPesquisa(codigoPesquisa));
 	}
 
@@ -356,6 +357,7 @@ public class ControllerAtividade implements Buscavel {
 		controllerPesquisa.validaPesquisa(codigoPesquisa);
 
 		verificaAtividadeExiste(codigoAtividade);
+		controllerPesquisa.getPesquisa(codigoPesquisa).desassociaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).desassociaPesquisa();
 	}
 
