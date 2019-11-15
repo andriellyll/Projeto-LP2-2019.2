@@ -351,7 +351,23 @@ public class ControllerAtividade implements Buscavel {
 //----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
 	
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
-		atividades.get(idPrecedente).atribuiPosicao(1);
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idSubsequente, "Atividade nao pode ser nulo ou vazio.");
+		verificaAtividadeExiste(idSubsequente);
+		verificaAtividadeExiste(idSubsequente);
+		if (atividades.get(idPrecedente).estaNaCadeia()) {
+			if (atividades.get(idPrecedente).existeProximo()) {
+				atividades.get(idPrecedente).adicionaNaCadeia(0, atividades.get(idSubsequente));
+			} else {
+				
+			}
+		} else {
+			
+		}
+//		if (!atividades.get(idPrecedente).estaNaCadeia()) {
+//			
+//		}
+		
 		
 
 		

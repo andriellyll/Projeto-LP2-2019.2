@@ -22,15 +22,30 @@ public class Atividade implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6324762890418621301L;
+	
 	/**
-	 * Cada atividade apresenta uma descricao dela, um nivel de risco apresentado em
-	 * ate tres niveis, a descricao deste risco, a quantidade de dias e seus itens
-	 * para a conclusao da atividade, para obtencao de um resultado.
+	 * Codigo de identificacao unico de atividade
 	 */
 	private String codigo;
+	
+	/**
+	 * Cada atividade apresenta sua descricao
+	 */
 	private String descricao;
+	
+	/**
+	 * Um nivel de risco apresentado classificado em ate tres niveis
+	 */
 	private String nivelRisco;
+	
+	/**
+	 * Descricao do risco
+	 */
 	private String descricaoRisco;
+	
+	/**
+	 * Seus itens para a conclusao da atividade, para obtencao de um resultado.
+	 */
 	private List<Item> itens;
 
 	/**
@@ -56,12 +71,12 @@ public class Atividade implements Serializable {
 	/**
 	 * 
 	 */
-	private int posicao;
+	private int posicaoNaCadeia;
 	
 	/**
 	 * 
 	 */
-	private Atividade proximaPosicao;
+	private Atividade seguinteNaCadeia;
 
 	/**
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
@@ -372,8 +387,23 @@ public class Atividade implements Serializable {
 	
 //------------------------------------- Atividade (Parte 3) ------------------------------------------
 
-	public void atribuiPosicao(int valorPosicao) {
-		this.posicao = valorPosicao;
+	public boolean estaNaCadeia() {
+		if (posicaoNaCadeia != 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean existeProximo() {
+		if (seguinteNaCadeia != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void adicionaNaCadeia(int valorPosicao, Atividade proximo) {
+		this.posicaoNaCadeia = valorPosicao;
+		this.seguinteNaCadeia = proximo;
 	}
 
 
