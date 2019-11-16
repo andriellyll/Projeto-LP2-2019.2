@@ -8,6 +8,9 @@ public class OrdenaAtividadeDuracao implements Comparator<Atividade>{
 
 	@Override
 	public int compare(Atividade o1, Atividade o2) {
+		if(o1.getDuracao() - o2.getDuracao() == 0) {
+			return o1.compareTo(o2);
+		}
 		return o1.getDuracao() - o2.getDuracao();
 	}
 

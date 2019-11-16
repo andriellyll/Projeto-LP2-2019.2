@@ -17,8 +17,11 @@ public class OrdenaAtividadeRisco  implements Comparator<Atividade>{
 		riscos.put("MEDIO",2);
 		riscos.put("BAIXO",1);
 		
+		if(riscos.get(o2.getRisco()) - riscos.get(o1.getRisco()) == 0) {
+			return o2.compareTo(o1);
+		}
 		
-		return riscos.get(o1.getRisco()) - riscos.get(o2.getRisco());
+		return riscos.get(o2.getRisco()) - riscos.get(o1.getRisco());
 	}
 
 }
