@@ -72,6 +72,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * Conjunto de atividades associadas a pesquisa.
 	 */
 	private Set<Atividade> atividadesAssociadas;
+	
+
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
 	 * e do campo de interesse. Caso os parametros forem nulos ou vazios excecoes
@@ -95,6 +97,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		this.objetivosDaPesquisa = new TreeSet<>();
 		this.pesquisadoresAssociados = new TreeSet<>();
 		this.atividadesAssociadas = new TreeSet<>();
+		
 	}
 
 	/**
@@ -470,5 +473,22 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		String resultados = resultadosPesquisa();
 		out.write(resultados.getBytes(), 0, resultados.length());
 		out.close();
+	}
+
+	public String proximaAtividade(String estrategia) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		
+		if(estrategia.equalsIgnoreCase("MAIS_ANTIGA")) {
+			return "";
+		}else if(estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")) {
+			return "";
+		}else if(estrategia.equalsIgnoreCase("MAIOR_RISCO")) {
+			return "";
+		}else if(estrategia.equalsIgnoreCase("MAIOR_DURACAO")) {
+			return "";
+		}else {
+			return "";
+		}
+	
 	}
 }

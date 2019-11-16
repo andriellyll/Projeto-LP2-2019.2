@@ -39,6 +39,10 @@ public class ControllerPesquisa implements Buscavel {
 
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
 
+	private String estrategia;
+	
+	
+
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
 	 * pesquisas e codigos.
@@ -52,6 +56,7 @@ public class ControllerPesquisa implements Buscavel {
 		this.controllerProblemaObjetivo = controllerProblemaObjetivo;
 		this.pesquisas = new HashMap<>();
 		this.codigos = new HashMap<>();
+		this.estrategia = "MAIS_ANTIGA";
 	}
 
 	/**
@@ -482,6 +487,18 @@ public class ControllerPesquisa implements Buscavel {
 		verificaPesquisaExiste(codigoPesquisa);
 		
 		pesquisas.get(codigoPesquisa).gravarResumo();
+	}
+
+	public void configuraEstrategia(String estrategia) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		this.estrategia = estrategia;
+		
+	}
+
+	public String proximaAtividade(String codigoPesquisa) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		return pesquisas.get(codigoPesquisa).proximaAtividade(this.estrategia);
+		
 	}
 
 }
