@@ -392,7 +392,9 @@ public class ControllerAtividade implements Buscavel {
 		atividades.get(idPrecedente).adicionaNaCadeia(atividades.get(idSubsequente));
 	}
 	
-	
+	public void tiraProximaAtividade(String idPrecedente) {
+		
+	}
 
 	
 	public void salvar() {

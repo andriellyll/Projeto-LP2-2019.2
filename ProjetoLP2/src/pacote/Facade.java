@@ -229,7 +229,7 @@ public class Facade {
 	}
 
 	public void tiraProximaAtividade(String idPrecedente) {
-
+		this.controllerAtividade.tiraProximaAtividade(idPrecedente);
 	}
 
 	public int contaProximos(String idPrecedente) {
