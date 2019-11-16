@@ -486,7 +486,7 @@ public class ControllerPesquisa implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		verificaPesquisaExiste(codigoPesquisa);
 		
-		pesquisas.get(codigoPesquisa).gravarResumo();
+		pesquisas.get(codigoPesquisa).gravarResultados();
 	}
 
 	public void configuraEstrategia(String estrategia) {

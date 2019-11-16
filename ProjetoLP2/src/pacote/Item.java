@@ -82,8 +82,12 @@ public class Item {
 		this.duracao = duracao;
 	}
 	
-	public String exibeItem() {
-		return this.codigo + " - " + this.duracao;
+	public String exibeItemSituacao() {
+		return this.situacao + " - ITEM" + this.codigo;
+	}
+	
+	public String exibeItemDuracao() {
+		return "ITEM" + this.codigo + " - " + this.duracao;
 	}
 
 	/**

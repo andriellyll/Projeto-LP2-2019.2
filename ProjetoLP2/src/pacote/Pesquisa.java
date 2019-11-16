@@ -6,13 +6,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javax.management.RuntimeErrorException;
 
 import utils.OrdenaAtividadeDuracao;
 import utils.OrdenaAtividadePendencias;
@@ -103,7 +101,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		this.ehAtivada = true;
 		this.problemaDaPesquisa = null;
 		this.objetivosDaPesquisa = new TreeSet<>();
-		this.pesquisadoresAssociados = new TreeSet<>();
+		this.pesquisadoresAssociados = new LinkedHashSet<>();
 		this.atividadesAssociadas = new TreeSet<>();
 		
 	}
@@ -426,25 +424,27 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 */
 	private String gerarResumo() {
 		
-		String resumo = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores";
+		String resumo = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores:";
 		
 		for (Pesquisador pesquisador: pesquisadoresAssociados) {
-			resumo += System.lineSeparator() + "\t\t-" + pesquisador.toString();
+			resumo += System.lineSeparator() + "\t\t- " + pesquisador.toString();
 		}
 		
 		if(this.problemaDaPesquisa != null) {
-			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t-" + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";			
+			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t- " + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivo:";			
 		}
 		
 		for (Objetivo objetivo : objetivosDaPesquisa) {
-			resumo += System.lineSeparator() + "\t\t-" + objetivo.toString();
+			resumo += System.lineSeparator() + "\t\t- " + objetivo.toString();
 		}
+		
+		resumo += System.lineSeparator() + "\t- Atividades: ";
 		
 		for (Atividade atividade : atividadesAssociadas) {
-			resumo += System.lineSeparator() + "\t\t-" + atividade.exibeAtividade();
+			resumo += System.lineSeparator() + "\t\t- " + atividade.exibeAtividade();
 		}
 		
-		return resumo;
+		return resumo + "\"";
 	}
 	/**
 	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre os pesquisadores, objetivos, atividades e problema da pesquisa.
@@ -462,13 +462,13 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * @return String dos resultados
 	 */
 	private String resultadosPesquisa() {
-		String resultados = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
+		String resultados = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
 		
 		for (Atividade atividade : atividadesAssociadas) {
 			resultados += System.lineSeparator() + "\t\t" + atividade.getResultados();
 		}
 		
-		return resultados;
+		return resultados + "\"";
 	}
 	
 	/**

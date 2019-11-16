@@ -526,7 +526,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		String representacao = this.toString();
 		
 		for (Item item : itens) {
-			representacao += System.lineSeparator() + "\t\t- " + item.toString();
+			representacao += System.lineSeparator() + "\t\t\t- " + item.exibeItemSituacao();
 		}
 		
 		return representacao;
@@ -534,14 +534,16 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	
 	public String getResultados() {
 		
-		String resultados = " - " + this.descricao;
+		String resultados = "- " + this.descricao;
 		
 		for (Item item : itens) {
-			resultados += System.lineSeparator() + "\t\t- " + item.exibeItem();
+			if(item.getSituacao().equals("REALIZADO")) {				
+				resultados += System.lineSeparator() + "\t\t\t- " + item.exibeItemDuracao();
+			}
 		}
 		
 		for (String resultado : this.resultados.values()) {
-			resultados += System.lineSeparator() + "\t\t- " + resultado;
+			resultados += System.lineSeparator() + "\t\t\t- " + resultado;
 		}
 		
 		return resultados;
