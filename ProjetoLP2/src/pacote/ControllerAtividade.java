@@ -430,7 +430,6 @@ public class ControllerAtividade implements Buscavel {
 
 	
 	public void salvar() {
-
 		ObjectOutputStream oosAtividades = null;
 		try {
 			oosAtividades = new ObjectOutputStream(new FileOutputStream("atividade.txt"));
@@ -447,7 +446,7 @@ public class ControllerAtividade implements Buscavel {
 		ObjectInputStream oisAtividades = null;
 
 		try {
-			oisAtividades = new ObjectInputStream(new FileInputStream("atividades.txt"));
+			oisAtividades = new ObjectInputStream(new FileInputStream("atividade.txt"));
 			this.atividades = (HashMap<String, Atividade>) oisAtividades.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

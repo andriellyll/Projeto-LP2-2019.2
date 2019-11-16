@@ -1,5 +1,7 @@
 package pacote;
 
+import java.io.Serializable;
+
 /**
  * Para que uma atividade apresente um resultado ela recebe algum(ns) item(ns)
  * para serem completados. Cada item apresenta um codigo e uma descricao. Quando
@@ -8,7 +10,12 @@ package pacote;
  * 
  * @author Henrique Lemos
  */
-public class Item {
+public class Item implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2848582857353973575L;
 
 	/**
 	 * Cada item apresenta um codigo que identifica este item.
