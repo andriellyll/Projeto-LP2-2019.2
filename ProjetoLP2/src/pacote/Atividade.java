@@ -537,7 +537,9 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		String resultados = "- " + this.descricao;
 		
 		for (Item item : itens) {
-			resultados += System.lineSeparator() + "\t\t\t- " + item.exibeItemDuracao();
+			if(item.getSituacao().equals("REALIZADO")) {				
+				resultados += System.lineSeparator() + "\t\t\t- " + item.exibeItemDuracao();
+			}
 		}
 		
 		for (String resultado : this.resultados.values()) {
