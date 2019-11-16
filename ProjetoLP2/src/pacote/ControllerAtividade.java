@@ -392,7 +392,65 @@ public class ControllerAtividade implements Buscavel {
 		atividades.get(idPrecedente).adicionaNaCadeia(atividades.get(idSubsequente));
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param idPrecedente
+	 */
+	public void tiraProximaAtividade(String idPrecedente) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
+		if (!atividades.containsKey(idPrecedente)) {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+//		verificaAtividadeExiste(idPrecedente);
+		atividades.get(idPrecedente).removeSeguinteNaCadeia();
+	}
 	
+	/**
+	 * 
+	 * 
+	 * @param idPrecedente
+	 * @return
+	 */
+	public int contaProximos(String idPrecedente) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
+		if (!atividades.containsKey(idPrecedente)) {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+//		verificaAtividadeExiste(idPrecedente);
+		return atividades.get(idPrecedente).contaSeguintesNaCadeia();
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param idAtividade
+	 * @return
+	 */
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");
+		if (!atividades.containsKey(idAtividade)) {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+//		verificaAtividadeExiste(idPrecedente);
+		return atividades.get(idAtividade).atividadeMaiorRisco(null);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param idAtividade
+	 * @param enesimaAtividade
+	 * @return
+	 */
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(null, "Atividade nao pode ser nulo ou vazio.");
+		if (!atividades.containsKey(idAtividade)) {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+//		verificaAtividadeExiste(idPrecedente);
+		return atividades.get(idAtividade).pegaProximo(enesimaAtividade);
+	}
 
 	
 	public void salvar() {
