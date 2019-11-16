@@ -491,14 +491,25 @@ public class ControllerPesquisa implements Buscavel {
 
 	public void configuraEstrategia(String estrategia) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		validaEstrategia(estrategia);
 		this.estrategia = estrategia;
 		
 	}
 
 	public String proximaAtividade(String codigoPesquisa) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisa(codigoPesquisa);
+		pesquisaEhAtiva(codigoPesquisa);
 		return pesquisas.get(codigoPesquisa).proximaAtividade(this.estrategia);
 		
 	}
+	
+	private void validaEstrategia(String estrategia) {
+		if(!(estrategia.equalsIgnoreCase("MAIS_ANTIGA") || estrategia.equalsIgnoreCase("MENOS_PENDENCIAS") || estrategia.equalsIgnoreCase("MAIOR_RISCO") || estrategia.equalsIgnoreCase("MAIOR_DURACAO"))) {
+			throw new IllegalArgumentException("Valor invalido da estrategia");
+		}
+		
+	}
+	
 
 }
