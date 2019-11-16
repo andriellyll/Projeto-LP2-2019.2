@@ -6,9 +6,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.management.RuntimeErrorException;
+
+import utils.OrdenaAtividadeDuracao;
+import utils.OrdenaAtividadePendencias;
+import utils.OrdenaAtividadeRisco;
 
 /**
  * A pesquisa e atividade base para a estruturação e criação de um novo
@@ -477,18 +485,52 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 	public String proximaAtividade(String estrategia) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
-		
+		if(!verificaPendencias()) {
+			throw new RuntimeException("Pesquisa sem atividades com pendencias.");
+		}
 		if(estrategia.equalsIgnoreCase("MAIS_ANTIGA")) {
-			return "";
+			return estrategiaMaisAntiga();
 		}else if(estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")) {
-			return "";
+			return estrategiaMenosPendencias();
 		}else if(estrategia.equalsIgnoreCase("MAIOR_RISCO")) {
-			return "";
+			return estrategiaMaiorRisco();
 		}else if(estrategia.equalsIgnoreCase("MAIOR_DURACAO")) {
-			return "";
+			return estrategiaMaiorDracao();
 		}else {
-			return "";
+			throw new IllegalArgumentException("Valor invalido da estrategia");
 		}
 	
+	}
+
+	private String estrategiaMaiorDracao() {
+		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
+		Collections.sort(atividades, new OrdenaAtividadeDuracao());
+		return atividades.get(atividades.size() - 1).getCodigo();
+	}
+
+	private String estrategiaMaiorRisco() {
+		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
+		Collections.sort(atividades, new OrdenaAtividadeRisco());
+		return atividades.get(atividades.size() - 1).getCodigo();
+	}
+
+	private String estrategiaMenosPendencias() {
+		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
+		Collections.sort(atividades, new OrdenaAtividadePendencias());
+		return atividades.get(0).getCodigo();
+	}
+
+	private String estrategiaMaisAntiga() {
+		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
+		return atividades.get(0).getCodigo();
+	}
+	private boolean verificaPendencias() {
+		for (Atividade atividade : atividadesAssociadas) {
+			if(atividade.ItensPendentes() != 0) {
+				return true;
+			}
+			
+		}
+		return false;
 	}
 }
