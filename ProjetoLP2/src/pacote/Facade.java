@@ -1,5 +1,7 @@
 package pacote;
 
+import java.io.IOException;
+
 import easyaccept.EasyAccept;
 
 public class Facade {
@@ -20,10 +22,17 @@ public class Facade {
 	}
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		args = new String[] { "pacote.Facade","testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt",
 				"testes_aceitacao/use_case_3.txt", "testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
 				"testes_aceitacao/use_case_6.txt", "testes_aceitacao/use_case_7.txt",
 				"testes_aceitacao/use_case_8.txt" };
+=======
+		args = new String[] { "pacote.Facade", "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
+				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
+				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt",
+				"easyaccept/use_case_08.txt", "easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt"};
+>>>>>>> 8a9ba525acd0a49233a969c29e45ff685d30642c
 		EasyAccept.main(args);
 	}
 
@@ -223,32 +232,40 @@ public class Facade {
 //Ordem das Atividades:
 
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
-		this.controllerAtividade.defineProximaAtividade(idPrecedente, idSubsequente);
+		controllerAtividade.defineProximaAtividade(idPrecedente, idSubsequente);
 	}
 
 	public void tiraProximaAtividade(String idPrecedente) {
-
+		controllerAtividade.tiraProximaAtividade(idPrecedente);
 	}
 
 	public int contaProximos(String idPrecedente) {
-		return 0;
+		return controllerAtividade.contaProximos(idPrecedente);
 	}
 
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
-		return null;
+		return controllerAtividade.pegaProximo(idAtividade, enesimaAtividade);
 	}
 
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
-		return null;
+		return controllerAtividade.pegaMaiorRiscoAtividades(idAtividade);
 	}
 
 //Proxima Atividade:
 
 //Resultados:
+	
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		controllerPesquisa.gravarResumo(codigoPesquisa);
+	}
+	
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		controllerPesquisa.gravarResultados(codigoPesquisa);
+	}
 
 //Persistencia:
 
-	public void salva() {
+	public void salvar() {
 		this.controllerPesquisa.salvar();
 		this.controllerPesquisador.salvar();
 		this.controllerAtividade.salvar();
@@ -256,10 +273,19 @@ public class Facade {
 
 	}
 
-	public void carrega() {
+	public void carregar() {
 		this.controllerPesquisa.carregar();
 		this.controllerPesquisador.carregar();
 		this.controllerAtividade.carregar();
 		this.controllerProblemaObjetivo.carregar();
+	}
+	
+	public void configuraEstrategia(String estrategia) {
+		this.controllerPesquisa.configuraEstrategia(estrategia);
+		
+	}
+	
+	public String proximaAtividade(String codigoPesquisa) {
+		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
 	}
 }

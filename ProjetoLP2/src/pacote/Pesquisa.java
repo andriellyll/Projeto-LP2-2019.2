@@ -6,10 +6,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+
+import utils.OrdenaAtividadeDuracao;
+import utils.OrdenaAtividadePendencias;
+import utils.OrdenaAtividadeRisco;
 
 /**
  * A pesquisa e atividade base para a estruturação e criação de um novo
@@ -73,6 +78,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * Conjunto de atividades associadas a pesquisa.
 	 */
 	private Set<Atividade> atividadesAssociadas;
+	
+
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
 	 * e do campo de interesse. Caso os parametros forem nulos ou vazios excecoes
@@ -93,9 +100,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		this.codigo = codigo;
 		this.ehAtivada = true;
 		this.problemaDaPesquisa = null;
-		this.objetivosDaPesquisa = new LinkedHashSet<>();
+		this.objetivosDaPesquisa = new TreeSet<>();
 		this.pesquisadoresAssociados = new LinkedHashSet<>();
-		this.atividadesAssociadas = new LinkedHashSet<>();
+		this.atividadesAssociadas = new TreeSet<>();
+		
 	}
 
 	/**
@@ -383,31 +391,60 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		pesquisadoresAssociados.remove(pesquisador);
 		return true;
 	}
+	
+	/**
+	 * Associa uma atividade a pesquisa a partir da atividade passasa.
+	 * 
+	 * @param atividade - a atividade a ser adicionada na pesquisa
+	 * @return - o booleano que representa se a atividade foi associada a pesquisa
+	 */
+
+	public boolean associaAtividade(Atividade atividade) {
+		return atividadesAssociadas.add(atividade);
+	}
+
+	/**
+	 * Desassocia uma atividade da pesquisa a partir da atividade passada.
+	 * 
+	 * @param atividade - a atividade a ser desassociada
+	 * @return - o booleano que representa se a atividade foi desassociada a
+	 *         pesquisa
+	 */
+
+	public boolean desassociaAtividade(Atividade atividade) {
+		if (getAtivacao()) {
+			return atividadesAssociadas.remove(atividade);
+		}
+		throw new IllegalArgumentException("Pesquisa desativada.");
+	}
+
 	/**
 	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas informacoes (pesquisadores, objetivos, atividades e problema).
 	 * @return a String resumo
 	 */
 	private String gerarResumo() {
 		
-		String resumo = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores";
+		String resumo = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores:";
 		
 		for (Pesquisador pesquisador: pesquisadoresAssociados) {
-			resumo += System.lineSeparator() + "\t\t-" + pesquisador.toString();
+			resumo += System.lineSeparator() + "\t\t- " + pesquisador.toString();
 		}
 		
 		if(this.problemaDaPesquisa != null) {
-			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t-" + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";			
+			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t- " + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivo:";			
 		}
 		
 		for (Objetivo objetivo : objetivosDaPesquisa) {
-			resumo += System.lineSeparator() + "\t\t-" + objetivo.toString();
+			resumo += System.lineSeparator() + "\t\t- " + objetivo.toString();
 		}
+		
+		resumo += System.lineSeparator() + "\t- Atividades: ";
 		
 		for (Atividade atividade : atividadesAssociadas) {
-			resumo += System.lineSeparator() + "\t\t-" + atividade.toString();
+			resumo += System.lineSeparator() + "\t\t- " + atividade.exibeAtividade();
 		}
 		
-		return resumo;
+		return resumo + "\"";
 	}
 	/**
 	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre os pesquisadores, objetivos, atividades e problema da pesquisa.
@@ -415,7 +452,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * 
 	 */
 	public void gravarResumo() throws IOException {
-		OutputStream out = new FileOutputStream(new File(this.codigo  + ".txt"));
+		OutputStream out = new FileOutputStream(new File("_" + this.codigo  + ".txt"));
 		String resumo = gerarResumo();
 		out.write(resumo.getBytes(), 0, resumo.length());
 		out.close();
@@ -425,13 +462,13 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * @return String dos resultados
 	 */
 	private String resultadosPesquisa() {
-		String resultados = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
+		String resultados = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
 		
 		for (Atividade atividade : atividadesAssociadas) {
 			resultados += System.lineSeparator() + "\t\t" + atividade.getResultados();
 		}
 		
-		return resultados;
+		return resultados + "\"";
 	}
 	
 	/**
@@ -444,5 +481,83 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		String resultados = resultadosPesquisa();
 		out.write(resultados.getBytes(), 0, resultados.length());
 		out.close();
+	}
+
+	public String proximaAtividade(String estrategia) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		if(!verificaPendencias()) {
+			throw new RuntimeException("Pesquisa sem atividades com pendencias.");
+		}
+		if(estrategia.equalsIgnoreCase("MAIS_ANTIGA")) {
+			return estrategiaMaisAntiga();
+		}else if(estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")) {
+			return estrategiaMenosPendencias();
+		}else if(estrategia.equalsIgnoreCase("MAIOR_RISCO")) {
+			return estrategiaMaiorRisco();
+		}else if(estrategia.equalsIgnoreCase("MAIOR_DURACAO")) {
+			return estrategiaMaiorDracao();
+		}else {
+			throw new IllegalArgumentException("Valor invalido da estrategia");
+		}
+	
+	}
+
+	private String estrategiaMaiorDracao() {
+		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
+		Collections.sort(atividades, new OrdenaAtividadeDuracao());
+		
+		return atividades.get(atividades.size() - 1).getCodigo();
+	}
+
+	private String estrategiaMaiorRisco() {
+		String saida = "";
+		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
+		Collections.sort(atividades, new OrdenaAtividadeRisco());
+		
+		for (Atividade atividade : atividades) {
+			if(atividade.ItensPendentes() != 0) {
+				saida = atividade.getCodigo();
+				return saida;
+			}
+			
+		}
+		return atividades.get(atividades.size() - 1).getCodigo();
+	}
+
+	private String estrategiaMenosPendencias() {
+		
+		String saida = "";
+		
+		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
+		Collections.sort(atividades, new OrdenaAtividadePendencias());
+		
+		
+		for (Atividade atividade : atividades) {
+			if(atividade.ItensPendentes() != 0) {
+				saida = atividade.getCodigo();
+				return saida;
+			}
+			
+		}
+		return saida;
+	}
+
+	private String estrategiaMaisAntiga() {
+		String saida = "";
+		for (Atividade atividade : atividadesAssociadas) {
+			if(atividade.ItensPendentes() != 0) {
+				saida =  atividade.getCodigo();
+			}
+		}
+		return saida;
+	}
+	private boolean verificaPendencias() {
+		for (Atividade atividade : atividadesAssociadas) {
+			if(atividade.ItensPendentes() != 0) {
+				return true;
+			}
+			
+		}
+		return false;
 	}
 }

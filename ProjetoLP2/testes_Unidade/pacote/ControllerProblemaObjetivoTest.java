@@ -251,4 +251,24 @@ public class ControllerProblemaObjetivoTest {
 			controllerProbObj.procuraPalavraChave("");
 		});
 	}
+	
+	@Test
+	void testSalvar() {
+		controllerProbObj.cadastraObjetivo("GERAL", "AAAA", 2, 2);
+		controllerProbObj.cadastraObjetivo("GERAL", "EEEE", 2, 2);
+		controllerProbObj.cadastraProblema("LDKJSADKLJ", 4);
+		controllerProbObj.cadastraProblema("ASKJFLASFK", 3);
+		
+		controllerProbObj.salvar();
+	}
+	
+	@Test
+	void testCarregar() {
+		controllerProbObj.carregar();
+		
+		assertEquals("O1 - GERAL - AAAA - 4", controllerProbObj.exibeObjetivo("O1"));
+		assertEquals("O2 - GERAL - EEEE - 4", controllerProbObj.exibeObjetivo("O2"));
+		assertEquals("P1 - LDKJSADKLJ - 4", controllerProbObj.exibeProblema("P1"));
+		assertEquals("P2 - ASKJFLASFK - 3", controllerProbObj.exibeProblema("P2"));
+	}
 }

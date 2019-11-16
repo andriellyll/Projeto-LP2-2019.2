@@ -44,7 +44,6 @@ public class Pesquisador implements Serializable {
 	 * Boolean que representa se o pesquisador esta ou nao ativo
 	 */
 	private boolean isAtivo;
-
 	/**
 	 * Constroi um pesquisador a partir do nome, funcao, biografia, email e URL da
 	 * foto.

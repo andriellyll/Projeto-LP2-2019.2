@@ -16,7 +16,7 @@ import java.util.Map;
  * @author Henrique Lemos
  */
 
-public class Atividade implements Serializable {
+public class Atividade implements Serializable, Comparable<Atividade> {
 
 	/**
 	 * 
@@ -67,11 +67,6 @@ public class Atividade implements Serializable {
 	 * Armazena a quantidade de posicoes de resultados ja cadastradas
 	 */
 	private int posicoesCadastradas;
-	
-	/**
-	 * 
-	 */
-	private int posicaoNaCadeia;
 	
 	/**
 	 * 
@@ -234,7 +229,7 @@ public class Atividade implements Serializable {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
 		setDuracao(duracao);
-		itens.get((item - 1)).executa();
+		itens.get((item - 1)).executa(duracao);
 	}
 
 	/**
@@ -386,14 +381,12 @@ public class Atividade implements Serializable {
 	}
 	
 //------------------------------------- Atividade (Parte 3) ------------------------------------------
-
-	public boolean estaNaCadeia() {
-		if (posicaoNaCadeia != 0) {
-			return true;
-		}
-		return false;
-	}
 	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public boolean existeProximo() {
 		if (seguinteNaCadeia != null) {
 			return true;
@@ -401,10 +394,172 @@ public class Atividade implements Serializable {
 		return false;
 	}
 	
-	public void adicionaNaCadeia(int valorPosicao, Atividade proximo) {
-		this.posicaoNaCadeia = valorPosicao;
-		this.seguinteNaCadeia = proximo;
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public Atividade getSeguinteNaCadeia() {
+		return seguinteNaCadeia;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param proximo
+	 */
+	public void adicionaNaCadeia(Atividade proximo) {
+		if (this.seguinteNaCadeia == null) {
+			this.seguinteNaCadeia = proximo;
+		}
+		if (proximo.ehLoop(this)) {
+			this.seguinteNaCadeia = null;
+			throw new RuntimeException("Criacao de loops negada.");
+		}
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param compara
+	 * @return
+	 */
+	private boolean ehLoop(Atividade compara) {
+		if (this.seguinteNaCadeia == null) {
+			return this.equals(compara);
+		}
+		if (this.equals(compara)) {
+			return true;
+		}
+		return this.seguinteNaCadeia.ehLoop(compara);
+	}
+	
+	/**
+	 * 
+	 * 
+	 */
+	public void removeSeguinteNaCadeia() {
+		this.seguinteNaCadeia = null;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public int contaSeguintesNaCadeia() {
+		if (this.seguinteNaCadeia == null) {
+			return 0;
+		}
+		return 1 + this.seguinteNaCadeia.contaSeguintesNaCadeia();
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public String atividadeMaiorRisco(String maiorRisco) {
+		if (this.seguinteNaCadeia == null) {
+			throw new RuntimeException("Nao existe proxima atividade.");
+		}
+		return maiorRisco(maiorRisco);
+	}
+	
+	/**
+	 * 
+	 * 	
+	 * @param maior
+	 * @return
+	 */
+	private String maiorRisco(String maior) {
+		String maiorRiscoNaCadeia = maior;
+		if ("ALTO".equals(this.nivelRisco)) {
+			maiorRiscoNaCadeia = this.codigo;
+		}
+		if (this.seguinteNaCadeia == null) {
+			return maiorRiscoNaCadeia;
+		}
+		if ("ALTO".equals(this.seguinteNaCadeia.nivelRisco)) {
+			maiorRiscoNaCadeia = this.seguinteNaCadeia.codigo;
+		}
+		return this.seguinteNaCadeia.maiorRisco(maiorRiscoNaCadeia);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param enesimaAtividade
+	 * @return
+	 */
+	public String pegaProximo(int enesimaAtividade) {
+		if (enesimaAtividade < 1) {
+			throw new IllegalArgumentException("EnesimaAtividade nao pode ser negativa ou zero.");
+		} else if (enesimaAtividade == 1) {
+			if (this.seguinteNaCadeia == null) {
+				throw new IllegalArgumentException("Atividade inexistente.");
+			}
+			return this.seguinteNaCadeia.codigo;
+		}
+		return proximoSelecionado(0, enesimaAtividade);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param posicao
+	 * @param enesimaAtividade
+	 * @return
+	 */
+	private String proximoSelecionado(int posicao, int enesimaAtividade) {
+		if (posicao == enesimaAtividade) {
+			return this.codigo;
+		}
+		if (this.seguinteNaCadeia == null) {
+			throw new IllegalArgumentException("Atividade inexistente.");
+		}
+		return this.seguinteNaCadeia.proximoSelecionado(posicao + 1, enesimaAtividade);
+	}
+	
+	public String exibeAtividade() {
+		
+		String representacao = this.toString();
+		
+		for (Item item : itens) {
+			representacao += System.lineSeparator() + "\t\t\t- " + item.exibeItemSituacao();
+		}
+		
+		return representacao;
+	}
+	
+	public String getResultados() {
+		
+		String resultados = "- " + this.descricao;
+		
+		for (Item item : itens) {
+			if(item.getSituacao().equals("REALIZADO")) {				
+				resultados += System.lineSeparator() + "\t\t\t- " + item.exibeItemDuracao();
+			}
+		}
+		
+		for (String resultado : this.resultados.values()) {
+			resultados += System.lineSeparator() + "\t\t\t- " + resultado;
+		}
+		
+		return resultados;
+	}
 
+	@Override
+	public int compareTo(Atividade atividade2) {
+		return this.codigo.compareTo(atividade2.getCodigo());
+	}
+
+	public String getCodigo() {
+		return this.codigo;
+	}
+	
+	public String getRisco() {
+		return this.nivelRisco;
+	}
+	
 }

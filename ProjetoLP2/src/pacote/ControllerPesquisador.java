@@ -1,6 +1,5 @@
 package pacote;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -75,7 +74,7 @@ public class ControllerPesquisador implements Buscavel {
 
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
-
+	
 		Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoUrl);
 		this.pesquisadores.put(email, pesquisador);
 	}
