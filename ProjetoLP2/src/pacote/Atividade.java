@@ -464,11 +464,12 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		return this.codigo.compareTo(atividade2.getCodigo());
 	}
 
-	private String getCodigo() {
+	public String getCodigo() {
 		return this.codigo;
 	}
 	
 	public String getRisco() {
 		return this.nivelRisco;
 	}
+	
 }

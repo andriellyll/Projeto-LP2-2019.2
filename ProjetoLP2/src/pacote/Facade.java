@@ -229,7 +229,7 @@ public class Facade {
 	}
 
 	public void tiraProximaAtividade(String idPrecedente) {
-		this.controllerAtividade.tiraProximaAtividade(idPrecedente);
+
 	}
 
 	public int contaProximos(String idPrecedente) {
@@ -271,5 +271,14 @@ public class Facade {
 		this.controllerPesquisador.carregar();
 		this.controllerAtividade.carregar();
 		this.controllerProblemaObjetivo.carregar();
+	}
+	
+	public void configuraEstrategia(String estrategia) {
+		this.controllerPesquisa.configuraEstrategia(estrategia);
+		
+	}
+	
+	public String proximaAtividade(String codigoPesquisa) {
+		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
 	}
 }
