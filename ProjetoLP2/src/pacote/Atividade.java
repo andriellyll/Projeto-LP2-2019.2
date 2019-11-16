@@ -413,6 +413,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 			this.seguinteNaCadeia = proximo;
 		}
 		if (proximo.ehLoop(this)) {
+			this.seguinteNaCadeia = null;
 			throw new RuntimeException("Criacao de loops negada.");
 		}
 	}
@@ -431,6 +432,93 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 			return true;
 		}
 		return this.seguinteNaCadeia.ehLoop(compara);
+	}
+	
+	/**
+	 * 
+	 * 
+	 */
+	public void removeSeguinteNaCadeia() {
+		this.seguinteNaCadeia = null;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public int contaSeguintesNaCadeia() {
+		if (this.seguinteNaCadeia == null) {
+			return 0;
+		}
+		return 1 + this.seguinteNaCadeia.contaSeguintesNaCadeia();
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public String atividadeMaiorRisco(String maiorRisco) {
+		if (this.seguinteNaCadeia == null) {
+			throw new RuntimeException("Nao existe proxima atividade.");
+		}
+		return maiorRisco(maiorRisco);
+	}
+	
+	/**
+	 * 
+	 * 	
+	 * @param maior
+	 * @return
+	 */
+	private String maiorRisco(String maior) {
+		String maiorRiscoNaCadeia = maior;
+		if ("ALTO".equals(this.nivelRisco)) {
+			maiorRiscoNaCadeia = this.codigo;
+		}
+		if (this.seguinteNaCadeia == null) {
+			return maiorRiscoNaCadeia;
+		}
+		if ("ALTO".equals(this.seguinteNaCadeia.nivelRisco)) {
+			maiorRiscoNaCadeia = this.seguinteNaCadeia.codigo;
+		}
+		return this.seguinteNaCadeia.maiorRisco(maiorRiscoNaCadeia);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param enesimaAtividade
+	 * @return
+	 */
+	public String pegaProximo(int enesimaAtividade) {
+		if (enesimaAtividade < 1) {
+			throw new IllegalArgumentException("EnesimaAtividade nao pode ser negativa.");
+		} else if (enesimaAtividade == 1) {
+			if (this.seguinteNaCadeia == null) {
+				throw new IllegalArgumentException("Atividade inexistente.");
+			}
+			return this.seguinteNaCadeia.codigo;
+		}
+		return proximoSelecionado(0, enesimaAtividade);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param posicao
+	 * @param enesimaAtividade
+	 * @return
+	 */
+	private String proximoSelecionado(int posicao, int enesimaAtividade) {
+		if (posicao == enesimaAtividade) {
+			return this.codigo;
+		}
+		if (this.seguinteNaCadeia == null) {
+			throw new IllegalArgumentException("Atividade inexistente.");
+		}
+		return this.seguinteNaCadeia.proximoSelecionado(posicao + 1, enesimaAtividade);
 	}
 	
 	public String exibeAtividade() {
