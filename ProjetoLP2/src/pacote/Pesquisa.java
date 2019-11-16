@@ -505,24 +505,51 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	private String estrategiaMaiorDracao() {
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadeDuracao());
+		
 		return atividades.get(atividades.size() - 1).getCodigo();
 	}
 
 	private String estrategiaMaiorRisco() {
+		String saida = "";
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadeRisco());
+		
+		for (Atividade atividade : atividades) {
+			if(atividade.ItensPendentes() != 0) {
+				saida = atividade.getCodigo();
+				return saida;
+			}
+			
+		}
 		return atividades.get(atividades.size() - 1).getCodigo();
 	}
 
 	private String estrategiaMenosPendencias() {
+		
+		String saida = "";
+		
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadePendencias());
-		return atividades.get(0).getCodigo();
+		
+		
+		for (Atividade atividade : atividades) {
+			if(atividade.ItensPendentes() != 0) {
+				saida = atividade.getCodigo();
+				return saida;
+			}
+			
+		}
+		return saida;
 	}
 
 	private String estrategiaMaisAntiga() {
-		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
-		return atividades.get(0).getCodigo();
+		String saida = "";
+		for (Atividade atividade : atividadesAssociadas) {
+			if(atividade.ItensPendentes() != 0) {
+				saida =  atividade.getCodigo();
+			}
+		}
+		return saida;
 	}
 	private boolean verificaPendencias() {
 		for (Atividade atividade : atividadesAssociadas) {
