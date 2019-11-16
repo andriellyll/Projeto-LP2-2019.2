@@ -272,4 +272,13 @@ public class Facade {
 		this.controllerAtividade.carregar();
 		this.controllerProblemaObjetivo.carregar();
 	}
+	
+	public void configuraEstrategia(String estrategia) {
+		this.controllerPesquisa.configuraEstrategia(estrategia);
+		
+	}
+	
+	public String proximaAtividade(String codigoPesquisa) {
+		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
+	}
 }
