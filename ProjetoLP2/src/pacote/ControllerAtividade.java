@@ -86,9 +86,9 @@ public class ControllerAtividade implements Buscavel {
 	 * @param codigo valor ao qual vai ser utilizado para verificar se ja existe uma
 	 *               atividade com este codigo
 	 */
-	private void verificaAtividadeExiste(String codigo) {
+	private void verificaAtividadeExiste(String codigo, String mensagem) {
 		if (atividades.containsKey(codigo) == false) {
-			throw new IllegalArgumentException("Atividade nao encontrada");
+			throw new IllegalArgumentException(mensagem);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public void apagaAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(codigo);
+		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
 		atividades.remove(codigo);
 	}
 
@@ -139,7 +139,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public String exibeAtividade(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(codigo);
+		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
 		String retornoItens = atividades.get(codigo).exibeItens();
 		if (retornoItens == null || "".equals(retornoItens.trim())) {
 			return atividades.get(codigo).toString();
@@ -159,7 +159,7 @@ public class ControllerAtividade implements Buscavel {
 	public void cadastraItem(String codigo, String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(codigo);
+		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
 		int codigoItem = criadorCodigoItem();
 		atividades.get(codigo).adicionaItem(item, codigoItem);
 	}
@@ -174,7 +174,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public int contaItensPendentes(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(codigo);
+		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
 		return atividades.get(codigo).ItensPendentes();
 	}
 
@@ -188,7 +188,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public int contaItensRealizados(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(codigo);
+		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
 		return atividades.get(codigo).ItensRealizados();
 	}
 
@@ -201,7 +201,7 @@ public class ControllerAtividade implements Buscavel {
 	 * @return a atividade solicitada atraves do codigo
 	 */
 	public Atividade getAtividade(String codigo) {
-		verificaAtividadeExiste(codigo);
+		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
 		return this.atividades.get(codigo);
 	}
 
@@ -219,7 +219,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
 		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
 
-		verificaAtividadeExiste(codigoAtividade);
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
 
@@ -258,7 +258,7 @@ public class ControllerAtividade implements Buscavel {
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
 
-		verificaAtividadeExiste(codigoAtividade);
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
 
 	}
@@ -299,7 +299,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 
-		verificaAtividadeExiste(codigoAtividade);
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		return atividades.get(codigoAtividade).listaResultados();
 	}
 
@@ -316,7 +316,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 
-		verificaAtividadeExiste(codigoAtividade);
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 
@@ -334,7 +334,7 @@ public class ControllerAtividade implements Buscavel {
 				"Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(codigoAtividade);
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		controllerPesquisa.getPesquisa(codigoPesquisa).associaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).associaPesquisa(controllerPesquisa.getPesquisa(codigoPesquisa));
 	}
@@ -356,7 +356,7 @@ public class ControllerAtividade implements Buscavel {
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		controllerPesquisa.validaPesquisa(codigoPesquisa);
 
-		verificaAtividadeExiste(codigoAtividade);
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		controllerPesquisa.getPesquisa(codigoPesquisa).desassociaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).desassociaPesquisa();
 	}
@@ -372,20 +372,8 @@ public class ControllerAtividade implements Buscavel {
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idSubsequente, "Atividade nao pode ser nulo ou vazio.");
-
-//----------------------------------------------------------------------------------------------------------------
-		
-		if (!atividades.containsKey(idPrecedente)) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
-		}
-		if (!atividades.containsKey(idSubsequente)) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
-		}
-		
-//----------------------------------------------------------------------------------------------------------------
-//		verificaAtividadeExiste(idPrecedente);
-//		verificaAtividadeExiste(idSubsequente);
-		
+		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
+		verificaAtividadeExiste(idSubsequente, "Atividade nao encontrada.");
 		if (atividades.get(idPrecedente).existeProximo()) {
 			throw new RuntimeException("Atividade ja possui uma subsequente.");
 		}
@@ -399,10 +387,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public void tiraProximaAtividade(String idPrecedente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
-		if (!atividades.containsKey(idPrecedente)) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
-		}
-//		verificaAtividadeExiste(idPrecedente);
+		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
 		atividades.get(idPrecedente).removeSeguinteNaCadeia();
 	}
 	
@@ -414,10 +399,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public int contaProximos(String idPrecedente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
-		if (!atividades.containsKey(idPrecedente)) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
-		}
-//		verificaAtividadeExiste(idPrecedente);
+		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
 		return atividades.get(idPrecedente).contaSeguintesNaCadeia();
 	}
 	
@@ -429,10 +411,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");
-		if (!atividades.containsKey(idAtividade)) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
-		}
-//		verificaAtividadeExiste(idPrecedente);
+		verificaAtividadeExiste(idAtividade, "Atividade nao encontrada.");
 		return atividades.get(idAtividade).atividadeMaiorRisco(null);
 	}
 	
@@ -445,10 +424,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");
-		if (!atividades.containsKey(idAtividade)) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
-		}
-//		verificaAtividadeExiste(idPrecedente);
+		verificaAtividadeExiste(idAtividade, "Atividade nao encontrada.");
 		return atividades.get(idAtividade).pegaProximo(enesimaAtividade);
 	}
 
