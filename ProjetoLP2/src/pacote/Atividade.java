@@ -17,12 +17,12 @@ import java.util.Map;
  */
 
 public class Atividade implements Serializable, Comparable<Atividade> {
-
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6324762890418621301L;
-	
+	private static final long serialVersionUID = 7739133564820980144L;
+
 	/**
 	 * Codigo de identificacao unico de atividade
 	 */
@@ -560,6 +560,5 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	
 	public String getRisco() {
 		return this.nivelRisco;
-	}
-	
+	}	
 }
