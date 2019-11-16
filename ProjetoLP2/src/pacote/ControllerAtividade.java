@@ -444,7 +444,7 @@ public class ControllerAtividade implements Buscavel {
 	 * @return
 	 */
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(null, "Atividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");
 		if (!atividades.containsKey(idAtividade)) {
 			throw new IllegalArgumentException("Atividade nao encontrada.");
 		}

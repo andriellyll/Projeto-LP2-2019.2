@@ -494,7 +494,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 */
 	public String pegaProximo(int enesimaAtividade) {
 		if (enesimaAtividade < 1) {
-			throw new IllegalArgumentException("EnesimaAtividade nao pode ser negativa.");
+			throw new IllegalArgumentException("EnesimaAtividade nao pode ser negativa ou zero.");
 		} else if (enesimaAtividade == 1) {
 			if (this.seguinteNaCadeia == null) {
 				throw new IllegalArgumentException("Atividade inexistente.");
