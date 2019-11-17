@@ -297,10 +297,10 @@ public class ControllerProblemaObjetivo implements Buscavel {
 
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			ObjectOutputStream stream2 = new ObjectOutputStream(saveFile2);
-			
+
 			stream.writeObject(problemas);
 			stream2.writeObject(objetivos);
-			
+
 			stream.close();
 			stream2.close();
 		} catch (IOException e2) {
@@ -312,11 +312,10 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 
-
 		try {
 			FileInputStream restFile = new FileInputStream("problema.dat");
 			FileInputStream restFile2 = new FileInputStream("objetivo.dat");
-			
+
 			ObjectInputStream stream = new ObjectInputStream(restFile);
 			ObjectInputStream stream2 = new ObjectInputStream(restFile2);
 			Map<String, Problema> problemasCadastrados = (Map<String, Problema>) stream.readObject();

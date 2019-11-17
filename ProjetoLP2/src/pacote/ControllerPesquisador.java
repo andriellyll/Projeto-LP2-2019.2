@@ -18,7 +18,7 @@ import utils.OrdenaResultados;
  * 
  * @author Andrielly de Lima Lucena - 119110268
  */
-public class ControllerPesquisador implements Buscavel {
+public class ControllerPesquisador implements Buscavel{
 
 	/**
 	 * Colecao que armazena objetos Pesquisador
@@ -296,7 +296,7 @@ public class ControllerPesquisador implements Buscavel {
 			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
-		}
+	}
 
 	}
 

@@ -21,7 +21,7 @@ import utils.OrdenaResultados;
  * 
  * @author Henrique Lemos
  */
-public class ControllerAtividade implements Buscavel {
+public class ControllerAtividade implements Buscavel{
 
 	/**
 	 * Conjunto de Atividades reunidas em um mapa onde cada atividade e identificada
@@ -30,16 +30,6 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	private Map<String, Atividade> atividades;
 
-	/**
-	 * O idVago auxilia o gerador de codigo qual o proximo numero disponivel para
-	 * gerar um codigo.
-	 */
-	private int idVago = 1;
-
-	/**
-	 * O idVagoItem auxilia com o proximo numero disponivel para gerar um codigo.
-	 */
-	private int idVagoItem = 1;
 
 	private ControllerPesquisa controllerPesquisa;
 
@@ -61,22 +51,10 @@ public class ControllerAtividade implements Buscavel {
 	 * @return O codigo, no formato A + valor
 	 */
 	private String criadorCodigo() {
-		String codigo = "A" + idVago;
-		idVago += 1;
+		String codigo = "A" + (atividades.size() + 1);
 		return codigo;
 	}
 
-	/**
-	 * Metodo responsavel por gerar um codigo para cada item criado, representado
-	 * apenas por um inteiro (a partir de 1).
-	 * 
-	 * @return Um inteiro representando o codigo
-	 */
-	private int criadorCodigoItem() {
-		int codigo = idVagoItem;
-		idVagoItem += 1;
-		return codigo;
-	}
 
 	/**
 	 * Metodo responsavel por verificar se a partir de um codigo oferecido pelo
@@ -160,8 +138,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
-		int codigoItem = criadorCodigoItem();
-		atividades.get(codigo).adicionaItem(item, codigoItem);
+		atividades.get(codigo).adicionaItem(item);
 	}
 
 	/**
@@ -437,7 +414,8 @@ public class ControllerAtividade implements Buscavel {
 			FileOutputStream saveFile = new FileOutputStream("atividade.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(atividades);
-			stream.close();
+			
+		stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -454,6 +432,7 @@ public class ControllerAtividade implements Buscavel {
 			Map <String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
 			stream.close();
 			this.atividades = atividadesCadastradas;
+		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

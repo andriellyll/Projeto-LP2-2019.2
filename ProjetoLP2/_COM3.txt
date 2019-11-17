@@ -13,19 +13,10 @@
 			- REALIZADO - ITEM2
 			- REALIZADO - ITEM3
 			- REALIZADO - ITEM4
-		- Busca e analise de uma razao para a Netflix cancelar BoJack Horseman (ALTO - Nao existe uma razao plausivel, assim o risco e elevado.)
-			- PENDENTE - ITEM9
-		- Mudancas nas relacoes do instagram, apos a ocultacao do numero de curtidas das postagens. (ALTO - Por envolver uma crise economica brutal, com diversas blogueirinhas perdendo seus empregos, e de uma crise social, com diversas pessoas perdendo o rummo de suas vidas, o risco e extremamente elevado.)
-		- Ponderacao do por que Imagine dragons e tao bom. (BAIXO - Sem risco, so provar algo obvio.)
-			- REALIZADO - ITEM10
-			- REALIZADO - ITEM11
-			- REALIZADO - ITEM12
-			- REALIZADO - ITEM13
-			- PENDENTE - ITEM14
-		- Monitoramento por ninjas de computacao na guerra ninja. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.)
-		- Analise do comportamento dos alunos de computacao com os alunos de arq/urb. (ALTO - Por se tratar de uma analise a partir de denuncias de um comportamento hostil, o risco e extremamente elevado.)
-			- REALIZADO - ITEM15
-			- PENDENTE - ITEM16
-			- PENDENTE - ITEM17
+		- Demonstracao de amor pela HBO por estar produzindo novos episodios de Adventure Time. (BAIXO - Sem risco, so demonstracao de amor)
+			- PENDENTE - ITEM1
+		- Analise das relacoes sociais em Cyberpunk 2077 (MEDIO - Por se tratar apenas de um possivel futuro, sem confirmacoes concretas de que ele ocorrera, seu risco e medio.)
+		- Plantio de um grao de feijao em um algodao. (ALTO - Por se tratar de uma vida, o risco e extremamente elevado.)
 		- Testando se a terra e plana (BAIXO - Por se tratar de uma atividade que ja se sabe que seus resultados, sendo assim uma atividade simbolica, seu risco e hiperbólicamente baixo.)
 		- Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama (ALTO - Pela possibilidade de nao existirem pesoas o bastante no universo para levantar a mao, o risco e alto.)
+
