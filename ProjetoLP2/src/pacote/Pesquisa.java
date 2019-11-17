@@ -433,7 +433,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		}
 		
 		if(this.problemaDaPesquisa != null) {
-			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t- " + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivo:";			
+			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t- " + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";			
 		}
 		
 		for (Objetivo objetivo : objetivosDaPesquisa) {
