@@ -172,7 +172,9 @@ public class Objetivo implements Serializable, Comparable<Objetivo> {
 
 	@Override
 	public int compareTo(Objetivo objetivo2) {
-		return this.codigo.compareTo(objetivo2.getCodigo());
+		int codigo1 = Integer.parseInt(this.codigo.substring(1));
+		int codigo2 = Integer.parseInt(objetivo2.getCodigo().substring(1));
+		return codigo1 - codigo2;
 	}
 
 	private String getCodigo() {

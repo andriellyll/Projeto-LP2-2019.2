@@ -30,7 +30,7 @@ public class ControllerAtividade implements Buscavel{
 	 */
 	private Map<String, Atividade> atividades;
 
-private int idatividade;
+	private int idatividade;
 	
 	private ControllerPesquisa controllerPesquisa;
 

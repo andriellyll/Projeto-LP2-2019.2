@@ -555,7 +555,9 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 
 	@Override
 	public int compareTo(Atividade atividade2) {
-		return this.codigo.compareTo(atividade2.getCodigo());
+		int codigo1 = Integer.parseInt(this.codigo.substring(1));
+		int codigo2 = Integer.parseInt(atividade2.getCodigo().substring(1));
+		return codigo1 - codigo2;
 	}
 
 	public String getCodigo() {
