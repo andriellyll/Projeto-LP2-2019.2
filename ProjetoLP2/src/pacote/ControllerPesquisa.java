@@ -38,7 +38,7 @@ public class ControllerPesquisa implements Buscavel {
 	private ControllerPesquisador controllerPesquisador;
 
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
-
+	
 	private String estrategia;
 
 	/**
@@ -56,6 +56,8 @@ public class ControllerPesquisa implements Buscavel {
 		this.codigos = new HashMap<>();
 		this.estrategia = "MAIS_ANTIGA";
 	}
+
+
 
 	/**
 	 * Cadastra uma pesquisa no sistema a partir de uma descricao e de um campo de
@@ -511,5 +513,4 @@ public class ControllerPesquisa implements Buscavel {
 		}
 
 	}
-
 }

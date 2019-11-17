@@ -191,47 +191,47 @@ class ControllerPesquisaTest {
 	public void testAssociaPesquisador() {
 		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorJaAssociado() {
 		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
 		assertFalse(controle.associaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorPesquisaInexistente() {
-		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorPesquisaInativa() {
 		controle.encerraPesquisa("ECO1", "pipipi popopo");
-		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorInexistente() {
-		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "drica@aaa"));		
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "drica@aaa"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorNull() {
 		assertThrows(NullPointerException.class, () -> controle.associaPesquisador(null, "bia@pfta"));
 		assertThrows(NullPointerException.class, () -> controle.associaPesquisador("ECO1", null));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorVazio() {
 		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("", "bia@pfta"));
 		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("ECO1", ""));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisador() {
 		controle.associaPesquisador("ECO1", "bia@pfta");
 		assertTrue(controle.desassociaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorJaDesassociado() {
 		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
@@ -244,28 +244,29 @@ class ControllerPesquisaTest {
 		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador(null, "bia@pfta"));
 		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador("ECO1", null));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorVazio() {
 		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("", "bia@pfta"));
 		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("ECO1", ""));
-	}	
+	}
+
 	@Test
 	public void testDesassociaPesquisadorPesquisaInexistente() {
 		controle.associaPesquisador("ECO1", "bia@pfta");
-		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorPesquisaInativa() {
 		controle.associaPesquisador("ECO1", "bia@pfta");
 		controle.encerraPesquisa("ECO1", "pipipi popopo");
-		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorInexistente() {
-		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "drica@aaa"));		
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "drica@aaa"));
 	}
 
 	@Test
@@ -482,23 +483,70 @@ class ControllerPesquisaTest {
 	void testGravarResumo() {
 //		controle.gravarResumo("ECO1");
 	}
-	
+
 	@Test
 	void testGravarResumoInvalido() {
-		assertThrows(NullPointerException.class, () -> controle.gravarResumo(null), "Pesquisa nao pode ser nula ou vazia.");
-		assertThrows(IllegalArgumentException.class, () -> controle.gravarResumo(""), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(NullPointerException.class, () -> controle.gravarResumo(null),
+				"Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(IllegalArgumentException.class, () -> controle.gravarResumo(""),
+				"Pesquisa nao pode ser nula ou vazia.");
 		assertThrows(RuntimeException.class, () -> controle.gravarResumo("BQW1"), "Pesquisa nao encontrada.");
 	}
-	
+
 	@Test
 	void testGravarResultados() {
-		
+
 	}
-	
+
 	@Test
 	void testGravarResultadosInvalido() {
-		assertThrows(NullPointerException.class, () -> controle.gravarResultados(null), "Pesquisa nao pode ser nula ou vazia.");
-		assertThrows(IllegalArgumentException.class, () -> controle.gravarResultados(""), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(NullPointerException.class, () -> controle.gravarResultados(null),
+				"Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(IllegalArgumentException.class, () -> controle.gravarResultados(""),
+				"Pesquisa nao pode ser nula ou vazia.");
 		assertThrows(RuntimeException.class, () -> controle.gravarResumo("BMW10"), "Pesquisa nao encontrada.");
 	}
+
+	@Test
+	void configuraEstrategiaVaziaTest() {
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia(""));
+
+	}
+
+	@Test
+	void configuraEstrategiaNulaTest() {
+		assertThrows(NullPointerException.class, () -> controle.configuraEstrategia(null));
+
+	}
+
+	@Test
+	void configuraEstrategiaInvalidaTest() {
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia("invalida"));
+	}
+
+	@Test
+	void configuraEstrategiaMaisAntiga() {
+		controle.configuraEstrategia("MAIS_ANTIGA");
+	}
+
+	@Test
+	void configuraEstrategiaMenosPendencias() {
+		controle.configuraEstrategia("MENOS_PENDENCIAS");
+	}
+
+	@Test
+	void configuraEstrategiaMaiorRisco() {
+		controle.configuraEstrategia("MAIOR_RISCO");
+	}
+
+	@Test
+	void configuraEstrategiaMaiorDuracao() {
+		controle.configuraEstrategia("MAIOR_DURACAO");
+	}
+
+	@Test
+	void proximaAtividadeTest() {
+		assertThrows(RuntimeException.class, () -> controle.proximaAtividade("ECO1"));
+	}
+
 }
