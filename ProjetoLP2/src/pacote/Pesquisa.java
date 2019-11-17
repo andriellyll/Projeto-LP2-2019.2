@@ -446,7 +446,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			resumo += System.lineSeparator() + "\t\t- " + atividade.exibeAtividade();
 		}
 		
-		return resumo + "\"";
+		return resumo + "\" ";
 	}
 	/**
 	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre os pesquisadores, objetivos, atividades e problema da pesquisa.
