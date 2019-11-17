@@ -23,11 +23,11 @@ public class Facade {
 
 	public static void main(String[] args) {
 
-		args = new String[] { "pacote.Facade","easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
+		args = new String[] { "pacote.Facade", "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
 				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
 				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt", "easyaccept/use_case_08.txt",
 				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt"
-				/*"easyaccept/use_case_12CARREGAR.txt"*/  };
+				/* "easyaccept/use_case_12SALVAR.txt" */ };
 		EasyAccept.main(args);
 	}
 
@@ -261,19 +261,18 @@ public class Facade {
 //Persistencia:
 
 	public void salvar() {
-		 this.controllerPesquisa.salvar();
-		 this.controllerPesquisador.salvar();
-		 this.controllerAtividade.salvar();
-		 this.controllerProblemaObjetivo.salvar();
+		this.controllerPesquisa.salvar();
+		this.controllerPesquisador.salvar();
+		this.controllerAtividade.salvar();
+		this.controllerProblemaObjetivo.salvar();
 
 	}
-	
 
 	public void carregar() {
- this.controllerPesquisa.carregar();
- this.controllerPesquisador.carregar();
- this.controllerAtividade.carregar();
- this.controllerProblemaObjetivo.carregar();
+		this.controllerPesquisa.carregar();
+		this.controllerPesquisador.carregar();
+		this.controllerAtividade.carregar();
+		this.controllerProblemaObjetivo.carregar();
 	}
 
 	public void configuraEstrategia(String estrategia) {

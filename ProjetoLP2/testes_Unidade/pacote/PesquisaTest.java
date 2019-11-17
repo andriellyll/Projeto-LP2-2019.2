@@ -210,19 +210,19 @@ class PesquisaTest {
 				4, 2, "O1");
 		test1.desassociaObjetivo(objetivo);
 	}
-	
+
 	@Test
 	void getCodigoPesquisa() {
 		assertEquals("SEG1", test1.getCodigo());
 	}
-	
+
 	@Test
 	void getIdProblema() {
 		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
 		test1.associaProblema(problema);
 		assertEquals("P1", test1.getIdProblema());
 	}
-	
+
 	@Test
 	void verificaPesquisaTemObjetivos() {
 		Objetivo objetivo = new Objetivo("GERAL",
@@ -230,9 +230,9 @@ class PesquisaTest {
 				4, 2, "O1");
 		test1.associaObjetivo(objetivo);
 		assertTrue(test1.temObjetivos());
-		
+
 	}
-	
+
 	@Test
 	void verificaQuantidadeDeObjetivos() {
 		Objetivo objetivo = new Objetivo("GERAL",
@@ -241,95 +241,103 @@ class PesquisaTest {
 		Objetivo objetivo2 = new Objetivo("GERAL", "Diminuir a frequencia de mensagens homofobicas.", 4, 2, "O2");
 		test1.associaObjetivo(objetivo);
 		test1.associaObjetivo(objetivo2);
-		assertEquals(2,test1.getNumObjetivos());
-		
+		assertEquals(2, test1.getNumObjetivos());
+
 	}
-	
+
 	@Test
 	void verificaPesquisaTemObjetivoSemObjetivos() {
 		assertFalse(test1.temObjetivos());
 	}
-	
+
 	@Test
 	void verificaPesquisaTemProblema() {
 		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
 		test1.associaProblema(problema);
 		assertTrue(test1.temProblema());
 	}
-	
+
 	@Test
 	void verificaPesquisaTemProblemaSemProblemaAssociado() {
 		assertFalse(test1.temProblema());
 	}
-	
+
 	@Test
 	void procuraPalavraChaveDescricao() {
 		ArrayList<String> ex = new ArrayList<>();
 		ex.add("SEG1: Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
-		assertEquals( test1.procuraPalavraChave("Chefes"), ex);
+		assertEquals(test1.procuraPalavraChave("Chefes"), ex);
 	}
+
 	@Test
 	void procuraPalavraChaveDescricaoListaVazia() {
 		ArrayList<String> ex = new ArrayList<>();
-		assertEquals( test1.procuraPalavraChave("Chefa"), ex);
-		
+		assertEquals(test1.procuraPalavraChave("Chefa"), ex);
+
 	}
+
 	@Test
 	void procuraPalavraChaveCampoDeInteresse() {
 		ArrayList<String> ex = new ArrayList<>();
 		ex.add("SEG1: Seguranca publica");
-		assertEquals( test1.procuraPalavraChave("Seguranca"), ex);
+		assertEquals(test1.procuraPalavraChave("Seguranca"), ex);
 	}
+
 	@Test
 	void procuraPalavraChaveCampoDeInteresseListaVazia() {
 		ArrayList<String> ex = new ArrayList<>();
-		assertEquals( test1.procuraPalavraChave("Seguro"), ex);
+		assertEquals(test1.procuraPalavraChave("Seguro"), ex);
 	}
+
 	@Test
 	void procuraPalavraChaveDescricaoECampoDeInteresse() {
-		Pesquisa test3 = new Pesquisa("SEG2", "Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
+		Pesquisa test3 = new Pesquisa("SEG2",
+				"Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
 				"Seguranca publica");
 		ArrayList<String> ex = new ArrayList<>();
 		ex.add("SEG2: Chefes da Seguranca da mafia italiana aguardam extradicao no mesmo presidio que Marcola");
-		assertEquals( test3.procuraPalavraChave("Chefes"), ex);
+		assertEquals(test3.procuraPalavraChave("Chefes"), ex);
 	}
+
 	@Test
 	void testprocuraPalavraChaveNull() {
 		assertThrows(NullPointerException.class, () -> {
 			test1.procuraPalavraChave(null);
 		});
 	}
+
 	@Test
 	void testprocuraPalavraChaveVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			test1.procuraPalavraChave("");
 		});
 	}
-	
+
 	@Test
 	void testCompareTo() {
 		assertEquals(test1.compareTo(test2), -17);
 	}
+
 	@Test
 	void testAssociaPesquisador() {
 		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
 		assertTrue(test1.associaPesquisador(p));
 	}
-	
+
 	@Test
 	void testAssociaPesquisadorJaAssociado() {
 		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
 		assertTrue(test1.associaPesquisador(p));
 		assertFalse(test1.associaPesquisador(p));
 	}
-	
+
 	@Test
 	void testDesassociaPesquisador() {
 		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
 		assertTrue(test1.associaPesquisador(p));
 		assertTrue(test1.desassociaPesquisador(p));
 	}
-	
+
 	@Test
 	void testDesassociaPesquisadorJaAssociado() {
 		Pesquisador p = new Pesquisador("helen", "estudante", "linda", "helen@linda", "http://helen");
@@ -337,4 +345,34 @@ class PesquisaTest {
 		assertTrue(test1.desassociaPesquisador(p));
 		assertFalse(test1.desassociaPesquisador(p));
 	}
+
+//	@Test
+//	void proximaAtividadeMaisAntiga() {
+//		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+//		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
+//		Atividade a3 = new Atividade("A3", "outra da outra descricao", "BAIXO", "risco");
+//		a1.adicionaItem("descricao");
+//		a1.adicionaItem("lala");
+//		a2.adicionaItem("num");
+//		test1.associaAtividade(a1);
+//		test1.associaAtividade(a2);
+//		test1.associaAtividade(a3);
+//		assertEquals(test1.proximaAtividade("MAIS_ANTIGA"), "A1");
+//	}
+
+//	@Test
+//	void proximaAtividadeMenosPendencias() {
+//		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+//		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
+//		Atividade a3 = new Atividade("A3", "outra da outra descricao", "BAIXO", "risco");
+//		a1.adicionaItem("descricao");
+//		a1.adicionaItem("lala");
+//		a2.adicionaItem("num");
+//		test1.associaAtividade(a1);
+//		test1.associaAtividade(a2);
+//		test1.associaAtividade(a3);
+//		assertEquals(test1.proximaAtividade("MENOS_PENDENCIAS"), "A3");
+//		
+//
+//	}
 }
