@@ -289,16 +289,20 @@ public class ControllerProblemaObjetivo implements Buscavel {
 
 	// -----------------------------------------------------------Novas Atualizacoes
 	// (Parte 3)----------------------------------------------
+
 	public void salvar() {
-
-		ObjectOutputStream oosProblemas = null;
-		ObjectOutputStream oosObjetivos = null;
-
 		try {
-			oosProblemas = new ObjectOutputStream(new FileOutputStream("problema.txt"));
-			oosObjetivos = new ObjectOutputStream(new FileOutputStream("objetivo.txt"));
-			oosProblemas.writeObject(problemas);
-			oosObjetivos.writeObject(objetivos);
+			FileOutputStream saveFile = new FileOutputStream("problema.dat");
+			FileOutputStream saveFile2 = new FileOutputStream("objetivo.dat");
+
+			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
+			ObjectOutputStream stream2 = new ObjectOutputStream(saveFile2);
+			
+			stream.writeObject(problemas);
+			stream2.writeObject(objetivos);
+			
+			stream.close();
+			stream2.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -308,14 +312,19 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 
-		ObjectInputStream oisProblemas = null;
-		ObjectInputStream oisObjetivos = null;
 
 		try {
-			oisProblemas = new ObjectInputStream(new FileInputStream("problema.txt"));
-			oisObjetivos = new ObjectInputStream(new FileInputStream("objetivo.txt"));
-			this.problemas = (HashMap<String, Problema>) oisProblemas.readObject();
-			this.objetivos = (HashMap<String, Objetivo>) oisObjetivos.readObject();
+			FileInputStream restFile = new FileInputStream("problema.dat");
+			FileInputStream restFile2 = new FileInputStream("objetivo.dat");
+			
+			ObjectInputStream stream = new ObjectInputStream(restFile);
+			ObjectInputStream stream2 = new ObjectInputStream(restFile2);
+			Map<String, Problema> problemasCadastrados = (Map<String, Problema>) stream.readObject();
+			Map<String, Objetivo> objetivosCadastrados = (Map<String, Objetivo>) stream2.readObject();
+			stream.close();
+			stream2.close();
+			this.problemas = problemasCadastrados;
+			this.objetivos = objetivosCadastrados;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
