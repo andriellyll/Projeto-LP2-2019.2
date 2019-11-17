@@ -296,7 +296,7 @@ public class ControllerPesquisador implements Buscavel{
 			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
-		}
+	}
 
 	}
 

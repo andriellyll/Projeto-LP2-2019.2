@@ -143,8 +143,9 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * @param item   valor que descreve o novo item
 	 * @param codigo valor de identificacao do novo item
 	 */
-	public void adicionaItem(String item, int codigo) {
+	public void adicionaItem(String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
+		int codigo = itens.size()+1;
 		Item novoItem = new Item(item, codigo);
 		if (!itens.contains(novoItem)) {
 			itens.add(novoItem);
