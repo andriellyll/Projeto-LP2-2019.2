@@ -450,10 +450,12 @@ public class ControllerPesquisa implements Buscavel {
 	
 	public void salvar() {
 
-		ObjectOutputStream oosPesquisas = null;
+	
 		try {
-			oosPesquisas = new ObjectOutputStream(new FileOutputStream("pesquisa.txt"));
-			oosPesquisas.writeObject(pesquisas);
+			FileOutputStream saveFile = new FileOutputStream("pesquisa.dat");
+			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
+			stream.writeObject(pesquisas);
+			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -462,12 +464,12 @@ public class ControllerPesquisa implements Buscavel {
 
 	@SuppressWarnings("unchecked")
 	public void carregar() {
-
-		ObjectInputStream oisPesquisas = null;
-
 		try {
-			oisPesquisas = new ObjectInputStream(new FileInputStream("pesquisa.txt"));
-			this.pesquisas = (HashMap <String, Pesquisa>)oisPesquisas.readObject();
+			FileInputStream restFile = new FileInputStream("pesquisa.dat");
+			ObjectInputStream stream = new ObjectInputStream(restFile);
+			Map<String, Pesquisa> pesquisasCadastradas = (Map<String, Pesquisa>) stream.readObject();
+			stream.close();
+			this.pesquisas = pesquisasCadastradas;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

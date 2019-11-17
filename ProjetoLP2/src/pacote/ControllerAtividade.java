@@ -429,25 +429,31 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	
+
 	public void salvar() {
-		ObjectOutputStream oosAtividades = null;
+
+	
 		try {
-			oosAtividades = new ObjectOutputStream(new FileOutputStream("atividade.txt"));
-			oosAtividades.writeObject(atividades);
+			FileOutputStream saveFile = new FileOutputStream("atividade.dat");
+			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
+			stream.writeObject(atividades);
+			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
 
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 
-		ObjectInputStream oisAtividades = null;
-
 		try {
-			oisAtividades = new ObjectInputStream(new FileInputStream("atividade.txt"));
-			this.atividades = (HashMap<String, Atividade>) oisAtividades.readObject();
+			FileInputStream restFile = new FileInputStream("atividade.dat");
+			ObjectInputStream stream = new ObjectInputStream(restFile);
+			Map <String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
+			stream.close();
+			this.atividades = atividadesCadastradas;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
