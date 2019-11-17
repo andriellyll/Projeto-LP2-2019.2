@@ -203,7 +203,7 @@ public class ControllerPesquisa implements Buscavel {
 		return pesquisa.getAtivacao();
 	}
 
-//------------------------------------- Novas atualizacoes de ControllerPesquisa ----------------------------------------
+//------------------------------------- Novas atualizacoes de ControllerPesquisa (Parte 2) ----------------------------------------
 
 	/**
 	 * Metodo responsavel por associar um problema a uma pesquisa.
@@ -446,7 +446,8 @@ public class ControllerPesquisa implements Buscavel {
 				.desassociaPesquisador(controllerPesquisador.getPesquisador(emailPesquisador));
 	}
 
-// -----------------------------------------------------------Novas Atualizacoes (Parte 3)----------------------------------------------
+// -------------------------------------------- Novas Atualizacoes de ControllerPesquisa (Parte 3) ----------------------------------------------
+	
 	public void salvar() {
 
 		ObjectOutputStream oosPesquisas = null;

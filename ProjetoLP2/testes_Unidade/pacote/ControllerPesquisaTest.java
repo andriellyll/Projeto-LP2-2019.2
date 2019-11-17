@@ -184,6 +184,9 @@ class ControllerPesquisaTest {
 				"Codigo nao pode ser nulo ou vazio.");
 		assertThrows(RuntimeException.class, () -> controle.pesquisaEhAtiva("GEO2"), "Pesquisa nao encontrada.");
 	}
+
+//------------------------------------ Novos testes ControllerPesquisa (Parte 2) ---------------------------------------------
+
 	@Test
 	public void testAssociaPesquisador() {
 		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
@@ -471,5 +474,27 @@ class ControllerPesquisaTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			controle.procuraPalavraChave("");
 		});
+	}
+
+//------------------------------------ Novos testes ControllerPesquisa (Parte 3) ---------------------------------------------
+
+	@Test
+	void testGravarResumo() {
+		
+	}
+	
+	@Test
+	void testGravarResumoInvalido() {
+		
+	}
+	
+	@Test
+	void testGravarResultados() {
+		
+	}
+	
+	@Test
+	void testGravarResultadosInvalido() {
+		
 	}
 }

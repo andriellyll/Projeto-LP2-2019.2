@@ -418,6 +418,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
 
+//-------------------------------------------------- Novas Atualizações Pesquisa (Parte 3) ----------------------------------------------------------------------
+
 	/**
 	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas informacoes (pesquisadores, objetivos, atividades e problema).
 	 * @return a String resumo
