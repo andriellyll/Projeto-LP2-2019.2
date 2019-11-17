@@ -450,7 +450,7 @@ public class ControllerPesquisa implements Buscavel {
 	
 	public void salvar() {
 
-	
+		
 		try {
 			FileOutputStream saveFile = new FileOutputStream("pesquisa.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);

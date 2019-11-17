@@ -437,6 +437,7 @@ public class ControllerAtividade implements Buscavel {
 			FileOutputStream saveFile = new FileOutputStream("atividade.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(atividades);
+			
 			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
@@ -454,6 +455,7 @@ public class ControllerAtividade implements Buscavel {
 			Map <String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
 			stream.close();
 			this.atividades = atividadesCadastradas;
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
