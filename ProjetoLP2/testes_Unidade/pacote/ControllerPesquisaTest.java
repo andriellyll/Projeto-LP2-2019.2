@@ -480,12 +480,14 @@ class ControllerPesquisaTest {
 
 	@Test
 	void testGravarResumo() {
-		
+//		controle.gravarResumo("ECO1");
 	}
 	
 	@Test
 	void testGravarResumoInvalido() {
-		
+		assertThrows(NullPointerException.class, () -> controle.gravarResumo(null), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(IllegalArgumentException.class, () -> controle.gravarResumo(""), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(RuntimeException.class, () -> controle.gravarResumo("BQW1"), "Pesquisa nao encontrada.");
 	}
 	
 	@Test
@@ -495,6 +497,8 @@ class ControllerPesquisaTest {
 	
 	@Test
 	void testGravarResultadosInvalido() {
-		
+		assertThrows(NullPointerException.class, () -> controle.gravarResultados(null), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(IllegalArgumentException.class, () -> controle.gravarResultados(""), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(RuntimeException.class, () -> controle.gravarResumo("BMW10"), "Pesquisa nao encontrada.");
 	}
 }
