@@ -360,19 +360,49 @@ class PesquisaTest {
 //		assertEquals(test1.proximaAtividade("MAIS_ANTIGA"), "A1");
 //	}
 
-//	@Test
-//	void proximaAtividadeMenosPendencias() {
-//		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
-//		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
-//		Atividade a3 = new Atividade("A3", "outra da outra descricao", "BAIXO", "risco");
-//		a1.adicionaItem("descricao");
-//		a1.adicionaItem("lala");
-//		a2.adicionaItem("num");
-//		test1.associaAtividade(a1);
-//		test1.associaAtividade(a2);
-//		test1.associaAtividade(a3);
-//		assertEquals(test1.proximaAtividade("MENOS_PENDENCIAS"), "A3");
-//		
-//
-//	}
+	@Test
+	void proximaAtividadeMenosPendencias() {
+		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
+		a1.adicionaItem("descricao");
+		a1.adicionaItem("lala");
+		a2.adicionaItem("num");
+		test1.associaAtividade(a1);
+		test1.associaAtividade(a2);
+		assertEquals(test1.proximaAtividade("MENOS_PENDENCIAS"), "A2");
+		
+
+	}
+	
+	@Test
+	void proximaAtividadeMaiorRisco() {
+		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
+		a1.adicionaItem("descricao");
+		a1.adicionaItem("lala");
+		a2.adicionaItem("num");
+		test1.associaAtividade(a1);
+		test1.associaAtividade(a2);
+		assertEquals(test1.proximaAtividade("MAIOR_RISCO"), "A1");
+		
+
+	}
+	
+	@Test
+	void proximaAtividadeMaiorDuracao() {
+		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
+		a1.adicionaItem("descricao");
+		a1.adicionaItem("lala");
+		a2.adicionaItem("num");
+		test1.associaAtividade(a1);
+		test1.associaAtividade(a2);
+		a1.associaPesquisa(test1);
+		a2.associaPesquisa(test1);
+		a2.executaAtividade(1, 10);
+		a1.executaAtividade(1, 2);
+		assertEquals(test1.proximaAtividade("MAIOR_DURACAO"), "A2");
+		
+
+	}
 }
