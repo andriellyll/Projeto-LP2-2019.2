@@ -17,12 +17,12 @@ import java.util.Map;
  */
 
 public class Atividade implements Serializable, Comparable<Atividade> {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6324762890418621301L;
-	
+
 	/**
 	 * Codigo de identificacao unico de atividade
 	 */
@@ -412,6 +412,9 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		if (this.seguinteNaCadeia == null) {
 			this.seguinteNaCadeia = proximo;
 		}
+		else if(this.seguinteNaCadeia != null) {
+			throw new RuntimeException("Atividade ja possui uma subsequente.");
+		}
 		if (proximo.ehLoop(this)) {
 			this.seguinteNaCadeia = null;
 			throw new RuntimeException("Criacao de loops negada.");
@@ -560,6 +563,5 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	
 	public String getRisco() {
 		return this.nivelRisco;
-	}
-	
+	}	
 }

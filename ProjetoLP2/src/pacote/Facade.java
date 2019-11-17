@@ -22,10 +22,11 @@ public class Facade {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "pacote.Facade", "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
+
+		args = new String[] { "pacote.Facade","easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
 				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
-				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt",
-				"easyaccept/use_case_08.txt", "easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt" };
+				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt", "easyaccept/use_case_08.txt",
+				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt"};
 		EasyAccept.main(args);
 	}
 
@@ -247,18 +248,18 @@ public class Facade {
 //Proxima Atividade:
 
 //Resultados:
-	
+
 	public void gravarResumo(String codigoPesquisa) throws IOException {
 		controllerPesquisa.gravarResumo(codigoPesquisa);
 	}
-	
+
 	public void gravarResultados(String codigoPesquisa) throws IOException {
 		controllerPesquisa.gravarResultados(codigoPesquisa);
 	}
 
 //Persistencia:
 
-	public void salva() {
+	public void salvar() {
 		this.controllerPesquisa.salvar();
 		this.controllerPesquisador.salvar();
 		this.controllerAtividade.salvar();
@@ -266,18 +267,18 @@ public class Facade {
 
 	}
 
-	public void carrega() {
+	public void carregar() {
 		this.controllerPesquisa.carregar();
 		this.controllerPesquisador.carregar();
 		this.controllerAtividade.carregar();
 		this.controllerProblemaObjetivo.carregar();
 	}
-	
+
 	public void configuraEstrategia(String estrategia) {
 		this.controllerPesquisa.configuraEstrategia(estrategia);
-		
+
 	}
-	
+
 	public String proximaAtividade(String codigoPesquisa) {
 		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
 	}

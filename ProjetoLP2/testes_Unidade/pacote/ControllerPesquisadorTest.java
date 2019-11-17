@@ -689,4 +689,20 @@ class ControllerPesquisadorTest {
 			controllerPesquisador.procuraPalavraChave("");
 		});
 	}
+	
+	@Test
+	void testSalvar() {
+		controllerPesquisador.cadastraPesquisador("gauds", "professor", "aaaaaa", "gauds@computacao", "http://aaaa");
+		controllerPesquisador.cadastraPesquisador("toninho rodrigues", "externo", "toninho a bolonhesa", "toninho@rodrigues", "https://toninhoabolonhesa");
+		controllerPesquisador.cadastraPesquisador("eren jaeger", "externo", "tita de ataque", "eren@jaeger", "https://eren");
+		
+		controllerPesquisador.salvar();
+	}
+	
+	@Test
+	void testCarregar() {
+		controllerPesquisador.carregar();
+		
+		assertEquals("eren jaeger (externo) - tita de ataque - eren@jaeger - https://eren | toninho rodrigues (externo) - toninho a bolonhesa - toninho@rodrigues - https://toninhoabolonhesa", controllerPesquisador.listaPesquisadores("externo"));
+	}
 }

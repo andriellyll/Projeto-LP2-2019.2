@@ -188,4 +188,76 @@ class AtividadeTest {
 		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
 		assertFalse(atividade2.desassociaPesquisa());
 	}
+	@Test
+	public void testExisteproximo() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.adicionaNaCadeia(atividade2);
+		assertTrue(atividade.existeProximo());
+		assertFalse(atividade2.existeProximo());
+		
+	}
+	@Test
+	public void testGetSeguinteNaCadeia() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.adicionaNaCadeia(atividade2);
+		assertEquals(atividade.getSeguinteNaCadeia(), atividade2);
+		
+	}@Test
+	public void testGetSeguinteNaCadeiaSemSeguinte() {
+		assertEquals(atividade.getSeguinteNaCadeia(), null);
+	}
+	@Test
+	public void testAdicionaNaCadeia() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.adicionaNaCadeia(atividade2);
+		Atividade atividade3 = new Atividade("A3", "Mais um objeto de atividade3 para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade2.adicionaNaCadeia(atividade3);
+		assertEquals(atividade.getSeguinteNaCadeia(), atividade2);
+		assertEquals(atividade2.getSeguinteNaCadeia(), atividade3);
+	}
+	@Test
+	public void testAdicionaNaCadeiaLoop() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.adicionaNaCadeia(atividade2);
+		assertThrows(RuntimeException.class, () -> {
+			atividade2.adicionaNaCadeia(atividade);
+			;
+		});
+		
+	}
+	@Test
+	public void testRemoveDaCadeia() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.adicionaNaCadeia(atividade2);
+		assertEquals(atividade.getSeguinteNaCadeia(), atividade2);
+		atividade.removeSeguinteNaCadeia();
+		assertEquals(atividade.getSeguinteNaCadeia(), null);
+		
+	}
+	@Test
+	public void testContaSeguintesNaCadeiasSemNenhumaSubsequente() {
+		assertEquals(atividade.contaSeguintesNaCadeia(), 0);
+	}
+	@Test
+	public void testContaSeguintesNaCadeia() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.adicionaNaCadeia(atividade2);
+		Atividade atividade3 = new Atividade("A3", "Mais um objeto de atividade3 para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade2.adicionaNaCadeia(atividade3);
+		assertEquals(atividade.contaSeguintesNaCadeia(), 2);
+		assertEquals(atividade2.contaSeguintesNaCadeia(), 1);
+		
+	}
+	@Test
+	public void testAtividadeMaiorRisco() {
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		atividade.adicionaNaCadeia(atividade2);
+		Atividade atividade3 = new Atividade("A3", "Mais um objeto de atividade3 para testar", "BAIXO", "Tem muita importancia deste teste");
+		atividade2.adicionaNaCadeia(atividade3);
+		Atividade atividade4 = new Atividade("A4", "Mais um objeto de atividade4 para testar", "MEDIO", "Tem muita importancia deste teste");
+		atividade3.adicionaNaCadeia(atividade4);
+		assertEquals(atividade.atividadeMaiorRisco("ALTO"), "A2");
+		
+	}
+	
 }
