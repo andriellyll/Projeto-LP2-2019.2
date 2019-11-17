@@ -18,5 +18,8 @@
 		- Analise das relacoes sociais em Cyberpunk 2077 (MEDIO - Por se tratar apenas de um possivel futuro, sem confirmacoes concretas de que ele ocorrera, seu risco e medio.)
 		- Plantio de um grao de feijao em um algodao. (ALTO - Por se tratar de uma vida, o risco e extremamente elevado.)
 		- Testando se a terra e plana (BAIXO - Por se tratar de uma atividade que ja se sabe que seus resultados, sendo assim uma atividade simbolica, seu risco e hiperbólicamente baixo.)
+			- REALIZADO - ITEM1
+			- PENDENTE - ITEM2
+			- PENDENTE - ITEM3
 		- Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama (ALTO - Pela possibilidade de nao existirem pesoas o bastante no universo para levantar a mao, o risco e alto.)
-
+		- Busca e analise de uma razao para a Netflix cancelar BoJack Horseman (ALTO - Nao existe uma razao plausivel, assim o risco e elevado.)

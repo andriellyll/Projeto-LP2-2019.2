@@ -30,7 +30,8 @@ public class ControllerAtividade implements Buscavel{
 	 */
 	private Map<String, Atividade> atividades;
 
-
+private int idatividade;
+	
 	private ControllerPesquisa controllerPesquisa;
 
 	/**
@@ -51,7 +52,8 @@ public class ControllerAtividade implements Buscavel{
 	 * @return O codigo, no formato A + valor
 	 */
 	private String criadorCodigo() {
-		String codigo = "A" + (atividades.size() + 1);
+		String codigo = "A" + (idatividade + 1);
+		idatividade++;
 		return codigo;
 	}
 
