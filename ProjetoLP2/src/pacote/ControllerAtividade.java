@@ -1,10 +1,12 @@
 package pacote;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,7 +32,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	private Map<String, Atividade> atividades;
 
-	private int idatividade;
+	private int numeroAtividades;
 
 	private ControllerPesquisa controllerPesquisa;
 
@@ -52,8 +54,8 @@ public class ControllerAtividade implements Buscavel {
 	 * @return O codigo, no formato A + valor
 	 */
 	private String criadorCodigo() {
-		String codigo = "A" + (idatividade + 1);
-		idatividade++;
+		String codigo = "A" + (numeroAtividades + 1);
+		numeroAtividades++;
 		return codigo;
 	}
 
@@ -416,6 +418,12 @@ public class ControllerAtividade implements Buscavel {
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(atividades);
 
+			OutputStream out = new FileOutputStream(new File("numeroAtividades.txt"));
+
+			out.write(numeroAtividades);
+
+			out.close();
+
 			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
@@ -426,7 +434,7 @@ public class ControllerAtividade implements Buscavel {
 	/**
 	 * Metodo responsavel por recuperar o que foi salvo previamente
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "resource" })
 	public void carregar() {
 
 		try {
@@ -435,6 +443,11 @@ public class ControllerAtividade implements Buscavel {
 			Map<String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
 			stream.close();
 			this.atividades = atividadesCadastradas;
+
+			File file = new File("numeroAtividades.txt");
+			FileInputStream fis = null;
+			fis = new FileInputStream(file);
+			this.numeroAtividades = fis.read();
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
