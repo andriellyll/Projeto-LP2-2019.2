@@ -1,6 +1,10 @@
 package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -404,5 +408,32 @@ class PesquisaTest {
 		assertEquals(test1.proximaAtividade("MAIOR_DURACAO"), "A2");
 		
 
+	}
+	
+	@Test
+	private static String readFileAsString(String fileName) throws Exception {
+		String data = "";
+		data = new String(Files.readAllBytes(Paths.get(fileName)));
+		return data;
+	}
+	
+	@Test
+	void testGerarResumo() {
+//		assertEquals();
+	}
+	
+	@Test
+	void testGravarResumo() throws IOException {
+//		assertEquals();
+	}
+	
+	@Test
+	void testResultadosPesquisa() {
+		
+	}
+	
+	@Test
+	void testGravarResultados() throws IOException {
+		
 	}
 }

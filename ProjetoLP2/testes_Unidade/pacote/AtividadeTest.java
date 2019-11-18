@@ -286,6 +286,6 @@ class AtividadeTest {
 		atividade.cadastraResultado("Esse grupo e so sucesso");
 		atividade.cadastraResultado("Pegamos o melhor professor e os melhores monitores para nos auxiliar");
 		assertEquals(atividade.getResultados(), "- Monitoramento de chats dos alunos de computacao do primeiro periodo.\n" + 
-				"\n" + "\t\t\t- ITEM1 - REALIZADO");
+				"\n" + "\t\t\t- ITEM1 - REALIZADO" + "\n" + "");
 	}
 }

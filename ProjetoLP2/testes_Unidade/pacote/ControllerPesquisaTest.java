@@ -2,7 +2,6 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,6 +33,8 @@ class ControllerPesquisaTest {
 		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
 		controllerPesquisador.cadastraPesquisador("bia", "estudante", "linda pfta", "bia@pfta", "http://bia");
+//		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+//		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
 	}
 
 	@Test
@@ -493,14 +494,15 @@ class ControllerPesquisaTest {
 	
 	
 	@Test
-	void testGravarResumo() throws IOException {
+	void testGravarResumo() throws Exception {
+		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia este teste");
+		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
 		controle.associaPesquisador("ECO1", "bia@pfta");
 		controle.associaProblema("ECO1", "P1");
 		controle.associaObjetivo("ECO1", "O1");
-		controllerAtividade.associaPesquisa("ECO1", controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste"));
-		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
+		controllerAtividade.associaPesquisa("ECO1", "A1");
 		controle.gravarResumo("ECO1");
-//		assertEquals(readFileAsString(/**Caminho do arquivo**/), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + "\n" + 
+//		assertEquals(readFileAsString("./_ECO1.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + "\n" + 
 //				"\t- Pesquisadores:\n" + "\n" + 
 //				"\t\t- bia (estudante) - linda pfta - bia@pfta - FOTO - http://bia\n" + "\n" + 
 //				"\t- Problema:\n" + "\n" + 
@@ -522,15 +524,14 @@ class ControllerPesquisaTest {
 	}
 
 	@Test
-	void testGravarResultados() throws IOException {
-		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
-		controllerAtividade.executaAtividade("ECO1", 1, 100);
-		controllerAtividade.cadastraResultado("ECO1", "Realizado com sucesso");
+	void testGravarResultados() throws Exception {
+		controllerAtividade.executaAtividade("A1", 1, 100);
+		controllerAtividade.cadastraResultado("A1", "Realizado com sucesso");
 		controle.gravarResultados("ECO1");
-//		assertEquals(readFileAsString(), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + "\n" +
-//	    "\t- Resultados:\n" + "\n" + 
-//	    "\t\t- DESCRIÇÃO\n" + "\n" + 
-//	    "\t\t\t- ITEM1 - 100 - DESCRIÇÃO_RESULTADO");
+		assertEquals(readFileAsString("ECO1-Resultados.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" +
+	    "\t- Resultados:\n" + 
+	    "\t\t- DESCRIÇÃO\n" + 
+	    "\t\t\t- ITEM1 - 100 - DESCRIÇÃO_RESULTADO");
 
 	}
 	
