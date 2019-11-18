@@ -274,20 +274,18 @@ class AtividadeTest {
 	@Test
 	public void testExibeAtividade() {
 		
-	}
-	
-	@Test
-	public void testExibeAtividadeInvalido() {
-		
+		atividade.adicionaItem("To fazendo mais um teste so para testar");
+		atividade.executaAtividade(1, 100);
+		assertEquals(atividade.exibeAtividade(), "Monitoramento de chats dos alunos de computacao do primeiro periodo. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.)\n" +
+				"\n" + "\\t\\t\\t- ITEM1 - REALIZADO" + "\n" + "\\t\\t\\t- ITEM2 - PENDENTE");
 	}
 	
 	@Test
 	public void testGetResultados() {
-		
-	}
-	
-	@Test
-	public void testGetResultadosInvalido() {
-		
+		atividade.executaAtividade(1, 100);
+		atividade.cadastraResultado("Esse grupo e so sucesso");
+		atividade.cadastraResultado("Pegamos o melhor professor e os melhores monitores para nos auxiliar");
+		assertEquals(atividade.getResultados(), "- Monitoramento de chats dos alunos de computacao do primeiro periodo.\n" + 
+				"\n" + "\t\t\t- ITEM1 - REALIZADO");
 	}
 }
