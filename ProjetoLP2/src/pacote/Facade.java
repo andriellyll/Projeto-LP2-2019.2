@@ -23,10 +23,11 @@ public class Facade {
 
 	public static void main(String[] args) {
 
-		args = new String[] { "pacote.Facade","easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
+		args = new String[] { "pacote.Facade", "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
 				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
 				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt", "easyaccept/use_case_08.txt",
-				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt"};
+				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt",
+				/*"easyaccept/use_case_12CARREGAR.txt"*/};
 		EasyAccept.main(args);
 	}
 
@@ -282,6 +283,5 @@ public class Facade {
 	public String proximaAtividade(String codigoPesquisa) {
 		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
 	}
-	// <COM2: computacao, poo | COM1: Homofobia em mensagens online de alunos de computacao do primeiro periodo. | COM1: computacao, homofobia | gaaraxrocklee@12LinkinPark: Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park. | P4: O problema causado pela areia na segunda guerra mundial ninja de computacao. | P1: O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo | O6: Diminuir a dor no coracao dos estudantes de computacao depois de ver rock lee vs gaara ao som de linkin park. | O1: Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. | A5: Monitoramento por ninjas de computacao na guerra ninja. | A1: Monitoramento de chats dos alunos de computacao do primeiro periodo.>, 
-	// <COM2: computacao, poo | COM1: Homofobia em mensagens online de alunos de computacao do primeiro periodo. | COM1: computacao, homofobia | gaaraxrocklee@12LinkinPark: Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park. | P1: O problema causado pela areia na segunda guerra mundial ninja de computacao. | O1: Diminuir a dor no coracao dos estudantes de computacao depois de ver rock lee vs gaara ao som de linkin park. | A1: Monitoramento de chats dos alunos de computacao do primeiro periodo.>
+
 }

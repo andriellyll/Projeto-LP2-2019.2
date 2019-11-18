@@ -74,7 +74,7 @@ public class ControllerPesquisador implements Buscavel {
 
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
-	
+
 		Pesquisador pesquisador = new Pesquisador(nome, funcao, biografia, email, fotoUrl);
 		this.pesquisadores.put(email, pesquisador);
 	}
@@ -285,14 +285,16 @@ public class ControllerPesquisador implements Buscavel {
 	// -----------------------------------------------------------Novas Atualizacoes
 	// (Parte 3)----------------------------------------------
 
-
+	/**
+	 * Metodo responsavel por salvar os pesquisadores
+	 */
 	public void salvar() {
 
 		try {
 			FileOutputStream saveFile = new FileOutputStream("pesquisador.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(pesquisadores);
-			
+
 			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
@@ -300,13 +302,16 @@ public class ControllerPesquisador implements Buscavel {
 
 	}
 
+	/**
+	 * Metodo responsavel por recuperar o que foi salvo previamente
+	 */
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 		try {
 			FileInputStream restFile = new FileInputStream("pesquisador.dat");
 			ObjectInputStream stream = new ObjectInputStream(restFile);
 			Map<String, Pesquisador> pesquisadoresCadastrados = (Map<String, Pesquisador>) stream.readObject();
-			
+
 			stream.close();
 			this.pesquisadores = pesquisadoresCadastrados;
 		} catch (ClassNotFoundException e) {

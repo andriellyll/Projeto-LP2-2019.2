@@ -30,16 +30,7 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	private Map<String, Atividade> atividades;
 
-	/**
-	 * O idVago auxilia o gerador de codigo qual o proximo numero disponivel para
-	 * gerar um codigo.
-	 */
-	private int idVago = 1;
-
-	/**
-	 * O idVagoItem auxilia com o proximo numero disponivel para gerar um codigo.
-	 */
-	private int idVagoItem = 1;
+	private int idatividade;
 
 	private ControllerPesquisa controllerPesquisa;
 
@@ -61,20 +52,8 @@ public class ControllerAtividade implements Buscavel {
 	 * @return O codigo, no formato A + valor
 	 */
 	private String criadorCodigo() {
-		String codigo = "A" + idVago;
-		idVago += 1;
-		return codigo;
-	}
-
-	/**
-	 * Metodo responsavel por gerar um codigo para cada item criado, representado
-	 * apenas por um inteiro (a partir de 1).
-	 * 
-	 * @return Um inteiro representando o codigo
-	 */
-	private int criadorCodigoItem() {
-		int codigo = idVagoItem;
-		idVagoItem += 1;
+		String codigo = "A" + (idatividade + 1);
+		idatividade++;
 		return codigo;
 	}
 
@@ -160,8 +139,7 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
-		int codigoItem = criadorCodigoItem();
-		atividades.get(codigo).adicionaItem(item, codigoItem);
+		atividades.get(codigo).adicionaItem(item);
 	}
 
 	/**
@@ -379,7 +357,7 @@ public class ControllerAtividade implements Buscavel {
 		}
 		atividades.get(idPrecedente).adicionaNaCadeia(atividades.get(idSubsequente));
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -390,7 +368,7 @@ public class ControllerAtividade implements Buscavel {
 		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
 		atividades.get(idPrecedente).removeSeguinteNaCadeia();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -402,7 +380,7 @@ public class ControllerAtividade implements Buscavel {
 		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
 		return atividades.get(idPrecedente).contaSeguintesNaCadeia();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -414,7 +392,7 @@ public class ControllerAtividade implements Buscavel {
 		verificaAtividadeExiste(idAtividade, "Atividade nao encontrada.");
 		return atividades.get(idAtividade).atividadeMaiorRisco(null);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -428,15 +406,16 @@ public class ControllerAtividade implements Buscavel {
 		return atividades.get(idAtividade).pegaProximo(enesimaAtividade);
 	}
 
-	
-
+	/**
+	 * Metodo responsavel por salvar as atividades
+	 */
 	public void salvar() {
 
-	
 		try {
 			FileOutputStream saveFile = new FileOutputStream("atividade.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(atividades);
+
 			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
@@ -444,16 +423,19 @@ public class ControllerAtividade implements Buscavel {
 
 	}
 
-	
+	/**
+	 * Metodo responsavel por recuperar o que foi salvo previamente
+	 */
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 
 		try {
 			FileInputStream restFile = new FileInputStream("atividade.dat");
 			ObjectInputStream stream = new ObjectInputStream(restFile);
-			Map <String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
+			Map<String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
 			stream.close();
 			this.atividades = atividadesCadastradas;
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

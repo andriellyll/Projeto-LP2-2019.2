@@ -40,8 +40,6 @@ public class ControllerPesquisa implements Buscavel {
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
 
 	private String estrategia;
-	
-	
 
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
@@ -447,10 +445,13 @@ public class ControllerPesquisa implements Buscavel {
 	}
 
 // -------------------------------------------- Novas Atualizacoes de ControllerPesquisa (Parte 3) ----------------------------------------------
-	
+//	
+
+	/**
+	 * Metodo responsavel por salvar as pesquisas
+	 */
 	public void salvar() {
 
-	
 		try {
 			FileOutputStream saveFile = new FileOutputStream("pesquisa.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
@@ -462,6 +463,9 @@ public class ControllerPesquisa implements Buscavel {
 
 	}
 
+	/**
+	 * Metodo responsavel por recuperar o que foi salvo previamente
+	 */
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 		try {
@@ -477,18 +481,18 @@ public class ControllerPesquisa implements Buscavel {
 
 		}
 	}
-	
+
 	public void gravarResumo(String codigoPesquisa) throws IOException {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		verificaPesquisaExiste(codigoPesquisa);
-		
+
 		pesquisas.get(codigoPesquisa).gravarResumo();
 	}
-	
+
 	public void gravarResultados(String codigoPesquisa) throws IOException {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		verificaPesquisaExiste(codigoPesquisa);
-		
+
 		pesquisas.get(codigoPesquisa).gravarResultados();
 	}
 
@@ -496,7 +500,7 @@ public class ControllerPesquisa implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
 		validaEstrategia(estrategia);
 		this.estrategia = estrategia;
-		
+
 	}
 
 	public String proximaAtividade(String codigoPesquisa) {
@@ -504,15 +508,14 @@ public class ControllerPesquisa implements Buscavel {
 		validaPesquisa(codigoPesquisa);
 		pesquisaEhAtiva(codigoPesquisa);
 		return pesquisas.get(codigoPesquisa).proximaAtividade(this.estrategia);
-		
+
 	}
-	
+
 	private void validaEstrategia(String estrategia) {
-		if(!(estrategia.equalsIgnoreCase("MAIS_ANTIGA") || estrategia.equalsIgnoreCase("MENOS_PENDENCIAS") || estrategia.equalsIgnoreCase("MAIOR_RISCO") || estrategia.equalsIgnoreCase("MAIOR_DURACAO"))) {
+		if (!(estrategia.equalsIgnoreCase("MAIS_ANTIGA") || estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")
+				|| estrategia.equalsIgnoreCase("MAIOR_RISCO") || estrategia.equalsIgnoreCase("MAIOR_DURACAO"))) {
 			throw new IllegalArgumentException("Valor invalido da estrategia");
 		}
-		
-	}
-	
 
+	}
 }

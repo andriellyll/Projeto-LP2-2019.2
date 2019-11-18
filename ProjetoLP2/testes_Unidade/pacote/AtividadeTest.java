@@ -272,6 +272,22 @@ class AtividadeTest {
 	}
 	
 	@Test
-	public void test
+	public void testExibeAtividade() {
+		
+	}
 	
+	@Test
+	public void testExibeAtividadeInvalido() {
+		
+	}
+	
+	@Test
+	public void testGetResultados() {
+		
+	}
+	
+	@Test
+	public void testGetResultadosInvalido() {
+		
+	}
 }

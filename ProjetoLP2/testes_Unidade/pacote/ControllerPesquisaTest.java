@@ -3,6 +3,8 @@ package pacote;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -194,47 +196,47 @@ class ControllerPesquisaTest {
 	public void testAssociaPesquisador() {
 		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorJaAssociado() {
 		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
 		assertFalse(controle.associaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorPesquisaInexistente() {
-		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO3", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorPesquisaInativa() {
 		controle.encerraPesquisa("ECO1", "pipipi popopo");
-		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorInexistente() {
-		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "drica@aaa"));		
+		assertThrows(RuntimeException.class, () -> controle.associaPesquisador("ECO1", "drica@aaa"));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorNull() {
 		assertThrows(NullPointerException.class, () -> controle.associaPesquisador(null, "bia@pfta"));
 		assertThrows(NullPointerException.class, () -> controle.associaPesquisador("ECO1", null));
 	}
-	
+
 	@Test
 	public void testAssociaPesquisadorVazio() {
 		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("", "bia@pfta"));
 		assertThrows(IllegalArgumentException.class, () -> controle.associaPesquisador("ECO1", ""));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisador() {
 		controle.associaPesquisador("ECO1", "bia@pfta");
 		assertTrue(controle.desassociaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorJaDesassociado() {
 		assertTrue(controle.associaPesquisador("ECO1", "bia@pfta"));
@@ -247,28 +249,29 @@ class ControllerPesquisaTest {
 		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador(null, "bia@pfta"));
 		assertThrows(NullPointerException.class, () -> controle.desassociaPesquisador("ECO1", null));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorVazio() {
 		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("", "bia@pfta"));
 		assertThrows(IllegalArgumentException.class, () -> controle.desassociaPesquisador("ECO1", ""));
-	}	
+	}
+
 	@Test
 	public void testDesassociaPesquisadorPesquisaInexistente() {
 		controle.associaPesquisador("ECO1", "bia@pfta");
-		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO3", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorPesquisaInativa() {
 		controle.associaPesquisador("ECO1", "bia@pfta");
 		controle.encerraPesquisa("ECO1", "pipipi popopo");
-		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "bia@pfta"));		
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "bia@pfta"));
 	}
-	
+
 	@Test
 	public void testDesassociaPesquisadorInexistente() {
-		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "drica@aaa"));		
+		assertThrows(RuntimeException.class, () -> controle.desassociaPesquisador("ECO1", "drica@aaa"));
 	}
 
 	@Test
@@ -482,6 +485,14 @@ class ControllerPesquisaTest {
 //------------------------------------ Novos testes ControllerPesquisa (Parte 3) ---------------------------------------------
 
 	@Test
+	private static String readFileAsString(String fileName) throws Exception {
+		String data = "";
+		data = new String(Files.readAllBytes(Paths.get(fileName)));
+		return data;
+	}
+	
+	
+	@Test
 	void testGravarResumo() throws IOException {
 		controle.associaPesquisador("ECO1", "bia@pfta");
 		controle.associaProblema("ECO1", "P1");
@@ -489,34 +500,97 @@ class ControllerPesquisaTest {
 		controllerAtividade.associaPesquisa("ECO1", controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste"));
 		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
 		controle.gravarResumo("ECO1");
-//		assertEquals(, "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + "\n" + 
-//				"\t- Pesquisadores:\n" + "\n" + 
-//				"\t\t- bia (estudante) - linda pfta - bia@pfta - FOTO - http://bia\n" + "\n" + 
-//				"\t- Problema:\n" + "\n" + 
-//				"\t\t- P1 - um grande problema na minha vida - 2\n" + "\n" + 
-//				"\t- Objetivos:\n" + "\n" + 
-//				"\t\t- O1 - GERAL - nao sei - 3\n" + "\n" + 
-//				"\t- Atividades:\n" + "\n" + 
-//				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia deste teste)\n" + "\n" + 
-//				"\t\t\t- PENDENTE - Tem que fazer senao Anderson briga tambem.\n" + "\n" + );
+		assertEquals(readFileAsString(/**Caminho do arquivo**/), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + "\n" + 
+				"\t- Pesquisadores:\n" + "\n" + 
+				"\t\t- bia (estudante) - linda pfta - bia@pfta - FOTO - http://bia\n" + "\n" + 
+				"\t- Problema:\n" + "\n" + 
+				"\t\t- P1 - um grande problema na minha vida - 2\n" + "\n" + 
+				"\t- Objetivos:\n" + "\n" + 
+				"\t\t- O1 - GERAL - nao sei - 3\n" + "\n" + 
+				"\t- Atividades:\n" + "\n" + 
+				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia deste teste)\n" + "\n" + 
+				"\t\t\t- PENDENTE - Tem que fazer senao Anderson briga tambem.");
 	}
-	
+
 	@Test
 	void testGravarResumoInvalido() {
-		assertThrows(NullPointerException.class, () -> controle.gravarResumo(null), "Pesquisa nao pode ser nula ou vazia.");
-		assertThrows(IllegalArgumentException.class, () -> controle.gravarResumo(""), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(NullPointerException.class, () -> controle.gravarResumo(null),
+				"Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(IllegalArgumentException.class, () -> controle.gravarResumo(""),
+				"Pesquisa nao pode ser nula ou vazia.");
 		assertThrows(RuntimeException.class, () -> controle.gravarResumo("BQW1"), "Pesquisa nao encontrada.");
 	}
-	
+
 	@Test
-	void testGravarResultados() throws IOException{
-		controle.gravarResultados("ECO1");
+	void testGravarResultados() throws IOException {
+//		controle.gravarResultados("ECO1");
+//		- Pesquisa: CÓDIGO - Descrição - Campo de interesse
+//
+//	    - Resultados:
+//
+//	        - DESCRIÇÃO
+//
+//	            - ITEM1 - DURAÇÃO - DESCRIÇÃO_RESULTADO
+//
+//	            - ITEM2 - DURAÇÃO - DESCRIÇÃO_RESULTADO
+//
+//	        - DESCRIÇÃO
+//
+//	            - ITEM4 - DURAÇÃO - DESCRIÇÃO_RESULTADO
+//
+//	            - ITEM5 - DURAÇÃO - DESCRIÇÃO_RESULTADO
+
 	}
 	
 	@Test
 	void testGravarResultadosInvalido() {
-		assertThrows(NullPointerException.class, () -> controle.gravarResultados(null), "Pesquisa nao pode ser nula ou vazia.");
-		assertThrows(IllegalArgumentException.class, () -> controle.gravarResultados(""), "Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(NullPointerException.class, () -> controle.gravarResultados(null),
+				"Pesquisa nao pode ser nula ou vazia.");
+		assertThrows(IllegalArgumentException.class, () -> controle.gravarResultados(""),
+				"Pesquisa nao pode ser nula ou vazia.");
 		assertThrows(RuntimeException.class, () -> controle.gravarResumo("BMW10"), "Pesquisa nao encontrada.");
 	}
+
+	@Test
+	void configuraEstrategiaVaziaTest() {
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia(""));
+
+	}
+
+	@Test
+	void configuraEstrategiaNulaTest() {
+		assertThrows(NullPointerException.class, () -> controle.configuraEstrategia(null));
+
+	}
+
+	@Test
+	void configuraEstrategiaInvalidaTest() {
+		assertThrows(IllegalArgumentException.class, () -> controle.configuraEstrategia("invalida"));
+	}
+
+	@Test
+	void configuraEstrategiaMaisAntiga() {
+		controle.configuraEstrategia("MAIS_ANTIGA");
+	}
+
+	@Test
+	void configuraEstrategiaMenosPendencias() {
+		controle.configuraEstrategia("MENOS_PENDENCIAS");
+	}
+
+	@Test
+	void configuraEstrategiaMaiorRisco() {
+		controle.configuraEstrategia("MAIOR_RISCO");
+	}
+
+	@Test
+	void configuraEstrategiaMaiorDuracao() {
+		controle.configuraEstrategia("MAIOR_DURACAO");
+	}
+
+	@Test
+	void proximaAtividadeTest() {
+		assertThrows(RuntimeException.class, () -> controle.proximaAtividade("ECO1"));
+	}
+
 }
