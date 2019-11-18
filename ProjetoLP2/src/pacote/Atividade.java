@@ -384,9 +384,9 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 //------------------------------------- Atividade (Parte 3) ------------------------------------------
 	
 	/**
+	 * Método responsavel por verificar se nesta atividade existe um seguinte a ela na cadeia.
 	 * 
-	 * 
-	 * @return
+	 * @return Um booleano classificando a realizacao
 	 */
 	public boolean existeProximo() {
 		if (seguinteNaCadeia != null) {
@@ -484,17 +484,6 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 */
 	private String maiorRisco(String maior, String classificacao) {
 		String maiorRiscoNaCadeia = maior;
-//		maior risco {
-//			if maiorRiscoRecursivo("ALTO") == null
-//					if maiorRiscoRecursivo("MEDIO") == null
-//							maiorRiscoRecursivo("BAIXO")
-//			
-//							
-//			return maiorRiscoRecursivo("ALTO");
-//		}
-//		if (classificacao.equals(this.nivelRisco)) {
-//			maiorRiscoNaCadeia = this.codigo;
-//		}
 		if (this.seguinteNaCadeia == null) {
 			return maiorRiscoNaCadeia;
 			}
