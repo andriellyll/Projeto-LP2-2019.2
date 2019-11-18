@@ -418,11 +418,13 @@ public class ControllerPesquisa implements Buscavel {
 	}
 
 	/**
+	 * Metodo que associa um Pesquisador a uma Pesquisa, recebendo o id da pesquisa
+	 * e o email do pesquisador, e retorna um boolean que representa o sucesso da
+	 * operacao.
 	 * 
-	 * 
-	 * @param codigoDaPesquisa
-	 * @param pesquisador
-	 * @return
+	 * @param codigoDaPesquisa a string com o codigo da Pesquisa.
+	 * @param emailPesquisador string com o email do pesquisador.
+	 * @return retorna um boolean que representa o sucesso da operacao.
 	 */
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
@@ -436,11 +438,13 @@ public class ControllerPesquisa implements Buscavel {
 	}
 
 	/**
+	 * Metodo que desassocia um Pesquisador a uma Pesquisa, recebendo o id da
+	 * pesquisa e o email do pesquisador, e retorna um boolean que representa o
+	 * sucesso da operacao.
 	 * 
-	 * 
-	 * @param codigoDaPesquisa
-	 * @param pesquisador
-	 * @return
+	 * @param codigoDaPesquisa codigoDaPesquisa a string com o codigo da Pesquisa.
+	 * @param emailPesquisador string com o email do pesquisador.
+	 * @return retorna um boolean que representa o sucesso da operacao.
 	 */
 	public boolean desassociaPesquisador(String codigoDaPesquisa, String emailPesquisador) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoDaPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
