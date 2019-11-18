@@ -460,6 +460,11 @@ public class ControllerPesquisa implements Buscavel {
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(pesquisas);
 			stream.close();
+			
+			FileOutputStream saveFile2 = new FileOutputStream("codigos.dat");
+			ObjectOutputStream stream2 = new ObjectOutputStream(saveFile2);
+			stream2.writeObject(codigos);
+			stream2.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -469,7 +474,7 @@ public class ControllerPesquisa implements Buscavel {
 	/**
 	 * Metodo responsavel por recuperar o que foi salvo previamente
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked" })
 	public void carregar() {
 		try {
 			FileInputStream restFile = new FileInputStream("pesquisa.dat");
@@ -477,6 +482,12 @@ public class ControllerPesquisa implements Buscavel {
 			Map<String, Pesquisa> pesquisasCadastradas = (Map<String, Pesquisa>) stream.readObject();
 			stream.close();
 			this.pesquisas = pesquisasCadastradas;
+			
+			FileInputStream restFile2 = new FileInputStream("codigos.dat");
+			ObjectInputStream stream2 = new ObjectInputStream(restFile2);
+			Map<String, Integer> codigos = (Map<String, Integer>) stream2.readObject();
+			stream2.close();
+			this.codigos = codigos;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
