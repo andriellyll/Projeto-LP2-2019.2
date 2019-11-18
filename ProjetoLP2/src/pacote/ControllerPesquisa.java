@@ -34,9 +34,14 @@ public class ControllerPesquisa implements Buscavel {
 	 * ojetivo de gerenciar os mesmos.
 	 */
 	private Map<String, Integer> codigos;
+	/**
+	 * Atributo que guarda o controlador de Pesquisador.
+	 */
 
 	private ControllerPesquisador controllerPesquisador;
-
+	/**
+	 * Atributo que guarda o controlador de Problema e Objetivo.
+	 */
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
 	/**
 	 * Atributo que indica qual estrategia de ordenacao deve ser usada ao sugerir
@@ -46,10 +51,10 @@ public class ControllerPesquisa implements Buscavel {
 
 	/**
 	 * Cria um novo controller de pesquisa (gerenciador), inicalizando os hashMaps
-	 * pesquisas e codigos.
+	 * pesquisas, controllers e codigos.
 	 * 
-	 * @param controllerProblemaObjetivo
-	 * @param controllerPesquisador
+	 * @param controllerProblemaObjetivo o controlador de Pesquisador.
+	 * @param controllerPesquisador      o controlador de Problema e Objetivo.
 	 */
 	public ControllerPesquisa(ControllerPesquisador controllerPesquisador,
 			ControllerProblemaObjetivo controllerProblemaObjetivo) {
@@ -460,7 +465,7 @@ public class ControllerPesquisa implements Buscavel {
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(pesquisas);
 			stream.close();
-			
+
 			FileOutputStream saveFile2 = new FileOutputStream("codigos.dat");
 			ObjectOutputStream stream2 = new ObjectOutputStream(saveFile2);
 			stream2.writeObject(codigos);
@@ -482,7 +487,7 @@ public class ControllerPesquisa implements Buscavel {
 			Map<String, Pesquisa> pesquisasCadastradas = (Map<String, Pesquisa>) stream.readObject();
 			stream.close();
 			this.pesquisas = pesquisasCadastradas;
-			
+
 			FileInputStream restFile2 = new FileInputStream("codigos.dat");
 			ObjectInputStream stream2 = new ObjectInputStream(restFile2);
 			Map<String, Integer> codigos = (Map<String, Integer>) stream2.readObject();
