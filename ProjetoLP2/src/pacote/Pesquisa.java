@@ -517,13 +517,12 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		Collections.sort(atividades, new OrdenaAtividadeRisco());
 		
 		for (Atividade atividade : atividades) {
-			if(atividade.ItensPendentes() != 0) {
+			if(atividade.ItensPendentes() != 0 && atividade.getRisco().equalsIgnoreCase("ALTO")) {
 				saida = atividade.getCodigo();
-				return saida;
 			}
 			
 		}
-		return atividades.get(atividades.size() - 1).getCodigo();
+		return saida;
 	}
 
 	private String estrategiaMenosPendencias() {
@@ -548,7 +547,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		String saida = "";
 		for (Atividade atividade : atividadesAssociadas) {
 			if(atividade.ItensPendentes() != 0) {
-				saida =  atividade.getCodigo();
+				return atividade.getCodigo();
 			}
 		}
 		return saida;
