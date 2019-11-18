@@ -2,6 +2,7 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +15,13 @@ class ControllerPesquisaTest {
 	private ControllerPesquisa controle;
 	private ControllerPesquisador controllerPesquisador;
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
+	private ControllerAtividade controllerAtividade;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		controllerPesquisador = new ControllerPesquisador();
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
+		controllerAtividade = new ControllerAtividade(controle);
 
 		controle = new ControllerPesquisa(controllerPesquisador, controllerProblemaObjetivo);
 		controle.cadastraPesquisa("Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto",
@@ -479,8 +482,23 @@ class ControllerPesquisaTest {
 //------------------------------------ Novos testes ControllerPesquisa (Parte 3) ---------------------------------------------
 
 	@Test
-	void testGravarResumo() {
-//		controle.gravarResumo("ECO1");
+	void testGravarResumo() throws IOException {
+		controle.associaPesquisador("ECO1", "bia@pfta");
+		controle.associaProblema("ECO1", "P1");
+		controle.associaObjetivo("ECO1", "O1");
+		controllerAtividade.associaPesquisa("ECO1", controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste"));
+		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
+		controle.gravarResumo("ECO1");
+//		assertEquals(, "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + "\n" + 
+//				"\t- Pesquisadores:\n" + "\n" + 
+//				"\t\t- bia (estudante) - linda pfta - bia@pfta - FOTO - http://bia\n" + "\n" + 
+//				"\t- Problema:\n" + "\n" + 
+//				"\t\t- P1 - um grande problema na minha vida - 2\n" + "\n" + 
+//				"\t- Objetivos:\n" + "\n" + 
+//				"\t\t- O1 - GERAL - nao sei - 3\n" + "\n" + 
+//				"\t- Atividades:\n" + "\n" + 
+//				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia deste teste)\n" + "\n" + 
+//				"\t\t\t- PENDENTE - Tem que fazer senao Anderson briga tambem.\n" + "\n" + );
 	}
 	
 	@Test
@@ -491,8 +509,8 @@ class ControllerPesquisaTest {
 	}
 	
 	@Test
-	void testGravarResultados() {
-		
+	void testGravarResultados() throws IOException{
+		controle.gravarResultados("ECO1");
 	}
 	
 	@Test
