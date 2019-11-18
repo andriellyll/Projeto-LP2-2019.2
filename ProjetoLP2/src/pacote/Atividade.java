@@ -463,11 +463,17 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * 
 	 * @return
 	 */
-	public String atividadeMaiorRisco(String maiorRisco) {
+	public String atividadeMaiorRisco(String partida) {
 		if (this.seguinteNaCadeia == null) {
 			throw new RuntimeException("Nao existe proxima atividade.");
 		}
-		return maiorRisco(maiorRisco);
+		if (maiorRisco(partida, "ALTO") == null) {
+			if (maiorRisco(partida, "MEDIO") == null) {
+				return maiorRisco(partida, "BAIXO");
+			}
+			return maiorRisco(partida, "MEDIO");
+		}
+		return maiorRisco(partida, "ALTO");
 	}
 	
 	/**
@@ -476,18 +482,28 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * @param maior
 	 * @return
 	 */
-	private String maiorRisco(String maior) {
+	private String maiorRisco(String maior, String classificacao) {
 		String maiorRiscoNaCadeia = maior;
-		if ("ALTO".equals(this.nivelRisco)) {
-			maiorRiscoNaCadeia = this.codigo;
-		}
+//		maior risco {
+//			if maiorRiscoRecursivo("ALTO") == null
+//					if maiorRiscoRecursivo("MEDIO") == null
+//							maiorRiscoRecursivo("BAIXO")
+//			
+//							
+//			return maiorRiscoRecursivo("ALTO");
+//		}
+//		if (classificacao.equals(this.nivelRisco)) {
+//			maiorRiscoNaCadeia = this.codigo;
+//		}
 		if (this.seguinteNaCadeia == null) {
 			return maiorRiscoNaCadeia;
-		}
-		if ("ALTO".equals(this.seguinteNaCadeia.nivelRisco)) {
+			}
+		if (classificacao.equals(this.seguinteNaCadeia.nivelRisco)) {
 			maiorRiscoNaCadeia = this.seguinteNaCadeia.codigo;
 		}
-		return this.seguinteNaCadeia.maiorRisco(maiorRiscoNaCadeia);
+		return this.seguinteNaCadeia.maiorRisco(maiorRiscoNaCadeia, classificacao);
+		
+		
 	}
 	
 	/**
