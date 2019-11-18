@@ -226,12 +226,16 @@ public class ControllerPesquisador implements Buscavel {
 	}
 
 	/**
-	 * Metodo que cadastra a especalidade Professor em um determinado Pesquisador, nao retorna nada e recebe como parametro o email do Pesquisador no qual essa especialidade deve ser cadastrada e caracteristicas especificas dessa especialidade, que sao elas: formacao, unidade e data.
+	 * Metodo que cadastra a especalidade Professor em um determinado Pesquisador,
+	 * nao retorna nada e recebe como parametro o email do Pesquisador no qual essa
+	 * especialidade deve ser cadastrada e caracteristicas especificas dessa
+	 * especialidade, que sao elas: formacao, unidade e data.
 	 * 
-	 * @param email o email do Pesquisador no qual essa especialidade deve ser cadastrada.
+	 * @param email    o email do Pesquisador no qual essa especialidade deve ser
+	 *                 cadastrada.
 	 * @param formacao a formacao daquele professor.
-	 * @param unidade a unidade que o professor faz parte.
-	 * @param data a data de contratacao do professor.
+	 * @param unidade  a unidade que o professor faz parte.
+	 * @param data     a data de contratacao do professor.
 	 */
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
@@ -245,10 +249,15 @@ public class ControllerPesquisador implements Buscavel {
 	}
 
 	/**
-	 *  Metodo que cadastra a especalidade Aluno em um determinado Pesquisador, nao retorna nada e recebe como parametro o email do Pesquisador no qual essa especialidade deve ser cadastrada e caracteristicas especificas dessa especialidade, que sao elas: semestre e IEA.
-	 * @param email email o email do Pesquisador no qual essa especialidade deve ser cadastrada.
+	 * Metodo que cadastra a especalidade Aluno em um determinado Pesquisador, nao
+	 * retorna nada e recebe como parametro o email do Pesquisador no qual essa
+	 * especialidade deve ser cadastrada e caracteristicas especificas dessa
+	 * especialidade, que sao elas: semestre e IEA.
+	 * 
+	 * @param email    email o email do Pesquisador no qual essa especialidade deve
+	 *                 ser cadastrada.
 	 * @param semestre o semestre que o aluno se encontra.
-	 * @param IEA o indice de eficiencia academica do aluno.
+	 * @param IEA      o indice de eficiencia academica do aluno.
 	 */
 	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
@@ -260,10 +269,13 @@ public class ControllerPesquisador implements Buscavel {
 	}
 
 	/**
-	 * Metodo que retorna uma String com  pesquisadores de uma mesma funcao, seja Externo, Professor ou Aluno.
+	 * Metodo que retorna uma String com pesquisadores de uma mesma funcao, seja
+	 * Externo, Professor ou Aluno.
 	 * 
-	 * @param tipo a String com o tipo a ser considerado,seja Externo, Professor ou Aluno.
-	 * @return uma String que agrupa a representacao textual de todos os pesquisadores daquele tipo.
+	 * @param tipo a String com o tipo a ser considerado,seja Externo, Professor ou
+	 *             Aluno.
+	 * @return uma String que agrupa a representacao textual de todos os
+	 *         pesquisadores daquele tipo.
 	 */
 	public String listaPesquisadores(String tipo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
