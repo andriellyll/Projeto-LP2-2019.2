@@ -38,7 +38,7 @@ public class ControllerPesquisa implements Buscavel {
 	private ControllerPesquisador controllerPesquisador;
 
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
-	
+
 	private String estrategia;
 
 	/**
@@ -56,8 +56,6 @@ public class ControllerPesquisa implements Buscavel {
 		this.codigos = new HashMap<>();
 		this.estrategia = "MAIS_ANTIGA";
 	}
-
-
 
 	/**
 	 * Cadastra uma pesquisa no sistema a partir de uma descricao e de um campo de
@@ -448,6 +446,10 @@ public class ControllerPesquisa implements Buscavel {
 
 // -------------------------------------------- Novas Atualizacoes de ControllerPesquisa (Parte 3) ----------------------------------------------
 //	
+
+	/**
+	 * Metodo responsavel por salvar as pesquisas
+	 */
 	public void salvar() {
 
 		try {
@@ -461,6 +463,9 @@ public class ControllerPesquisa implements Buscavel {
 
 	}
 
+	/**
+	 * Metodo responsavel por recuperar o que foi salvo previamente
+	 */
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 		try {

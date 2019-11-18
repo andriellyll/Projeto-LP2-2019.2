@@ -21,7 +21,7 @@ import utils.OrdenaResultados;
  * 
  * @author Henrique Lemos
  */
-public class ControllerAtividade implements Buscavel{
+public class ControllerAtividade implements Buscavel {
 
 	/**
 	 * Conjunto de Atividades reunidas em um mapa onde cada atividade e identificada
@@ -31,7 +31,7 @@ public class ControllerAtividade implements Buscavel{
 	private Map<String, Atividade> atividades;
 
 	private int idatividade;
-	
+
 	private ControllerPesquisa controllerPesquisa;
 
 	/**
@@ -56,7 +56,6 @@ public class ControllerAtividade implements Buscavel{
 		idatividade++;
 		return codigo;
 	}
-
 
 	/**
 	 * Metodo responsavel por verificar se a partir de um codigo oferecido pelo
@@ -358,7 +357,7 @@ public class ControllerAtividade implements Buscavel{
 		}
 		atividades.get(idPrecedente).adicionaNaCadeia(atividades.get(idSubsequente));
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -369,7 +368,7 @@ public class ControllerAtividade implements Buscavel{
 		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
 		atividades.get(idPrecedente).removeSeguinteNaCadeia();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -381,7 +380,7 @@ public class ControllerAtividade implements Buscavel{
 		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
 		return atividades.get(idPrecedente).contaSeguintesNaCadeia();
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -393,7 +392,7 @@ public class ControllerAtividade implements Buscavel{
 		verificaAtividadeExiste(idAtividade, "Atividade nao encontrada.");
 		return atividades.get(idAtividade).atividadeMaiorRisco(null);
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -407,34 +406,36 @@ public class ControllerAtividade implements Buscavel{
 		return atividades.get(idAtividade).pegaProximo(enesimaAtividade);
 	}
 
-	
-
+	/**
+	 * Metodo responsavel por salvar as atividades
+	 */
 	public void salvar() {
 
-	
 		try {
 			FileOutputStream saveFile = new FileOutputStream("atividade.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(atividades);
-			
-		stream.close();
+
+			stream.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
 
 	}
 
-	
+	/**
+	 * Metodo responsavel por recuperar o que foi salvo previamente
+	 */
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 
 		try {
 			FileInputStream restFile = new FileInputStream("atividade.dat");
 			ObjectInputStream stream = new ObjectInputStream(restFile);
-			Map <String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
+			Map<String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
 			stream.close();
 			this.atividades = atividadesCadastradas;
-		
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
