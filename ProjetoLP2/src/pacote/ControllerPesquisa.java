@@ -38,7 +38,10 @@ public class ControllerPesquisa implements Buscavel {
 	private ControllerPesquisador controllerPesquisador;
 
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
-
+	/**
+	 * Atributo que indica qual estrategia de ordenacao deve ser usada ao sugerir
+	 * uma proxima atividade a ser realizada.
+	 */
 	private String estrategia;
 
 	/**
@@ -496,6 +499,13 @@ public class ControllerPesquisa implements Buscavel {
 		pesquisas.get(codigoPesquisa).gravarResultados();
 	}
 
+	/**
+	 * Configura qual estrategia de ordenacao deve ser usada na hora de sugerir uma
+	 * proxima atividade a ser realizada, recebe como parametro uma String com a
+	 * estrategia e nao retorna nada.
+	 * 
+	 * @param estrategia String com a estrategia.
+	 */
 	public void configuraEstrategia(String estrategia) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
 		validaEstrategia(estrategia);
@@ -503,6 +513,13 @@ public class ControllerPesquisa implements Buscavel {
 
 	}
 
+	/**
+	 * Metodo que recebe o codigo de uma pesquisa e retorna um codigo de uma
+	 * sugestao de proxima atividade a ser realizada.
+	 * 
+	 * @param codigoPesquisa codigo da pesquisa a ser verificada.
+	 * @return o codigo de uma sugestao de proxima atividade a ser realizada.
+	 */
 	public String proximaAtividade(String codigoPesquisa) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		validaPesquisa(codigoPesquisa);
@@ -511,6 +528,12 @@ public class ControllerPesquisa implements Buscavel {
 
 	}
 
+	/**
+	 * Metodo que valida a String estrategia, nao retorna nada e lança uma excecao
+	 * caso aquela String seja invalida.
+	 * 
+	 * @param estrategia String estrategia a ser validada.
+	 */
 	private void validaEstrategia(String estrategia) {
 		if (!(estrategia.equalsIgnoreCase("MAIS_ANTIGA") || estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")
 				|| estrategia.equalsIgnoreCase("MAIOR_RISCO") || estrategia.equalsIgnoreCase("MAIOR_DURACAO"))) {
