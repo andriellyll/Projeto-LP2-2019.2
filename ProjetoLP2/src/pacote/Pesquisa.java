@@ -78,7 +78,6 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * Conjunto de atividades associadas a pesquisa.
 	 */
 	private Set<Atividade> atividadesAssociadas;
-	
 
 	/**
 	 * Cria uma nova pesquisa a partir do codigo(identificador unico), da descricao
@@ -103,7 +102,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		this.objetivosDaPesquisa = new TreeSet<>();
 		this.pesquisadoresAssociados = new LinkedHashSet<>();
 		this.atividadesAssociadas = new TreeSet<>();
-		
+
 	}
 
 	/**
@@ -379,7 +378,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	/**
-	
+	 * 
 	 * 
 	 * @param pesquisador
 	 * @return
@@ -391,7 +390,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		pesquisadoresAssociados.remove(pesquisador);
 		return true;
 	}
-	
+
 	/**
 	 * Associa uma atividade a pesquisa a partir da atividade passasa.
 	 * 
@@ -421,93 +420,117 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 //-------------------------------------------------- Novas Atualizações Pesquisa (Parte 3) ----------------------------------------------------------------------
 
 	/**
-	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas informacoes (pesquisadores, objetivos, atividades e problema).
+	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas
+	 * informacoes (pesquisadores, objetivos, atividades e problema).
+	 * 
 	 * @return a String resumo
 	 */
 	private String gerarResumo() {
-		
+
 		String resumo = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores:";
-		
-		for (Pesquisador pesquisador: pesquisadoresAssociados) {
+
+		for (Pesquisador pesquisador : pesquisadoresAssociados) {
 			resumo += System.lineSeparator() + "\t\t- " + pesquisador.toString();
 		}
-		
-		if(this.problemaDaPesquisa != null) {
-			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t- " + this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";			
+
+		if (this.problemaDaPesquisa != null) {
+			resumo += System.lineSeparator() + "\t- Problema:\t" + System.lineSeparator() + "\t\t- "
+					+ this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";
 		}
-		
+
 		for (Objetivo objetivo : objetivosDaPesquisa) {
 			resumo += System.lineSeparator() + "\t\t- " + objetivo.toString();
 		}
-		
+
 		resumo += System.lineSeparator() + "\t- Atividades: ";
-		
+
 		for (Atividade atividade : atividadesAssociadas) {
 			resumo += System.lineSeparator() + "\t\t- " + atividade.exibeAtividade();
 		}
-		
+
 		return resumo + "\" ";
 	}
+
 	/**
-	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre os pesquisadores, objetivos, atividades e problema da pesquisa.
-	 * @throws IOException 
+	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre
+	 * os pesquisadores, objetivos, atividades e problema da pesquisa.
+	 * 
+	 * @throws IOException
 	 * 
 	 */
 	public void gravarResumo() throws IOException {
-		OutputStream out = new FileOutputStream(new File("_" + this.codigo  + ".txt"));
+		OutputStream out = new FileOutputStream(new File("_" + this.codigo + ".txt"));
 		String resumo = gerarResumo();
 		out.write(resumo.getBytes(), 0, resumo.length());
 		out.close();
 	}
+
 	/**
-	 * Metodo auxiliar que gera uma String que contem os resultados da pesquisa e os itens realizados.
+	 * Metodo auxiliar que gera uma String que contem os resultados da pesquisa e os
+	 * itens realizados.
+	 * 
 	 * @return String dos resultados
 	 */
 	private String resultadosPesquisa() {
 		String resultados = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
-		
+
 		for (Atividade atividade : atividadesAssociadas) {
 			resultados += System.lineSeparator() + "\t\t" + atividade.getResultados();
 		}
-		
+
 		return resultados + "\"";
 	}
-	
+
 	/**
-	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre os pesquisadores, objetivos, atividades e problema da pesquisa.
-	 * @throws IOException 
+	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre
+	 * os pesquisadores, objetivos, atividades e problema da pesquisa.
+	 * 
+	 * @throws IOException
 	 * 
 	 */
 	public void gravarResultados() throws IOException {
-		OutputStream out = new FileOutputStream(new File(this.codigo  + "-Resultados.txt"));
+		OutputStream out = new FileOutputStream(new File(this.codigo + "-Resultados.txt"));
 		String resultados = resultadosPesquisa();
 		out.write(resultados.getBytes(), 0, resultados.length());
 		out.close();
 	}
 
+	/**
+	 * Metodo que retorna um codigo que sugere uma proxima atividade a ser realizada
+	 * de acordo com uma estrategia.
+	 * 
+	 * @param estrategia a estratagia passada pelo controller, que embasa como voce
+	 *                   deve priorizar as atividades a serem realizadas.
+	 * @return o codigo da atividade sugerida.
+	 */
 	public String proximaAtividade(String estrategia) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
-		if(!verificaPendencias()) {
+		if (!verificaPendencias()) {
 			throw new RuntimeException("Pesquisa sem atividades com pendencias.");
 		}
-		if(estrategia.equalsIgnoreCase("MAIS_ANTIGA")) {
+		if (estrategia.equalsIgnoreCase("MAIS_ANTIGA")) {
 			return estrategiaMaisAntiga();
-		}else if(estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")) {
+		} else if (estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")) {
 			return estrategiaMenosPendencias();
-		}else if(estrategia.equalsIgnoreCase("MAIOR_RISCO")) {
+		} else if (estrategia.equalsIgnoreCase("MAIOR_RISCO")) {
 			return estrategiaMaiorRisco();
-		}else if(estrategia.equalsIgnoreCase("MAIOR_DURACAO")) {
+		} else if (estrategia.equalsIgnoreCase("MAIOR_DURACAO")) {
 			return estrategiaMaiorDracao();
-		}else {
+		} else {
 			throw new IllegalArgumentException("Valor invalido da estrategia");
 		}
-	
 	}
 
+	/**
+	 * Metodo privado usado no metodo "proximaAtividade", que ordena as atividades
+	 * de acordo com a estrategia de maior duração.
+	 * 
+	 * @return o codigo da atividade sugerida.
+	 */
 	private String estrategiaMaiorDracao() {
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadeDuracao());
-		
+
 		return atividades.get(atividades.size() - 1).getCodigo();
 	}
 
@@ -515,49 +538,66 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		String saida = "";
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadeRisco());
-		
+
 		for (Atividade atividade : atividades) {
-			if(atividade.ItensPendentes() != 0 && atividade.getRisco().equalsIgnoreCase("ALTO")) {
+			if (atividade.ItensPendentes() != 0 && atividade.getRisco().equalsIgnoreCase("ALTO")) {
 				saida = atividade.getCodigo();
 			}
-			
+
 		}
 		return saida;
 	}
 
+	/**
+	 * Metodo privado usado no metodo "proximaAtividade", que ordena as atividades
+	 * de acordo com a estrategia de menos pendencias.
+	 * 
+	 * @return o codigo da atividade sugerida.
+	 */
 	private String estrategiaMenosPendencias() {
-		
+
 		String saida = "";
-		
+
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadePendencias());
-		
-		
+
 		for (Atividade atividade : atividades) {
-			if(atividade.ItensPendentes() != 0) {
+			if (atividade.ItensPendentes() != 0) {
 				saida = atividade.getCodigo();
 				return saida;
 			}
-			
+
 		}
 		return saida;
 	}
 
+	/**
+	 * Metodo privado usado no metodo "proximaAtividade", que ordena as atividades
+	 * de acordo com a estrategia de atividade mais antiga.
+	 * 
+	 * @return o codigo da atividade sugerida.
+	 */
 	private String estrategiaMaisAntiga() {
 		String saida = "";
 		for (Atividade atividade : atividadesAssociadas) {
-			if(atividade.ItensPendentes() != 0) {
+			if (atividade.ItensPendentes() != 0) {
 				return atividade.getCodigo();
 			}
 		}
 		return saida;
 	}
+
+	/**
+	 * Metodo privado que verifica se as atividades possuem pendencias.
+	 * 
+	 * @return um boolean que indica se ha ou nao pendencias.
+	 */
 	private boolean verificaPendencias() {
 		for (Atividade atividade : atividadesAssociadas) {
-			if(atividade.ItensPendentes() != 0) {
+			if (atividade.ItensPendentes() != 0) {
 				return true;
 			}
-			
+
 		}
 		return false;
 	}
