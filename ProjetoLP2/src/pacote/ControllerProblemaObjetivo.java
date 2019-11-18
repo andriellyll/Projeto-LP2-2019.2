@@ -290,6 +290,9 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	// -----------------------------------------------------------Novas Atualizacoes
 	// (Parte 3)----------------------------------------------
 
+	/**
+	 * Metodo responsavel por salvar os problemas e os objetivos
+	 */
 	public void salvar() {
 		try {
 			FileOutputStream saveFile = new FileOutputStream("problema.dat");
@@ -309,6 +312,9 @@ public class ControllerProblemaObjetivo implements Buscavel {
 
 	}
 
+	/**
+	 * Metodo responsavel por recuperar o que foi salvo previamente
+	 */
 	@SuppressWarnings("unchecked")
 	public void carregar() {
 
