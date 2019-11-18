@@ -5,4 +5,6 @@
 		- P1 - um grande problema na minha vida - 2
 	- Objetivos:
 		- O1 - GERAL - nao sei - 3
-	- Atividades: " 
+	- Atividades: 
+		- Mais um objeto de atividade para testar (ALTO - Tem muita importancia deste teste)
+			- PENDENTE - ITEM1" 

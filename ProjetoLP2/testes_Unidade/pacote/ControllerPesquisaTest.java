@@ -22,9 +22,9 @@ class ControllerPesquisaTest {
 	void setUp() throws Exception {
 		controllerPesquisador = new ControllerPesquisador();
 		controllerProblemaObjetivo = new ControllerProblemaObjetivo();
+		controle = new ControllerPesquisa(controllerPesquisador, controllerProblemaObjetivo);
 		controllerAtividade = new ControllerAtividade(controle);
 
-		controle = new ControllerPesquisa(controllerPesquisador, controllerProblemaObjetivo);
 		controle.cadastraPesquisa("Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto",
 				"Economia, Bolsa de Valores");
 		controle.cadastraPesquisa("Equador na encruzilhada regional", "Geopolitica, America Latina, Intenacional");
@@ -33,8 +33,8 @@ class ControllerPesquisaTest {
 		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
 		controllerPesquisador.cadastraPesquisador("bia", "estudante", "linda pfta", "bia@pfta", "http://bia");
-//		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
-//		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
+		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
 	}
 
 	@Test
@@ -495,8 +495,6 @@ class ControllerPesquisaTest {
 	
 	@Test
 	void testGravarResumo() throws Exception {
-		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia este teste");
-		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
 		controle.associaPesquisador("ECO1", "bia@pfta");
 		controle.associaProblema("ECO1", "P1");
 		controle.associaObjetivo("ECO1", "O1");
@@ -525,6 +523,7 @@ class ControllerPesquisaTest {
 
 	@Test
 	void testGravarResultados() throws Exception {
+		controllerAtividade.associaPesquisa("ECO1", "A1");
 		controllerAtividade.executaAtividade("A1", 1, 100);
 		controllerAtividade.cadastraResultado("A1", "Realizado com sucesso");
 		controle.gravarResultados("ECO1");
