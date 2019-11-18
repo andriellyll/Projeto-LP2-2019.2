@@ -23,11 +23,11 @@ public class Facade {
 
 	public static void main(String[] args) {
 
-		args = new String[] { "pacote.Facade", "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
+		args = new String[] { "pacote.Facade"/*, "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
 				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
 				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt", "easyaccept/use_case_08.txt",
-				"easyaccept/use_case_09.txt"/**, "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt",
-				"easyaccept/use_case_12CARREGAR.txt"**/};
+				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt",
+				/**/, "easyaccept/use_case_12CARREGAR.txt"};
 		EasyAccept.main(args);
 	}
 
