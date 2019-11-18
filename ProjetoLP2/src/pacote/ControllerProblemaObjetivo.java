@@ -298,28 +298,23 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	public void salvar() {
 		try {
 			FileOutputStream saveFile = new FileOutputStream("problema.dat");
-			FileOutputStream saveFile2 = new FileOutputStream("objetivo.dat");
-
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
-			ObjectOutputStream stream2 = new ObjectOutputStream(saveFile2);
-
 			stream.writeObject(problemas);
-			stream2.writeObject(objetivos);
-
 			stream.close();
+
+			FileOutputStream saveFile2 = new FileOutputStream("objetivo.dat");
+			ObjectOutputStream stream2 = new ObjectOutputStream(saveFile2);
+			stream2.writeObject(objetivos);
 			stream2.close();
 
 			OutputStream out = new FileOutputStream(new File("numeroProblemas.txt"));
-
 			out.write(controlaNumeroProblemas);
-
 			out.close();
 
 			OutputStream out2 = new FileOutputStream(new File("numeroObjetivos.txt"));
-
 			out2.write(controlaNumeroObjetivos);
-
 			out2.close();
+
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -334,28 +329,27 @@ public class ControllerProblemaObjetivo implements Buscavel {
 
 		try {
 			FileInputStream restFile = new FileInputStream("problema.dat");
-			FileInputStream restFile2 = new FileInputStream("objetivo.dat");
-
 			ObjectInputStream stream = new ObjectInputStream(restFile);
-			ObjectInputStream stream2 = new ObjectInputStream(restFile2);
 			Map<String, Problema> problemasCadastrados = (Map<String, Problema>) stream.readObject();
-			Map<String, Objetivo> objetivosCadastrados = (Map<String, Objetivo>) stream2.readObject();
 			stream.close();
-			stream2.close();
 			this.problemas = problemasCadastrados;
+
+			FileInputStream restFile2 = new FileInputStream("objetivo.dat");
+			ObjectInputStream stream2 = new ObjectInputStream(restFile2);
+			Map<String, Objetivo> objetivosCadastrados = (Map<String, Objetivo>) stream2.readObject();
+			stream2.close();
 			this.objetivos = objetivosCadastrados;
-			
+
 			File file = new File("numeroProblemas.txt");
 			FileInputStream fis = null;
 			fis = new FileInputStream(file);
 			this.controlaNumeroProblemas = fis.read();
-			
+
 			File file2 = new File("numeroObjetivos.txt");
 			FileInputStream fis2 = null;
 			fis2 = new FileInputStream(file2);
 			this.controlaNumeroObjetivos = fis2.read();
-			
-			
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
