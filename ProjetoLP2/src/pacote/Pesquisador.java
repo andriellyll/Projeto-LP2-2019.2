@@ -36,7 +36,7 @@ public class Pesquisador implements Serializable {
 	private String funcao;
 
 	/**
-	 * 
+	 * Atributo que guarada a especialidade do Pesquisador.
 	 */
 	private Funcao especialidade;
 
@@ -44,6 +44,7 @@ public class Pesquisador implements Serializable {
 	 * Boolean que representa se o pesquisador esta ou nao ativo
 	 */
 	private boolean isAtivo;
+
 	/**
 	 * Constroi um pesquisador a partir do nome, funcao, biografia, email e URL da
 	 * foto.
@@ -122,7 +123,7 @@ public class Pesquisador implements Serializable {
 	 */
 	public void setFuncao(String novaFuncao) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novaFuncao, "Campo fotoUrl nao pode ser nulo ou vazio");
-		
+
 		this.funcao = novaFuncao;
 		this.especialidade = null;
 
@@ -219,11 +220,13 @@ public class Pesquisador implements Serializable {
 	}
 
 	/**
+	 * Metodo que cadastra a especalidade Professor em um determinado Pesquisador,
+	 * nao retorna nada e recebe como parametro caracteristicas especificas dessa
+	 * especialidade, que sao elas: formacao, unidade e data.
 	 * 
-	 * 
-	 * @param formacao
-	 * @param unidade
-	 * @param data
+	 * @param formacao a formacao daquele professor.
+	 * @param unidade  a unidade que o professor faz parte.
+	 * @param data     a data de contratacao do professor.
 	 */
 	public void cadastraEspecialidadeProfessor(String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
@@ -239,10 +242,12 @@ public class Pesquisador implements Serializable {
 	}
 
 	/**
+	 * Metodo que cadastra a especalidade Aluno, nao retorna nada e recebe como
+	 * parametro caracteristicas especificas dessa especialidade, que sao elas:
+	 * semestre e IEA.
 	 * 
-	 * 
-	 * @param semestre
-	 * @param IEA
+	 * @param semestre o semestre que o aluno se encontra.
+	 * @param IEA      o indice de eficiencia academica do aluno.
 	 */
 	public void cadastraEspecialidadeAluno(int semestre, double IEA) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
@@ -256,24 +261,27 @@ public class Pesquisador implements Serializable {
 	}
 
 	/**
+	 * Metodo que fornce uma string com a funcao desse Pesquisadore nao recebe nada
+	 * como parametro.
 	 * 
-	 * 
-	 * @return
+	 * @return string com a funcao desse Pesquisador.
 	 */
 	public String getFuncao() {
 		return this.funcao;
 	}
 
 	/**
+	 * Metodo que altera caracteristicas especificas de cada especialidade,
+	 * recebendo qual atributo quer alterar e a nova versao desse atributo e nao
+	 * retorna nada.
 	 * 
-	 * 
-	 * @param atributo
-	 * @param novoAtributo
+	 * @param atributo     atributo que deve alterar.
+	 * @param novoAtributo nova versao desse atributo.
 	 */
 	public void setEspecialidade(String atributo, String novoAtributo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novo atributo nao pode ser nulo ou vazio.");
-		
+
 		especialidade.setEspecialidade(atributo, novoAtributo);
 	}
 }

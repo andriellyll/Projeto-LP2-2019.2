@@ -363,10 +363,11 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	/**
+	 * Metodo que associa um Pesquisador, recebendo o objeto Pesquisador e retorna
+	 * um boolean que representa o sucesso da operacao.
 	 * 
-	 * 
-	 * @param pesquisador
-	 * @return
+	 * @param pesquisador o objeto Pesquisador.
+	 * @return um boolean que representa o sucesso da operacao.
 	 */
 	public boolean associaPesquisador(Pesquisador pesquisador) {
 		if (pesquisadoresAssociados.contains(pesquisador)) {
@@ -378,10 +379,11 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	/**
+	 * Metodo que desassocia um Pesquisador, recebendo o objeto Pesquisador e
+	 * retorna um boolean que representa o sucesso da operacao.
 	 * 
-	 * 
-	 * @param pesquisador
-	 * @return
+	 * @param pesquisador o objeto Pesquisador.
+	 * @return um boolean que representa o sucesso da operacao.
 	 */
 	public boolean desassociaPesquisador(Pesquisador pesquisador) {
 		if (!pesquisadoresAssociados.contains(pesquisador)) {
