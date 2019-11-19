@@ -247,6 +247,15 @@ public class Facade {
 	}
 
 //Proxima Atividade:
+	
+	public void configuraEstrategia(String estrategia) {
+		this.controllerPesquisa.configuraEstrategia(estrategia);
+
+	}
+
+	public String proximaAtividade(String codigoPesquisa) {
+		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
+	}
 
 //Resultados:
 
@@ -275,12 +284,5 @@ public class Facade {
 		this.controllerProblemaObjetivo.carregar();
 	}
 
-	public void configuraEstrategia(String estrategia) {
-		this.controllerPesquisa.configuraEstrategia(estrategia);
-
-	}
-
-	public String proximaAtividade(String codigoPesquisa) {
-		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
-	}
+	
 }
