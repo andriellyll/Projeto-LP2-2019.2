@@ -50,11 +50,6 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	private String codigo;
 
 	/**
-	 * Representa o motivo de desativacao da pesquisa.
-	 */
-	private String motivoDeDesativacao;
-
-	/**
 	 * Representa o estado de ativacao da pesquisa. Pode assumir o valor true ou
 	 * false.
 	 */
@@ -112,10 +107,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * 
 	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
-	public void desativaPesquisa(String motivo) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(motivo, "Motivo nao pode ser nulo ou vazio.");
+	public void desativaPesquisa() {
 		this.ehAtivada = false;
-		this.motivoDeDesativacao = motivo;
 	}
 
 	/**

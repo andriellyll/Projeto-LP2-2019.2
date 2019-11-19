@@ -144,13 +144,12 @@ public class ControllerPesquisa implements Buscavel {
 	 * @param codigo - o identificador da pesquisa a ser desativada
 	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
-	public void encerraPesquisa(String codigo, String motivo) {
+	public void encerraPesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
 
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
 		if (pesquisa.getAtivacao()) {
-			pesquisa.desativaPesquisa(motivo);
 		} else {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
