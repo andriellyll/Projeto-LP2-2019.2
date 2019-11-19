@@ -27,7 +27,7 @@ public class Facade {
 				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
 				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt", "easyaccept/use_case_08.txt",
 				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt",
-				/*, "easyaccept/use_case_12CARREGAR.txt"*/};
+				/* , "easyaccept/use_case_12CARREGAR.txt" */ };
 		EasyAccept.main(args);
 	}
 
@@ -247,7 +247,7 @@ public class Facade {
 	}
 
 //Proxima Atividade:
-	
+
 	public void configuraEstrategia(String estrategia) {
 		this.controllerPesquisa.configuraEstrategia(estrategia);
 
@@ -284,5 +284,4 @@ public class Facade {
 		this.controllerProblemaObjetivo.carregar();
 	}
 
-	
 }

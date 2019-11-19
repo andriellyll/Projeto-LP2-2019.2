@@ -139,7 +139,7 @@ public class ValidadorDeEntradas {
 	 * Verifica se a entrada(um inteiro) e igual e menor que 0. Caso for, uma
 	 * excecao do tipo IllegalArgumentException sera lancada.
 	 * 
-	 * @param item - o valor inteiro a ser verificado
+	 * @param item     - o valor inteiro a ser verificado
 	 * @param mensagem - a mensagem de erro a ser exibida no lancamento da excecao.
 	 */
 	public static void verificaNumeroNegativo(int item, String mensagem) {
@@ -147,7 +147,7 @@ public class ValidadorDeEntradas {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -155,7 +155,7 @@ public class ValidadorDeEntradas {
 	 * @param mensagem
 	 */
 	public static void verificaSemestre(int semestre, String mensagem) {
-		if(semestre < 1) {
+		if (semestre < 1) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
@@ -167,11 +167,11 @@ public class ValidadorDeEntradas {
 	 * @param mensagem
 	 */
 	public static void verificaIEA(double IEA, String mensagem) {
-		if(IEA < 0 || IEA > 10) {
+		if (IEA < 0 || IEA > 10) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * 
@@ -179,19 +179,18 @@ public class ValidadorDeEntradas {
 	 * @param mensagem
 	 */
 	public static void verificaData(String data, String mensagem) {
-		
+
 		String[] lista = data.split("/");
-		
-		if(lista.length != 3) {
+
+		if (lista.length != 3) {
 			throw new IllegalArgumentException(mensagem);
 		}
-		if(lista[0].length() != 2 || lista[1].length() != 2 || lista[2].length() != 4) {
+		if (lista[0].length() != 2 || lista[1].length() != 2 || lista[2].length() != 4) {
 			throw new IllegalArgumentException(mensagem);
 		}
-		if(Integer.parseInt(lista[0]) > 31 || Integer.parseInt(lista[1]) > 12 || Integer.parseInt(lista[2]) > 2019) {
+		if (Integer.parseInt(lista[0]) > 31 || Integer.parseInt(lista[1]) > 12 || Integer.parseInt(lista[2]) > 2019) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
-	
+
 }

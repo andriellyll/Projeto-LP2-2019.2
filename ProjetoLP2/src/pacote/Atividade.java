@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 public class Atividade implements Serializable, Comparable<Atividade> {
-	
+
 	/**
 	 * 
 	 */
@@ -27,22 +27,22 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * Codigo de identificacao unico de atividade
 	 */
 	private String codigo;
-	
+
 	/**
 	 * Cada atividade apresenta sua descricao
 	 */
 	private String descricao;
-	
+
 	/**
 	 * Um nivel de risco apresentado classificado em ate tres niveis
 	 */
 	private String nivelRisco;
-	
+
 	/**
 	 * Descricao do risco
 	 */
 	private String descricaoRisco;
-	
+
 	/**
 	 * Seus itens para a conclusao da atividade, para obtencao de um resultado.
 	 */
@@ -67,7 +67,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * Armazena a quantidade de posicoes de resultados ja cadastradas
 	 */
 	private int posicoesCadastradas;
-	
+
 	/**
 	 * 
 	 */
@@ -87,7 +87,8 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo Descricao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(nivelRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaNivelRisco(nivelRisco, "Valor invalido do nivel do risco.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricaoRisco,
+				"Campo descricaoRisco nao pode ser nulo ou vazio.");
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.nivelRisco = nivelRisco;
@@ -145,7 +146,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 */
 	public void adicionaItem(String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
-		int codigo = itens.size()+1;
+		int codigo = itens.size() + 1;
 		Item novoItem = new Item(item, codigo);
 		if (!itens.contains(novoItem)) {
 			itens.add(novoItem);
@@ -327,7 +328,6 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 	}
 
-
 	/**
 	 * Procura nos atributos descricao, itens e descricao do risco da atividade a
 	 * palavra-chave passada como parametro
@@ -353,7 +353,8 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * Associa uma pesquisa a atividade, a partir da pesquisa passada como parametro
 	 * 
 	 * @param pesquisa - a pesquisa a ser associada a atividade
-	 * @return - o booleano que representa o sucesso(true) ou nao(false) da associacao
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da
+	 *         associacao
 	 */
 	public boolean associaPesquisa(Pesquisa pesquisa) {
 		if (this.pesquisa == pesquisa) {
@@ -368,7 +369,8 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * Desassocia uma pesquisa da atividade
 	 * 
 	 * @param pesquisa - a pesquisa a ser associada a atividade
-	 * @return - o booleano que representa o sucesso(true) ou nao(false) da desassociacao
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da
+	 *         desassociacao
 	 * 
 	 * @return
 	 */
@@ -380,11 +382,12 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		return true;
 
 	}
-	
+
 //------------------------------------- Atividade (Parte 3) ------------------------------------------
-	
+
 	/**
-	 * Método responsavel por verificar se nesta atividade existe um seguinte a ela na cadeia.
+	 * Método responsavel por verificar se nesta atividade existe um seguinte a ela
+	 * na cadeia.
 	 * 
 	 * @return um booleano referente a situacao do processo
 	 */
@@ -394,7 +397,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Metodo que retorna a atividade seguinte a esta na cadeia.
 	 * 
@@ -406,16 +409,15 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 
 	/**
 	 * Metodo responsável por adicionar a atividade seguinte a esta, na cadeia,
-	 * verificando se o seguinte ja esta sendo ocupado por uma atividade e
-	 * se caso ao adicionar esta atividade ela acabará criando um loop. 
+	 * verificando se o seguinte ja esta sendo ocupado por uma atividade e se caso
+	 * ao adicionar esta atividade ela acabará criando um loop.
 	 * 
 	 * @param proximo atividade a ser adicionado como subsequente a esta atividade
 	 */
 	public void adicionaNaCadeia(Atividade proximo) {
 		if (this.seguinteNaCadeia == null) {
 			this.seguinteNaCadeia = proximo;
-		}
-		else if(this.seguinteNaCadeia != null) {
+		} else if (this.seguinteNaCadeia != null) {
 			throw new RuntimeException("Atividade ja possui uma subsequente.");
 		}
 		if (proximo.ehLoop(this)) {
@@ -423,7 +425,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 			throw new RuntimeException("Criacao de loops negada.");
 		}
 	}
-	
+
 	/**
 	 * Metodo responsavel por verificar se esta cadeia realiza um loop.
 	 * 
@@ -439,17 +441,17 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return this.seguinteNaCadeia.ehLoop(compara);
 	}
-	
+
 	/**
 	 * Metodo responsavel por remover o seguinte a esta atividade na cadeia.
 	 */
 	public void removeSeguinteNaCadeia() {
 		this.seguinteNaCadeia = null;
 	}
-	
+
 	/**
-	 * Metodo responsavel por contar a quantidade de atividades seguintes na cadeia formada a partir desta,
-	 * selecionada pelo usuario.
+	 * Metodo responsavel por contar a quantidade de atividades seguintes na cadeia
+	 * formada a partir desta, selecionada pelo usuario.
 	 * 
 	 * @return a quantidade de atividades
 	 */
@@ -459,9 +461,10 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return 1 + this.seguinteNaCadeia.contaSeguintesNaCadeia();
 	}
-	
+
 	/**
-	 * Metodo responsavel por retornar a codigo da atividade de maior nivel da cadeia. 
+	 * Metodo responsavel por retornar a codigo da atividade de maior nivel da
+	 * cadeia.
 	 * 
 	 * @return uma string relatando o codigo da atividade maior na cadeia
 	 */
@@ -477,27 +480,28 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return maiorRisco(partida, "ALTO");
 	}
-	
+
 	/**
-	 * Metodo que verifica atividade por atividade, relatandoa que apresenta o maior nivel de risco.
-	 * 	
-	 * @param maior o codigo da ultima maior atividade
-	 * @param classificacao classificacao para ser buscada, sendo "ALTO", "MEDIO" OU "BAIXO"
+	 * Metodo que verifica atividade por atividade, relatandoa que apresenta o maior
+	 * nivel de risco.
+	 * 
+	 * @param maior         o codigo da ultima maior atividade
+	 * @param classificacao classificacao para ser buscada, sendo "ALTO", "MEDIO" OU
+	 *                      "BAIXO"
 	 * @return o codigo da mior em formato de string
 	 */
 	private String maiorRisco(String maior, String classificacao) {
 		String maiorRiscoNaCadeia = maior;
 		if (this.seguinteNaCadeia == null) {
 			return maiorRiscoNaCadeia;
-			}
+		}
 		if (classificacao.equals(this.seguinteNaCadeia.nivelRisco)) {
 			maiorRiscoNaCadeia = this.seguinteNaCadeia.codigo;
 		}
 		return this.seguinteNaCadeia.maiorRisco(maiorRiscoNaCadeia, classificacao);
-		
-		
+
 	}
-	
+
 	/**
 	 * Metodo responsavel por retornar o codigo da atividade desejado pelo usuario,
 	 * onde ele relata a quantidade de casas na cadeia, apos a esta atividade.
@@ -516,12 +520,15 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return proximoSelecionado(0, enesimaAtividade);
 	}
-	
+
 	/**
-	 * Metodo que auxilia o metodo pegaProximo, que retorna o elemento selecionado pelo usuario.
+	 * Metodo que auxilia o metodo pegaProximo, que retorna o elemento selecionado
+	 * pelo usuario.
 	 * 
-	 * @param posicao um inteiro representando a quantidade de casas ja contadas
-	 * @param enesimaAtividade um inteiro representando a quantidade de casas que o usuario deseja
+	 * @param posicao          um inteiro representando a quantidade de casas ja
+	 *                         contadas
+	 * @param enesimaAtividade um inteiro representando a quantidade de casas que o
+	 *                         usuario deseja
 	 * @return o codigo da atividade no formato de string desejado pelo usuario
 	 */
 	private String proximoSelecionado(int posicao, int enesimaAtividade) {
@@ -533,32 +540,32 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return this.seguinteNaCadeia.proximoSelecionado(posicao + 1, enesimaAtividade);
 	}
-	
+
 	public String exibeAtividade() {
-		
+
 		String representacao = this.toString();
-		
+
 		for (Item item : itens) {
 			representacao += System.lineSeparator() + "\t\t\t- " + item.exibeItemSituacao();
 		}
-		
+
 		return representacao;
 	}
-	
+
 	public String getResultados() {
-		
+
 		String resultados = "- " + this.descricao;
-		
+
 		for (Item item : itens) {
-			if(item.getSituacao().equals("REALIZADO")) {				
+			if (item.getSituacao().equals("REALIZADO")) {
 				resultados += System.lineSeparator() + "\t\t\t- " + item.exibeItemDuracao();
 			}
 		}
-		
+
 		for (String resultado : this.resultados.values()) {
 			resultados += System.lineSeparator() + "\t\t\t- " + resultado;
 		}
-		
+
 		return resultados;
 	}
 
@@ -572,8 +579,8 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	public String getCodigo() {
 		return this.codigo;
 	}
-	
+
 	public String getRisco() {
 		return this.nivelRisco;
-	}	
+	}
 }
