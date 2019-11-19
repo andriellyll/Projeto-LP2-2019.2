@@ -19,7 +19,7 @@ class AtividadeTest {
 		controllerAtividade = new ControllerAtividade(controllerPesquisa);
 		Period data = Period.ofDays(8);
 		atividade = new Atividade("A1", "Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO", "Por se tratar de apenas um monitoramento, o risco nao e elevado.");
-		atividade.adicionaItem("Monitoramento facebook/messenger", 1);
+		atividade.adicionaItem("Monitoramento facebook/messenger");
 		Pesquisa pesquisa = new Pesquisa("PAR1", "Nao acredito que tenho que fazer isso ate aqui.", "Para ninguem");
 		atividade.associaPesquisa(pesquisa);
 	}
@@ -67,41 +67,41 @@ class AtividadeTest {
 
 	@Test
 	public void testAdicionaItem() {
-		atividade.adicionaItem("Monitoramento facebook/messenger", 1);
+		atividade.adicionaItem("Monitoramento facebook/messenger");
 		assertEquals(atividade.exibeItens(), "PENDENTE - Monitoramento facebook/messenger | PENDENTE - Monitoramento facebook/messenger");
 	}
 	
 	@Test
 	public void testAdicionaItemNulo() {
-		assertThrows(NullPointerException.class, () -> atividade.adicionaItem(null,1));
+		assertThrows(NullPointerException.class, () -> atividade.adicionaItem(null));
 
 	}
 	
 	@Test
 	public void testAdicionaItemVazio() {
-		assertThrows(IllegalArgumentException.class, () -> atividade.adicionaItem("",1));
+		assertThrows(IllegalArgumentException.class, () -> atividade.adicionaItem(""));
 	}
 
 	@Test
 	public void testItensPendentes() {
-		atividade.adicionaItem("Monitoramento facebook/messenger",1);
-		atividade.adicionaItem("Monitoramento slack",2);
-		atividade.adicionaItem("Monitoramento discord",3);
+		atividade.adicionaItem("Monitoramento facebook/messenger");
+		atividade.adicionaItem("Monitoramento slack");
+		atividade.adicionaItem("Monitoramento discord");
 		assertEquals(atividade.ItensPendentes(), 4);
 	}
 
 	@Test
 	public void testItensRealizados() {
-		atividade.adicionaItem("Monitoramento facebook/messenger",1);
-		atividade.adicionaItem("Monitoramento slack",2);
-		atividade.adicionaItem("Monitoramento discord",3);
+		atividade.adicionaItem("Monitoramento facebook/messenger");
+		atividade.adicionaItem("Monitoramento slack");
+		atividade.adicionaItem("Monitoramento discord");
 		assertEquals(atividade.ItensRealizados(), 0);
 	}
 
 	@Test
 	public void testExibeItens() {
-		atividade.adicionaItem("Monitoramento facebook/messenger",1);
-		atividade.adicionaItem("Monitoramento slack",2);
+		atividade.adicionaItem("Monitoramento facebook/messenger");
+		atividade.adicionaItem("Monitoramento slack");
 		assertEquals(atividade.exibeItens(), "PENDENTE - Monitoramento facebook/messenger | PENDENTE - Monitoramento facebook/messenger | PENDENTE - Monitoramento slack");
 	}
 
@@ -277,7 +277,8 @@ class AtividadeTest {
 		atividade.adicionaItem("To fazendo mais um teste so para testar");
 		atividade.executaAtividade(1, 100);
 		assertEquals(atividade.exibeAtividade(), "Monitoramento de chats dos alunos de computacao do primeiro periodo. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.)\n" +
-				"\n" + "\\t\\t\\t- ITEM1 - REALIZADO" + "\n" + "\\t\\t\\t- ITEM2 - PENDENTE");
+				"\t\t\t- REALIZADO - ITEM1\n" + 
+				"\t\t\t- PENDENTE - ITEM2");
 	}
 	
 	@Test
@@ -286,6 +287,13 @@ class AtividadeTest {
 		atividade.cadastraResultado("Esse grupo e so sucesso");
 		atividade.cadastraResultado("Pegamos o melhor professor e os melhores monitores para nos auxiliar");
 		assertEquals(atividade.getResultados(), "- Monitoramento de chats dos alunos de computacao do primeiro periodo.\n" + 
-				"\n" + "\t\t\t- ITEM1 - REALIZADO" + "\n" + "");
+				"\t\t\t- ITEM1 - 100\n" +
+				"\t\t\t- Esse grupo e so sucesso\n" +
+				"\t\t\t- Pegamos o melhor professor e os melhores monitores para nos auxiliar");
+	}
+	
+	@Test
+	public void testCompareTo() {
+		
 	}
 }

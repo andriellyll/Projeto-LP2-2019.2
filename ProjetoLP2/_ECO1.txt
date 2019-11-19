@@ -6,5 +6,5 @@
 	- Objetivos:
 		- O1 - GERAL - nao sei - 3
 	- Atividades: 
-		- Mais um objeto de atividade para testar (ALTO - Tem muita importancia deste teste)
+		- Mais um objeto de atividade para testar (ALTO - Tem muita importancia este teste)
 			- PENDENTE - ITEM1" 

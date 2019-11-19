@@ -33,7 +33,7 @@ class ControllerPesquisaTest {
 		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
 		controllerPesquisador.cadastraPesquisador("bia", "estudante", "linda pfta", "bia@pfta", "http://bia");
-		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia este teste");
 		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
 	}
 
@@ -500,16 +500,16 @@ class ControllerPesquisaTest {
 		controle.associaObjetivo("ECO1", "O1");
 		controllerAtividade.associaPesquisa("ECO1", "A1");
 		controle.gravarResumo("ECO1");
-//		assertEquals(readFileAsString("./_ECO1.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + "\n" + 
-//				"\t- Pesquisadores:\n" + "\n" + 
-//				"\t\t- bia (estudante) - linda pfta - bia@pfta - FOTO - http://bia\n" + "\n" + 
-//				"\t- Problema:\n" + "\n" + 
-//				"\t\t- P1 - um grande problema na minha vida - 2\n" + "\n" + 
-//				"\t- Objetivos:\n" + "\n" + 
-//				"\t\t- O1 - GERAL - nao sei - 3\n" + "\n" + 
-//				"\t- Atividades:\n" + "\n" + 
-//				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia deste teste)\n" + "\n" + 
-//				"\t\t\t- PENDENTE - Tem que fazer senao Anderson briga tambem.");
+		assertEquals(readFileAsString("./_ECO1.txt"), "\"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + 
+				"\t- Pesquisadores:\n" +
+				"\t\t- bia (estudante) - linda pfta - bia@pfta - http://bia\n" +
+				"\t- Problema: \n" + 
+				"\t\t- P1 - um grande problema na minha vida - 2\n" +
+				"\t- Objetivos:\n" +
+				"\t\t- O1 - GERAL - nao sei - 3\n" +
+				"\t- Atividades: \n" +
+				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia este teste)\n" + 
+				"\t\t\t- PENDENTE - ITEM1\" ");
 	}
 
 	@Test
@@ -527,11 +527,11 @@ class ControllerPesquisaTest {
 		controllerAtividade.executaAtividade("A1", 1, 100);
 		controllerAtividade.cadastraResultado("A1", "Realizado com sucesso");
 		controle.gravarResultados("ECO1");
-		assertEquals(readFileAsString("ECO1-Resultados.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" +
+		assertEquals(readFileAsString("ECO1-Resultados.txt"), "\"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" +
 	    "\t- Resultados:\n" + 
-	    "\t\t- DESCRIÇÃO\n" + 
-	    "\t\t\t- ITEM1 - 100 - DESCRIÇÃO_RESULTADO");
-
+	    "\t\t- Mais um objeto de atividade para testar\n" + 
+	    "\t\t\t- ITEM1 - 100\n" + 
+	    "\t\t\t- Realizado com sucesso\"");
 	}
 	
 	@Test
