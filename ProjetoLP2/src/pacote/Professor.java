@@ -11,6 +11,7 @@ public class Professor implements Funcao {
 	/**
 	 * Atributo que representa a formacao do Professor.
 	 */
+
 	private String formacao;
 	/**
 	 * Atributo que representa qual unidade que o Professor faz parte.
@@ -29,6 +30,7 @@ public class Professor implements Funcao {
 	 * @param unidade  a unidade que o Professor faz parte.
 	 * @param data     a data de contratacao do Professor.
 	 */
+
 	public Professor(String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(unidade, "Campo unidade nao pode ser nulo ou vazio.");
@@ -81,5 +83,4 @@ public class Professor implements Funcao {
 		}
 
 	}
-
 }

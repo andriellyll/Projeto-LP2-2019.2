@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 
  * @author Henrique Lemos
  */
-public class Item implements Serializable{
+public class Item implements Serializable {
 
 	/**
 	 * 
@@ -81,18 +81,18 @@ public class Item implements Serializable{
 
 	/**
 	 * 
-	 * @param duracao 
+	 * @param duracao
 	 * @return
 	 */
 	public void executa(int duracao) {
 		this.situacao = "REALIZADO";
 		this.duracao = duracao;
 	}
-	
+
 	public String exibeItemSituacao() {
 		return this.situacao + " - ITEM" + this.codigo;
 	}
-	
+
 	public String exibeItemDuracao() {
 		return "ITEM" + this.codigo + " - " + this.duracao;
 	}

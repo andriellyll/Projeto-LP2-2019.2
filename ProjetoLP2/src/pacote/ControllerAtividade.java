@@ -421,7 +421,7 @@ public class ControllerAtividade implements Buscavel {
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(atividades);
 			stream.close();
-			
+
 			OutputStream out = new FileOutputStream(new File("numeroAtividades.txt"));
 			out.write(numeroAtividades);
 			out.close();

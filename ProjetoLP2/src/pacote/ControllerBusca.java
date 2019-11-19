@@ -91,7 +91,7 @@ public class ControllerBusca {
 	 * especifico, identificado pelo numero que representa a ordem em que ele
 	 * apareceu
 	 * 
-	 * @param palavraChave palavra a ser buscada
+	 * @param palavraChave    palavra a ser buscada
 	 * @param numeroResultado numero do resultado (primeiro, segundo...)
 	 * @return o resultado especifico pedido
 	 */
