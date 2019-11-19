@@ -424,7 +424,6 @@ class PesquisaTest {
 		test2.associaProblema(problema);
 		test2.associaPesquisador(pesquisador);
 		test2.associaObjetivo(objetivo);
-		test2.associaAtividade(controllerAtividade.getAtividade("A1"));
 		test2.associaAtividade(controllerAtividade.getAtividade("A1")); 
 		controllerAtividade.getAtividade("A1").associaPesquisa(test2);
 		controllerAtividade.executaAtividade("A1", 1, 100);
@@ -440,14 +439,19 @@ class PesquisaTest {
 		"\t\t- uma descricao (ALTO - risco)\n" +
 		"\t\t\t- REALIZADO - ITEM1");
 	}
-	
+
 	@Test
-	void testResultadosPesquisa() {
-		
-	}
-	
-	@Test
-	void testGravarResultados() throws IOException {
+	void testGravarResultados() throws Exception {
+		controllerAtividade.cadastraAtividade("uma descricao", "ALTO", "risco");
+		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
+		test1.associaAtividade(controllerAtividade.getAtividade("A1"));
+		controllerAtividade.getAtividade("A1").associaPesquisa(test1);
+		controllerAtividade.executaAtividade("A1", 1, 100);
+		test1.gravarResultados();
+		assertEquals(readFileAsString("SEG1-Resultados.txt"), "- Pesquisa: SEG1 - Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola - Seguranca publica\n" +
+		"\t- Resultados:\n" +
+		"\t\t- uma descricao\n" +
+		"\t\t\t- ITEM1 - 100");
 		
 	}
 }
