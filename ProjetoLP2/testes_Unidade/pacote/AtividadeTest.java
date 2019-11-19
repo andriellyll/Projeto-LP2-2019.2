@@ -294,6 +294,17 @@ class AtividadeTest {
 	
 	@Test
 	public void testCompareTo() {
-		
+		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
+		assertEquals(atividade.compareTo(atividade2), -1);
+	}
+	
+	@Test
+	public void testGetCodigo() {
+		assertEquals(atividade.getCodigo(), "A1");
+	}
+	
+	@Test
+	public void testGetRisco() {
+		assertEquals(atividade.getRisco(), "BAIXO");
 	}
 }
