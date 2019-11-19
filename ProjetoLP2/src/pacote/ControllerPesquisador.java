@@ -256,7 +256,7 @@ public class ControllerPesquisador implements Buscavel {
 	 * 
 	 * @param email    email o email do Pesquisador no qual essa especialidade deve
 	 *                 ser cadastrada.
-	 * @param semestre o semestre que o aluno se encontra.
+	 * @param semestre o semestre que o aluno ingressou.
 	 * @param IEA      o indice de eficiencia academica do aluno.
 	 */
 	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
