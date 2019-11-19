@@ -19,12 +19,12 @@ class PesquisaTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		ControllerPesquisa controllerPesquisa = null;
-		controllerAtividade = new ControllerAtividade(controllerPesquisa);
 		test1 = new Pesquisa("SEG1", "Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
 				"Seguranca publica");
 		test2 = new Pesquisa("BLA1", "Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja",
 				"Black Friday, Casos do mes");
+		ControllerPesquisa controllerPesquisa = null;
+		controllerAtividade = new ControllerAtividade(controllerPesquisa);
 	}
 
 	@Test
@@ -418,14 +418,15 @@ class PesquisaTest {
 		Objetivo objetivo = new Objetivo("GERAL",
 				"Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.",
 				4, 2, "O1");
-		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+		controllerAtividade.cadastraAtividade("uma descricao", "ALTO", "risco");
 		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
-		test1.associaProblema(problema);
-		test1.associaObjetivo(objetivo);
-		test1.associaAtividade(a1);
+		test2.associaProblema(problema);
+		test2.associaObjetivo(objetivo);
+		test2.associaAtividade(controllerAtividade.getAtividade("A1"));
+//		controllerAtividade.associaPesquisa("BLA1", "A1");
 		controllerAtividade.executaAtividade("A1", 1, 100);
 		test1.gravarResumo();
-		assertEquals(readFileAsString("./_BLA2.txt"), "\"- Pesquisa: BLA2 - Cuidado com os golpes nesta black frida, saiba com prevenir-se - Black Friday, Golpes, Seguranca na internet\n" +
+		assertEquals(readFileAsString("./_BLA1.txt"), "\"- Pesquisa: BLA1 - Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja - Black Friday, Casos do mes\n" +
 		"\t- Pesquisadores:\n" +
 		"\t\t- Anderson (Monitor) - O melhor monitor de P2 - Anderson@theBest.com - https://qGtDY.popt\n" +
 		"\t- Problema:\n" +
