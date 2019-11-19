@@ -12,12 +12,10 @@ class AtividadeTest {
 	private ControllerPesquisa controllerPesquisa;
 	private ControllerAtividade controllerAtividade;
 	private Atividade atividade;
-	private Period data;
 	
 	@BeforeEach
 	public void criaAtividade() {
 		controllerAtividade = new ControllerAtividade(controllerPesquisa);
-		Period data = Period.ofDays(8);
 		atividade = new Atividade("A1", "Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO", "Por se tratar de apenas um monitoramento, o risco nao e elevado.");
 		atividade.adicionaItem("Monitoramento facebook/messenger");
 		Pesquisa pesquisa = new Pesquisa("PAR1", "Nao acredito que tenho que fazer isso ate aqui.", "Para ninguem");
