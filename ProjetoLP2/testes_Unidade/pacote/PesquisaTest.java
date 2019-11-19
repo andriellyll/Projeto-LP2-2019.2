@@ -15,9 +15,12 @@ class PesquisaTest {
 
 	private Pesquisa test1;
 	private Pesquisa test2;
+	private ControllerAtividade controllerAtividade;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		ControllerPesquisa controllerPesquisa = null;
+		controllerAtividade = new ControllerAtividade(controllerPesquisa);
 		test1 = new Pesquisa("SEG1", "Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola",
 				"Seguranca publica");
 		test2 = new Pesquisa("BLA1", "Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja",
@@ -88,23 +91,15 @@ class PesquisaTest {
 
 	@Test
 	void testGetAtivacao() {
-		test2.desativaPesquisa("Essa negocio e so um teste");
-		assertTrue(test1.getAtivacao());
+		test2.desativaPesquisa();
+		assertTrue(test1.getAtivacao()); 
 		assertFalse(test2.getAtivacao());
 	}
 
 	@Test
 	void testDesativaPesquisa() {
-		test1.desativaPesquisa("Muito doido o assunto");
+		test1.desativaPesquisa();
 		assertFalse(test1.getAtivacao());
-	}
-
-	@Test
-	void testDesativaPesquisaInvalido() {
-		assertThrows(NullPointerException.class, () -> test1.desativaPesquisa(null),
-				"Descricao nao pode ser nula ou vazia.");
-		assertThrows(IllegalArgumentException.class, () -> test1.desativaPesquisa("  "),
-				"Descricao nao pode ser nula ou vazia.");
 	}
 
 	@Test
@@ -418,13 +413,28 @@ class PesquisaTest {
 	}
 	
 	@Test
-	void testGerarResumo() {
-//		assertEquals();
-	}
-	
-	@Test
-	void testGravarResumo() throws IOException {
-//		assertEquals();
+	void testGravarResumo() throws Exception {
+		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
+		Objetivo objetivo = new Objetivo("GERAL",
+				"Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.",
+				4, 2, "O1");
+		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
+		test1.associaProblema(problema);
+		test1.associaObjetivo(objetivo);
+		test1.associaAtividade(a1);
+		controllerAtividade.executaAtividade("A1", 1, 100);
+		test1.gravarResumo();
+		assertEquals(readFileAsString("./_BLA2.txt"), "\"- Pesquisa: BLA2 - Cuidado com os golpes nesta black frida, saiba com prevenir-se - Black Friday, Golpes, Seguranca na internet\n" +
+		"\t- Pesquisadores:\n" +
+		"\t\t- Anderson (Monitor) - O melhor monitor de P2 - Anderson@theBest.com - https://qGtDY.popt\n" +
+		"\t- Problema:\n" +
+		"\t\t- P1 - A dificuldade da predicao do sistema eleitoral brasileiro - 1\n" +
+		"\t- Objetivos:\n" +
+		"\t\t- O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - (6)\n" +
+		"\t- Atividades:\n" +
+		"\t\t- uma descricao (ALTO - risco)\n" +
+		"\t\t\t- REALIZADO - ITEM1\" ");
 	}
 	
 	@Test
