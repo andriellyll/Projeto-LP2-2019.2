@@ -350,19 +350,19 @@ class PesquisaTest {
 		assertFalse(test1.desassociaPesquisador(p));
 	}
 
-//	@Test
-//	void proximaAtividadeMaisAntiga() {
-//		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
-//		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
-//		Atividade a3 = new Atividade("A3", "outra da outra descricao", "BAIXO", "risco");
-//		a1.adicionaItem("descricao");
-//		a1.adicionaItem("lala");
-//		a2.adicionaItem("num");
-//		test1.associaAtividade(a1);
-//		test1.associaAtividade(a2);
-//		test1.associaAtividade(a3);
-//		assertEquals(test1.proximaAtividade("MAIS_ANTIGA"), "A1");
-//	}
+	@Test
+	void proximaAtividadeMaisAntiga() {
+		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
+		Atividade a2 = new Atividade("A2", "outra descricao", "MEDIO", "risco");
+		Atividade a3 = new Atividade("A3", "outra da outra descricao", "BAIXO", "risco");
+		a1.adicionaItem("descricao");
+		a1.adicionaItem("lala");
+		a2.adicionaItem("num");
+		test1.associaAtividade(a1);
+		test1.associaAtividade(a2);
+		test1.associaAtividade(a3);
+		assertEquals(test1.proximaAtividade("MAIS_ANTIGA"), "A1");
+	}
 
 	@Test
 	void proximaAtividadeMenosPendencias() {
