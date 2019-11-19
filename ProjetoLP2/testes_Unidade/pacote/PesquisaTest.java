@@ -16,6 +16,7 @@ class PesquisaTest {
 	private Pesquisa test1;
 	private Pesquisa test2;
 	private ControllerAtividade controllerAtividade;
+	private ControllerPesquisa controllerPesquisa;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -23,7 +24,6 @@ class PesquisaTest {
 				"Seguranca publica");
 		test2 = new Pesquisa("BLA1", "Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja",
 				"Black Friday, Casos do mes");
-		ControllerPesquisa controllerPesquisa = null;
 		controllerAtividade = new ControllerAtividade(controllerPesquisa);
 	}
 
@@ -414,28 +414,31 @@ class PesquisaTest {
 	
 	@Test
 	void testGravarResumo() throws Exception {
+		controllerAtividade.cadastraAtividade("uma descricao", "ALTO", "risco");
 		Problema problema = new Problema("A dificuldade da predicao do sistema eleitoral brasileiro", 1, "P1");
 		Objetivo objetivo = new Objetivo("GERAL",
 				"Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.",
 				4, 2, "O1");
-		controllerAtividade.cadastraAtividade("uma descricao", "ALTO", "risco");
-		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
+		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");		
+		Pesquisador pesquisador = new Pesquisador("Anderson", "Estudante", "Melhor monitor de P2", "Anderson@theBest.com", "https://qGtDY.popt");
 		test2.associaProblema(problema);
+		test2.associaPesquisador(pesquisador);
 		test2.associaObjetivo(objetivo);
 		test2.associaAtividade(controllerAtividade.getAtividade("A1"));
-//		controllerAtividade.associaPesquisa("BLA1", "A1");
+		test2.associaAtividade(controllerAtividade.getAtividade("A1")); 
+		controllerAtividade.getAtividade("A1").associaPesquisa(test2);
 		controllerAtividade.executaAtividade("A1", 1, 100);
-		test1.gravarResumo();
-		assertEquals(readFileAsString("./_BLA1.txt"), "\"- Pesquisa: BLA1 - Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja - Black Friday, Casos do mes\n" +
+		test2.gravarResumo();
+		assertEquals(readFileAsString("./_BLA1.txt"), "- Pesquisa: BLA1 - Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja - Black Friday, Casos do mes\n" +
 		"\t- Pesquisadores:\n" +
-		"\t\t- Anderson (Monitor) - O melhor monitor de P2 - Anderson@theBest.com - https://qGtDY.popt\n" +
+		"\t\t- Anderson (Estudante) - Melhor monitor de P2 - Anderson@theBest.com - https://qGtDY.popt\n" +
 		"\t- Problema:\n" +
 		"\t\t- P1 - A dificuldade da predicao do sistema eleitoral brasileiro - 1\n" +
 		"\t- Objetivos:\n" +
-		"\t\t- O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - (6)\n" +
+		"\t\t- O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6\n" +
 		"\t- Atividades:\n" +
 		"\t\t- uma descricao (ALTO - risco)\n" +
-		"\t\t\t- REALIZADO - ITEM1\" ");
+		"\t\t\t- REALIZADO - ITEM1");
 	}
 	
 	@Test

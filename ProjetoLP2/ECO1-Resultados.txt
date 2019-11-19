@@ -1,5 +1,5 @@
-"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores
+- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores
 	- Resultados:
 		- Mais um objeto de atividade para testar
 			- ITEM1 - 100
-			- Realizado com sucesso"
+			- Realizado com sucesso

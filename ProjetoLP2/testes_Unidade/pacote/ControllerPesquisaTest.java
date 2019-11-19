@@ -500,7 +500,7 @@ class ControllerPesquisaTest {
 		controle.associaObjetivo("ECO1", "O1");
 		controllerAtividade.associaPesquisa("ECO1", "A1");
 		controle.gravarResumo("ECO1");
-		assertEquals(readFileAsString("./_ECO1.txt"), "\"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + 
+		assertEquals(readFileAsString("./_ECO1.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + 
 				"\t- Pesquisadores:\n" +
 				"\t\t- bia (estudante) - linda pfta - bia@pfta - http://bia\n" +
 				"\t- Problema:\n" + 
@@ -509,7 +509,7 @@ class ControllerPesquisaTest {
 				"\t\t- O1 - GERAL - nao sei - 3\n" +
 				"\t- Atividades:\n" +
 				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia este teste)\n" + 
-				"\t\t\t- PENDENTE - ITEM1\" ");
+				"\t\t\t- PENDENTE - ITEM1 ");
 	}
 
 	@Test
@@ -527,11 +527,11 @@ class ControllerPesquisaTest {
 		controllerAtividade.executaAtividade("A1", 1, 100);
 		controllerAtividade.cadastraResultado("A1", "Realizado com sucesso");
 		controle.gravarResultados("ECO1");
-		assertEquals(readFileAsString("ECO1-Resultados.txt"), "\"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" +
+		assertEquals(readFileAsString("ECO1-Resultados.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" +
 	    "\t- Resultados:\n" + 
 	    "\t\t- Mais um objeto de atividade para testar\n" + 
 	    "\t\t\t- ITEM1 - 100\n" + 
-	    "\t\t\t- Realizado com sucesso\"");
+	    "\t\t\t- Realizado com sucesso");
 	}
 	
 	@Test

@@ -422,7 +422,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 */
 	private String gerarResumo() {
 
-		String resumo = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores:";
+		String resumo = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores:";
 
 		for (Pesquisador pesquisador : pesquisadoresAssociados) {
 			resumo += System.lineSeparator() + "\t\t- " + pesquisador.toString();
@@ -443,7 +443,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			resumo += System.lineSeparator() + "\t\t- " + atividade.exibeAtividade();
 		}
 
-		return resumo + "\" ";
+		return resumo + " ";
 	}
 
 	/**
@@ -467,13 +467,13 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * @return String dos resultados
 	 */
 	private String resultadosPesquisa() {
-		String resultados = "\"- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
+		String resultados = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
 
 		for (Atividade atividade : atividadesAssociadas) {
 			resultados += System.lineSeparator() + "\t\t" + atividade.getResultados();
 		}
 
-		return resultados + "\"";
+		return resultados;
 	}
 
 	/**

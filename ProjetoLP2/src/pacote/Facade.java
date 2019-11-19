@@ -41,8 +41,8 @@ public class Facade {
 		this.controllerPesquisa.alteraPesquisa(codigo, conteudoASerAlterado, novoConteudo);
 	}
 
-	public void encerraPesquisa(String codigo) {
-		this.controllerPesquisa.encerraPesquisa(codigo);
+	public void encerraPesquisa(String codigo, String motivo) {
+		this.controllerPesquisa.encerraPesquisa(codigo, motivo);
 
 	}
 

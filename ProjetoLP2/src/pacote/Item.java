@@ -92,7 +92,7 @@ public class Item implements Serializable {
 	public String exibeItemSituacao() {
 		return this.situacao + " - ITEM" + this.codigo;
 	}
-
+ 
 	public String exibeItemDuracao() {
 		return "ITEM" + this.codigo + " - " + this.duracao;
 	}
