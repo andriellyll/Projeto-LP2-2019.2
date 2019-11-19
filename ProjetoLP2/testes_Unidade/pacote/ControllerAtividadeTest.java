@@ -646,5 +646,27 @@ public class ControllerAtividadeTest {
 			;
 		});
 	}
+	
+	@Test
+	public void testSalvar() {
+		controllerAtividade.cadastraAtividade("Alguma coisa aleatorio", "ALTO", "Por eu estar sem criatividade, o risco eh alto pq eu quis que fosse alto quem discordar eh nazista");
+		controllerAtividade.cadastraAtividade("Alguma coisa aleatoria nao sei mais concordancia e eh pq paguei portugues semestre passado", "BAIXO", "pipipi popopo");
+		controllerAtividade.cadastraAtividade("Dessa vez vou fazer com um nome menor", "MEDIO", "O risco eh medio pois eu nao tinha cadastrado ainda uma atividade com risco medio");
+		controllerAtividade.apagaAtividade("A2");
+		
+		controllerAtividade.salvar();
+	}
+	
+	@Test
+	public void testCarregar() {
+		controllerAtividade.carregar();
+		
+		assertThrows(RuntimeException.class, () -> {
+			controllerAtividade.exibeAtividade("A2");
+		});
+		
+		assertEquals("Alguma coisa aleatoria nao sei mais concordancia e eh pq paguei portugues semestre passado (BAIXO - pipipi popopo)", controllerAtividade.exibeAtividade("A3"));
+	
+	}
 
 }
