@@ -503,11 +503,11 @@ class ControllerPesquisaTest {
 		assertEquals(readFileAsString("./_ECO1.txt"), "\"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + 
 				"\t- Pesquisadores:\n" +
 				"\t\t- bia (estudante) - linda pfta - bia@pfta - http://bia\n" +
-				"\t- Problema: \n" + 
+				"\t- Problema:\n" + 
 				"\t\t- P1 - um grande problema na minha vida - 2\n" +
 				"\t- Objetivos:\n" +
 				"\t\t- O1 - GERAL - nao sei - 3\n" +
-				"\t- Atividades: \n" +
+				"\t- Atividades:\n" +
 				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia este teste)\n" + 
 				"\t\t\t- PENDENTE - ITEM1\" ");
 	}
