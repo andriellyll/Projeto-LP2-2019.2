@@ -354,7 +354,7 @@ public class ControllerPesquisa implements Buscavel {
 	 * @param codigo - valor que vai ser verificado a ativacao ou nao
 	 */
 	private void verificaPesquisaAtivada(String codigo) {
-		if (pesquisas.get(codigo).getAtivacao() == false) {
+		if (!pesquisas.get(codigo).getAtivacao()) {
 			throw new RuntimeException("Pesquisa desativada.");
 		}
 	}
