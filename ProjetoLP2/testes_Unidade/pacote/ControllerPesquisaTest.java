@@ -584,5 +584,20 @@ class ControllerPesquisaTest {
 	void proximaAtividadeTest() {
 		assertThrows(RuntimeException.class, () -> controle.proximaAtividade("ECO1"));
 	}
+	
+	@Test
+	void testSalvar() {
+		controle.cadastraPesquisa("Pesquisando pq henrique eh tao pfto", "Alunos pftos");
+		controle.cadastraPesquisa("Monitor Anderson maravilhoso", "Monitor");
+		controle.salvar();
+	}
+	
+	@Test
+	void testCarregar() {
+		controle.carregar();
+		assertEquals("ALU1 - Pesquisando pq henrique eh tao pfto - Alunos pftos", controle.exibePesquisa("ALU1"));
+		assertEquals("MON1 - Monitor Anderson maravilhoso - Monitor", controle.exibePesquisa("MON1"));
+	}
+	
 
 }
