@@ -386,7 +386,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	/**
 	 * Método responsavel por verificar se nesta atividade existe um seguinte a ela na cadeia.
 	 * 
-	 * @return Um booleano classificando a realizacao
+	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean existeProximo() {
 		if (seguinteNaCadeia != null) {
@@ -396,18 +396,20 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 	
 	/**
+	 * Metodo que retorna a atividade seguinte a esta na cadeia.
 	 * 
-	 * 
-	 * @return
+	 * @return o objeto atividade seguinte a esta
 	 */
 	public Atividade getSeguinteNaCadeia() {
 		return seguinteNaCadeia;
 	}
 
 	/**
+	 * Metodo responsável por adicionar a atividade seguinte a esta, na cadeia,
+	 * verificando se o seguinte ja esta sendo ocupado por uma atividade e
+	 * se caso ao adicionar esta atividade ela acabará criando um loop. 
 	 * 
-	 * 
-	 * @param proximo
+	 * @param proximo atividade a ser adicionado como subsequente a esta atividade
 	 */
 	public void adicionaNaCadeia(Atividade proximo) {
 		if (this.seguinteNaCadeia == null) {
@@ -423,10 +425,10 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 	
 	/**
+	 * Metodo responsavel por verificar se esta cadeia realiza um loop.
 	 * 
-	 * 
-	 * @param compara
-	 * @return
+	 * @param compara uma atividade as ser comparada para verificar se ha repeticao
+	 * @return um booleano que indica se existe um loop
 	 */
 	private boolean ehLoop(Atividade compara) {
 		if (this.seguinteNaCadeia == null) {
@@ -439,17 +441,17 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 	
 	/**
-	 * 
-	 * 
+	 * Metodo responsavel por remover o seguinte a esta atividade na cadeia.
 	 */
 	public void removeSeguinteNaCadeia() {
 		this.seguinteNaCadeia = null;
 	}
 	
 	/**
+	 * Metodo responsavel por contar a quantidade de atividades seguintes na cadeia formada a partir desta,
+	 * selecionada pelo usuario.
 	 * 
-	 * 
-	 * @return
+	 * @return a quantidade de atividades
 	 */
 	public int contaSeguintesNaCadeia() {
 		if (this.seguinteNaCadeia == null) {
@@ -459,9 +461,9 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 	
 	/**
+	 * Metodo responsavel por retornar a codigo da atividade de maior nivel da cadeia. 
 	 * 
-	 * 
-	 * @return
+	 * @return uma string relatando o codigo da atividade maior na cadeia
 	 */
 	public String atividadeMaiorRisco(String partida) {
 		if (this.seguinteNaCadeia == null) {
@@ -477,10 +479,11 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 	
 	/**
-	 * 
+	 * Metodo que verifica atividade por atividade, relatandoa que apresenta o maior nivel de risco.
 	 * 	
-	 * @param maior
-	 * @return
+	 * @param maior o codigo da ultima maior atividade
+	 * @param classificacao classificacao para ser buscada, sendo "ALTO", "MEDIO" OU "BAIXO"
+	 * @return o codigo da mior em formato de string
 	 */
 	private String maiorRisco(String maior, String classificacao) {
 		String maiorRiscoNaCadeia = maior;
@@ -496,10 +499,11 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 	
 	/**
+	 * Metodo responsavel por retornar o codigo da atividade desejado pelo usuario,
+	 * onde ele relata a quantidade de casas na cadeia, apos a esta atividade.
 	 * 
-	 * 
-	 * @param enesimaAtividade
-	 * @return
+	 * @param enesimaAtividade um inteiro que representa a qauntidade de casas apos
+	 * @return o codigo da atividade no formato de string
 	 */
 	public String pegaProximo(int enesimaAtividade) {
 		if (enesimaAtividade < 1) {
@@ -514,11 +518,11 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 	
 	/**
+	 * Metodo que auxilia o metodo pegaProximo, que retorna o elemento selecionado pelo usuario.
 	 * 
-	 * 
-	 * @param posicao
-	 * @param enesimaAtividade
-	 * @return
+	 * @param posicao um inteiro representando a quantidade de casas ja contadas
+	 * @param enesimaAtividade um inteiro representando a quantidade de casas que o usuario deseja
+	 * @return o codigo da atividade no formato de string desejado pelo usuario
 	 */
 	private String proximoSelecionado(int posicao, int enesimaAtividade) {
 		if (posicao == enesimaAtividade) {
