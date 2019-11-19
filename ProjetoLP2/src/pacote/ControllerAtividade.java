@@ -68,7 +68,7 @@ public class ControllerAtividade implements Buscavel {
 	 *               atividade com este codigo
 	 */
 	private void verificaAtividadeExiste(String codigo, String mensagem) {
-		if (atividades.containsKey(codigo) == false) {
+		if (!atividades.containsKey(codigo)) {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
