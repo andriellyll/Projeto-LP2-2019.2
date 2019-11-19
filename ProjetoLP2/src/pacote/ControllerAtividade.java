@@ -344,10 +344,11 @@ public class ControllerAtividade implements Buscavel {
 //----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
 
 	/**
+	 * Metodo responsavel por definir a proxima atividade de outra atividade, selecionada tambem pelo usuario,
+	 * formando um cadeia ordenada de atividades. Caso a precedente ja possua uma subsequente ele reporta uma excecao.
 	 * 
-	 * 
-	 * @param idPrecedente
-	 * @param idSubsequente
+	 * @param idPrecedente valor de identificacao da atividade precedente na ordem
+	 * @param idSubsequente valor de identificacao da atividade subsequente na ordem
 	 */
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
@@ -361,9 +362,9 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
+	 * Metodo responsavel por retirar a atividade subsequente de uma atividade, selecionada pelo usuario.
 	 * 
-	 * 
-	 * @param idPrecedente
+	 * @param idPrecedente valor de identificacao da atividade que devera ter o seu subsequente removido
 	 */
 	public void tiraProximaAtividade(String idPrecedente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
@@ -372,10 +373,10 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
+	 * Metodo responsavel por contar a quantidade de proximo na cadeia, a partir da atividade selecionada pelo usuario.
 	 * 
-	 * 
-	 * @param idPrecedente
-	 * @return
+	 * @param idPrecedente valor de identificacao da atividade que devera iniciar a contagem
+	 * @return um inteiro referente a quantidade de proximos
 	 */
 	public int contaProximos(String idPrecedente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
@@ -384,10 +385,11 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
+	 * Metodo responsavel por reportar o codigo da atividade de maior risco na cadeia,
+	 * partindo da atividade selecionada pelo usuario.
 	 * 
-	 * 
-	 * @param idAtividade
-	 * @return
+	 * @param idAtividade valor de identificacao da atividade que devera iniciar a verificacao
+	 * @return em formato de string o codigo da atividade de maior risco
 	 */
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");
@@ -396,7 +398,8 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
-	 * 
+	 * Metodo responsavel por pegar a proxima atividade selecionada pelo usuario
+	 * partindo da atividade selecionada pelo usuario, referente a quantidade de casas seguintes, selecionado pelo usuario.
 	 * 
 	 * @param idAtividade
 	 * @param enesimaAtividade

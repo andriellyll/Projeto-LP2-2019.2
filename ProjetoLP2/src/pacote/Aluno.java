@@ -9,7 +9,7 @@ package pacote;
 
 public class Aluno implements Funcao {
 	/**
-	 * Atributo que representa o semestre que o aluno se encontra.
+	 * Atributo que representa o semestre que o aluno ingressou.
 	 */
 	private int semestre;
 	/**
