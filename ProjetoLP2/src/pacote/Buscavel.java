@@ -5,7 +5,10 @@ import java.util.List;
 /**
  * 
  * 
- * @author 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public interface Buscavel {
 

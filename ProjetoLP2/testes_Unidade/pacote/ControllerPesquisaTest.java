@@ -11,6 +11,14 @@ import org.junit.jupiter.api.Test;
 
 import pacote.ControllerPesquisa;
 
+/**
+ * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
+ *
+ */
 class ControllerPesquisaTest {
 
 	private ControllerPesquisa controle;
@@ -33,7 +41,8 @@ class ControllerPesquisaTest {
 		controllerProblemaObjetivo.cadastraProblema("um grande problema na minha vida", 2);
 		controllerProblemaObjetivo.cadastraObjetivo("GERAL", "nao sei", 2, 1);
 		controllerPesquisador.cadastraPesquisador("bia", "estudante", "linda pfta", "bia@pfta", "http://bia");
-		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia este teste");
+		controllerAtividade.cadastraAtividade("Mais um objeto de atividade para testar", "ALTO",
+				"Tem muita importancia este teste");
 		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
 	}
 
@@ -491,8 +500,7 @@ class ControllerPesquisaTest {
 		data = new String(Files.readAllBytes(Paths.get(fileName)));
 		return data;
 	}
-	
-	
+
 	@Test
 	void testGravarResumo() throws Exception {
 		controle.associaPesquisador("ECO1", "bia@pfta");
@@ -500,16 +508,13 @@ class ControllerPesquisaTest {
 		controle.associaObjetivo("ECO1", "O1");
 		controllerAtividade.associaPesquisa("ECO1", "A1");
 		controle.gravarResumo("ECO1");
-		assertEquals(readFileAsString("./_ECO1.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" + 
-				"\t- Pesquisadores:\n" +
-				"\t\t- bia (estudante) - linda pfta - bia@pfta - http://bia\n" +
-				"\t- Problema:\n" + 
-				"\t\t- P1 - um grande problema na minha vida - 2\n" +
-				"\t- Objetivos:\n" +
-				"\t\t- O1 - GERAL - nao sei - 3\n" +
-				"\t- Atividades:\n" +
-				"\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia este teste)\n" + 
-				"\t\t\t- PENDENTE - ITEM1 ");
+		assertEquals(readFileAsString("./_ECO1.txt"),
+				"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n"
+						+ "\t- Pesquisadores:\n" + "\t\t- bia (estudante) - linda pfta - bia@pfta - http://bia\n"
+						+ "\t- Problema:\n" + "\t\t- P1 - um grande problema na minha vida - 2\n" + "\t- Objetivos:\n"
+						+ "\t\t- O1 - GERAL - nao sei - 3\n" + "\t- Atividades:\n"
+						+ "\t\t- Mais um objeto de atividade para testar (ALTO - Tem muita importancia este teste)\n"
+						+ "\t\t\t- PENDENTE - ITEM1 ");
 	}
 
 	@Test
@@ -527,13 +532,12 @@ class ControllerPesquisaTest {
 		controllerAtividade.executaAtividade("A1", 1, 100);
 		controllerAtividade.cadastraResultado("A1", "Realizado com sucesso");
 		controle.gravarResultados("ECO1");
-		assertEquals(readFileAsString("ECO1-Resultados.txt"), "- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n" +
-	    "\t- Resultados:\n" + 
-	    "\t\t- Mais um objeto de atividade para testar\n" + 
-	    "\t\t\t- ITEM1 - 100\n" + 
-	    "\t\t\t- Realizado com sucesso");
+		assertEquals(readFileAsString("ECO1-Resultados.txt"),
+				"- Pesquisa: ECO1 - Dolar fecha abaixo de R$ 4 pela primeira vez desde agosto - Economia, Bolsa de Valores\n"
+						+ "\t- Resultados:\n" + "\t\t- Mais um objeto de atividade para testar\n"
+						+ "\t\t\t- ITEM1 - 100\n" + "\t\t\t- Realizado com sucesso");
 	}
-	
+
 	@Test
 	void testGravarResultadosInvalido() {
 		assertThrows(NullPointerException.class, () -> controle.gravarResultados(null),
@@ -584,21 +588,19 @@ class ControllerPesquisaTest {
 	void proximaAtividadeTest() {
 		assertThrows(RuntimeException.class, () -> controle.proximaAtividade("ECO1"));
 	}
-		
+
 	@Test
 	void testSalvar() {
 		controle.cadastraPesquisa("Pesquisando pq henrique eh tao pfto", "Alunos pftos");
 		controle.cadastraPesquisa("Monitor Anderson maravilhoso", "Monitor");
 		controle.salvar();
 	}
-	
+
 	@Test
 	void testCarregar() {
 		controle.carregar();
 		assertEquals("ALU1 - Pesquisando pq henrique eh tao pfto - Alunos pftos", controle.exibePesquisa("ALU1"));
 		assertEquals("MON1 - Monitor Anderson maravilhoso - Monitor", controle.exibePesquisa("MON1"));
 	}
-	
-
 
 }

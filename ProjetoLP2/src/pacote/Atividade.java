@@ -13,7 +13,10 @@ import java.util.Map;
  * esperados, um risco associado, uma duração em dias, um codigo de identificao
  * unica e seus itens.
  * 
- * @author Henrique Lemos
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 
 public class Atividade implements Serializable, Comparable<Atividade> {
@@ -230,7 +233,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		this.pesquisa = pesquisa;
 		return true;
 	}
-	
+
 	/**
 	 * Verifica se uma atividade tem uma pesquisa associada, caso nao tenha uma
 	 * excecao sera lancada.
@@ -257,7 +260,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		this.pesquisa = null;
 		return true;
 	}
-	
+
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa
 	 * a ordem de cadastro do item na atividade e da duracao da execucao do item.
@@ -275,7 +278,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		setDuracao(duracao);
 		itens.get((item - 1)).executa(duracao);
 	}
-	
+
 	/**
 	 * Cadastra um resultado obtido pela atividade, a partir da String que
 	 * representa o resultado
@@ -522,7 +525,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return this.seguinteNaCadeia.proximoSelecionado(posicao + 1, enesimaAtividade);
 	}
-	
+
 	/**
 	 * Metodo responsavel por pegar o codigo da atividade.
 	 * 
@@ -540,7 +543,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	public String getRisco() {
 		return this.nivelRisco;
 	}
-	
+
 	/**
 	 * 
 	 * 

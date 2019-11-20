@@ -19,6 +19,14 @@ import java.util.Map;
 
 import utils.OrdenaResultados;
 
+/**
+ * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
+ *
+ */
 public class ControllerProblemaObjetivo implements Buscavel {
 
 	/**
@@ -85,7 +93,7 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	 * Metodo que cadastra um problema recebendo a descricao e a viabilidade do
 	 * mesmo.
 	 * 
-	 * @param descricao, representa a descricao do problema.
+	 * @param descricao,   representa a descricao do problema.
 	 * @param viabilidade, representa a viabilidade do problema.
 	 * @return retorna uma string que representa o codigo do problema.
 	 */

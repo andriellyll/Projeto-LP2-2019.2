@@ -4,7 +4,10 @@ package pacote;
  * Interface que deve coergir as classes que a implementarem a possuir os
  * metodos toString e setEspecialidade.
  * 
- * @author Helen Bento CAvalcanti
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  *
  */
 public interface Funcao {

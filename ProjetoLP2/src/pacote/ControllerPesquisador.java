@@ -16,7 +16,10 @@ import utils.OrdenaResultados;
 /**
  * Classe Controladora de Pesquisadores
  * 
- * @author Andrielly de Lima Lucena - 119110268
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public class ControllerPesquisador implements Buscavel {
 

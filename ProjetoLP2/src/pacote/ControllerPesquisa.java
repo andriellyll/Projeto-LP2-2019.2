@@ -20,7 +20,10 @@ import utils.OrdenaResultados;
  * funcionalidades basicas sao: cadastrar pesquisa, alterar pesquisa, encerrar
  * pesquisa, ativar pesquisa, exibir pesquisa verificar se a pesquisa e ativa.
  * 
- * @author Anna Beatriz Lucena
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public class ControllerPesquisa implements Buscavel {
 

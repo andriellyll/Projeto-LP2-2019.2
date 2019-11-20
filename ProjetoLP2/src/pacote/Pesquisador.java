@@ -6,7 +6,10 @@ import java.io.Serializable;
  * Representacao de um Pesquisador no sistema. Cada pesquisador e identificado
  * unicamente pelo seu email.
  * 
- * @author Andrielly de Lima Lucena - 119110268
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  *
  */
 public class Pesquisador implements Serializable {

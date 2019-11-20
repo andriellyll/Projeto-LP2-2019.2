@@ -10,6 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import pacote.Pesquisa;
 
+/**
+ * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
+ *
+ */
 class PesquisaTest {
 
 	private Pesquisa test1;
@@ -91,7 +99,7 @@ class PesquisaTest {
 	@Test
 	void testGetAtivacao() {
 		test2.desativaPesquisa();
-		assertTrue(test1.getAtivacao()); 
+		assertTrue(test1.getAtivacao());
 		assertFalse(test2.getAtivacao());
 	}
 
@@ -368,10 +376,9 @@ class PesquisaTest {
 		test1.associaAtividade(a1);
 		test1.associaAtividade(a2);
 		assertEquals(test1.proximaAtividade("MENOS_PENDENCIAS"), "A2");
-		
 
 	}
-	
+
 	@Test
 	void proximaAtividadeMaiorRisco() {
 		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
@@ -382,10 +389,9 @@ class PesquisaTest {
 		test1.associaAtividade(a1);
 		test1.associaAtividade(a2);
 		assertEquals(test1.proximaAtividade("MAIOR_RISCO"), "A1");
-		
 
 	}
-	
+
 	@Test
 	void proximaAtividadeMaiorDuracao() {
 		Atividade a1 = new Atividade("A1", "uma descricao", "ALTO", "risco");
@@ -400,17 +406,16 @@ class PesquisaTest {
 		a2.executaAtividade(1, 10);
 		a1.executaAtividade(1, 2);
 		assertEquals(test1.proximaAtividade("MAIOR_DURACAO"), "A2");
-		
 
 	}
-	
+
 	@Test
 	private static String readFileAsString(String fileName) throws Exception {
 		String data = "";
 		data = new String(Files.readAllBytes(Paths.get(fileName)));
 		return data;
 	}
-	
+
 	@Test
 	void testGravarResumo() throws Exception {
 		controllerAtividade.cadastraAtividade("uma descricao", "ALTO", "risco");
@@ -418,25 +423,25 @@ class PesquisaTest {
 		Objetivo objetivo = new Objetivo("GERAL",
 				"Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao.",
 				4, 2, "O1");
-		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");		
-		Pesquisador pesquisador = new Pesquisador("Anderson", "Estudante", "Melhor monitor de P2", "Anderson@theBest.com", "https://qGtDY.popt");
+		controllerAtividade.cadastraItem("A1", "Tem que fazer senao Anderson briga tambem.");
+		Pesquisador pesquisador = new Pesquisador("Anderson", "Estudante", "Melhor monitor de P2",
+				"Anderson@theBest.com", "https://qGtDY.popt");
 		test2.associaProblema(problema);
 		test2.associaPesquisador(pesquisador);
 		test2.associaObjetivo(objetivo);
-		test2.associaAtividade(controllerAtividade.getAtividade("A1")); 
+		test2.associaAtividade(controllerAtividade.getAtividade("A1"));
 		controllerAtividade.getAtividade("A1").associaPesquisa(test2);
 		controllerAtividade.executaAtividade("A1", 1, 100);
 		test2.gravarResumo();
-		assertEquals(readFileAsString("./_BLA1.txt"), "- Pesquisa: BLA1 - Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja - Black Friday, Casos do mes\n" +
-		"\t- Pesquisadores:\n" +
-		"\t\t- Anderson (Estudante) - Melhor monitor de P2 - Anderson@theBest.com - https://qGtDY.popt\n" +
-		"\t- Problema:\n" +
-		"\t\t- P1 - A dificuldade da predicao do sistema eleitoral brasileiro - 1\n" +
-		"\t- Objetivos:\n" +
-		"\t\t- O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6\n" +
-		"\t- Atividades:\n" +
-		"\t\t- uma descricao (ALTO - risco)\n" +
-		"\t\t\t- REALIZADO - ITEM1");
+		assertEquals(readFileAsString("./_BLA1.txt"),
+				"- Pesquisa: BLA1 - Nao espere a Black Friday chegar. Sua pesquisa de precos deve começar ja - Black Friday, Casos do mes\n"
+						+ "\t- Pesquisadores:\n"
+						+ "\t\t- Anderson (Estudante) - Melhor monitor de P2 - Anderson@theBest.com - https://qGtDY.popt\n"
+						+ "\t- Problema:\n"
+						+ "\t\t- P1 - A dificuldade da predicao do sistema eleitoral brasileiro - 1\n"
+						+ "\t- Objetivos:\n"
+						+ "\t\t- O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6\n"
+						+ "\t- Atividades:\n" + "\t\t- uma descricao (ALTO - risco)\n" + "\t\t\t- REALIZADO - ITEM1");
 	}
 
 	@Test
@@ -447,10 +452,9 @@ class PesquisaTest {
 		controllerAtividade.getAtividade("A1").associaPesquisa(test1);
 		controllerAtividade.executaAtividade("A1", 1, 100);
 		test1.gravarResultados();
-		assertEquals(readFileAsString("SEG1-Resultados.txt"), "- Pesquisa: SEG1 - Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola - Seguranca publica\n" +
-		"\t- Resultados:\n" +
-		"\t\t- uma descricao\n" +
-		"\t\t\t- ITEM1 - 100");
-		
+		assertEquals(readFileAsString("SEG1-Resultados.txt"),
+				"- Pesquisa: SEG1 - Chefes da mafia italiana aguardam extradicao no mesmo presidio que Marcola - Seguranca publica\n"
+						+ "\t- Resultados:\n" + "\t\t- uma descricao\n" + "\t\t\t- ITEM1 - 100");
+
 	}
 }

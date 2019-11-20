@@ -25,7 +25,10 @@ import utils.OrdenaAtividadeRisco;
  * pesquisa quando iniciada e ativada, caso queira desativar um motivo deve ser
  * adicionado.
  * 
- * @author Anna Beatriz Lucena
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 

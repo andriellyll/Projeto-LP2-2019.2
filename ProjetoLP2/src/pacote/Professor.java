@@ -4,7 +4,10 @@ package pacote;
  * Classe que representa no sistema um Professor, uma especialidade de
  * Pesquisador.
  * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
  * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  *
  */
 public class Professor implements Funcao {
