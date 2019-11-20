@@ -26,12 +26,12 @@ public class Facade {
 		args = new String[] { "pacote.Facade", "easyaccept/use_case_01.txt", "easyaccept/use_case_02.txt",
 				"easyaccept/use_case_03.txt", "easyaccept/use_case_04.txt", "easyaccept/use_case_05.txt",
 				"easyaccept/use_case_06.txt", "easyaccept/use_case_07.txt", "easyaccept/use_case_08.txt",
-				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt",
-				/* , "easyaccept/use_case_12CARREGAR.txt" */ };
+				"easyaccept/use_case_09.txt", "easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt",/**
+				"easyaccept/use_case_12CARREGAR.txt" **/};
 		EasyAccept.main(args);
 	}
 
-//Pesquisa:
+// US1 - Pesquisa:
 
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
 		return this.controllerPesquisa.cadastraPesquisa(descricao, campoDeInteresse);
@@ -58,7 +58,7 @@ public class Facade {
 		return this.controllerPesquisa.pesquisaEhAtiva(codigo);
 	}
 
-//Pesquisador:
+// US2 - Pesquisador:
 
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoUrl) {
 		this.controllerPesquisador.cadastraPesquisador(nome, funcao, biografia, email, fotoUrl);
@@ -84,19 +84,7 @@ public class Facade {
 		return this.controllerPesquisador.pesquisadorEhAtivo(email);
 	}
 
-	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-		this.controllerPesquisador.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
-	}
-
-	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
-		this.controllerPesquisador.cadastraEspecialidadeAluno(email, semestre, IEA);
-	}
-
-	public String listaPesquisadores(String tipo) {
-		return controllerPesquisador.listaPesquisadores(tipo);
-	}
-
-//Problema e Objetivo:
+// US3 - Problema e Objetivo:
 
 	public String cadastraProblema(String descricao, int viabilidade) {
 		return this.controllerProblemaObjetivo.cadastraProblema(descricao, viabilidade);
@@ -122,7 +110,7 @@ public class Facade {
 		return this.controllerProblemaObjetivo.exibeObjetivo(codigo);
 	}
 
-//Atividade:
+// US4 - Atividade:
 
 	public String cadastraAtividade(String descricao, String nivelRisco, String descricaoRisco) {
 		return this.controllerAtividade.cadastraAtividade(descricao, nivelRisco, descricaoRisco);
@@ -148,7 +136,7 @@ public class Facade {
 		return this.controllerAtividade.contaItensRealizados(codigo);
 	}
 
-//Associacoes de Objetivos e Problema:
+// US5 - Associacoes de Objetivos e Problema:
 
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		return controllerPesquisa.associaProblema(idPesquisa, idProblema);
@@ -170,7 +158,7 @@ public class Facade {
 		return controllerPesquisa.imprimePesquisas(ordem);
 	}
 
-//Associacao e Especializacao da Pesquisadora:
+// US6 - Associacao e Especializacao da Pesquisadora:
 
 	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
 		return controllerPesquisa.associaPesquisador(idPesquisa, emailPesquisador);
@@ -180,7 +168,19 @@ public class Facade {
 		return controllerPesquisa.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 
-//Associacao e Execucao de Atividades:
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		this.controllerPesquisador.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
+	}
+
+	public void cadastraEspecialidadeAluno(String email, int semestre, double IEA) {
+		this.controllerPesquisador.cadastraEspecialidadeAluno(email, semestre, IEA);
+	}
+
+	public String listaPesquisadores(String tipo) {
+		return controllerPesquisador.listaPesquisadores(tipo);
+	}
+
+// US7 - Associacao e Execucao de Atividades:
 
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
 		return controllerAtividade.associaPesquisa(codigoPesquisa, codigoAtividade);
@@ -210,7 +210,7 @@ public class Facade {
 		return controllerAtividade.getDuracao(codigoAtividade);
 	}
 
-//Busca por Palavra-chave:
+// US8 - Busca por Palavra-chave:
 
 	public String busca(String termo) {
 		return controllerBusca.busca(termo);
@@ -224,7 +224,7 @@ public class Facade {
 		return controllerBusca.contaResultadosBusca(termo);
 	}
 
-//Ordem das Atividades:
+//US9 - Ordem das Atividades:
 
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
 		controllerAtividade.defineProximaAtividade(idPrecedente, idSubsequente);
@@ -246,18 +246,17 @@ public class Facade {
 		return controllerAtividade.pegaMaiorRiscoAtividades(idAtividade);
 	}
 
-//Proxima Atividade:
+// US10 - Proxima Atividade:
 
 	public void configuraEstrategia(String estrategia) {
 		this.controllerPesquisa.configuraEstrategia(estrategia);
-
 	}
 
 	public String proximaAtividade(String codigoPesquisa) {
 		return this.controllerPesquisa.proximaAtividade(codigoPesquisa);
 	}
 
-//Resultados:
+// US11 - Resultados:
 
 	public void gravarResumo(String codigoPesquisa) throws IOException {
 		controllerPesquisa.gravarResumo(codigoPesquisa);
@@ -267,14 +266,13 @@ public class Facade {
 		controllerPesquisa.gravarResultados(codigoPesquisa);
 	}
 
-//Persistencia:
+// US12 - Persistencia:
 
 	public void salvar() {
 		this.controllerPesquisa.salvar();
 		this.controllerPesquisador.salvar();
 		this.controllerAtividade.salvar();
 		this.controllerProblemaObjetivo.salvar();
-
 	}
 
 	public void carregar() {
@@ -283,5 +281,4 @@ public class Facade {
 		this.controllerAtividade.carregar();
 		this.controllerProblemaObjetivo.carregar();
 	}
-
 }

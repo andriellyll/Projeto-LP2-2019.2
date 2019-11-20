@@ -32,8 +32,14 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	private Map<String, Atividade> atividades;
 
+	/**
+	 * 
+	 */
 	private int numeroAtividades;
 
+	/**
+	 * 
+	 */
 	private ControllerPesquisa controllerPesquisa;
 
 	/**
@@ -58,21 +64,7 @@ public class ControllerAtividade implements Buscavel {
 		numeroAtividades++;
 		return codigo;
 	}
-
-	/**
-	 * Metodo responsavel por verificar se a partir de um codigo oferecido pelo
-	 * usuario, ja existe, caso nao exista, ele retornara uma excessao dizendo
-	 * "Atividade nao encontrada".
-	 * 
-	 * @param codigo valor ao qual vai ser utilizado para verificar se ja existe uma
-	 *               atividade com este codigo
-	 */
-	private void verificaAtividadeExiste(String codigo, String mensagem) {
-		if (!atividades.containsKey(codigo)) {
-			throw new IllegalArgumentException(mensagem);
-		}
-	}
-
+	
 	/**
 	 * Metodo responsavel por cadastrar cada nova atividade, cada atividade
 	 * planejada apresenta uma descricao do que deve ser feito, uma duracao
@@ -98,7 +90,21 @@ public class ControllerAtividade implements Buscavel {
 		}
 		return codigo;
 	}
-
+	
+	/**
+	 * Metodo responsavel por verificar se a partir de um codigo oferecido pelo
+	 * usuario, ja existe, caso nao exista, ele retornara uma excessao dizendo
+	 * "Atividade nao encontrada".
+	 * 
+	 * @param codigo valor ao qual vai ser utilizado para verificar se ja existe uma
+	 *               atividade com este codigo
+	 */
+	private void verificaAtividadeExiste(String codigo, String mensagem) {
+		if (!atividades.containsKey(codigo)) {
+			throw new IllegalArgumentException(mensagem);
+		}
+	}
+	
 	/**
 	 * Metodo responsavel por apagar uma atividade.
 	 * 
@@ -172,7 +178,7 @@ public class ControllerAtividade implements Buscavel {
 		return atividades.get(codigo).ItensRealizados();
 	}
 
-//--------------------------------- ControllerAtividade (Parte 2) -------------------------------------------
+//------------------------------------------ ControllerAtividade (Parte 2) ------------------------------------------
 
 	/**
 	 * Retorna uma atividade a partir do seu codigo identificador
@@ -183,121 +189,6 @@ public class ControllerAtividade implements Buscavel {
 	public Atividade getAtividade(String codigo) {
 		verificaAtividadeExiste(codigo, "Atividade nao encontrada");
 		return this.atividades.get(codigo);
-	}
-
-	/**
-	 * Verifica se a atividade a ser executada existe, caso exista executa-a
-	 * 
-	 * @param codigoAtividade - o codigo da atividade a ser executada
-	 * @param item            - o valor que representa a ordem de cadastro de um
-	 *                        item na atividade
-	 * @param duracao         - a duracao em horas da execucao do item
-	 */
-	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
-				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
-		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
-
-		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
-		atividades.get(codigoAtividade).executaAtividade(item, duracao);
-	}
-
-	/**
-	 * Procura em todos as atividades do mapa a palavra-chave passada como parametro
-	 * 
-	 * @param palavraChave palavra-chave que sera procurada
-	 * @return Lista de Strings com os campos dos atributos de atividade que
-	 *         contiverem a palavra-chave
-	 */
-	public List<String> procuraPalavraChave(String palavraChave) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
-		ArrayList<String> resultadosBusca = new ArrayList<>();
-
-		for (Atividade atividade : this.atividades.values()) {
-			if (!atividade.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));
-			}
-		}
-		Collections.sort(resultadosBusca, new OrdenaResultados());
-		return resultadosBusca;
-	}
-
-	/**
-	 * Cadastra um resultado obtido pela atividade, a partir do codigo que
-	 * representa a atividade e da String que representa o resultado.
-	 * 
-	 * @param codigoAtividade - o codigo que representa a atividade a ter um
-	 *                        resultado cadastrado
-	 * @param resultado       - a String que representa o resultado obtido pela
-	 *                        atividade
-	 * @return - o numero que representa a ordem de cadastro do resultado
-	 */
-	public int cadastraResultado(String codigoAtividade, String resultado) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
-				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
-
-		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
-		return atividades.get(codigoAtividade).cadastraResultado(resultado);
-
-	}
-
-	/**
-	 * Remove um resultado obtido pela atividade a partir do codigo da atividade e
-	 * do numero que representa a ordem de cadastro do resultado. Caso a remocao for
-	 * feita com sucesso sera retornado true, caso nao retornara false
-	 * 
-	 * @param codigoAtividade - o codigo que representa a atividade a ter o
-	 *                        resultado removido
-	 * @param numeroResultado - o numero que representa a ordem de cadastro do
-	 *                        resultado
-	 * @return - o booleano que representa se a remocao obteve sucesso (true) ou nao
-	 *         (false)
-	 */
-	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
-				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
-
-		if (atividades.containsKey(codigoAtividade)) {
-			return atividades.get(codigoAtividade).removeResultado(numeroResultado);
-		}
-		throw new IllegalArgumentException("Atividade nao encontrada");
-	}
-
-	/**
-	 * Retorna a listagem dos resultados cadastrados na atividade a partir do codigo
-	 * da atividade
-	 * 
-	 * @param codigoAtividade - o codigo que representa a atividade a ter seus
-	 *                        resultados listados
-	 * @return - a representacao em string de todos os resultados obtidos na
-	 *         atividade
-	 */
-	public String listaResultados(String codigoAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
-				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-
-		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
-		return atividades.get(codigoAtividade).listaResultados();
-	}
-
-	/**
-	 * Retorna a duracao de execucao de uma atividade a partir do codigo da
-	 * atividade
-	 * 
-	 * @param codigoAtividade - o codigo que representa a atividade que ira retornar
-	 *                        sua duracao
-	 * @return - o inteiro que representa a duracao (em horas) da execucao da
-	 *         atividade
-	 */
-	public int getDuracao(String codigoAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
-				"Campo codigoAtividade nao pode ser nulo ou vazio.");
-
-		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
-		return atividades.get(codigoAtividade).getDuracao();
 	}
 
 	/**
@@ -318,7 +209,7 @@ public class ControllerAtividade implements Buscavel {
 		controllerPesquisa.getPesquisa(codigoPesquisa).associaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).associaPesquisa(controllerPesquisa.getPesquisa(codigoPesquisa));
 	}
-
+	
 	/**
 	 * Desassocia uma pesquisa de uma atividade a partir do codigo da pesquisa a ser
 	 * desassociada e do codigo da atividade.
@@ -335,13 +226,123 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		controllerPesquisa.validaPesquisa(codigoPesquisa);
-
+		
 		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		controllerPesquisa.getPesquisa(codigoPesquisa).desassociaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).desassociaPesquisa();
 	}
+	
+	/**
+	 * Verifica se a atividade a ser executada existe, caso exista executa-a
+	 * 
+	 * @param codigoAtividade - o codigo da atividade a ser executada
+	 * @param item            - o valor que representa a ordem de cadastro de um
+	 *                        item na atividade
+	 * @param duracao         - a duracao em horas da execucao do item
+	 */
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {	
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
+		ValidadorDeEntradas.verificaNumeroNegativo(duracao, "Duracao nao pode ser nula ou negativa.");
 
-//----------------------------- ControllerAtividade (Parte 3) ------------------------------------------
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
+		atividades.get(codigoAtividade).executaAtividade(item, duracao);
+	}
+
+	/**
+	 * Cadastra um resultado obtido pela atividade, a partir do codigo que
+	 * representa a atividade e da String que representa o resultado.
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter um
+	 *                        resultado cadastrado
+	 * @param resultado       - a String que representa o resultado obtido pela
+	 *                        atividade
+	 * @return - o numero que representa a ordem de cadastro do resultado
+	 */
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
+		
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
+		return atividades.get(codigoAtividade).cadastraResultado(resultado);
+	}
+	
+	/**
+	 * Remove um resultado obtido pela atividade a partir do codigo da atividade e
+	 * do numero que representa a ordem de cadastro do resultado. Caso a remocao for
+	 * feita com sucesso sera retornado true, caso nao retornara false
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter o
+	 *                        resultado removido
+	 * @param numeroResultado - o numero que representa a ordem de cadastro do
+	 *                        resultado
+	 * @return - o booleano que representa se a remocao obteve sucesso (true) ou nao
+	 *         (false)
+	 */
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.verificaNumeroNegativo(numeroResultado, "numeroResultado nao pode ser nulo ou negativo.");
+		if (atividades.containsKey(codigoAtividade)) {
+			return atividades.get(codigoAtividade).removeResultado(numeroResultado);
+		}
+		throw new IllegalArgumentException("Atividade nao encontrada");
+	}
+	
+	/**
+	 * Retorna a listagem dos resultados cadastrados na atividade a partir do codigo
+	 * da atividade
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade a ter seus
+	 *                        resultados listados
+	 * @return - a representacao em string de todos os resultados obtidos na
+	 *         atividade
+	 */
+	public String listaResultados(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
+		return atividades.get(codigoAtividade).listaResultados();
+	}
+	
+	/**
+	 * Retorna a duracao de execucao de uma atividade a partir do codigo da
+	 * atividade
+	 * 
+	 * @param codigoAtividade - o codigo que representa a atividade que ira retornar
+	 *                        sua duracao
+	 * @return - o inteiro que representa a duracao (em horas) da execucao da
+	 *         atividade
+	 */
+	public int getDuracao(String codigoAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
+				"Campo codigoAtividade nao pode ser nulo ou vazio.");
+		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
+		return atividades.get(codigoAtividade).getDuracao();
+	}
+	
+	/**
+	 * Procura em todos as atividades do mapa a palavra-chave passada como parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com os campos dos atributos de atividade que
+	 *         contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+		for (Atividade atividade : this.atividades.values()) {
+			if (!atividade.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosBusca.addAll(atividade.procuraPalavraChave(palavraChave));
+			}
+		}
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		return resultadosBusca;
+	}
+
+//------------------------------------------ ControllerAtividade (Parte 3) ------------------------------------------
 
 	/**
 	 * Metodo responsavel por definir a proxima atividade de outra atividade, selecionada tambem pelo usuario,
@@ -355,9 +356,6 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idSubsequente, "Atividade nao pode ser nulo ou vazio.");
 		verificaAtividadeExiste(idPrecedente, "Atividade nao encontrada.");
 		verificaAtividadeExiste(idSubsequente, "Atividade nao encontrada.");
-		if (atividades.get(idPrecedente).existeProximo()) {
-			throw new RuntimeException("Atividade ja possui uma subsequente.");
-		}
 		atividades.get(idPrecedente).adicionaNaCadeia(atividades.get(idSubsequente));
 	}
 
@@ -385,6 +383,20 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
+	 * Metodo responsavel por pegar a proxima atividade selecionada pelo usuario
+	 * partindo da atividade selecionada pelo usuario, referente a quantidade de casas seguintes, selecionado pelo usuario.
+	 * 
+	 * @param idAtividade
+	 * @param enesimaAtividade
+	 * @return
+	 */
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");
+		verificaAtividadeExiste(idAtividade, "Atividade nao encontrada.");
+		return atividades.get(idAtividade).pegaProximo(enesimaAtividade);
+	}
+	
+	/**
 	 * Metodo responsavel por reportar o codigo da atividade de maior risco na cadeia,
 	 * partindo da atividade selecionada pelo usuario.
 	 * 
@@ -398,38 +410,20 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
-	 * Metodo responsavel por pegar a proxima atividade selecionada pelo usuario
-	 * partindo da atividade selecionada pelo usuario, referente a quantidade de casas seguintes, selecionado pelo usuario.
-	 * 
-	 * @param idAtividade
-	 * @param enesimaAtividade
-	 * @return
-	 */
-	public String pegaProximo(String idAtividade, int enesimaAtividade) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");
-		verificaAtividadeExiste(idAtividade, "Atividade nao encontrada.");
-		return atividades.get(idAtividade).pegaProximo(enesimaAtividade);
-	}
-
-	/**
 	 * Metodo responsavel por salvar as atividades
 	 */
 	public void salvar() {
-
 		try {
 			FileOutputStream saveFile = new FileOutputStream("atividade.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(atividades);
 			stream.close();
-
 			OutputStream out = new FileOutputStream(new File("numeroAtividades.txt"));
 			out.write(numeroAtividades);
 			out.close();
-
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -437,24 +431,20 @@ public class ControllerAtividade implements Buscavel {
 	 */
 	@SuppressWarnings({ "unchecked", "resource" })
 	public void carregar() {
-
 		try {
 			FileInputStream restFile = new FileInputStream("atividade.dat");
 			ObjectInputStream stream = new ObjectInputStream(restFile);
 			Map<String, Atividade> atividadesCadastradas = (Map<String, Atividade>) stream.readObject();
 			stream.close();
 			this.atividades = atividadesCadastradas;
-
 			File file = new File("numeroAtividades.txt");
 			FileInputStream fis = null;
 			fis = new FileInputStream(file);
 			this.numeroAtividades = fis.read();
-
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-
 		}
 	}
 }

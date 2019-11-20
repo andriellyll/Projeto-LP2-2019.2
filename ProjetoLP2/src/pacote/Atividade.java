@@ -69,7 +69,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	private int posicoesCadastradas;
 
 	/**
-	 * 
+	 * Armazena a atividade seguinte na cadeia de atividades.
 	 */
 	private Atividade seguinteNaCadeia;
 
@@ -98,43 +98,6 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		this.resultados = new LinkedHashMap<>();
 		this.posicoesCadastradas = 0;
 		this.pesquisa = null;
-	}
-
-	/**
-	 * Gera um identificador unico da pesquisa que representa o seu lugar na
-	 * memoria.
-	 * 
-	 * @return o valor inteiro que representa o lugar da atividade na memoria
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
-	}
-
-	/**
-	 * Verifica se duas atividades sao iguais a partir dos seus codigos. Caso as
-	 * atividades forem iguais retornara true, se forem diferentes retornara false.
-	 * 
-	 * @return - o booleano que representa se as atividades sao iguais ou nao.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Atividade other = (Atividade) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
 	}
 
 	/**
@@ -204,6 +167,43 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 
 	/**
+	 * Gera um identificador unico da pesquisa que representa o seu lugar na
+	 * memoria.
+	 * 
+	 * @return o valor inteiro que representa o lugar da atividade na memoria
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	/**
+	 * Verifica se duas atividades sao iguais a partir dos seus codigos. Caso as
+	 * atividades forem iguais retornara true, se forem diferentes retornara false.
+	 * 
+	 * @return - o booleano que representa se as atividades sao iguais ou nao.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atividade other = (Atividade) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+
+	/**
 	 * Metodo responsavel por retornar a String que representa a atividade.
 	 * 
 	 * @return A representacao segue no formato "DESCRICAO (NIVEL DE RISCO -
@@ -214,8 +214,50 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		return descricao + " (" + nivelRisco + " - " + descricaoRisco + ")";
 	}
 
-//---------------------------------------- Atividade (Parte 2) ---------------------------------------------------------------------
+//------------------------------------------ Atividade (Parte 2) ------------------------------------------
 
+	/**
+	 * Associa uma pesquisa a atividade, a partir da pesquisa passada como parametro
+	 * 
+	 * @param pesquisa - a pesquisa a ser associada a atividade
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da
+	 *         associacao
+	 */
+	public boolean associaPesquisa(Pesquisa pesquisa) {
+		if (this.pesquisa == pesquisa) {
+			return false;
+		}
+		this.pesquisa = pesquisa;
+		return true;
+	}
+	
+	/**
+	 * Verifica se uma atividade tem uma pesquisa associada, caso nao tenha uma
+	 * excecao sera lancada.
+	 */
+	private void verificaAtividadeEhAssociada() {
+		if (pesquisa == null) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		}
+	}
+
+	/**
+	 * Desassocia uma pesquisa da atividade
+	 * 
+	 * @param pesquisa - a pesquisa a ser associada a atividade
+	 * @return - o booleano que representa o sucesso(true) ou nao(false) da
+	 *         desassociacao
+	 * 
+	 * @return
+	 */
+	public boolean desassociaPesquisa() {
+		if (this.pesquisa == null) {
+			return false;
+		}
+		this.pesquisa = null;
+		return true;
+	}
+	
 	/**
 	 * Executa um item de uma atividade a partir de um numero inteiro que representa
 	 * a ordem de cadastro do item na atividade e da duracao da execucao do item.
@@ -233,38 +275,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		setDuracao(duracao);
 		itens.get((item - 1)).executa(duracao);
 	}
-
-	/**
-	 * Verifica se uma atividade tem uma pesquisa associada, caso nao tenha uma
-	 * excecao sera lancada.
-	 */
-	private void verificaAtividadeEhAssociada() {
-		if (pesquisa == null) {
-			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
-		}
-
-	}
-
-	/**
-	 * Retorna a duracao em horas do tempo de execucao de uma atividade.
-	 * 
-	 * @return - a quantidade de horas de execucao de uma atividade
-	 */
-	public int getDuracao() {
-		return this.duracao;
-	}
-
-	/**
-	 * Altera a quantidade de horas que representa a duracao de execucao da
-	 * atividade.
-	 * 
-	 * @param duracao - a quantidade de horas a ser adicionada na duracao da execuca
-	 *                da atividade
-	 */
-	private void setDuracao(int duracao) {
-		this.duracao += duracao;
-	}
-
+	
 	/**
 	 * Cadastra um resultado obtido pela atividade, a partir da String que
 	 * representa o resultado
@@ -316,6 +327,26 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 
 	/**
+	 * Retorna a duracao em horas do tempo de execucao de uma atividade.
+	 * 
+	 * @return - a quantidade de horas de execucao de uma atividade
+	 */
+	public int getDuracao() {
+		return this.duracao;
+	}
+
+	/**
+	 * Altera a quantidade de horas que representa a duracao de execucao da
+	 * atividade.
+	 * 
+	 * @param duracao - a quantidade de horas a ser adicionada na duracao da execuca
+	 *                da atividade
+	 */
+	private void setDuracao(int duracao) {
+		this.duracao += duracao;
+	}
+
+	/**
 	 * Verifica se um item existe a partir do numero inteiro que representa a ordem
 	 * de cadastro do mesmo na atividade
 	 * 
@@ -345,58 +376,10 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		if (this.descricaoRisco.contains(palavraChave)) {
 			resultadosBusca.add(this.codigo + ": " + this.descricaoRisco);
 		}
-
 		return resultadosBusca;
 	}
 
-	/**
-	 * Associa uma pesquisa a atividade, a partir da pesquisa passada como parametro
-	 * 
-	 * @param pesquisa - a pesquisa a ser associada a atividade
-	 * @return - o booleano que representa o sucesso(true) ou nao(false) da
-	 *         associacao
-	 */
-	public boolean associaPesquisa(Pesquisa pesquisa) {
-		if (this.pesquisa == pesquisa) {
-			return false;
-		}
-		this.pesquisa = pesquisa;
-		return true;
-
-	}
-
-	/**
-	 * Desassocia uma pesquisa da atividade
-	 * 
-	 * @param pesquisa - a pesquisa a ser associada a atividade
-	 * @return - o booleano que representa o sucesso(true) ou nao(false) da
-	 *         desassociacao
-	 * 
-	 * @return
-	 */
-	public boolean desassociaPesquisa() {
-		if (this.pesquisa == null) {
-			return false;
-		}
-		this.pesquisa = null;
-		return true;
-
-	}
-
-//------------------------------------- Atividade (Parte 3) ------------------------------------------
-
-	/**
-	 * Método responsavel por verificar se nesta atividade existe um seguinte a ela
-	 * na cadeia.
-	 * 
-	 * @return um booleano referente a situacao do processo
-	 */
-	public boolean existeProximo() {
-		if (seguinteNaCadeia != null) {
-			return true;
-		}
-		return false;
-	}
+//------------------------------------------ Atividade (Parte 3) ------------------------------------------
 
 	/**
 	 * Metodo que retorna a atividade seguinte a esta na cadeia.
@@ -499,7 +482,6 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 			maiorRiscoNaCadeia = this.seguinteNaCadeia.codigo;
 		}
 		return this.seguinteNaCadeia.maiorRisco(maiorRiscoNaCadeia, classificacao);
-
 	}
 
 	/**
@@ -540,47 +522,63 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 		}
 		return this.seguinteNaCadeia.proximoSelecionado(posicao + 1, enesimaAtividade);
 	}
+	
+	/**
+	 * Metodo responsavel por pegar o codigo da atividade.
+	 * 
+	 * @return em formato de string, o codigo da atividade
+	 */
+	public String getCodigo() {
+		return this.codigo;
+	}
 
+	/**
+	 * Metodo responsavel por pegar o risco da atividade.
+	 * 
+	 * @return em formato de string, o nivel de risco da atividade
+	 */
+	public String getRisco() {
+		return this.nivelRisco;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public String exibeAtividade() {
-
 		String representacao = this.toString();
-
 		for (Item item : itens) {
 			representacao += System.lineSeparator() + "\t\t\t- " + item.exibeItemSituacao();
 		}
-
 		return representacao;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public String getResultados() {
-
 		String resultados = "- " + this.descricao;
-
 		for (Item item : itens) {
 			if (item.getSituacao().equals("REALIZADO")) {
 				resultados += System.lineSeparator() + "\t\t\t- " + item.exibeItemDuracao();
 			}
 		}
-
 		for (String resultado : this.resultados.values()) {
 			resultados += System.lineSeparator() + "\t\t\t- " + resultado;
 		}
-
 		return resultados;
 	}
 
+	/**
+	 * Responsavel por comparar duas atividades, a partir de seus codigos unicos.
+	 */
 	@Override
 	public int compareTo(Atividade atividade2) {
 		int codigo1 = Integer.parseInt(this.codigo.substring(1));
 		int codigo2 = Integer.parseInt(atividade2.getCodigo().substring(1));
 		return codigo1 - codigo2;
-	}
-
-	public String getCodigo() {
-		return this.codigo;
-	}
-
-	public String getRisco() {
-		return this.nivelRisco;
 	}
 }

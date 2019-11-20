@@ -2,20 +2,15 @@ package pacote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Period;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class AtividadeTest {
 	
-	private ControllerPesquisa controllerPesquisa;
-	private ControllerAtividade controllerAtividade;
 	private Atividade atividade;
 	
 	@BeforeEach
 	public void criaAtividade() {
-		controllerAtividade = new ControllerAtividade(controllerPesquisa);
 		atividade = new Atividade("A1", "Monitoramento de chats dos alunos de computacao do primeiro periodo.","BAIXO", "Por se tratar de apenas um monitoramento, o risco nao e elevado.");
 		atividade.adicionaItem("Monitoramento facebook/messenger");
 		Pesquisa pesquisa = new Pesquisa("PAR1", "Nao acredito que tenho que fazer isso ate aqui.", "Para ninguem");
@@ -188,15 +183,6 @@ class AtividadeTest {
 	}
 	
 //----------------------------------------------------------------------------------------------------------------------------------------	
-	
-	@Test
-	public void testExisteproximo() {
-		Atividade atividade2 = new Atividade("A2", "Mais um objeto de atividade para testar", "ALTO", "Tem muita importancia deste teste");
-		atividade.adicionaNaCadeia(atividade2);
-		assertTrue(atividade.existeProximo());
-		assertFalse(atividade2.existeProximo());
-		
-	}
 	
 	@Test
 	public void testGetSeguinteNaCadeia() {

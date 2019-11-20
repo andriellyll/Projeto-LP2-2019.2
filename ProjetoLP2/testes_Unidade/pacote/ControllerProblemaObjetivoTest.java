@@ -121,7 +121,7 @@ public class ControllerProblemaObjetivoTest {
 	
 	@Test
 	public void testApagarProblemaInexistente() {
-		String codigo = controllerProbObj.cadastraProblema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", 2);
+		controllerProbObj.cadastraProblema("O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo", 2);
 		assertThrows(IllegalArgumentException.class, () -> {
 			controllerProbObj.exibeProblema("O2");
 		});
