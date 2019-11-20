@@ -5,6 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
+ *
+ */
 class ItemTest {
 
 	private Item item;
@@ -38,17 +46,20 @@ class ItemTest {
 	public void testToString() {
 		assertEquals(item.toString(), "PENDENTE - Monitoramento slack");
 	}
+
 	@Test
 	public void testBusca() {
-		assertEquals("Monitoramento slack" , item.procuraPalavraChave("slack"));
+		assertEquals("Monitoramento slack", item.procuraPalavraChave("slack"));
 		assertEquals("", item.procuraPalavraChave("Aumentar"));
 	}
+
 	@Test
 	public void testBuscaNull() {
 		assertThrows(NullPointerException.class, () -> {
 			item.procuraPalavraChave(null);
 		});
 	}
+
 	@Test
 	public void testBuscaVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {

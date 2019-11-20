@@ -3,8 +3,10 @@ package pacote;
 /**
  * Responsavel por validar todas as entradas do sistema.
  * 
- * @author Andrielly Lucena, Anna Beatriz Lucena, Herique Lemos, Helen
- *         Cavalcanti
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  *
  */
 public class ValidadorDeEntradas {

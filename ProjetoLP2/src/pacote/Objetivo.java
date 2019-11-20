@@ -6,7 +6,10 @@ import java.io.Serializable;
  * Representa um objetivo, seja ele geral ou especifico, que esta inserido em um
  * contexto de uma pesquisa.
  * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
  * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  *
  */
 public class Objetivo implements Serializable, Comparable<Objetivo> {

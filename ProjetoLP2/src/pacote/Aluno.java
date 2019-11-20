@@ -3,16 +3,20 @@ package pacote;
 /**
  * Classe que representa no sistema um aluno, uma especialidade de Pesquisador.
  * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
  * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
+ * 
  */
 
 public class Aluno implements Funcao {
-	
+
 	/**
 	 * Atributo que representa o semestre que o aluno ingressou.
 	 */
 	private int semestre;
-	
+
 	/**
 	 * Atributo que representa o indice de eficiencia academica desse aluno.
 	 */
@@ -30,7 +34,7 @@ public class Aluno implements Funcao {
 		this.semestre = semestre;
 		this.IEA = IEA;
 	}
-	
+
 	/**
 	 * Metodo que altera caracteristicas especificas do Aluno, recebendo qual
 	 * atributo quer alterar e a nova versao desse atributo e nao retorna nada.

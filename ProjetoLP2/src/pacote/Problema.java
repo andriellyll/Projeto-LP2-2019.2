@@ -5,7 +5,10 @@ import java.io.Serializable;
 /**
  * Representa um problema, a ser resolvido em um contexto de uma pesquisa.
  * 
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
  * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public class Problema implements Serializable {
 

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 /**
  * Controller responsavel pelos metodos de busca de palavra-chave.
  * 
- * @author Andrielly de Lima Lucena - 119110268
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public class ControllerBusca {
 

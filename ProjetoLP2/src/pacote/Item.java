@@ -8,7 +8,10 @@ import java.io.Serializable;
  * um item e criado, ele automaticamente apresenta a situacao de PENDENTE e
  * quando realizado, muda sua situacao para REALIZADO.
  * 
- * @author Henrique Lemos
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public class Item implements Serializable {
 
@@ -92,7 +95,7 @@ public class Item implements Serializable {
 	public String exibeItemSituacao() {
 		return this.situacao + " - ITEM" + this.codigo;
 	}
- 
+
 	public String exibeItemDuracao() {
 		return "ITEM" + this.codigo + " - " + this.duracao;
 	}

@@ -21,7 +21,10 @@ import utils.OrdenaResultados;
  * resultados, e para se obter resultados destas atividades, e importante
  * elaborar itens para cumprimir estas atividades.
  * 
- * @author Henrique Lemos
+ * @author Andrielly de Lima Lucena
+ * @author Anna Beatriz Lucena Lira
+ * @author Helen Bento Cavalcanti
+ * @author Henrique Lemos Leite
  */
 public class ControllerAtividade implements Buscavel {
 
@@ -64,7 +67,7 @@ public class ControllerAtividade implements Buscavel {
 		numeroAtividades++;
 		return codigo;
 	}
-	
+
 	/**
 	 * Metodo responsavel por cadastrar cada nova atividade, cada atividade
 	 * planejada apresenta uma descricao do que deve ser feito, uma duracao
@@ -90,7 +93,7 @@ public class ControllerAtividade implements Buscavel {
 		}
 		return codigo;
 	}
-	
+
 	/**
 	 * Metodo responsavel por verificar se a partir de um codigo oferecido pelo
 	 * usuario, ja existe, caso nao exista, ele retornara uma excessao dizendo
@@ -104,7 +107,7 @@ public class ControllerAtividade implements Buscavel {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-	
+
 	/**
 	 * Metodo responsavel por apagar uma atividade.
 	 * 
@@ -209,7 +212,7 @@ public class ControllerAtividade implements Buscavel {
 		controllerPesquisa.getPesquisa(codigoPesquisa).associaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).associaPesquisa(controllerPesquisa.getPesquisa(codigoPesquisa));
 	}
-	
+
 	/**
 	 * Desassocia uma pesquisa de uma atividade a partir do codigo da pesquisa a ser
 	 * desassociada e do codigo da atividade.
@@ -226,12 +229,12 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		controllerPesquisa.validaPesquisa(codigoPesquisa);
-		
+
 		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		controllerPesquisa.getPesquisa(codigoPesquisa).desassociaAtividade(atividades.get(codigoAtividade));
 		return atividades.get(codigoAtividade).desassociaPesquisa();
 	}
-	
+
 	/**
 	 * Verifica se a atividade a ser executada existe, caso exista executa-a
 	 * 
@@ -240,7 +243,7 @@ public class ControllerAtividade implements Buscavel {
 	 *                        item na atividade
 	 * @param duracao         - a duracao em horas da execucao do item
 	 */
-	public void executaAtividade(String codigoAtividade, int item, int duracao) {	
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaNumeroNegativo(item, "Item nao pode ser nulo ou negativo.");
@@ -264,11 +267,11 @@ public class ControllerAtividade implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoAtividade,
 				"Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(resultado, "Resultado nao pode ser nulo ou vazio.");
-		
+
 		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		return atividades.get(codigoAtividade).cadastraResultado(resultado);
 	}
-	
+
 	/**
 	 * Remove um resultado obtido pela atividade a partir do codigo da atividade e
 	 * do numero que representa a ordem de cadastro do resultado. Caso a remocao for
@@ -290,7 +293,7 @@ public class ControllerAtividade implements Buscavel {
 		}
 		throw new IllegalArgumentException("Atividade nao encontrada");
 	}
-	
+
 	/**
 	 * Retorna a listagem dos resultados cadastrados na atividade a partir do codigo
 	 * da atividade
@@ -306,7 +309,7 @@ public class ControllerAtividade implements Buscavel {
 		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		return atividades.get(codigoAtividade).listaResultados();
 	}
-	
+
 	/**
 	 * Retorna a duracao de execucao de uma atividade a partir do codigo da
 	 * atividade
@@ -322,7 +325,7 @@ public class ControllerAtividade implements Buscavel {
 		verificaAtividadeExiste(codigoAtividade, "Atividade nao encontrada");
 		return atividades.get(codigoAtividade).getDuracao();
 	}
-	
+
 	/**
 	 * Procura em todos as atividades do mapa a palavra-chave passada como parametro
 	 * 
@@ -345,10 +348,11 @@ public class ControllerAtividade implements Buscavel {
 //------------------------------------------ ControllerAtividade (Parte 3) ------------------------------------------
 
 	/**
-	 * Metodo responsavel por definir a proxima atividade de outra atividade, selecionada tambem pelo usuario,
-	 * formando um cadeia ordenada de atividades. Caso a precedente ja possua uma subsequente ele reporta uma excecao.
+	 * Metodo responsavel por definir a proxima atividade de outra atividade,
+	 * selecionada tambem pelo usuario, formando um cadeia ordenada de atividades.
+	 * Caso a precedente ja possua uma subsequente ele reporta uma excecao.
 	 * 
-	 * @param idPrecedente valor de identificacao da atividade precedente na ordem
+	 * @param idPrecedente  valor de identificacao da atividade precedente na ordem
 	 * @param idSubsequente valor de identificacao da atividade subsequente na ordem
 	 */
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
@@ -360,9 +364,11 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
-	 * Metodo responsavel por retirar a atividade subsequente de uma atividade, selecionada pelo usuario.
+	 * Metodo responsavel por retirar a atividade subsequente de uma atividade,
+	 * selecionada pelo usuario.
 	 * 
-	 * @param idPrecedente valor de identificacao da atividade que devera ter o seu subsequente removido
+	 * @param idPrecedente valor de identificacao da atividade que devera ter o seu
+	 *                     subsequente removido
 	 */
 	public void tiraProximaAtividade(String idPrecedente) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
@@ -371,9 +377,11 @@ public class ControllerAtividade implements Buscavel {
 	}
 
 	/**
-	 * Metodo responsavel por contar a quantidade de proximo na cadeia, a partir da atividade selecionada pelo usuario.
+	 * Metodo responsavel por contar a quantidade de proximo na cadeia, a partir da
+	 * atividade selecionada pelo usuario.
 	 * 
-	 * @param idPrecedente valor de identificacao da atividade que devera iniciar a contagem
+	 * @param idPrecedente valor de identificacao da atividade que devera iniciar a
+	 *                     contagem
 	 * @return um inteiro referente a quantidade de proximos
 	 */
 	public int contaProximos(String idPrecedente) {
@@ -384,7 +392,8 @@ public class ControllerAtividade implements Buscavel {
 
 	/**
 	 * Metodo responsavel por pegar a proxima atividade selecionada pelo usuario
-	 * partindo da atividade selecionada pelo usuario, referente a quantidade de casas seguintes, selecionado pelo usuario.
+	 * partindo da atividade selecionada pelo usuario, referente a quantidade de
+	 * casas seguintes, selecionado pelo usuario.
 	 * 
 	 * @param idAtividade
 	 * @param enesimaAtividade
@@ -395,12 +404,13 @@ public class ControllerAtividade implements Buscavel {
 		verificaAtividadeExiste(idAtividade, "Atividade nao encontrada.");
 		return atividades.get(idAtividade).pegaProximo(enesimaAtividade);
 	}
-	
+
 	/**
-	 * Metodo responsavel por reportar o codigo da atividade de maior risco na cadeia,
-	 * partindo da atividade selecionada pelo usuario.
+	 * Metodo responsavel por reportar o codigo da atividade de maior risco na
+	 * cadeia, partindo da atividade selecionada pelo usuario.
 	 * 
-	 * @param idAtividade valor de identificacao da atividade que devera iniciar a verificacao
+	 * @param idAtividade valor de identificacao da atividade que devera iniciar a
+	 *                    verificacao
 	 * @return em formato de string o codigo da atividade de maior risco
 	 */
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
