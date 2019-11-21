@@ -264,7 +264,7 @@ public class Pesquisador implements Serializable {
 	}
 
 	/**
-	 * Metodo que fornce uma string com a funcao desse Pesquisadore nao recebe nada
+	 * Metodo que fornce uma string com a funcao desse Pesquisador e nao recebe nada
 	 * como parametro.
 	 * 
 	 * @return string com a funcao desse Pesquisador.
