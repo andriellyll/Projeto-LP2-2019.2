@@ -1,7 +1,7 @@
 # Projeto-LP2-2019.2
 Código do projeto de LP2 2019.2;
 
-{Relatório}(https://docs.google.com/document/d/1lKpAprvrQRYBRwtsgu-bkbc6MNeAawkZYcd8vhBJ4Xc/edit?usp=sharing)
+{Relatório}https://docs.google.com/document/d/1lKpAprvrQRYBRwtsgu-bkbc6MNeAawkZYcd8vhBJ4Xc/edit?usp=sharing
 
 Equipe:
 
