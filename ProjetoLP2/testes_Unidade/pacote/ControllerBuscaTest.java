@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import atividade.ControllerAtividade;
+import pesquisa.ControllerPesquisa;
+import pesquisador.ControllerPesquisador;
+import problemaObjetivo.ControllerProblemaObjetivo;
+import system.ControllerBusca;
+
 /**
  * 
  * @author Andrielly de Lima Lucena
