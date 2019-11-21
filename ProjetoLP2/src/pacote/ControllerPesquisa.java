@@ -274,8 +274,7 @@ public class ControllerPesquisa implements Buscavel {
 	 * @return lista ordenada das pesquisas
 	 */
 	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
-		List<Pesquisa> listaOrdenada = /** (ArrayList<Pesquisa>) listaDePesquisas.values(); **/
-				new ArrayList<>();
+		List<Pesquisa> listaOrdenada = new ArrayList<>();
 		for (Pesquisa estudo : listaDePesquisas.values()) {
 			listaOrdenada.add(estudo);
 		}
