@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="atividade.ControllerAtividade" project="ProjetoLP2" 
     file="/ProjetoLP2/src/atividade/ControllerAtividade.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="517" width="243" x="474" y="942"/>    
+    <position height="-1" width="-1" x="596" y="1237"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -434,10 +434,10 @@
   <association id="86">    
     <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="87" name="controllerAtividade">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="1" y="37"/>      
       </attribute>      
       <multiplicity id="88" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="1" y="37"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
