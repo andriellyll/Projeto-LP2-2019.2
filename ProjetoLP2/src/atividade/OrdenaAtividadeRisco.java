@@ -19,7 +19,8 @@ public class OrdenaAtividadeRisco implements Comparator<Atividade> {
 	 * e retorna um inteiro que dira se um elemento e maior, igual ou menor que
 	 * outro nesse quesito.
 	 * 
-	 * @param Dois objetos do tipo Atividade.
+	 * @param o1 primeira atividade
+	 * @param o2 segunda atividade
 	 * @return um inteiro que dira se um elemento e maior, igual ou menor que outro
 	 *         no quesito risco.
 	 */

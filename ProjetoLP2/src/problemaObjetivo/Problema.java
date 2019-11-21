@@ -15,7 +15,7 @@ import utils.ValidadorDeEntradas;
 public class Problema implements Serializable {
 
 	/**
-	 * 
+	 * Codigo de serializacao
 	 */
 	private static final long serialVersionUID = 7657930956736629418L;
 

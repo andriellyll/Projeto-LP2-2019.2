@@ -16,7 +16,8 @@ public class OrdenaAtividadePendencias implements Comparator<Atividade> {
 	 * pendencias e retorna um inteiro que dira se um elemento e maior, igual ou
 	 * menor que outro nesse quesito.
 	 * 
-	 * @param Dois objetos do tipo Atividade.
+	 * @param o1 objeto do tipo Atividade.
+	 * @param o2 objeto do tipo Atividade.
 	 * @return um inteiro que dira se um elemento e maior, igual ou menor que outro
 	 *         no quesito pendencias.
 	 */

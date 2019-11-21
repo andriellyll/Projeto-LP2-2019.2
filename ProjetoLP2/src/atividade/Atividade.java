@@ -25,7 +25,7 @@ import utils.ValidadorDeEntradas;
 public class Atividade implements Serializable, Comparable<Atividade> {
 
 	/**
-	 * 
+	 * Codigo de serializacao
 	 */
 	private static final long serialVersionUID = -6324762890418621301L;
 
@@ -83,6 +83,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * Contrutor de uma atividade, com sua descricao, nivel de risco, descricao do
 	 * risco e o numero de dias.
 	 * 
+	 * @param codigo codigo da atividade              
 	 * @param descricao      valor que relata como e a atividade
 	 * @param nivelRisco     valor que relata a itensidade desta atividade
 	 * @param descricaoRisco valor que relata o porque esta atividade possivel
@@ -111,7 +112,6 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	 * atividade.
 	 * 
 	 * @param item   valor que descreve o novo item
-	 * @param codigo valor de identificacao do novo item
 	 */
 	public void adicionaItem(String item) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(item, "Item nao pode ser nulo ou vazio.");
@@ -250,11 +250,9 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	/**
 	 * Desassocia uma pesquisa da atividade
 	 * 
-	 * @param pesquisa - a pesquisa a ser associada a atividade
-	 * @return - o booleano que representa o sucesso(true) ou nao(false) da
+	 * @return o booleano que representa o sucesso(true) ou nao(false) da
 	 *         desassociacao
 	 * 
-	 * @return
 	 */
 	public boolean desassociaPesquisa() {
 		if (this.pesquisa == null) {
@@ -454,7 +452,7 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	/**
 	 * Metodo responsavel por retornar a codigo da atividade de maior nivel da
 	 * cadeia.
-	 * 
+	 * @param partida codigo da atividade de partida da cadeia
 	 * @return uma string relatando o codigo da atividade maior na cadeia
 	 */
 	public String atividadeMaiorRisco(String partida) {
@@ -548,9 +546,8 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @return
+	 * Gera uma String da atividade e seus itens 
+	 * @return a string da atividade
 	 */
 	public String exibeAtividade() {
 		String representacao = this.toString();
@@ -561,9 +558,8 @@ public class Atividade implements Serializable, Comparable<Atividade> {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @return
+	 * Retorna uma String dos resultados da atividade, bem como seus itens realizados.
+	 * @return a string de resultados
 	 */
 	public String getResultados() {
 		String resultados = "- " + this.descricao;

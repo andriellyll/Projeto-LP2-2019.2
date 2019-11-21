@@ -38,7 +38,7 @@ import utils.ValidadorDeEntradas;
 public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 
 	/**
-	 * 
+	 * Codigo de serializacao
 	 */
 	private static final long serialVersionUID = 7431197778358334391L;
 
@@ -113,7 +113,6 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * motivo(uma string livre). Caso o motivo seja vazio ou nulo uma excecao sera
 	 * lancada.
 	 * 
-	 * @param motivo - o motivo de desativacao da pesquisa
 	 */
 	public void desativaPesquisa() {
 		this.ehAtivada = false;

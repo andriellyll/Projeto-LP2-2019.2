@@ -18,7 +18,7 @@ import utils.ValidadorDeEntradas;
 public class Objetivo implements Serializable, Comparable<Objetivo> {
 
 	/**
-	 * 
+	 * Codigo de serializacao
 	 */
 	private static final long serialVersionUID = 747427585918157717L;
 

@@ -52,7 +52,7 @@ public class ControllerAtividade implements Buscavel {
 	 * Contrutor da Classe responsavel por controlar as informacoes das atividades.
 	 * Ele inicializa o mapa de atividades.
 	 * 
-	 * @param controllerPesquisa
+	 * @param controllerPesquisa controller de Pesquisa
 	 */
 	public ControllerAtividade(ControllerPesquisa controllerPesquisa) {
 		this.controllerPesquisa = controllerPesquisa;
@@ -398,9 +398,9 @@ public class ControllerAtividade implements Buscavel {
 	 * partindo da atividade selecionada pelo usuario, referente a quantidade de
 	 * casas seguintes, selecionado pelo usuario.
 	 * 
-	 * @param idAtividade
-	 * @param enesimaAtividade
-	 * @return
+	 * @param idAtividade ID da atividade da qual começa a cadeia
+	 * @param enesimaAtividade numero da atividade que se quer pegar
+	 * @return a enesima atividade solicitada
 	 */
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(idAtividade, "Atividade nao pode ser nulo ou vazio.");

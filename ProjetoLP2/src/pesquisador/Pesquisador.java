@@ -17,7 +17,7 @@ import utils.ValidadorDeEntradas;
 public class Pesquisador implements Serializable {
 	
 	/**
-	 * 
+	 * Codigo de serializacao
 	 */
 	private static final long serialVersionUID = 4111587496949639749L;
 	
