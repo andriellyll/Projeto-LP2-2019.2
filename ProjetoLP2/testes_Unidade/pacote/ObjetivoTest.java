@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import pesquisa.Pesquisa;
+import problemaObjetivo.Objetivo;
+
 /**
  * 
  * @author Andrielly de Lima Lucena

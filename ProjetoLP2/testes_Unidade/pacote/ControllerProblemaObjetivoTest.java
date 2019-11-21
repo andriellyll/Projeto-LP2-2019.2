@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import pesquisa.Pesquisa;
+import problemaObjetivo.ControllerProblemaObjetivo;
+
 /**
  * 
  * @author Andrielly de Lima Lucena

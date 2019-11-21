@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import pacote.ControllerPesquisa;
+import atividade.ControllerAtividade;
+import pesquisa.ControllerPesquisa;
+import pesquisador.ControllerPesquisador;
+import problemaObjetivo.ControllerProblemaObjetivo;
 
 /**
  * 

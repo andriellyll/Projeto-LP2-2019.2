@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import pesquisador.Aluno;
+
 /**
  * @author Andrielly de Lima Lucena
  * @author Anna Beatriz Lucena Lira
