@@ -37,15 +37,17 @@ public class ControllerPesquisa implements Buscavel {
 	 * ojetivo de gerenciar os mesmos.
 	 */
 	private Map<String, Integer> codigos;
+	
 	/**
 	 * Atributo que guarda o controlador de Pesquisador.
 	 */
-
 	private ControllerPesquisador controllerPesquisador;
+	
 	/**
 	 * Atributo que guarda o controlador de Problema e Objetivo.
 	 */
 	private ControllerProblemaObjetivo controllerProblemaObjetivo;
+	
 	/**
 	 * Atributo que indica qual estrategia de ordenacao deve ser usada ao sugerir
 	 * uma proxima atividade a ser realizada.
@@ -60,7 +62,7 @@ public class ControllerPesquisa implements Buscavel {
 	 * @param controllerPesquisador      o controlador de Problema e Objetivo.
 	 */
 	public ControllerPesquisa(ControllerPesquisador controllerPesquisador,
-			ControllerProblemaObjetivo controllerProblemaObjetivo) {
+		ControllerProblemaObjetivo controllerProblemaObjetivo) {
 		this.controllerPesquisador = controllerPesquisador;
 		this.controllerProblemaObjetivo = controllerProblemaObjetivo;
 		this.pesquisas = new HashMap<>();
@@ -89,7 +91,6 @@ public class ControllerPesquisa implements Buscavel {
 		ValidadorDeEntradas.validaCampoDeInteresse(campoDeInteresse);
 		String codigoChave = campoDeInteresse.substring(0, 3).toUpperCase();
 		String codigoPesquisa;
-
 		if (this.codigos.containsKey(codigoChave)) {
 			int valor = this.codigos.get(codigoChave) + 1;
 			this.codigos.put(codigoChave, valor);
@@ -120,7 +121,6 @@ public class ControllerPesquisa implements Buscavel {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(conteudoASerAlterado,
 				"Conteudo a ser alterado nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
-
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
 		if (!pesquisa.getAtivacao()) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
@@ -150,9 +150,7 @@ public class ControllerPesquisa implements Buscavel {
 	public void encerraPesquisa(String codigo, String motivo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(motivo, "Motivo nao pode ser nulo ou vazio.");
-
 		verificaPesquisaExiste(codigo);
-
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
 		if (pesquisa.getAtivacao()) {
 			pesquisa.desativaPesquisa();
@@ -172,9 +170,7 @@ public class ControllerPesquisa implements Buscavel {
 	public void ativaPesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
-
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
-
 		if (!pesquisa.getAtivacao()) {
 			pesquisa.ativaPesquisa();
 		} else {
@@ -193,9 +189,7 @@ public class ControllerPesquisa implements Buscavel {
 	public String exibePesquisa(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Codigo nao pode ser nulo ou vazio.");
 		verificaPesquisaExiste(codigo);
-
 		Pesquisa pesquisa = this.pesquisas.get(codigo);
-
 		return pesquisa.toString();
 	}
 
@@ -214,7 +208,7 @@ public class ControllerPesquisa implements Buscavel {
 		return pesquisa.getAtivacao();
 	}
 
-//------------------------------------- Novas atualizacoes de ControllerPesquisa (Parte 2) ----------------------------------------
+//------------------------------------------ ControllerPesquisa (Parte 2) ------------------------------------------
 
 	/**
 	 * Metodo responsavel por associar um problema a uma pesquisa.
@@ -282,11 +276,9 @@ public class ControllerPesquisa implements Buscavel {
 	private List<Pesquisa> ordenaPesquisas(Map<String, Pesquisa> listaDePesquisas) {
 		List<Pesquisa> listaOrdenada = /** (ArrayList<Pesquisa>) listaDePesquisas.values(); **/
 				new ArrayList<>();
-
 		for (Pesquisa estudo : listaDePesquisas.values()) {
 			listaOrdenada.add(estudo);
 		}
-
 		Collections.sort(listaOrdenada);
 		return listaOrdenada;
 	}
@@ -403,26 +395,6 @@ public class ControllerPesquisa implements Buscavel {
 	}
 
 	/**
-	 * Procura em todos as pesquisas do mapa a palavra-chave passada como parametro
-	 * 
-	 * @param palavraChave palavra-chave que sera procurada
-	 * @return Lista de Strings com os campos dos atributos de pesquisa que
-	 *         contiverem a palavra-chave
-	 */
-	public List<String> procuraPalavraChave(String palavraChave) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
-		ArrayList<String> resultadosBusca = new ArrayList<>();
-
-		for (Pesquisa pesquisa : this.pesquisas.values()) {
-			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
-				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));
-			}
-		}
-		Collections.sort(resultadosBusca, new OrdenaResultados());
-		return resultadosBusca;
-	}
-
-	/**
 	 * Metodo que associa um Pesquisador a uma Pesquisa, recebendo o id da pesquisa
 	 * e o email do pesquisador, e retorna um boolean que representa o sucesso da
 	 * operacao.
@@ -439,9 +411,8 @@ public class ControllerPesquisa implements Buscavel {
 		verificaPesquisaAtivada(idPesquisa);
 		return this.pesquisas.get(idPesquisa)
 				.associaPesquisador(controllerPesquisador.getPesquisador(emailPesquisador));
-
 	}
-
+	
 	/**
 	 * Metodo que desassocia um Pesquisador a uma Pesquisa, recebendo o id da
 	 * pesquisa e o email do pesquisador, e retorna um boolean que representa o
@@ -460,21 +431,101 @@ public class ControllerPesquisa implements Buscavel {
 		return this.pesquisas.get(codigoDaPesquisa)
 				.desassociaPesquisador(controllerPesquisador.getPesquisador(emailPesquisador));
 	}
+	
+	/**
+	 * Procura em todos as pesquisas do mapa a palavra-chave passada como parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera procurada
+	 * @return Lista de Strings com os campos dos atributos de pesquisa que
+	 *         contiverem a palavra-chave
+	 */
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+		for (Pesquisa pesquisa : this.pesquisas.values()) {
+			if (!pesquisa.procuraPalavraChave(palavraChave).isEmpty()) {
+				resultadosBusca.addAll(pesquisa.procuraPalavraChave(palavraChave));
+			}
+		}
+		Collections.sort(resultadosBusca, new OrdenaResultados());
+		return resultadosBusca;
+	}
 
-// -------------------------------------------- Novas Atualizacoes de ControllerPesquisa (Parte 3) ----------------------------------------------
-//	
+//------------------------------------------ ControllerPesquisa (Parte 3) ------------------------------------------
 
+	/**
+	 * Metodo que valida a String estrategia, nao retorna nada e lança uma excecao
+	 * caso aquela String seja invalida.
+	 * 
+	 * @param estrategia String estrategia a ser validada.
+	 */
+	private void validaEstrategia(String estrategia) {
+		if (!(estrategia.equalsIgnoreCase("MAIS_ANTIGA") || estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")
+				|| estrategia.equalsIgnoreCase("MAIOR_RISCO") || estrategia.equalsIgnoreCase("MAIOR_DURACAO"))) {
+			throw new IllegalArgumentException("Valor invalido da estrategia");
+		}
+	}
+	
+	/**
+	 * Configura qual estrategia de ordenacao deve ser usada na hora de sugerir uma
+	 * proxima atividade a ser realizada, recebe como parametro uma String com a
+	 * estrategia e nao retorna nada.
+	 * 
+	 * @param estrategia String com a estrategia.
+	 */
+	public void configuraEstrategia(String estrategia) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		validaEstrategia(estrategia);
+		this.estrategia = estrategia;
+	}
+	
+	/**
+	 * Metodo que recebe o codigo de uma pesquisa e retorna um codigo de uma
+	 * sugestao de proxima atividade a ser realizada.
+	 * 
+	 * @param codigoPesquisa codigo da pesquisa a ser verificada.
+	 * @return o codigo de uma sugestao de proxima atividade a ser realizada.
+	 */
+	public String proximaAtividade(String codigoPesquisa) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisa(codigoPesquisa);
+		pesquisaEhAtiva(codigoPesquisa);
+		return pesquisas.get(codigoPesquisa).proximaAtividade(this.estrategia);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param codigoPesquisa
+	 * @throws IOException
+	 */
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		verificaPesquisaExiste(codigoPesquisa);
+		pesquisas.get(codigoPesquisa).gravarResumo();
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param codigoPesquisa
+	 * @throws IOException
+	 */
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		verificaPesquisaExiste(codigoPesquisa);
+		pesquisas.get(codigoPesquisa).gravarResultados();
+	}
+	
 	/**
 	 * Metodo responsavel por salvar as pesquisas
 	 */
 	public void salvar() {
-
 		try {
 			FileOutputStream saveFile = new FileOutputStream("pesquisa.dat");
 			ObjectOutputStream stream = new ObjectOutputStream(saveFile);
 			stream.writeObject(pesquisas);
 			stream.close();
-
 			FileOutputStream saveFile2 = new FileOutputStream("codigos.dat");
 			ObjectOutputStream stream2 = new ObjectOutputStream(saveFile2);
 			stream2.writeObject(codigos);
@@ -482,7 +533,6 @@ public class ControllerPesquisa implements Buscavel {
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -506,64 +556,6 @@ public class ControllerPesquisa implements Buscavel {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-
 		}
-	}
-
-	public void gravarResumo(String codigoPesquisa) throws IOException {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
-		verificaPesquisaExiste(codigoPesquisa);
-
-		pesquisas.get(codigoPesquisa).gravarResumo();
-	}
-
-	public void gravarResultados(String codigoPesquisa) throws IOException {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
-		verificaPesquisaExiste(codigoPesquisa);
-
-		pesquisas.get(codigoPesquisa).gravarResultados();
-	}
-
-	/**
-	 * Configura qual estrategia de ordenacao deve ser usada na hora de sugerir uma
-	 * proxima atividade a ser realizada, recebe como parametro uma String com a
-	 * estrategia e nao retorna nada.
-	 * 
-	 * @param estrategia String com a estrategia.
-	 */
-	public void configuraEstrategia(String estrategia) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(estrategia, "Estrategia nao pode ser nula ou vazia.");
-		validaEstrategia(estrategia);
-		this.estrategia = estrategia;
-
-	}
-
-	/**
-	 * Metodo que recebe o codigo de uma pesquisa e retorna um codigo de uma
-	 * sugestao de proxima atividade a ser realizada.
-	 * 
-	 * @param codigoPesquisa codigo da pesquisa a ser verificada.
-	 * @return o codigo de uma sugestao de proxima atividade a ser realizada.
-	 */
-	public String proximaAtividade(String codigoPesquisa) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
-		validaPesquisa(codigoPesquisa);
-		pesquisaEhAtiva(codigoPesquisa);
-		return pesquisas.get(codigoPesquisa).proximaAtividade(this.estrategia);
-
-	}
-
-	/**
-	 * Metodo que valida a String estrategia, nao retorna nada e lança uma excecao
-	 * caso aquela String seja invalida.
-	 * 
-	 * @param estrategia String estrategia a ser validada.
-	 */
-	private void validaEstrategia(String estrategia) {
-		if (!(estrategia.equalsIgnoreCase("MAIS_ANTIGA") || estrategia.equalsIgnoreCase("MENOS_PENDENCIAS")
-				|| estrategia.equalsIgnoreCase("MAIOR_RISCO") || estrategia.equalsIgnoreCase("MAIOR_DURACAO"))) {
-			throw new IllegalArgumentException("Valor invalido da estrategia");
-		}
-
 	}
 }

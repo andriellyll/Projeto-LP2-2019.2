@@ -11,15 +11,17 @@ package pacote;
  *
  */
 public class Professor implements Funcao {
+	
 	/**
 	 * Atributo que representa a formacao do Professor.
 	 */
-
 	private String formacao;
+	
 	/**
 	 * Atributo que representa qual unidade que o Professor faz parte.
 	 */
 	private String unidade;
+	
 	/**
 	 * Atributo que representa a data de contratacao do Professor.
 	 */
@@ -33,13 +35,11 @@ public class Professor implements Funcao {
 	 * @param unidade  a unidade que o Professor faz parte.
 	 * @param data     a data de contratacao do Professor.
 	 */
-
 	public Professor(String formacao, String unidade, String data) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(formacao, "Campo formacao nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(unidade, "Campo unidade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(data, "Campo data nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaData(data, "Atributo data com formato invalido.");
-
 		this.formacao = formacao;
 		this.unidade = unidade;
 		this.data = data;
@@ -61,7 +61,7 @@ public class Professor implements Funcao {
 		return nome + " (" + funcao + ")" + " - " + biografia + " - " + email + " - " + foto + " - " + this.formacao
 				+ " - " + this.unidade + " - " + this.data;
 	}
-
+	
 	/**
 	 * Metodo que altera caracteristicas especificas do Professor, recebendo qual
 	 * atributo quer alterar e a nova versao desse atributo e nao retorna nada.
@@ -84,6 +84,5 @@ public class Professor implements Funcao {
 		} else {
 			throw new RuntimeException("Atributo invalido.");
 		}
-
 	}
 }

@@ -36,12 +36,12 @@ public class ControllerAtividade implements Buscavel {
 	private Map<String, Atividade> atividades;
 
 	/**
-	 * 
+	 * Auxilia na geração de codigo da atividade, passando o inteiro disponivel.
 	 */
 	private int numeroAtividades;
 
 	/**
-	 * 
+	 * Controller que auxilia o controller atividade.
 	 */
 	private ControllerPesquisa controllerPesquisa;
 

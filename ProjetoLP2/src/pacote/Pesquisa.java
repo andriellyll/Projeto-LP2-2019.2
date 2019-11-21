@@ -72,6 +72,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * Conjunto de pesquisadores associados a pesquisa.
 	 */
 	private Set<Pesquisador> pesquisadoresAssociados;
+	
 	/**
 	 * Conjunto de atividades associadas a pesquisa.
 	 */
@@ -100,7 +101,6 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		this.objetivosDaPesquisa = new TreeSet<>();
 		this.pesquisadoresAssociados = new LinkedHashSet<>();
 		this.atividadesAssociadas = new TreeSet<>();
-
 	}
 
 	/**
@@ -203,7 +203,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		return this.codigo + " - " + this.descricao + " - " + this.campoDeInteresse;
 	}
 
-//------------------------------------------------ Novas atualizacoes de Pesquisa --------------------------------------------------------------------------
+//------------------------------------------ Pesquisa (Parte 2) ------------------------------------------
 
 	/**
 	 * Metodo responsavel por verificar se esta pesquisa possui um problema
@@ -338,27 +338,6 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	}
 
 	/**
-	 * Procura nos atributos descricao e campo de interesse da pesquisa a
-	 * palavra-chave passada como parametro
-	 * 
-	 * @param palavraChave palavra-chave que sera buscada
-	 * @return se a palavra-chave existir na String de descricao ou de campo de
-	 *         interesse, uma lista com uma dessas strings (ou as duas) sera
-	 *         retornada. Se nao, sera retornada uma lista vazia
-	 */
-	public List<String> procuraPalavraChave(String palavraChave) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
-		ArrayList<String> resultadosBusca = new ArrayList<>();
-		if (this.descricao.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.descricao);
-		}
-		if (this.campoDeInteresse.contains(palavraChave)) {
-			resultadosBusca.add(this.codigo + ": " + this.campoDeInteresse);
-		}
-		return resultadosBusca;
-	}
-
-	/**
 	 * Metodo que associa um Pesquisador, recebendo o objeto Pesquisador e retorna
 	 * um boolean que representa o sucesso da operacao.
 	 * 
@@ -414,84 +393,29 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		}
 		throw new IllegalArgumentException("Pesquisa desativada.");
 	}
-
-//-------------------------------------------------- Novas Atualizações Pesquisa (Parte 3) ----------------------------------------------------------------------
-
+	
 	/**
-	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas
-	 * informacoes (pesquisadores, objetivos, atividades e problema).
+	 * Procura nos atributos descricao e campo de interesse da pesquisa a
+	 * palavra-chave passada como parametro
 	 * 
-	 * @return a String resumo
+	 * @param palavraChave palavra-chave que sera buscada
+	 * @return se a palavra-chave existir na String de descricao ou de campo de
+	 *         interesse, uma lista com uma dessas strings (ou as duas) sera
+	 *         retornada. Se nao, sera retornada uma lista vazia
 	 */
-	private String gerarResumo() {
-
-		String resumo = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores:";
-
-		for (Pesquisador pesquisador : pesquisadoresAssociados) {
-			resumo += System.lineSeparator() + "\t\t- " + pesquisador.toString();
+	public List<String> procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
+		ArrayList<String> resultadosBusca = new ArrayList<>();
+		if (this.descricao.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.descricao);
 		}
-
-		if (this.problemaDaPesquisa != null) {
-			resumo += System.lineSeparator() + "\t- Problema:" + System.lineSeparator() + "\t\t- "
-					+ this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";
+		if (this.campoDeInteresse.contains(palavraChave)) {
+			resultadosBusca.add(this.codigo + ": " + this.campoDeInteresse);
 		}
-
-		for (Objetivo objetivo : objetivosDaPesquisa) {
-			resumo += System.lineSeparator() + "\t\t- " + objetivo.toString();
-		}
-
-		resumo += System.lineSeparator() + "\t- Atividades:";
-
-		for (Atividade atividade : atividadesAssociadas) {
-			resumo += System.lineSeparator() + "\t\t- " + atividade.exibeAtividade();
-		}
-
-		return resumo + " ";
+		return resultadosBusca;
 	}
 
-	/**
-	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre
-	 * os pesquisadores, objetivos, atividades e problema da pesquisa.
-	 * 
-	 * @throws IOException
-	 * 
-	 */
-	public void gravarResumo() throws IOException {
-		OutputStream out = new FileOutputStream(new File("_" + this.codigo + ".txt"));
-		String resumo = gerarResumo();
-		out.write(resumo.getBytes(), 0, resumo.length());
-		out.close();
-	}
-
-	/**
-	 * Metodo auxiliar que gera uma String que contem os resultados da pesquisa e os
-	 * itens realizados.
-	 * 
-	 * @return String dos resultados
-	 */
-	private String resultadosPesquisa() {
-		String resultados = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
-
-		for (Atividade atividade : atividadesAssociadas) {
-			resultados += System.lineSeparator() + "\t\t" + atividade.getResultados();
-		}
-
-		return resultados;
-	}
-
-	/**
-	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre
-	 * os pesquisadores, objetivos, atividades e problema da pesquisa.
-	 * 
-	 * @throws IOException
-	 * 
-	 */
-	public void gravarResultados() throws IOException {
-		OutputStream out = new FileOutputStream(new File(this.codigo + "-Resultados.txt"));
-		String resultados = resultadosPesquisa();
-		out.write(resultados.getBytes(), 0, resultados.length());
-		out.close();
-	}
+//------------------------------------------ Pesquisa (Parte 2) ------------------------------------------
 
 	/**
 	 * Metodo que retorna um codigo que sugere uma proxima atividade a ser realizada
@@ -518,7 +442,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			throw new IllegalArgumentException("Valor invalido da estrategia");
 		}
 	}
-
+	
 	/**
 	 * Metodo privado usado no metodo "proximaAtividade", que ordena as atividades
 	 * de acordo com a estrategia de maior duração.
@@ -528,24 +452,26 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	private String estrategiaMaiorDracao() {
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadeDuracao());
-
 		return atividades.get(atividades.size() - 1).getCodigo();
 	}
-
+	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	private String estrategiaMaiorRisco() {
 		String saida = "";
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadeRisco());
-
 		for (Atividade atividade : atividades) {
 			if (atividade.ItensPendentes() != 0 && atividade.getRisco().equalsIgnoreCase("ALTO")) {
 				saida = atividade.getCodigo();
 			}
-
 		}
 		return saida;
 	}
-
+	
 	/**
 	 * Metodo privado usado no metodo "proximaAtividade", que ordena as atividades
 	 * de acordo com a estrategia de menos pendencias.
@@ -553,22 +479,18 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 	 * @return o codigo da atividade sugerida.
 	 */
 	private String estrategiaMenosPendencias() {
-
 		String saida = "";
-
 		ArrayList<Atividade> atividades = new ArrayList<Atividade>(this.atividadesAssociadas);
 		Collections.sort(atividades, new OrdenaAtividadePendencias());
-
 		for (Atividade atividade : atividades) {
 			if (atividade.ItensPendentes() != 0) {
 				saida = atividade.getCodigo();
 				return saida;
 			}
-
 		}
 		return saida;
 	}
-
+	
 	/**
 	 * Metodo privado usado no metodo "proximaAtividade", que ordena as atividades
 	 * de acordo com a estrategia de atividade mais antiga.
@@ -584,6 +506,74 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 		}
 		return saida;
 	}
+	
+	/**
+	 * Metodo auxiliar que gera a String resumo da pesquisa, contendo suas
+	 * informacoes (pesquisadores, objetivos, atividades e problema).
+	 * 
+	 * @return a String resumo
+	 */
+	private String gerarResumo() {
+		String resumo = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Pesquisadores:";
+		for (Pesquisador pesquisador : pesquisadoresAssociados) {
+			resumo += System.lineSeparator() + "\t\t- " + pesquisador.toString();
+		}
+		if (this.problemaDaPesquisa != null) {
+			resumo += System.lineSeparator() + "\t- Problema:" + System.lineSeparator() + "\t\t- "
+					+ this.problemaDaPesquisa.toString() + System.lineSeparator() + "\t- Objetivos:";
+		}
+		for (Objetivo objetivo : objetivosDaPesquisa) {
+			resumo += System.lineSeparator() + "\t\t- " + objetivo.toString();
+		}
+		resumo += System.lineSeparator() + "\t- Atividades:";
+		for (Atividade atividade : atividadesAssociadas) {
+			resumo += System.lineSeparator() + "\t\t- " + atividade.exibeAtividade();
+		}
+		return resumo + " ";
+	}
+
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre
+	 * os pesquisadores, objetivos, atividades e problema da pesquisa.
+	 * 
+	 * @throws IOException
+	 * 
+	 */
+	public void gravarResumo() throws IOException {
+		OutputStream out = new FileOutputStream(new File("_" + this.codigo + ".txt"));
+		String resumo = gerarResumo();
+		out.write(resumo.getBytes(), 0, resumo.length());
+		out.close();
+	}
+
+	/**
+	 * Metodo auxiliar que gera uma String que contem os resultados da pesquisa e os
+	 * itens realizados.
+	 * 
+	 * @return String dos resultados
+	 */
+	private String resultadosPesquisa() {
+		String resultados = "- Pesquisa: " + this.toString() + System.lineSeparator() + "\t- Resultados:";
+		for (Atividade atividade : atividadesAssociadas) {
+			resultados += System.lineSeparator() + "\t\t" + atividade.getResultados();
+		}
+		return resultados;
+	}
+
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa, com as informacoes sobre
+	 * os pesquisadores, objetivos, atividades e problema da pesquisa.
+	 * 
+	 * @throws IOException
+	 * 
+	 */
+	public void gravarResultados() throws IOException {
+		OutputStream out = new FileOutputStream(new File(this.codigo + "-Resultados.txt"));
+		String resultados = resultadosPesquisa();
+		out.write(resultados.getBytes(), 0, resultados.length());
+		out.close();
+	}
+
 
 	/**
 	 * Metodo privado que verifica se as atividades possuem pendencias.
@@ -595,7 +585,6 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable {
 			if (atividade.ItensPendentes() != 0) {
 				return true;
 			}
-
 		}
 		return false;
 	}

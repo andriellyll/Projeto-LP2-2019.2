@@ -94,7 +94,7 @@ public class Problema implements Serializable {
 		return codigo + " - " + descricao + " - " + viabilidade;
 	}
 
-//------------------------------------- Novas atualizacoes de Problema --------------------------------------------------
+//------------------------------------------ Problema (Parte 2) ------------------------------------------
 
 	/**
 	 * Metodo responsavel por resgatar o codigo de identificacao deste problema.

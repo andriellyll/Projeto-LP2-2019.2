@@ -94,7 +94,6 @@ public class ValidadorDeEntradas {
 		for (String campo : interesseSeparado) {
 			validaEntradaNulaOuVazia(campo, "Formato do campo de interesse invalido.");
 		}
-
 	}
 
 	/**
@@ -108,7 +107,6 @@ public class ValidadorDeEntradas {
 		if (inteiro < 1 || inteiro > 5) {
 			throw new IllegalArgumentException(mensagem);
 		}
-
 	}
 
 	/**
@@ -181,9 +179,7 @@ public class ValidadorDeEntradas {
 	 * @param mensagem
 	 */
 	public static void verificaData(String data, String mensagem) {
-
 		String[] lista = data.split("/");
-
 		if (lista.length != 3) {
 			throw new IllegalArgumentException(mensagem);
 		}
@@ -194,5 +190,4 @@ public class ValidadorDeEntradas {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
-
 }

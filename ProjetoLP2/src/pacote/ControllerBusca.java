@@ -28,7 +28,7 @@ public class ControllerBusca {
 	 * @param controllerAtividade        controller de Atividade
 	 */
 	public ControllerBusca(ControllerPesquisa controllerPesquisa, ControllerPesquisador controllerPesquisador,
-			ControllerProblemaObjetivo controllerProblemaObjetivo, ControllerAtividade controllerAtividade) {
+		ControllerProblemaObjetivo controllerProblemaObjetivo, ControllerAtividade controllerAtividade) {
 		this.buscaveis = new ArrayList<>();
 		this.buscaveis.add(controllerPesquisa);
 		this.buscaveis.add(controllerPesquisador);
@@ -47,11 +47,9 @@ public class ControllerBusca {
 	private ArrayList<String> buscarPalavraChave(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
 		ArrayList<String> resultadosBusca = new ArrayList<>();
-
 		for (Buscavel buscavel : buscaveis) {
 			resultadosBusca.addAll(buscavel.procuraPalavraChave(palavraChave));
 		}
-
 		return resultadosBusca;
 	}
 
@@ -64,29 +62,8 @@ public class ControllerBusca {
 	 */
 	public String busca(String palavraChave) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
-
 		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
-
 		return String.join(" | ", resultadosBusca);
-	}
-
-	/**
-	 * Busca a palavra chave passada como parametro e retorna um inteiro que
-	 * representa a quantidade de resultados obtidos na busca.
-	 * 
-	 * @param palavraChave palavra a ser buscada
-	 * @return quantidade de resultados
-	 */
-	public int contaResultadosBusca(String palavraChave) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
-
-		if (buscarPalavraChave(palavraChave).isEmpty()) {
-			throw new RuntimeException("Nenhum resultado encontrado");
-		}
-
-		int quantidadeTotal = buscarPalavraChave(palavraChave).size();
-
-		return quantidadeTotal;
 	}
 
 	/**
@@ -100,17 +77,29 @@ public class ControllerBusca {
 	 */
 	public String busca(String palavraChave, int numeroResultado) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
-
 		if (numeroResultado < 0) {
 			throw new IllegalArgumentException("Numero do resultado nao pode ser negativo");
 		}
-
 		ArrayList<String> resultadosBusca = buscarPalavraChave(palavraChave);
-
 		if (numeroResultado > resultadosBusca.size()) {
 			throw new RuntimeException("Entidade nao encontrada.");
 		}
-
 		return resultadosBusca.get(numeroResultado - 1);
+	}
+	
+	/**
+	 * Busca a palavra chave passada como parametro e retorna um inteiro que
+	 * representa a quantidade de resultados obtidos na busca.
+	 * 
+	 * @param palavraChave palavra a ser buscada
+	 * @return quantidade de resultados
+	 */
+	public int contaResultadosBusca(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Campo termo nao pode ser nulo ou vazio.");
+		if (buscarPalavraChave(palavraChave).isEmpty()) {
+			throw new RuntimeException("Nenhum resultado encontrado");
+		}
+		int quantidadeTotal = buscarPalavraChave(palavraChave).size();
+		return quantidadeTotal;
 	}
 }

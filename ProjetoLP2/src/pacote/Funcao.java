@@ -12,8 +12,24 @@ package pacote;
  */
 public interface Funcao {
 
+	/**
+	 * 
+	 * 
+	 * @param nome
+	 * @param funcao
+	 * @param biografia
+	 * @param email
+	 * @param foto
+	 * @return
+	 */
 	public String toString(String nome, String funcao, String biografia, String email, String foto);
 
+	/**
+	 * 
+	 * 
+	 * @param atributo
+	 * @param novoAtributo
+	 */
 	public void setEspecialidade(String atributo, String novoAtributo);
 
 }

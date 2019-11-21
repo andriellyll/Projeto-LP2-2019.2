@@ -78,23 +78,6 @@ public class Objetivo implements Serializable, Comparable<Objetivo> {
 	}
 
 	/**
-	 * Procura no atributo descricao do objetivo a palavra-chave passada como
-	 * parametro
-	 * 
-	 * @param palavraChave palavra-chave que sera pesquisada na descricao do
-	 *                     objetivo
-	 * @return se a palavra-chave existir na String de descricao, essa string sera
-	 *         retornada. Se nao, sera retornada uma String vazia
-	 */
-	public String procuraPalavraChave(String palavraChave) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
-		if (this.descricao.contains(palavraChave)) {
-			return this.codigo + ": " + this.descricao;
-		}
-		return "";
-	}
-
-	/**
 	 * Metodo privado que gera e retorna um codigo inteiro unico para o objetivo.
 	 * 
 	 * @return o codigo inteiro.
@@ -134,11 +117,10 @@ public class Objetivo implements Serializable, Comparable<Objetivo> {
 	 * descricao e a soma da aderencia com a viabilidade.
 	 */
 	public String toString() {
-
 		return codigo + " - " + tipo + " - " + descricao + " - " + (aderencia + viabilidade);
 	}
 
-//------------------------------ Novas atualizacoes de Objetivo ---------------------------------------------------------
+//------------------------------------------ Objetivo (Parte 2) ------------------------------------------
 
 	/**
 	 * Metodo responsavel por associar uma pesqquisa a um objetivo, caso este
@@ -173,6 +155,9 @@ public class Objetivo implements Serializable, Comparable<Objetivo> {
 		return true;
 	}
 
+	/**
+	 * Compara este objetivo em relacao a outro, a partir de seus codigos. 
+	 */
 	@Override
 	public int compareTo(Objetivo objetivo2) {
 		int codigo1 = Integer.parseInt(this.codigo.substring(1));
@@ -180,7 +165,29 @@ public class Objetivo implements Serializable, Comparable<Objetivo> {
 		return codigo1 - codigo2;
 	}
 
+	/**
+	 * Pega o codigo da atividade.
+	 * 
+	 * @return uma string do codigo do objetivo
+	 */
 	private String getCodigo() {
 		return this.codigo;
+	}
+	
+	/**
+	 * Procura no atributo descricao do objetivo a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera pesquisada na descricao do
+	 *                     objetivo
+	 * @return se a palavra-chave existir na String de descricao, essa string sera
+	 *         retornada. Se nao, sera retornada uma String vazia
+	 */
+	public String procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
+		if (this.descricao.contains(palavraChave)) {
+			return this.codigo + ": " + this.descricao;
+		}
+		return "";
 	}
 }

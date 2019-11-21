@@ -35,6 +35,9 @@ public class Item implements Serializable {
 	 */
 	private String situacao;
 
+	/**
+	 * Perido de duracao do item.
+	 */
 	private int duracao;
 
 	/**
@@ -80,22 +83,33 @@ public class Item implements Serializable {
 		return situacao + " - " + item;
 	}
 
-//------------------------------------- Novas atualizacoes de Item -------------------------------------------------------
+//------------------------------------------ Item (Parte 2) ------------------------------------------
 
 	/**
+	 * Metodo responsavel por mudar a situacao do item e adicionar a duracao 
+	 * que foi para concluir ele.
 	 * 
-	 * @param duracao
-	 * @return
+	 * @param duracao valor inteiro representando o tempo de conclusao
 	 */
 	public void executa(int duracao) {
 		this.situacao = "REALIZADO";
 		this.duracao = duracao;
 	}
 
+	/**
+	 * Metodo responsavel por exibir as descricoes de um item.
+	 * 
+	 * @return uma string desta descricao
+	 */
 	public String exibeItemSituacao() {
 		return this.situacao + " - ITEM" + this.codigo;
 	}
 
+	/**
+	 * Metodo responsavel por exibir as descricoes de um item.
+	 * 
+	 * @return uma string desta desta descricao
+	 */
 	public String exibeItemDuracao() {
 		return "ITEM" + this.codigo + " - " + this.duracao;
 	}

@@ -20,6 +20,8 @@ import java.util.Map;
 import utils.OrdenaResultados;
 
 /**
+ * Responsavel por manipular as informacoes relacionadas com problema e objetivo,
+ * realizando operacoes com estes dados.
  * 
  * @author Andrielly de Lima Lucena
  * @author Anna Beatriz Lucena Lira
@@ -62,6 +64,45 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	}
 
 	/**
+	 * Metodo que cadastra um problema recebendo a descricao e a viabilidade do
+	 * mesmo.
+	 * 
+	 * @param descricao,   representa a descricao do problema.
+	 * @param viabilidade, representa a viabilidade do problema.
+	 * @return retorna uma string que representa o codigo do problema.
+	 */
+	public String cadastraProblema(String descricao, int viabilidade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
+		controlaNumeroProblemas += 1;
+		String codigo = "P" + controlaNumeroProblemas;
+		this.problemas.put(codigo, new Problema(descricao, viabilidade, codigo));
+		return codigo;
+	}
+	
+	/**
+	 * Metodo que cadastra um objetivo recebendo o tipo, a descricao, a aderencia e
+	 * a viabilidade do mesmo.
+	 * 
+	 * @param tipo        representa o tip o objetivo, seja ele geral ou especifico.
+	 * @param descricao   representa a descriao do objetivo.
+	 * @param aderencia   representa a aderencia do objetivo.
+	 * @param viabilidade representa a viabilidade do objetivo.
+	 * @return retorna uma string que representa o codigo do objetivo.
+	 */
+	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaTipo(tipo);
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
+		ValidadorDeEntradas.validaViabilidadeOuAderencia(aderencia, "Valor invalido de aderencia");
+		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
+		controlaNumeroObjetivos += 1;
+		String codigo = "O" + controlaNumeroObjetivos;
+		this.objetivos.put(codigo, new Objetivo(tipo, descricao, aderencia, viabilidade, codigo));
+		return codigo;
+	}
+	
+	/**
 	 * Metodo privado que verifica se um problema existe dentro do mapa de
 	 * problemas.
 	 * 
@@ -90,59 +131,12 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	}
 
 	/**
-	 * Metodo que cadastra um problema recebendo a descricao e a viabilidade do
-	 * mesmo.
-	 * 
-	 * @param descricao,   representa a descricao do problema.
-	 * @param viabilidade, representa a viabilidade do problema.
-	 * @return retorna uma string que representa o codigo do problema.
-	 */
-	public String cadastraProblema(String descricao, int viabilidade) {
-
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
-
-		controlaNumeroProblemas += 1;
-		String codigo = "P" + controlaNumeroProblemas;
-
-		this.problemas.put(codigo, new Problema(descricao, viabilidade, codigo));
-
-		return codigo;
-	}
-
-	/**
-	 * Metodo que cadastra um objetivo recebendo o tipo, a descricao, a aderencia e
-	 * a viabilidade do mesmo.
-	 * 
-	 * @param tipo        representa o tip o objetivo, seja ele geral ou especifico.
-	 * @param descricao   representa a descriao do objetivo.
-	 * @param aderencia   representa a aderencia do objetivo.
-	 * @param viabilidade representa a viabilidade do objetivo.
-	 * @return retorna uma string que representa o codigo do objetivo.
-	 */
-	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
-
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(tipo, "Campo tipo nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaTipo(tipo);
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(descricao, "Campo descricao nao pode ser nulo ou vazio.");
-		ValidadorDeEntradas.validaViabilidadeOuAderencia(aderencia, "Valor invalido de aderencia");
-		ValidadorDeEntradas.validaViabilidadeOuAderencia(viabilidade, "Valor invalido de viabilidade.");
-
-		controlaNumeroObjetivos += 1;
-		String codigo = "O" + controlaNumeroObjetivos;
-
-		this.objetivos.put(codigo, new Objetivo(tipo, descricao, aderencia, viabilidade, codigo));
-		return codigo;
-	}
-
-	/**
 	 * Metodo que apaga um problema, reecbendo seu codigo e nao retornando nada.
 	 * 
 	 * @param codigo representa o codigo do problema.
 	 */
 	public void apagarProblema(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
 		if (problemaExiste(codigo)) {
 			problemas.remove(codigo);
 		}
@@ -155,7 +149,6 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	 */
 	public void apagarObjetivo(String codigo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
 		if (objetivoExiste(codigo)) {
 			objetivos.remove(codigo);
 		}
@@ -171,7 +164,6 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	public String exibeProblema(String codigo) {
 		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
 		if (problemaExiste(codigo)) {
 			saida = problemas.get(codigo).toString();
 		}
@@ -188,15 +180,36 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	public String exibeObjetivo(String codigo) {
 		String saida = "";
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
 		if (objetivoExiste(codigo)) {
 			saida = objetivos.get(codigo).toString();
 		}
 		return saida;
 	}
 
-//---------------------------------- Novas atualizacoes de ControllerProblemaObjetivo -----------------------------------
+//------------------------------------------ ControllerProblemaObjetivo (Parte 2) ------------------------------------------
 
+	/**
+	 * Metodo responsavel por resgatar um determinado objetivo, existente.
+	 * 
+	 * @param idObjetivo - valor de identificacao do objetivo
+	 * @return o objetivo desejado pelo usuario
+	 */
+	public Objetivo getObjetivo(String idObjetivo) {
+		objetivoExiste(idObjetivo);
+		return this.objetivos.get(idObjetivo);
+	}
+	
+	/**
+	 * Metodo responsavel por pegar o problema pertencente a determinada pesquisa.
+	 * 
+	 * @param idProblema - valor que identifica o problema desejado
+	 * @return O problema desejado
+	 */
+	public Problema getProblema(String idProblema) {
+		problemaExiste(idProblema);
+		return this.problemas.get(idProblema);
+	}
+	
 	/**
 	 * Metodo responsavel por associar uma pesquisa a um objetivo.
 	 * 
@@ -220,28 +233,6 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	}
 
 	/**
-	 * Metodo responsavel por resgatar um determinado objetivo, existente.
-	 * 
-	 * @param idObjetivo - valor de identificacao do objetivo
-	 * @return o objetivo desejado pelo usuario
-	 */
-	public Objetivo getObjetivo(String idObjetivo) {
-		objetivoExiste(idObjetivo);
-		return this.objetivos.get(idObjetivo);
-	}
-
-	/**
-	 * Metodo responsavel por pegar o problema pertencente a determinada pesquisa.
-	 * 
-	 * @param idProblema - valor que identifica o problema desejado
-	 * @return O problema desejado
-	 */
-	public Problema getProblema(String idProblema) {
-		problemaExiste(idProblema);
-		return this.problemas.get(idProblema);
-	}
-
-	/**
 	 * Procura em todos os problemas do mapa a palavra-chave passada como parametro
 	 * 
 	 * @param palavraChave palavra-chave que sera procurada
@@ -250,15 +241,12 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	 */
 	private List<String> procuraPalavraChaveProblema(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
-
 		for (Problema problema : this.problemas.values()) {
 			if (!problema.procuraPalavraChave(palavraChave).equals("")) {
 				resultadosBusca.add(problema.procuraPalavraChave(palavraChave));
 			}
 		}
-
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-
 		return resultadosBusca;
 	}
 
@@ -271,15 +259,12 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	 */
 	private List<String> procuraPalavraChaveObjetivo(String palavraChave) {
 		ArrayList<String> resultadosBusca = new ArrayList<>();
-
 		for (Objetivo objetivo : this.objetivos.values()) {
 			if (!objetivo.procuraPalavraChave(palavraChave).equals("")) {
 				resultadosBusca.add(objetivo.procuraPalavraChave(palavraChave));
 			}
 		}
-
 		Collections.sort(resultadosBusca, new OrdenaResultados());
-
 		return resultadosBusca;
 	}
 
@@ -297,8 +282,7 @@ public class ControllerProblemaObjetivo implements Buscavel {
 		return resultados;
 	}
 
-	// -----------------------------------------------------------Novas Atualizacoes
-	// (Parte 3)----------------------------------------------
+//------------------------------------------ ControllerProblemaObjetivo (Parte 3) ------------------------------------------
 
 	/**
 	 * Metodo responsavel por salvar os problemas e os objetivos
@@ -326,7 +310,6 @@ public class ControllerProblemaObjetivo implements Buscavel {
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -334,7 +317,6 @@ public class ControllerProblemaObjetivo implements Buscavel {
 	 */
 	@SuppressWarnings({ "unchecked", "resource" })
 	public void carregar() {
-
 		try {
 			FileInputStream restFile = new FileInputStream("problema.dat");
 			ObjectInputStream stream = new ObjectInputStream(restFile);
@@ -362,7 +344,6 @@ public class ControllerProblemaObjetivo implements Buscavel {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-
 		}
 	}
 }

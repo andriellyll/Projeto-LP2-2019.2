@@ -13,26 +13,32 @@ import java.io.Serializable;
  *
  */
 public class Pesquisador implements Serializable {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4111587496949639749L;
+	
 	/**
 	 * Nome do pesquisador
 	 */
 	private String nome;
+	
 	/**
 	 * Pequeno texto que descreve o pesquisador.
 	 */
 	private String biografia;
+	
 	/**
 	 * Email do pesquisador
 	 */
 	private String email;
+	
 	/**
 	 * URL de uma foto do pesquisador
 	 */
 	private String foto;
+	
 	/**
 	 * Funcao do pesquisador (Professor, aluno ou externo)
 	 */
@@ -66,7 +72,6 @@ public class Pesquisador implements Serializable {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(fotoUrl, "Campo fotoUrl nao pode ser nulo ou vazio");
 		ValidadorDeEntradas.verificaEmail(email);
 		ValidadorDeEntradas.verificaURL(fotoUrl);
-
 		this.nome = nome;
 		this.biografia = biografia;
 		this.email = email;
@@ -82,7 +87,6 @@ public class Pesquisador implements Serializable {
 	 */
 	public void setNome(String novoNome) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoNome, "Campo nome nao pode ser nulo ou vazio");
-
 		this.nome = novoNome;
 	}
 
@@ -93,7 +97,6 @@ public class Pesquisador implements Serializable {
 	 */
 	public void setBiografia(String novaBiografia) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novaBiografia, "Campo biografia nao pode ser nulo ou vazio");
-
 		this.biografia = novaBiografia;
 	}
 
@@ -104,7 +107,6 @@ public class Pesquisador implements Serializable {
 	 */
 	public void setEmail(String novoEmail) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoEmail, "Campo email nao pode ser nulo ou vazio");
-
 		this.email = novoEmail;
 	}
 
@@ -115,7 +117,6 @@ public class Pesquisador implements Serializable {
 	 */
 	public void setFoto(String novaFoto) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novaFoto, "Campo fotoUrl nao pode ser nulo ou vazio");
-
 		this.foto = novaFoto;
 	}
 
@@ -126,10 +127,8 @@ public class Pesquisador implements Serializable {
 	 */
 	public void setFuncao(String novaFuncao) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novaFuncao, "Campo fotoUrl nao pode ser nulo ou vazio");
-
 		this.funcao = novaFuncao;
 		this.especialidade = null;
-
 	}
 
 	/**
@@ -144,21 +143,6 @@ public class Pesquisador implements Serializable {
 	 */
 	public void ativaPesquisador() {
 		this.isAtivo = true;
-	}
-
-	/**
-	 * Gera uma representacao textual do pesquisador, com nome, funcao, biografia,
-	 * email e URL da foto.
-	 * 
-	 * @return a representacao em string
-	 */
-	public String toString() {
-		if (funcao.equalsIgnoreCase("Externo") || especialidade == null) {
-			return this.nome + " (" + this.funcao + ")" + " - " + this.biografia + " - " + this.email + " - "
-					+ this.foto;
-		}
-		return especialidade.toString(nome, funcao, biografia, email, foto);
-
 	}
 
 	/**
@@ -182,7 +166,7 @@ public class Pesquisador implements Serializable {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		return result;
 	}
-
+	
 	/**
 	 * Compara se um objeto eh igual ao objeto atual. Serao iguais se forem da mesma
 	 * classe e se tiverem emails iguais.
@@ -205,22 +189,22 @@ public class Pesquisador implements Serializable {
 			return false;
 		return true;
 	}
-
+	
 	/**
-	 * Procura no atributo biografia do pesquisador a palavra-chave passada como
-	 * parametro
+	 * Gera uma representacao textual do pesquisador, com nome, funcao, biografia,
+	 * email e URL da foto.
 	 * 
-	 * @param palavraChave palavra-chave que sera pesquisada na biografia
-	 * @return se a palavra-chave existir na String de biografia, essa string sera
-	 *         retornada. Se nao, sera retornada uma String vazia
+	 * @return a representacao em string
 	 */
-	public String procuraPalavraChave(String palavraChave) {
-		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
-		if (biografia.contains(palavraChave)) {
-			return this.email + ": " + biografia;
+	public String toString() {
+		if (funcao.equalsIgnoreCase("Externo") || especialidade == null) {
+			return this.nome + " (" + this.funcao + ")" + " - " + this.biografia + " - " + this.email + " - "
+					+ this.foto;
 		}
-		return "";
+		return especialidade.toString(nome, funcao, biografia, email, foto);
 	}
+
+//------------------------------------------ Pesquisador (Parte 2) ------------------------------------------
 
 	/**
 	 * Metodo que cadastra a especalidade Professor em um determinado Pesquisador,
@@ -237,7 +221,6 @@ public class Pesquisador implements Serializable {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(unidade, "Campo unidade nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(data, "Campo data nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaData(data, "Atributo data com formato invalido.");
-
 		if (!(funcao.equalsIgnoreCase("Professor"))) {
 			throw new RuntimeException("Pesquisador nao compativel com a especialidade.");
 		}
@@ -256,21 +239,10 @@ public class Pesquisador implements Serializable {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.verificaSemestre(semestre, "Atributo semestre com formato invalido.");
 		ValidadorDeEntradas.verificaIEA(IEA, "Atributo IEA com formato invalido.");
-
 		if (!(funcao.equalsIgnoreCase("Estudante"))) {
 			throw new RuntimeException("Pesquisador nao compativel com a especialidade.");
 		}
 		this.especialidade = new Aluno(semestre, IEA);
-	}
-
-	/**
-	 * Metodo que fornce uma string com a funcao desse Pesquisadore nao recebe nada
-	 * como parametro.
-	 * 
-	 * @return string com a funcao desse Pesquisador.
-	 */
-	public String getFuncao() {
-		return this.funcao;
 	}
 
 	/**
@@ -284,7 +256,32 @@ public class Pesquisador implements Serializable {
 	public void setEspecialidade(String atributo, String novoAtributo) {
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(atributo, "Campo atributo nao pode ser nulo ou vazio.");
 		ValidadorDeEntradas.validaEntradaNulaOuVazia(novoAtributo, "Campo novo atributo nao pode ser nulo ou vazio.");
-
 		especialidade.setEspecialidade(atributo, novoAtributo);
+	}
+	
+	/**
+	 * Metodo que fornce uma string com a funcao desse Pesquisadore nao recebe nada
+	 * como parametro.
+	 * 
+	 * @return string com a funcao desse Pesquisador.
+	 */
+	public String getFuncao() {
+		return this.funcao;
+	}
+	
+	/**
+	 * Procura no atributo biografia do pesquisador a palavra-chave passada como
+	 * parametro
+	 * 
+	 * @param palavraChave palavra-chave que sera pesquisada na biografia
+	 * @return se a palavra-chave existir na String de biografia, essa string sera
+	 *         retornada. Se nao, sera retornada uma String vazia
+	 */
+	public String procuraPalavraChave(String palavraChave) {
+		ValidadorDeEntradas.validaEntradaNulaOuVazia(palavraChave, "Palavra nao pode ser nula ou vazia");
+		if (biografia.contains(palavraChave)) {
+			return this.email + ": " + biografia;
+		}
+		return "";
 	}
 }
