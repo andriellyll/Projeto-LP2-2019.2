@@ -18,7 +18,7 @@ import utils.ValidadorDeEntradas;
 public class Item implements Serializable {
 
 	/**
-	 * 
+	 * Codigo de serializacao
 	 */
 	private static final long serialVersionUID = 2848582857353973575L;
 

@@ -216,7 +216,7 @@ public class ControllerPesquisa implements Buscavel {
 	 * Metodo responsavel por associar um problema a uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
-	 * @param problema   objeto do problema a ser associado
+	 * @param idProblema   objeto do problema a ser associado
 	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean associaProblema(String idPesquisa, String idProblema) {
@@ -242,7 +242,7 @@ public class ControllerPesquisa implements Buscavel {
 	 * Metodo responsavel por associar um objetivo a uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
-	 * @param objetivo   objeto do objetivo a ser associado
+	 * @param idObjetivo   objeto do objetivo a ser associado
 	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
@@ -256,7 +256,7 @@ public class ControllerPesquisa implements Buscavel {
 	 * Metodo responsavel por desassociar um objetivo de uma pesquisa.
 	 * 
 	 * @param idPesquisa - valor de identificacao da pesquisa
-	 * @param objetivo   objeto do objetivo a ser desassociado
+	 * @param idObjetivo   objeto do objetivo a ser desassociado
 	 * @return um booleano referente a situacao do processo
 	 */
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
@@ -400,7 +400,7 @@ public class ControllerPesquisa implements Buscavel {
 	 * e o email do pesquisador, e retorna um boolean que representa o sucesso da
 	 * operacao.
 	 * 
-	 * @param codigoDaPesquisa a string com o codigo da Pesquisa.
+	 * @param idPesquisa a string com o codigo da Pesquisa.
 	 * @param emailPesquisador string com o email do pesquisador.
 	 * @return retorna um boolean que representa o sucesso da operacao.
 	 */
