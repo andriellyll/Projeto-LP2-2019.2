@@ -149,10 +149,11 @@ public class ValidadorDeEntradas {
 	}
 
 	/**
+	* Verifica se a entrada(um inteiro) e menor que 1. Caso seja, uma excecao do
+	 * tipo IllegalArgumentException sera lancada.
 	 * 
-	 * 
-	 * @param semestre
-	 * @param mensagem
+	 * @param semestre - o valor inteiro a ser verificado
+	 * @param mensagem - a mensagem de erro a ser exibida no lancamento da excecao.
 	 */
 	public static void verificaSemestre(int semestre, String mensagem) {
 		if (semestre < 1) {
@@ -161,10 +162,11 @@ public class ValidadorDeEntradas {
 	}
 
 	/**
+	 * Verifica se a entrada(um double) e menor que 0 ou maior que 10. Caso seja,
+	 * uma excecao do tipo IllegalArgumentException sera lancada.
 	 * 
-	 * 
-	 * @param IEA
-	 * @param mensagem
+	 * @param IEA      - o valor doouble a ser verificado
+	 * @param mensagem - a mensagem de erro a ser exibida no lancamento da excecao.
 	 */
 	public static void verificaIEA(double IEA, String mensagem) {
 		if (IEA < 0 || IEA > 10) {
@@ -173,11 +175,13 @@ public class ValidadorDeEntradas {
 	}
 
 	/**
+	* Verifica se a data e composta pelas tres partes essenciais, se a primeira e
+	 * uma sequencia de dois digito ate 31, se a segunda e uma sequencia de dois
+	 * digito ate 12 e se a terceira e uma sequencia de quatro digito ate 2019.
 	 * 
-	 * 
-	 * @param data
-	 * @param mensagem
-	 */
+	 * @param data     - a String data a ser verificado
+	 * @param mensagem - a mensagem de erro a ser exibida no lancamento da excecao.
+	 	 */
 	public static void verificaData(String data, String mensagem) {
 		String[] lista = data.split("/");
 		if (lista.length != 3) {
