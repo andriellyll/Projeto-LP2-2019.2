@@ -7,10 +7,10 @@ Equipe:
 
 **Aluno(a)** | **Matrícula** | **Perfil no Github** |
 :---: | :---:| :---: |
-Andrielly de Lima Lucena | 119110268 | https://github.com/andriellyll
+Andrielly de Lima Lucena | 119110268 | https://github.com/andriellyll |
 
-Anna Beatriz Lucena Lira | 119110382 | https://github.com/annabeatrizlucena
+Anna Beatriz Lucena Lira | 119110382 | https://github.com/annabeatrizlucena |
 
-Helen Bento Cavalcanti | 119110498 | https://github.com/helenbc
+Helen Bento Cavalcanti | 119110498 | https://github.com/helenbc |
 
-Henrique Lemos Leite | 119110551 | https://github.com/HLemosl
+Henrique Lemos Leite | 119110551 | https://github.com/HLemosl |
